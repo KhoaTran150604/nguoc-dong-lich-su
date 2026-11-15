@@ -54,7 +54,7 @@ Hình (0–4s): **chữ ký**. Đồng hồ năm chạy ngược 2026 → 938. B
 > Rồi bước sang thế kỷ 10… chính phương Bắc bắt đầu rạn vỡ. [E2b-B16]
 
 Hình (4s→):
-- Ảnh AI: vị vua đứng quay lưng trên một lầu cao trong doanh trại, nhìn về phía biển (không ở trên thuyền).
+- Ảnh AI: vị vua đứng quay lưng trên một lầu cao trong doanh trại (không ở trên thuyền).
 - Bản đồ cổ có nhãn "Giao Châu", "Quảng Châu" (minh họa, ranh giới gần đúng).
 - Chữ trên màn hình: "~1050 năm (theo Trần Trọng Kim)".
 - Dòng mốc: 544 → 791 → thế kỷ 10.
@@ -147,7 +147,7 @@ Hình:
 ### Khối 7 – Hai cái bẫy dưới sông (trận đánh)
 > Theo sử Trung Hoa, mười năm trước Bạch Đằng… chính quân Nam Hán từng thắng nhờ một cái bẫy dưới sông. [E2b-B22]
 > Theo Tân Ngũ đại sử, năm 928, tướng Nam Hán là Tô Chương giấu xích sắt dưới sông, cho thuyền nhẹ giả thua nhử quân Sở, rồi kéo xích khóa thuyền. [E2b-B22]
-> Năm 938, sử Việt chép, Ngô Quyền bảo các tướng: Hoằng Tháo, con vua Nam Hán, chỉ là đứa trẻ dại; quân đi xa mỏi mệt, lại mất nội ứng; ta lấy quân khỏe đợi quân mệt. [E2-F15]
+> Hoằng Tháo là con vua Nam Hán. Sử Việt chép, Ngô Quyền bảo các tướng: Hoằng Tháo chỉ là đứa trẻ dại; quân đi xa mỏi mệt, lại mất nội ứng; ta lấy quân khỏe đợi quân mệt. [E2-F15]
 > Ông cho cắm ngầm những cọc lớn, vót nhọn, đầu bịt sắt, ở cửa biển, nơi thuyền Hán từ biển đi vào sông Bạch Đằng. [E2-F16]
 > Bao nhiêu cọc? Không bộ sử nào ghi con số, chỉ chép là cắm rất nhiều. [E2-F17]
 > Về sau, Dư địa chí của Nguyễn Trãi tả sông Bạch Đằng rộng hơn hai dặm, là nơi hiểm yếu của đường biển. [E2-F40]
@@ -214,9 +214,11 @@ Hình:
 > Sử Trung Hoa cho thấy cả hai mặt: vua Hán gạt lời can của quan Tiêu Ích, thua rồi lại trút giận lên Hầu Dung, viên quan từng khuyên ngừng binh… còn Ngô Quyền thì giết Kiều Công Tiễn trước khi quân Hán tới, và chặn họ ngay ở cửa biển. [E2-F11][E2-F24][E2-F13][E2-F16]
 > [BÌNH] Có lẽ cả hai lời đều có phần đúng: một bên không chịu nghe lời can, một bên biết nắm lấy thời cơ.
 > Mà Trần Bá Tiên, người vua Tự Đức nhắc tới… là ai? [E2-F34]
+>
+> ⏳ _Nếu đăng video dài trước khi có hồ sơ E3, thay câu trên bằng:_ "Còn bạn… nghiêng về lời nào?"
 
 Hình:
-- Ba khung trích, mỗi khung ghi đúng nguồn: "Lê Văn Hưu – theo Toàn thư (N01)" · "Ngô Thì Sĩ – theo N02/N08" · "Tự Đức – lời phê trong Cương mục (qua N02)".
+- Ba khung trích, mỗi khung ghi đúng nguồn: "Lê Văn Hưu – theo Đại Việt sử ký toàn thư" · "Ngô Thì Sĩ – theo phụ chú Đại Việt sử ký toàn thư, bản dịch Mạc Bảo Thần" · "Tự Đức – lời phê trong Khâm định Việt sử thông giám cương mục".
 - Cân hai đĩa "tài | may".
 - Ảnh AI: cuộn sử mở trên bàn gỗ sơn mài, không người.
 
@@ -246,8 +248,8 @@ Hình:
 | 4 | 🔧 | Kết sau câu B12 ("…chỉ nên ràng buộc lỏng lẻo."), bỏ câu dẫn cuối | Bỏ thành chạy về… bị chính vua mình xử tử |
 | 5 | 🔧 | Bỏ câu `[BÌNH]` và câu "Còn địa lợi…"; kết ở "…là cha vợ và là chủ tướng của ông." | Vì sao lại là Ngô Quyền? |
 | 6 | 🔧 | Bỏ câu hỏi cuối; kết ở câu `[BÌNH]` "Ngô Quyền đã đi trước họ nửa bước." | Lời cảnh báo mà vua Nam Hán gạt đi |
-| 7 | 🔧 | Thay câu hỏi cuối bằng: "Và cái bẫy ấy… chỉ chờ con nước." (câu chuyển, không dữ kiện) | Nam Hán từng thắng bằng bẫy dưới sông… 10 năm trước Bạch Đằng |
-| 8 | 🔧 | Thêm câu mở: "Năm 938, quân Nam Hán theo sông Bạch Đằng tiến vào… và Ngô Quyền đã cắm cọc chờ sẵn ở cửa biển. [E2-F12][E2-F16]"; bỏ câu hỏi cuối | Bạch Đằng: vũ khí là con nước |
+| 7 | 🔧 | Thay câu hỏi cuối bằng: "Và cái bẫy ấy… chỉ chờ con nước. [E2-F18][E2-F19]" | Nam Hán từng thắng bằng bẫy dưới sông… 10 năm trước Bạch Đằng |
+| 8 | 🔧 | Thêm câu mở: "Quân Nam Hán theo sông Bạch Đằng tiến vào… và Ngô Quyền đã cắm cọc chờ sẵn ở cửa biển. [E2-F12][E2-F16]"; bỏ câu hỏi cuối | Bạch Đằng: vũ khí là con nước |
 | 9 | ✅ | Bỏ câu hỏi cuối nếu muốn | Thắng trận, Ngô Quyền không xưng đế |
 | 10 | 🔧 | Bỏ câu hỏi cuối; kết ở câu `[BÌNH]` | 938 có thật là năm độc lập đầu tiên? |
 | 11 | 🔧 | Thay câu cuối bằng: "Bạn nghiêng về Lê Văn Hưu… hay vua Tự Đức?" | Ngô Quyền thắng nhờ tài hay nhờ may? |
@@ -256,7 +258,7 @@ Hình:
 ## 5. Prompt hình (ảnh AI, style sơn mài)
 Hậu tố chung: `Vietnamese lacquer painting style (son mai), ink black background, bronze gold and lacquer red accents, cream highlights, gold leaf texture, no close-up faces, no blood, no text. Aspect 16:9 (long video) and 9:16 (Short).`
 
-1. (K1) `A 10th-century southern Chinese king seen from behind standing on a tall wooden watchtower in a military camp, looking toward a distant misty sea, small distant figures.`
+1. (K1) `A 10th-century southern Chinese king seen from behind standing on a tall wooden watchtower in a military camp, misty horizon, small distant figures.`
 2. (K3) `An empty palace hall inlaid with pearls and gold, glowing columns, jade floor, no people, sense of excessive luxury.`
 3. (K3) `A distant silhouette of a king seated on a high throne in a dark hall, courtiers small at the edges, ominous mood, no violence shown.`
 4. (K4) `A tall wooden tower at a palace, a king figure tiny at the top railing, below a small captive figure with hands bound, seen from far away.`
