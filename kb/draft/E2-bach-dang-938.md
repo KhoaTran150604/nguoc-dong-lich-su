@@ -1,6 +1,6 @@
 # [NHÁP 🔍] E2 – Trận Bạch Đằng (938): bảng dữ kiện + nguồn
 
-_Skill: nguon-lich-su · 15/11/2026 · Trạng thái: 🔍 chưa kiểm chứng · Phạm vi mở rộng: bối cảnh, nhân vật, ẩn khúc, tranh luận, góc nhìn_
+_Skill: nguon-lich-su · 15/11/2026 · Trạng thái: **đã kiểm chứng → dùng `kb/E2-bach-dang-938.md`** (bản nháp giữ lại làm hồ sơ, không dùng để viết kịch bản) · Phạm vi mở rộng: bối cảnh, nhân vật, ẩn khúc, tranh luận, góc nhìn_
 
 ## 0. Nguồn đã đọc trực tiếp
 

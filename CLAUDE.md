@@ -44,13 +44,13 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - YouTube: bật khai báo nội dung AI khi có cảnh/người trông như thật; tránh nội dung rập khuôn hàng loạt (rủi ro tắt kiếm tiền). Nhạc chỉ từ YouTube Audio Library / thư viện CapCut.
 
 ## 6. Trạng thái
-- **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc). Kho: **🔍 sơ bộ, chưa kiểm chứng**.
+- **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` **bản 2** (viết lại từ kho, đã qua kiểm chứng kịch bản). Kho: **`kb/E2-bach-dang-938.md` ✅** (hồ sơ mẫu đầu tiên, 15/11/2026). Giọng và bản dựng cũ trong `assets/short1/` làm theo bản 1, **cần tạo lại giọng Vbee**. "Lùi tiếp: năm 544" chờ hồ sơ E3.
 - Mẫu kỹ thuật đã làm: `bando-dong-…` (bản đồ phẳng), `sabandong-…` (sa bàn), `bandoco-NgoQuyen-…` (bản đồ cổ + cờ tướng, dấu X khi thắng).
 - Checklist "Short đầu tiên" (23 việc): **đã xong 13** – chọn kênh, tên, tạo kênh, avatar/banner, mô tả, xác minh SĐT, prompt kịch bản, chọn giọng, chọn chủ đề, viết kịch bản, kiểm tra sơ bộ, tạo giọng. **Còn:** chốt persona (tên người kể), chọn cách làm hình, template CapCut 9:16, tạo 8 hình Flow, dựng, xem lại trên điện thoại, tiêu đề/mô tả, cài đặt khi đăng, đăng, đăng lại TikTok/Reels, đo chỉ số sau 48h.
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
 
 ## 7. Việc tiếp theo (đề xuất theo thứ tự)
-1. Chạy quy trình nguồn đầy đủ cho **E2 – Bạch Đằng 938** → hồ sơ mẫu đầu tiên `kb/E2-bach-dang-938.md`; sửa kịch bản Short #1 nếu cần.
+1. ~~Quy trình nguồn E2~~ (xong 15/11). Tiếp: tạo lại giọng Vbee cho Short #1 bản 2; chạy quy trình nguồn E3 (544) hoặc E1 (968).
 2. Làm mẫu **đồng hồ năm chạy ngược + bản đồ co dần** (4 giây) trên nền bản đồ cổ.
 3. Đóng gói code thành bộ công cụ: thư viện hình (thuyền, cọc, cờ tướng, thành, mũi tên), bản đồ theo thời kỳ, khung phụ đề, end card; mỗi tập một file cấu hình (YAML/JSON) mô tả cảnh → render.
 4. Tạo 8 hình Flow theo style sơn mài, thay vào Short #1, thêm nhạc, đăng.
@@ -79,4 +79,5 @@ assets/short1/                ← giọng đọc + các video mẫu
 - Cài font: copy `fonts/*.ttf` vào thư mục font hệ thống (`~/.fonts` hoặc `~/Library/Fonts`) rồi `fc-cache -f` (Linux).
 - **Script là bản mẫu viết nhanh trong chat**: đường dẫn dữ liệu đã đổi sang tương đối (`data/`, `fonts/`) nhưng thư mục làm việc/đầu ra (`png/`, `clips/`, `frames/`) cần chạy từ đúng thư mục hoặc chỉnh lại. Nên refactor thành một package có CLI khi làm bộ công cụ (việc 7.3).
 - Video: 1080×1920, 30fps, H.264 `-crf 20 -preset veryfast`, mỗi cảnh một file rồi nối bằng concat; ghép giọng bằng `-c:v copy`.
+- **Mạng (cloud):** session dùng môi trường `nguoc-dong-lich-su` (cho phép wikisource, wikipedia, vjol, nhandan…). WebFetch bị lỗi DNS trong môi trường này → đọc nguồn bằng `curl` (Wikimedia: `index.php?title=…&action=raw` hoặc `&action=render`, UA `research-client/1.0`, nghỉ ≥5s giữa request). Host mới phải thêm vào môi trường trước.
 - Giọng đọc Vbee: tạo trên studio.vbee.vn, tải MP3 về rồi đặt vào `assets/`; căn cảnh theo khoảng lặng (`ffmpeg -af silencedetect=noise=-35dB:d=0.25`).
