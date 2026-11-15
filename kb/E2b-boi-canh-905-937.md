@@ -22,7 +22,7 @@ Nguồn: mã N.. trong `kb/nguon.md` · Nháp gốc: `kb/draft/E2b-boi-canh-905-
 | E2b-B08 | Khúc Hạo sai người nối nghiệp là Thừa Mỹ sang Quảng Châu giao hảo, nhân đó dò xét thực lực họ Lưu | ⚠️ | N01 | "Sử cũ chép, họ Khúc từng sai người sang Quảng Châu giao hảo, nhân tiện dò xét thực lực họ Lưu." |
 | E2b-B09 | Khúc Thừa Mỹ không thần phục Nam Hán, lại xin nhà Lương ban cờ tiết; vua Hán tức giận | ✅ (năm 919 ⚠️) | N01, N11 | "Khúc Thừa Mỹ không chịu thần phục Nam Hán, lại xin nhà Lương ban cờ tiết, khiến vua Hán tức giận." |
 | E2b-B10 | Năm 930 Nam Hán đánh Giao Châu, bắt Khúc Thừa Mỹ đem về, đặt tướng ở lại cai trị | ✅ (năm 930) | N03 q.277, N04, N05 (Toàn thư chép 923) | "Năm 930, quân Nam Hán đánh Giao Châu, bắt Khúc Thừa Mỹ đem về." Không nêu tên tướng Hán (mỗi sách một khác) |
-| E2b-B11 | Vua Hán lên lầu nhận tù binh, mỉa Thừa Mỹ: "Ông thường cho ta là triều ngụy, nay sao lại bị trói tay?"; Thừa Mỹ nhận tội, được tha | ⚠️ (lời thoại, một nguồn) | N04 | "Theo Tân Ngũ đại sử, vua Hán lên lầu nhận tù binh, mỉa Thừa Mỹ…" |
+| E2b-B11 | Vua Hán lên **lầu Nghĩa Phượng** (義鳳樓) nhận tù binh, mỉa Thừa Mỹ: "Ông thường cho ta là triều ngụy, nay sao lại bị trói tay?"; Thừa Mỹ nhận tội, được tha | ⚠️ (lời thoại, một nguồn) | N04 | "Theo Tân Ngũ đại sử, vua Hán lên lầu nhận tù binh, mỉa Thừa Mỹ…" |
 | E2b-B12 | Vua Hán nói: "Dân Giao Chỉ thích làm loạn, chỉ có thể ràng buộc lỏng lẻo mà thôi" | ⚠️ (lời thoại, một nguồn) | N01 | "Sử Việt chép, vua Hán từng nói dân Giao Chỉ hay nổi loạn, chỉ nên ràng buộc lỏng lẻo." |
 | E2b-B13 | Năm 931 Dương Đình Nghệ, tướng người Ái Châu, dấy binh vây thành Giao Châu; tướng Hán giữ thành bỏ chạy; tướng cứu viện tử trận; Dương tự xưng Tiết độ sứ. Sử chép ông nuôi 3.000 con nuôi để mưu việc này | ✅ cốt lõi / ⚠️ (3.000 con nuôi) | N03 q.277, N04, N05, N01 | "Năm 931, Dương Đình Nghệ dấy binh đánh đuổi quân Nam Hán; sử chép ông nuôi ba nghìn con nuôi để mưu việc lớn." |
 | E2b-B14 | Viên tướng Hán bỏ thành chạy về bị chính vua Hán xử tử | ⚠️ (một nguồn) | N03 q.277 | "Theo Tư trị thông giám, viên tướng bỏ thành chạy về bị chính vua Hán xử tử." |
@@ -64,4 +64,4 @@ _Không phải dữ kiện, mà là gợi ý để biên kịch xâu chuỗi; m�
 | Khúc Thừa Mỹ "là con" Khúc Hạo như chắc chắn | Việt sử lược ghi là em → nói "người họ Khúc nối nghiệp" |
 
 ## Lịch sử thay đổi
-- 15/11/2026: Tạo hồ sơ từ nháp 24 dữ kiện + phát hiện thêm của bước kiểm chứng (B25–B28). Sửa B06 (Lương phong cả họ Khúc), B10 (930 có thêm Việt sử lược), B13 (3.000 con nuôi chỉ một gốc), B18 (thêm quan điểm khác), B19 (tách B19b).
+- 15/11/2026: Tạo hồ sơ từ nháp 24 dữ kiện + phát hiện thêm của bước kiểm chứng (B25–B28). Bổ sung tên lầu Nghĩa Phượng vào B11 (có trong nguyên văn N04, đã được bước kiểm chứng trích). Sửa B06 (Lương phong cả họ Khúc), B10 (930 có thêm Việt sử lược), B13 (3.000 con nuôi chỉ một gốc), B18 (thêm quan điểm khác), B19 (tách B19b).
