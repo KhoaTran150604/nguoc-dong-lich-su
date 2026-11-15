@@ -46,6 +46,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 6. Trạng thái
 - **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` **bản 2** (viết lại từ kho, đã qua kiểm chứng kịch bản). Kho: **`kb/E2-bach-dang-938.md` ✅** (hồ sơ mẫu đầu tiên, 15/11/2026). Giọng và bản dựng cũ trong `assets/short1/` làm theo bản 1, **cần tạo lại giọng Vbee**. "Lùi tiếp: năm 544" chờ hồ sơ E3.
 - **Video dài E2 – Bạch Đằng 938:** `docs/videos/E2-bach-dang-938.md` (12 khối ≈ 13–14 phút, mỗi khối cắt được Short; đã qua kiểm chứng: **Đạt**). Kho dùng: `kb/E2-…` + `kb/E2b-boi-canh-905-937.md`. Khối 12 phần "Lùi tiếp: 544" ⏳ chờ hồ sơ E3.
+- **Short thử khối 1 (E2-K1):** `assets/e2/E2-K1-giong-tam.mp4` (56s, giọng TẠM Piper, chưa nhạc). Dựng bằng `scripts/khoi/render.py` + `scripts/khoi/e2_k1.json` (xem README; có chế độ `--vbee` tự cắt MP3 theo khoảng lặng). Lời cho Vbee: `assets/e2/E2-K1-loi-doc-vbee.txt`.
 - Mẫu kỹ thuật đã làm: `bando-dong-…` (bản đồ phẳng), `sabandong-…` (sa bàn), `bandoco-NgoQuyen-…` (bản đồ cổ + cờ tướng, dấu X khi thắng).
 - Checklist "Short đầu tiên" (23 việc): **đã xong 13** – chọn kênh, tên, tạo kênh, avatar/banner, mô tả, xác minh SĐT, prompt kịch bản, chọn giọng, chọn chủ đề, viết kịch bản, kiểm tra sơ bộ, tạo giọng. **Còn:** chốt persona (tên người kể), chọn cách làm hình, template CapCut 9:16, tạo 8 hình Flow, dựng, xem lại trên điện thoại, tiêu đề/mô tả, cài đặt khi đăng, đăng, đăng lại TikTok/Reels, đo chỉ số sau 48h.
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
@@ -66,6 +67,7 @@ docs/prompts/kich-ban-short.md← prompt kịch bản
 docs/shorts/01-bach-dang-938.md
 docs/videos/                  ← kịch bản video dài (chia khối → Short)
 kb/                           ← kho tri thức (INDEX, nguon, draft/, nhan-vat/, dia-danh/)
+scripts/khoi/                 ← dựng 1 khối Short từ JSON (giọng tạm Piper hoặc MP3 Vbee) – bộ công cụ mới
 scripts/short/                ← dựng Short từ ảnh + phụ đề + giọng (scenes.py → caps.py → render.py)
 scripts/bando/anim.py         ← bản đồ phẳng động
 scripts/saban/sim.py          ← sa bàn mặt cắt
