@@ -5,7 +5,7 @@
 |---|---|
 | Mã tập | E2 (938) |
 | Thời lượng ước | ≈ 12,9 phút lời đọc, khoảng 13–14 phút kể cả nghỉ và chữ ký |
-| Tổng âm tiết | 2.264 (đếm tự động, chi tiết ở mục 9) |
+| Tổng âm tiết | 2.267 (đếm tự động, chi tiết ở mục 9) |
 | Cấu trúc | 12 khối × 55–75 giây; khối nào cũng cắt được Short (✅/🔧, cách cắt ở mục 4); mỗi khối mở bằng câu móc, kết bằng câu dẫn sang khối sau |
 | Tỷ lệ | Bối cảnh & đối thủ: khối 1–5 · Trận đánh & kết cục: khối 6–8 · Hậu quả, ý nghĩa, góc nhìn: khối 9–12 |
 | Hồ sơ kho đã dùng | `kb/E2b-boi-canh-905-937.md` (E2b-Bxx), `kb/E2-bach-dang-938.md` (E2-Fxx), `kb/nhan-vat/ngo-quyen.md`, `kb/dia-danh/song-bach-dang.md` |
@@ -21,7 +21,7 @@ Quy ước:
 ## 2. Bảng khối
 | # | Tên khối | Ý chính | Thời lượng | Loại hình | Short? | Mã dữ kiện |
 |---|---|---|---|---|---|---|
-| 1 | Vua đất Giao chưa có đất | Chữ ký + nghịch lý "Giao vương" + nghìn năm giành rồi mất | ~67s | chữ ký · ảnh AI · bản đồ cổ | ✅ | F09, F10, F12, F16, F19, F20, F21, F36, B01, B02, B03, B16 |
+| 1 | Vua đất Giao chưa có đất | 2 sự việc: vua Nam Hán phong con (Vạn vương → Tĩnh Hải → Giao vương) khi chưa có đất; kết cục: mất con, khóc thương, bỏ hẳn, lời chê của Ngô Sĩ Liên. Dẫn: hơn nghìn năm đô hộ | ~68s | chữ ký · bản đồ hoạt họa (cờ tướng, ấn) · chữ & số | ✅ | F09, F10, F12, F16, F19, F20, F21, F22, F23, F32, F36, B23 |
 | 2 | Trước Ngô Quyền là họ Khúc | Tự chủ từ năm 906; dò xét họ Lưu; một chức Tĩnh Hải, hai người giữ | ~65s | bản đồ cổ · chữ & số | 🔧 | F37, B04, B05, B16, B06, B07, B08 |
 | 3 | Nước "Đại Việt" ở Quảng Châu | Đối thủ Nam Hán: tên nước, gốc thủy quân của cha, giàu, xa hoa, tàn bạo, đông hoàng tử | ~74s | ảnh AI · chữ & số | ✅ | B18, B17, B26, B20, B21, B19, B19b, B23, F09 |
 | 4 | Hai năm, hai lần đổi chủ | 930 Nam Hán bắt Khúc Thừa Mỹ (lầu Nghĩa Phượng); 931 Dương Đình Nghệ đuổi Hán; tướng bỏ thành bị vua Hán giết | ~70s | bản đồ cổ (cờ tướng) · ảnh AI | 🔧 | B09, B10, B11, B13, B15, B14, B12 |
@@ -39,25 +39,37 @@ Quy ước:
 ## 3. Kịch bản đầy đủ
 
 ### Khối 1 – Vua đất Giao chưa có đất (bối cảnh)
+_Bản 3 (15/11/2026, theo luật "ít mà sâu"): chỉ 2 sự việc. (1) Người cha và tước "Giao vương"; (2) kết cục của người cha. Bỏ dòng mốc 544 → 62 năm → Tùy, Đường → 791 → thế kỷ 10 (B01, B02, B03, B16)._
+
 Hình (0–4s): **chữ ký**. Đồng hồ năm chạy ngược 2026 → 938. Bản đồ Việt Nam hiện đại (có Hoàng Sa, Trường Sa) mờ dần, co lại thành nền bản đồ cổ, không dùng hình chữ S. Hai giây đầu không lời, chỉ có tiếng tích tắc; giây 3–4 đọc "Năm 938".
 
 > Năm 938.
 > Có một ông vua… phong con trai mình làm Giao vương, tức vua đất Giao… khi đất Giao còn chưa về tay ông. [E2-F09]
 > Ông còn tự đem quân ra đóng ở Hải Môn, để tiếp ứng cho con. [E2-F10]
 > Nhưng trên sông Bạch Đằng… người con ấy bỏ mạng, quân Hán chết đuối quá nửa. [E2-F12][E2-F21][E2-F20]
-> Ông vua ấy là vua Nam Hán. Người chặn họ lại… là Ngô Quyền. [E2-F16][E2-F19]
-> Để hiểu vì sao có trận đánh này, ta phải lùi xa hơn nữa.
-> Trần Trọng Kim tính, ách đô hộ của phương Bắc kéo dài khoảng 1050 năm. [E2-F36]
-> Năm 544, Lý Bí từng xưng đế, đặt tên nước Vạn Xuân. [E2b-B01]
-> Theo cách tính của Toàn thư, ba đời Lý Nam Đế, Triệu Việt Vương, Hậu Lý giữ được 62 năm tự chủ… rồi đất ta lại thuộc Tùy, Đường hơn ba trăm năm. [E2b-B02]
-> Năm 791, Phùng Hưng, người Đường Lâm, dấy binh vây phủ thành, viên đô hộ lo sợ mà chết. [E2b-B03]
-> Rồi bước sang thế kỷ 10… chính phương Bắc bắt đầu rạn vỡ. [E2b-B16]
+> Ông vua ấy… là vua Nam Hán. Người chặn họ lại… là Ngô Quyền. [E2-F09][E2-F16][E2-F19]
+> Người con ấy, Hoằng Tháo… chỉ là một trong gần hai chục hoàng tử được phong vương, tước cũ là Vạn vương. [E2b-B23]
+> Vua cha phong con làm Tiết độ sứ Tĩnh Hải… rồi đổi Vạn vương thành Giao vương. [E2-F09][E2b-B23]
+> Mất con, mất quân… vua Hán khóc thương, thu tàn quân rút về. [E2-F21][E2-F20][E2-F22]
+> Từ đó, Nam Hán bỏ hẳn… không đem quân sang nữa. [E2-F23]
+> [BÌNH] Một vị Giao vương… chưa từng có đất Giao. (dựa trên F09, F21)
+> Sử gia Ngô Sĩ Liên chê vua Hán: tham đất người… đất chưa lấy được, đã hại chính con mình, và dân mình. [E2-F32]
+> Muốn hiểu trận này, phải lùi về hơn một nghìn năm phương Bắc đô hộ, như Trần Trọng Kim tính. [E2-F36]
+> Vậy trước Ngô Quyền… ai đã giành quyền tự chủ?
 
-Hình (4s→):
-- Ảnh AI: vị vua đứng quay lưng trên một lầu cao trong doanh trại (không ở trên thuyền).
-- Bản đồ cổ có nhãn "Giao Châu", "Quảng Châu" (minh họa, ranh giới gần đúng).
-- Chữ trên màn hình: "~1050 năm (theo Trần Trọng Kim)".
-- Dòng mốc: 544 → 791 → thế kỷ 10.
+Hình (4s→), phong cách **bản đồ hoạt họa** trên nền bản đồ cổ (góc dưới luôn có chú thích "minh họa, ranh giới và vị trí gần đúng"):
+- **"Có một ông vua… phong con…":** quân cờ tướng chữ "帥" màu đỏ sơn mài hiện ở nhãn "Quảng Châu" → một quân cờ nhỏ hơn (con) bật ra bên cạnh → dải lụa chữ "交王 · Giao vương" bay từ quân cờ cha sang quân cờ con → camera lia xuống vùng nhãn "Giao Châu" còn trống, phủ dấu "?" màu kem (đất chưa về tay).
+- **"Hải Môn":** quân cờ cha trượt ra một ô nhãn "Hải Môn" đặt **ngoài lề bản đồ** (kho chưa có vị trí) → mũi tên đứt nét từ ô nhãn chỉ về phía con, chữ nhỏ "tiếp ứng".
+- **"Trên sông Bạch Đằng…":** quân cờ con dẫn một hàng thuyền nhỏ tiến vào nhãn "Bạch Đằng" → zoom vào cửa sông → thuyền chao nghiêng, chìm dần (không lửa, không xác) → quân cờ con lật úp, phủ dấu X đỏ (mẫu `bandoco` Ngô Quyền) → chữ "chết đuối quá nửa" hiện rồi tan. Không hiện số thuyền, số quân.
+- **"Ông vua ấy… Người chặn họ lại…":** nhãn "Nam Hán" đóng dấu lên quân cờ cha → quân cờ xanh chữ "吳 · Ngô Quyền" hiện ở cửa sông, phía trước những vạch cọc vàng đồng (vài vạch tượng trưng, không đếm).
+- **"Người con ấy, Hoằng Tháo…":** chuyển sang **bảng gia phả hoạt họa**: một hàng dài ô tên mờ (khoảng hai chục ô, chữ "gần hai chục hoàng tử") trượt ngang → một ô sáng lên "Hoằng Tháo" → dưới ô hiện ấn "萬王 · Vạn vương".
+- **"Vua cha phong con…":** ấn thứ hai "靜海 · Tiết độ sứ Tĩnh Hải" đóng xuống → ấn "Vạn vương" vỡ, thay bằng ấn "交王 · Giao vương" → ấn bay ra bản đồ, đáp xuống vùng "Giao Châu" nhưng không chạm đất: dừng lơ lửng phía trên.
+- **"Mất con, mất quân…":** quay lại bản đồ: ô "Hoằng Tháo" tắt sáng → quân cờ cha rời "Hải Môn", lùi về "Quảng Châu" kèm vài quân cờ nhỏ còn lại (tàn quân) → chữ "khóc thương · thu tàn quân" (F22).
+- **"Từ đó, Nam Hán bỏ hẳn…":** đường biên giữa "Quảng Châu" và "Giao Châu" sẫm lại; mũi tên đỏ từ Quảng Châu hướng xuống mờ dần rồi biến mất. Chữ nhỏ "Nam Hán không đem quân sang nữa".
+- **[BÌNH] "Một vị Giao vương…":** ấn "Giao vương" lơ lửng trên Giao Châu nứt đôi, rơi tan thành bụi vàng đồng; vùng Giao Châu vẫn trống.
+- **"Ngô Sĩ Liên…":** trang sách cổ trượt vào khung (không hiện chân dung); chữ kem lần lượt hiện: "tham đất người" → "đất chưa lấy được" → "hại con mình, dân mình". Ghi nguồn: "Ngô Sĩ Liên (Toàn thư)".
+- **"Muốn hiểu trận này…":** bản đồ thu nhỏ; đồng hồ năm (chữ ký) quay ngược nhanh, chữ "~1.050 năm (theo Trần Trọng Kim)". Không hiện dòng mốc năm.
+- **"Vậy trước Ngô Quyền…":** đồng hồ khựng lại ở khoảng đầu thế kỷ 10, một quân cờ mờ chưa lộ tên xuất hiện ở "Giao Châu", dấu "?" (sang khối 2: họ Khúc).
 
 ### Khối 2 – Trước Ngô Quyền là họ Khúc (bối cảnh)
 > Ngô Quyền… không phải người đầu tiên giành quyền tự chủ cho đất này. [E2-F37]
@@ -242,7 +254,7 @@ Hình:
 ## 4. Danh sách Short cắt ra
 | Khối | Short? | Cách cắt / câu thêm | Tiêu đề gợi ý |
 |---|---|---|---|
-| 1 | ✅ | Có thể dừng ở "…là Ngô Quyền." cho bản gọn | Phong con làm "vua đất Giao"… khi chưa có đất |
+| 1 | ✅ | Short P1 nguyên khối; có thể bỏ câu hỏi cuối và kết ở câu Ngô Sĩ Liên hoặc câu Trần Trọng Kim. Bản rất gọn (~20s) dừng ở "…là Ngô Quyền." | Phong con làm "vua đất Giao"… khi chưa có đất |
 | 2 | 🔧 | Kết ở "Một chức… hai người giữ." (bỏ câu "Mầm tranh chấp…" và câu hỏi cuối) | Ngô Quyền không phải người đầu tiên |
 | 3 | ✅ | — | Nước "Đại Việt" có kinh đô ở Quảng Châu? |
 | 4 | 🔧 | Kết sau câu B12 ("…chỉ nên ràng buộc lỏng lẻo."), bỏ câu dẫn cuối | Bỏ thành chạy về… bị chính vua mình xử tử |
@@ -275,13 +287,14 @@ Lưu ý: không vẽ khói lửa, không vẽ số lượng thuyền hay quân c
 | Khối | Câu `[BÌNH]` | Dựa trên dữ kiện đã kể |
 |---|---|---|
 | 5 | "Người xưa hay nói thiên thời, nhân hòa: thời là phương Bắc chia cắt, Nam Hán từng mất đất Giao chỉ sau một năm giữ được; người là một vị tướng có quân, có đất, và có lý do chính đáng để cầm quân." (câu dẫn sau đó: "Còn địa lợi… ta sẽ thấy ở cửa sông Bạch Đằng.") | B16, B10, B13, F04, F02 |
+| 1 | "Một vị Giao vương… chưa từng có đất Giao." | F09, F21 |
 | 6 | "Ngô Quyền đã đi trước họ nửa bước." | F13 |
 | 7 | "Quân Nam Hán từng thắng nhờ bẫy dưới sông… giờ chính họ đang tiến về phía một cái bẫy dưới sông." (chỉ đối chiếu, không nói Ngô Quyền biết hay học theo chuyện năm 928) | B22, F12, F16 |
 | 8 | "Đó là chữ địa lợi: một cửa biển hiểm, một con nước lên xuống, và người biết đặt bẫy đúng chỗ." | F40, F16, F18, F19 |
 | 10 | "Có lẽ 938 không phải điểm xuất phát… mà là đoạn kết của một con đường đã đi hơn ba mươi năm, từ họ Khúc, qua họ Dương, tới Ngô Quyền." | B04 (906), B13, F37 |
 | 11 | "Có lẽ cả hai lời đều có phần đúng: một bên không chịu nghe lời can, một bên biết nắm lấy thời cơ." | F11, F24, F13, F16, F31, F34 |
 
-Các khối 1–4, 9, 12 không có câu bình. Không câu nào nói "trời chọn" hay "người được chọn".
+Các khối 2–4, 9, 12 không có câu bình. Không câu nào nói "trời chọn" hay "người được chọn".
 
 ## 7. Việc còn treo
 **⏳ Chờ hồ sơ E3:** chưa đăng khối 12 bản có 3 câu cuối (Trần Bá Tiên, "Lùi tiếp… năm 544") và end card 938 → 544 cho tới khi có hồ sơ E3 trong `kb/`. Cần chạy quy trình nguồn E3. Trong lúc chờ, video dài có thể dừng ở câu E2-F46 và dùng end card trung tính.
@@ -297,7 +310,7 @@ Các khối 1–4, 9, 12 không có câu bình. Không câu nào nói "trời ch
 
 **Đã giải quyết:** tên lầu Nghĩa Phượng đã được kho bổ sung vào E2b-B11 và dùng ở khối 4.
 
-**Có trong kho nhưng chưa dùng** (để dành cho Short riêng hoặc tập khác): Nam Hán đánh Chiêm Thành (B27), nắm trọn Lĩnh Nam (B25), cắt quan hệ với Trung Nguyên (B28), chữ "Nghiễm" (B24), thần tích Lương Xâm, thành Vành Kiệu, Nguyễn Tất Tố (F43, F45), tướng mạo trọn vẹn (F07), năm sinh ước tính (F06), số năm ở ngôi theo từng sách (F28).
+**Có trong kho nhưng chưa dùng** (để dành cho Short riêng hoặc tập khác): Nam Hán đánh Chiêm Thành (B27), nắm trọn Lĩnh Nam (B25), cắt quan hệ với Trung Nguyên (B28), chữ "Nghiễm" (B24), 62 năm tự chủ và 304 năm Tùy, Đường (B02, bỏ khỏi khối 1 bản 3), thần tích Lương Xâm, thành Vành Kiệu, Nguyễn Tất Tố (F43, F45), tướng mạo trọn vẹn (F07), năm sinh ước tính (F06), số năm ở ngôi theo từng sách (F28).
 
 ## 8. Tiêu đề & thumbnail
 Tiêu đề video dài (dưới 70 ký tự):
@@ -314,7 +327,7 @@ Thumbnail (ưu tiên phương án 1):
 
 | Khối | Âm tiết | Ước |
 |---|---|---|
-| Khối 1 – Vua đất Giao chưa có đất (bối cảnh) | 196 | 67s |
+| Khối 1 – Vua đất Giao chưa có đất (bối cảnh) | 199 | 68s |
 | Khối 2 – Trước Ngô Quyền là họ Khúc (bối cảnh) | 189 | 65s |
 | Khối 3 – Nước "Đại Việt" ở Quảng Châu (đối thủ) | 215 | 74s |
 | Khối 4 – Hai năm, hai lần đổi chủ (bối cảnh) | 204 | 70s |
@@ -326,6 +339,6 @@ Thumbnail (ưu tiên phương án 1):
 | Khối 10 – 938: khởi đầu hay nối tiếp? (ý nghĩa) | 180 | 62s |
 | Khối 11 – Tài hay may? (góc nhìn) | 189 | 65s |
 | Khối 12 – Ba lần cắm cọc · Lùi tiếp 544 (kết) ⏳ | 161 | 55s |
-| **Tổng** | **2264** | **≈ 12.9 phút** (~13–14 phút kể cả nghỉ) |
+| **Tổng** | **2267** | **≈ 12.9 phút** (~13–14 phút kể cả nghỉ) |
 
-Phân bổ: bối cảnh & đối thủ (khối 1–5) 1013 ≈ 44% · trận đánh & kết cục (6–8) 544 ≈ 24% · hậu quả, ý nghĩa, góc nhìn (9–12) 707 ≈ 31%.
+Phân bổ: bối cảnh & đối thủ (khối 1–5) 1016 ≈ 45% · trận đánh & kết cục (6–8) 544 ≈ 24% · hậu quả, ý nghĩa, góc nhìn (9–12) 707 ≈ 31%.
