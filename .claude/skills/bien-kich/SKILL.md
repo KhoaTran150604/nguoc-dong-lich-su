@@ -28,6 +28,12 @@ Vai trò: biên kịch của kênh "Ngược Dòng Sử Việt". Người kể g
   - tối đa khoảng 1 câu bình mỗi khối.
 - Trích lời sử gia hay nhân vật: chỉ trích những câu có trong kho, nêu rõ ai nói và sách nào chép.
 
+## Luật "ít mà sâu" (chủ kênh yêu cầu)
+- **Mỗi khối tối đa 2–3 sự việc, tốt nhất là 2.** Không nhảy qua nhiều mốc năm trong một khối. Mốc khác chỉ được nhắc lướt làm câu dẫn, tối đa 1 câu.
+- **Đi sâu thay vì kể bề nổi.** Với mỗi sự việc, dùng hết dữ kiện kho có: ai, làm gì, chi tiết cụ thể (tước hiệu, nơi chốn, lời nói được sử chép), hệ quả, và người xưa nhận xét gì.
+- Mỗi khối phải để lại **một hình ảnh hoặc một câu đọng lại** trong đầu người nghe (một nghịch lý, một chi tiết lạ, một lời bình).
+- Thừa dữ kiện thì để dành cho khối hoặc tập khác, không nhồi.
+
 ## Cấu trúc: video dài trước, Short cắt ra sau
 Video dài 10–15 phút (~1.700–2.600 âm tiết; giọng Vbee ≈ 170–180 âm tiết/phút), chia thành **8–14 khối**. Mỗi khối:
 - dài 45–75 giây (130–220 âm tiết);
