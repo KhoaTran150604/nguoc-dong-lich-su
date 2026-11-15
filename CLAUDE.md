@@ -37,7 +37,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
   2. `nguon-lich-su` – tìm nguồn cho phần còn thiếu → `kb/draft/`.
   3. `kiem-chung-nguon` – kiểm chứng **độc lập bằng subagent** (≥2 nguồn độc lập, ≥1 nguồn cấp 1–3) → ✅/⚠️/❌.
   4. `kho-tri-thuc` – lưu hồ sơ vào `kb/`, cập nhật `kb/INDEX.md`.
-  5. Viết kịch bản bằng `docs/prompts/kich-ban-short.md`, **chỉ từ dữ kiện trong kho**; chạy lại `kiem-chung-nguon` trên kịch bản.
+  5. Viết kịch bản bằng skill **`bien-kich`**: **video dài trước** (10–15 phút, chia khối 45–75s, mỗi khối cắt được thành Short), **chỉ từ dữ kiện trong kho**, mỗi câu gắn mã kho → `docs/videos/`; chạy lại `kiem-chung-nguon` trên kịch bản. (`docs/prompts/kich-ban-short.md` là prompt Short cũ.)
 - Truyền thuyết/niên đại tranh luận: kể kèm "tương truyền", "theo sử cũ chép".
 - Bản đồ: ghi "minh họa, ranh giới gần đúng" nếu chưa có nguồn atlas; bản đồ Việt Nam toàn cảnh hiện đại luôn có Hoàng Sa, Trường Sa; không dùng hình dạng chữ S hiện đại cho thời kỳ xưa.
 - Không sao chép bản đồ/hình của kênh khác (Sử Lược, EZ Sử…), không dùng hình đối thủ, không giả giọng người thật.
@@ -58,11 +58,12 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 8. Cấu trúc thư mục
 ```
 CLAUDE.md                     ← file này
-.claude/skills/               ← 5 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, project-checklist, vn-ai-channel-research
+.claude/skills/               ← 6 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, bien-kich, project-checklist, vn-ai-channel-research
 docs/research/01–04           ← research kênh AI VN, YouTube, audio, format slideshow
 docs/plan/series-nguoc-dong.md← 38 mốc + cấu trúc tập
 docs/prompts/kich-ban-short.md← prompt kịch bản
 docs/shorts/01-bach-dang-938.md
+docs/videos/                  ← kịch bản video dài (chia khối → Short)
 kb/                           ← kho tri thức (INDEX, nguon, draft/, nhan-vat/, dia-danh/)
 scripts/short/                ← dựng Short từ ảnh + phụ đề + giọng (scenes.py → caps.py → render.py)
 scripts/bando/anim.py         ← bản đồ phẳng động
