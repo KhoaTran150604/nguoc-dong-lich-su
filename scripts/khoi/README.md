@@ -32,6 +32,13 @@ Script tự cắt file MP3 thành từng câu theo khoảng lặng, in ra danh s
 - chạy lại với `--cuts 1.62 8.35 …`, hoặc
 - ghi vào khóa `"vbee_cuts"` trong file JSON để lần sau tự dùng. Khối 1 đã có sẵn khóa này.
 
+## Phong cách
+- `--style slide` (mặc định): chữ lớn và đồ họa trên nền mực.
+- `--style map`: bản đồ cổ hoạt họa (`scenes_map.py`), camera lia và zoom theo từng câu; cần `pip install shapely`. Luôn ghi "Bản đồ minh họa · ranh giới và vị trí gần đúng". Không đánh dấu địa danh chưa rõ vị trí (Hải Môn).
+
+## Đuôi quảng cáo của Vbee
+Bản Vbee miễn phí đọc "vbee.vn" ở cuối file. Ghi `"vbee_trim_end": <giây>` trong JSON để cắt bỏ (khối 1: 59,3).
+
 ## Xem trước nhanh
 Thêm `--preview 5 12 20` để xuất ảnh tĩnh tại các giây đó (vào thư mục `*_work/`) mà không phải render cả video.
 

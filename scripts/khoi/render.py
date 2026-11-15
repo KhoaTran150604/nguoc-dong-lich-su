@@ -13,6 +13,21 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import cairosvg
 
+# Pillow 12 bỏ qua alpha của màu chữ → vẽ chữ bán trong suốt qua một lớp riêng.
+_orig_text = ImageDraw.ImageDraw.text
+def _text_alpha(self, xy, text, fill=None, font=None, *args, **kw):
+    if isinstance(fill, tuple) and len(fill) == 4 and fill[3] < 255:
+        if fill[3] <= 0: return
+        l, t, r, b = self.textbbox(xy, text, font=font, **{k: v for k, v in kw.items() if k in ('anchor', 'spacing', 'align', 'stroke_width')})
+        l, t = int(l) - 4, int(t) - 4; w, h = int(r) - l + 8, int(b) - t + 8
+        lay = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+        _orig_text(ImageDraw.Draw(lay), (xy[0] - l, xy[1] - t), text, fill=fill[:3] + (255,), font=font, *args, **kw)
+        lay.putalpha(lay.getchannel('A').point(lambda v: v * fill[3] // 255))
+        self._image.paste(lay, (l, t), lay) if self._image.mode == 'RGB' else self._image.alpha_composite(lay, (max(l, 0), max(t, 0)))
+        return
+    return _orig_text(self, xy, text, fill=fill, font=font, *args, **kw)
+ImageDraw.ImageDraw.text = _text_alpha
+
 W, H, FPS = 1080, 1920, 30
 INK = (20, 17, 15); GOLD = (201, 162, 74); GOLD2 = (243, 210, 122); RED = (179, 38, 30); CREAM = (242, 230, 204); COPPER = (201, 145, 94)
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -62,6 +77,11 @@ def avatar_layers():
         return Image.open(io.BytesIO(cairosvg.svg2png(bytestring=s.encode(), output_width=size, output_height=size))).convert('RGBA')
     return render(ring), render(mapl), render(ring + mapl)
 
+def comp(dst, src, xy=(0, 0)):
+    """Dán lớp RGBA lên khung. Khung là RGB để ImageDraw(…, 'RGBA') hòa màu đúng (trên ảnh RGBA, Pillow ghi đè alpha)."""
+    if dst.mode == 'RGB': dst.paste(src, (int(xy[0]), int(xy[1])), src)
+    else: dst.alpha_composite(src, (int(xy[0]), int(xy[1])))
+
 def with_alpha(im, a):
     if a >= 0.999: return im
     im = im.copy(); al = im.getchannel('A').point(lambda v: int(v * a)); im.putalpha(al); return im
@@ -107,7 +127,7 @@ def sc_chuky(im, t, dur, ctx, seg):
     ang = t * 22  # ngược chiều kim đồng hồ
     r = ring.resize((size, size), Image.LANCZOS).rotate(ang, resample=Image.BICUBIC)
     m = with_alpha(mapl.resize((size, size), Image.LANCZOS), 1 - ease(clamp01((t - 0.9) / 1.6)) * 0.88)
-    im.alpha_composite(r, (cx - size // 2, cy - size // 2)); im.alpha_composite(m, (cx - size // 2, cy - size // 2))
+    comp(im, r, (cx - size // 2, cy - size // 2)); comp(im, m, (cx - size // 2, cy - size // 2))
     d = ImageDraw.Draw(im, 'RGBA')
     text_center(d, cy + size // 2 + 40, str(year), F_TITLE(210), GOLD2 + (255,))
     text_center(d, 250, 'NGƯỢC DÒNG SỬ VIỆT', F_MED(40), GOLD + (255,), spacing=6)
@@ -118,8 +138,8 @@ def sc_hold(im, t, dur, ctx, seg):
     size = 640; cx, cy = W // 2, int(H * 0.40)
     T = t + ctx['intro']
     r = ring.resize((size, size), Image.LANCZOS).rotate(T * 22, resample=Image.BICUBIC)
-    im.alpha_composite(with_alpha(r, 1 - 0.5 * ease(t / dur)), (cx - size // 2, cy - size // 2))
-    im.alpha_composite(with_alpha(mapl.resize((size, size), Image.LANCZOS), 0.12 * (1 - ease(t / dur))), (cx - size // 2, cy - size // 2))
+    comp(im, with_alpha(r, 1 - 0.5 * ease(t / dur)), (cx - size // 2, cy - size // 2))
+    comp(im, with_alpha(mapl.resize((size, size), Image.LANCZOS), 0.12 * (1 - ease(t / dur))), (cx - size // 2, cy - size // 2))
     d = ImageDraw.Draw(im, 'RGBA')
     text_center(d, cy + size // 2 + 40, '938', F_TITLE(210), GOLD2 + (255,))
 
@@ -142,7 +162,7 @@ def seal(im, t, cx, cy, s, lines, col=RED):
         w = d.textlength(l, font=f); d.text(((s - w) / 2, s / 2 - tot / 2 + i * s * 0.24), l, font=f, fill=CREAM + (255,))
     tile = tile.rotate(-6, resample=Image.BICUBIC, expand=True)
     ns = int(tile.width * sc); tile = with_alpha(tile.resize((ns, ns), Image.LANCZOS), a)
-    im.alpha_composite(tile, (int(cx - ns / 2), int(cy - ns / 2)))
+    comp(im, tile, (int(cx - ns / 2), int(cy - ns / 2)))
 
 @scene('giao_vuong')
 def sc_giao(im, t, dur, ctx, seg):
@@ -193,7 +213,7 @@ def river_svg(t, dur):
 @scene('bach_dang')
 def sc_bachdang(im, t, dur, ctx, seg):
     layer = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=river_svg(t, dur).encode()))).convert('RGBA')
-    im.alpha_composite(with_alpha(layer, fade_in(t)))
+    comp(im, with_alpha(layer, fade_in(t)))
     d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t - dur * 0.45))
     text_center(d, 400, 'quá nửa', F_TITLE(140), GOLD2 + (a,))
     text_center(d, 570, 'chết đuối', F_SEMI(66), CREAM + (a,))
@@ -276,12 +296,12 @@ def sc_ranvo(im, t, dur, ctx, seg):
         left = layer.copy(); left.paste((0, 0, 0, 0), (0, 0), mask)
         layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); layer.alpha_composite(left); layer.alpha_composite(right, (int(14 * p), int(18 * p)))
         ImageDraw.Draw(layer, 'RGBA').line(pts[:n], fill=RED + (230,), width=6)
-    im.alpha_composite(layer)
+    comp(im, layer)
 
 @scene('end')
 def sc_end(im, t, dur, ctx, seg):
     av = ctx['full'].resize((460, 460), Image.LANCZOS)
-    im.alpha_composite(with_alpha(av, fade_in(t)), (W // 2 - 230, 460))
+    comp(im, with_alpha(av, fade_in(t)), (W // 2 - 230, 460))
     d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t - 0.3))
     text_center(d, 1000, 'Ngược Dòng Sử Việt', F_TITLE(96), CREAM + (a,))
     text_center(d, 1150, ctx['end_next'], F_SEMI(46), GOLD2 + (a,))
@@ -300,7 +320,7 @@ def overlay_common(im, seg, sub_text, t_seg, ctx, show_label=True):
         for i, l in enumerate(lines): text_center(d, y0 + i * lh, l, f, (245, 235, 215, 255))
     if seg.get('src'):
         text_center(d, H - 120, 'Nguồn: ' + seg['src'], F_REG(28), COPPER + (190,))
-    im.alpha_composite(ctx['wm'], (W - ctx['wm'].width - 40, 150))
+    comp(im, ctx['wm'], (W - ctx['wm'].width - 40, 150))
     if ctx.get('part'):
         d.text((48, 178), ctx['part'], font=F_MED(30), fill=COPPER + (200,))
 
@@ -314,11 +334,12 @@ def read_wav(p):
         sr = w.getframerate(); a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
     return a, sr
 
-def split_vbee(mp3, segs, work, sr=44100, manual_cuts=None):
+def split_vbee(mp3, segs, work, sr=44100, manual_cuts=None, trim_end=None):
     """Cắt file giọng của cả khối thành từng câu theo khoảng lặng gần vị trí dự kiến (tỷ lệ số ký tự)."""
     wav = os.path.join(work, 'vbee.wav')
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', mp3, '-ac', '1', '-ar', str(sr), wav], check=True)
     a, sr = read_wav(wav)
+    if trim_end: a = a[:int(trim_end * sr)]; subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', mp3, '-ac', '1', '-ar', str(sr), '-t', str(trim_end), wav], check=True)
     r = subprocess.run(['ffmpeg', '-i', wav, '-af', 'silencedetect=noise=-35dB:d=0.25', '-f', 'null', '-'], capture_output=True, text=True).stderr
     st = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', r)]; en = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', r)]
     total = len(a) / sr
@@ -369,6 +390,7 @@ def tick(sr, dur=0.035, f=1600):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('config'); ap.add_argument('--voice', help='model Piper .onnx (giọng tạm)'); ap.add_argument('--vbee', help='file MP3 Vbee đọc cả khối'); ap.add_argument('--out', required=True)
+    ap.add_argument('--style', default='slide', choices=['slide', 'map'], help='slide = chữ & đồ họa; map = bản đồ hoạt họa')
     ap.add_argument('--cuts', type=float, nargs='*', help='điểm cắt (giây) giữa các câu, nếu tự động cắt sai')
     ap.add_argument('--length-scale', type=float, default=1.2); ap.add_argument('--work', default=None)
     ap.add_argument('--preview', type=float, nargs='*', help='chỉ xuất ảnh tĩnh tại các giây này')
@@ -380,7 +402,7 @@ def main():
     # 1) giọng
     clips = []
     if args.vbee:
-        clips, sr = split_vbee(args.vbee, segs, work, manual_cuts=args.cuts or cfg.get('vbee_cuts'))
+        clips, sr = split_vbee(args.vbee, segs, work, manual_cuts=args.cuts or cfg.get('vbee_cuts'), trim_end=cfg.get('vbee_trim_end'))
     else:
         for i, s in enumerate(segs):
             p = os.path.join(work, f'v{i:02d}.wav')
@@ -413,17 +435,22 @@ def main():
     wm = with_alpha(Image.open(os.path.join(ROOT, 'assets/brand/watermark-trong-suot-vong.png')).convert('RGBA').resize((96, 96), Image.LANCZOS), 0.7)
     ctx = dict(ring=ring, map=mapl, full=full, wm=wm, intro=intro, end_next=cfg.get('end_next', ''), part=cfg.get('part', ''))
     bg = make_bg()
+    if args.style == 'map':
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import scenes_map; scenes_map.register(sys.modules[__name__], ctx, work, segs, timeline)
 
     def frame(T):
         z = 1.0 + 0.04 * ((T % 12) / 12)
-        cw, ch = int(W / z), int(H / z); im = bg.crop(((W - cw) // 2, (H - ch) // 2, (W - cw) // 2 + cw, (H - ch) // 2 + ch)).resize((W, H))
+        cw, ch = int(W / z), int(H / z); im = bg.crop(((W - cw) // 2, (H - ch) // 2, (W - cw) // 2 + cw, (H - ch) // 2 + ch)).resize((W, H)).convert('RGB')
         if T < intro:
             SCENES['chuky'](im, T, intro, ctx, {}); return im
         if T >= end0:
             SCENES['end'](im, T - end0, total - end0, ctx, {}); return im
         idx = max(i for i, (st, _) in enumerate(timeline) if st <= T + 1e-6)
         st, dur = timeline[idx]; seg = segs[idx]; tl = T - st
-        SCENES[seg['scene']](im, tl, dur + gap, ctx, seg)
+        fn = SCENES.get('map_' + seg['scene']) if args.style == 'map' else None
+        if fn: im = fn(im, tl, dur + gap, ctx, seg, idx) or im
+        else: SCENES[seg['scene']](im, tl, dur + gap, ctx, seg)
         sub = next((c for a, b, c in subs if a <= T < b), None)
         overlay_common(im, seg, sub, tl, ctx, show_label=seg['scene'] != 'chuky_hold')
         return im
