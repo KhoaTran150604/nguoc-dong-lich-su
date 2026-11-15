@@ -8,6 +8,7 @@ Trạng thái: ✅ Đã kiểm chứng · ⚠️ Có tranh luận / truyền thu
 | Mã | Mốc | Chủ đề | Trạng thái | Hồ sơ | Cập nhật |
 |---|---|---|---|---|---|
 | E2 | 938 | Trận Bạch Đằng – Ngô Quyền | ✅ cốt lõi · 47 dữ kiện (nhiều ⚠️) | `kb/E2-bach-dang-938.md` | 15/11/2026 |
+| E2b | 905–937 | Bối cảnh: họ Khúc, họ Dương, đối thủ Nam Hán | ✅/⚠️ · 29 dữ kiện | `kb/E2b-boi-canh-905-937.md` | 15/11/2026 |
 
 ## Nhân vật
 | Tên | File | Dùng ở tập |
@@ -20,7 +21,7 @@ Trạng thái: ✅ Đã kiểm chứng · ⚠️ Có tranh luận / truyền thu
 | Sông Bạch Đằng | `kb/dia-danh/song-bach-dang.md` | E2, D9, D2 |
 
 ## Nguồn
-Thư mục nguồn dùng chung: `kb/nguon.md` (N01–N10).
+Thư mục nguồn dùng chung: `kb/nguon.md` (N01–N11).
 
 ## Việc còn treo
 - Đọc trực tiếp: Cương mục (lời phê Tự Đức), Việt điện u linh, SGK Lịch sử & Địa lí 6, *Lịch sử Việt Nam* t.2.

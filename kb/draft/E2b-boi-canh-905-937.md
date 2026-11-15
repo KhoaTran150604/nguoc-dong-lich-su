@@ -1,6 +1,6 @@
 # [NHÁP 🔍] E2b – Bối cảnh trước trận Bạch Đằng (905–937) & đối thủ Nam Hán
 
-_Skill: nguon-lich-su · 15/11/2026 · Trạng thái: 🔍 chưa kiểm chứng · Bổ sung cho `kb/E2-bach-dang-938.md` (phần trận đánh)_
+_Skill: nguon-lich-su · 15/11/2026 · Trạng thái: **đã kiểm chứng → dùng `kb/E2b-boi-canh-905-937.md`** · Bổ sung cho `kb/E2-bach-dang-938.md` (phần trận đánh)_
 
 ## 0. Nguồn đã đọc trực tiếp
 | Mã | Nguồn | Cấp | Link |
