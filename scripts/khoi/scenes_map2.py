@@ -153,25 +153,32 @@ _BANNER_CACHE = {}
 def banner_img(name, kind, col, portrait_path=None):
     key = (name, kind, col, portrait_path)
     if key in _BANNER_CACHE: return _BANNER_CACHE[key]
-    W0, H0 = 220, 400; im = Image.new('RGBA', (W0, H0), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    pole = (58, 38, 22, 255); px = W0 // 2
-    d.line([(px, 30), (px, H0 - 6)], fill=pole, width=9); d.polygon([(px - 9, 32), (px, 4), (px + 9, 32)], fill=(200, 200, 200, 255))
-    d.line([(px - 96, 52), (px + 96, 52)], fill=pole, width=8)
-    fx0, fy0, fw, fh = px - 88, 58, 176, 230
-    d.rectangle([fx0 - 4, fy0 - 4, fx0 + fw + 4, fy0 + fh + 4], fill=(30, 20, 12, 255))
+    W0, H0 = 300, 560; im = Image.new('RGBA', (W0, H0), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    pole = (58, 38, 22, 255); px = W0 // 2; gold = (214, 176, 90, 255); dark = (30, 20, 12, 255)
+    d.line([(px, 34), (px, H0 - 8)], fill=pole, width=11); d.polygon([(px - 11, 36), (px, 2), (px + 11, 36)], fill=(205, 205, 205, 255))
+    d.line([(px - 128, 58), (px + 128, 58)], fill=pole, width=9)
+    for sx in (-128, 128): d.ellipse([px + sx - 9, 49, px + sx + 9, 67], fill=gold)
+    fx0, fy0, fw, fh = px - 118, 64, 236, 330
+    d.rectangle([fx0 - 6, fy0 - 6, fx0 + fw + 6, fy0 + fh + 6], fill=dark)
+    ph = fh - 56
     if portrait_path and os.path.exists(portrait_path):
-        p = Image.open(portrait_path).convert('RGBA'); pr = p.width / p.height; tr = fw / (fh - 44)
-        p = p.crop(((p.width - p.height * tr) / 2, 0, (p.width + p.height * tr) / 2, p.height)) if pr > tr else p.crop((0, 0, p.width, p.width / tr))
-        im.paste(p.resize((fw, fh - 44), Image.LANCZOS), (fx0, fy0 + 44))
+        p = Image.open(portrait_path).convert('RGBA'); tr = fw / ph
+        if p.width / p.height > tr:  # ảnh ngang: cắt giữa, ưu tiên phần mặt
+            nw = p.height * tr; p = p.crop(((p.width - nw) / 2, 0, (p.width + nw) / 2, p.height))
+        else:
+            p = p.crop((0, 0, p.width, p.width / tr))
+        im.paste(p.resize((fw, ph), Image.LANCZOS), (fx0, fy0 + 56))
     else:
-        im.paste(portrait_placeholder(kind, col, fw, fh - 44), (fx0, fy0 + 44))
-    d.rectangle([fx0, fy0, fx0 + fw, fy0 + 44], fill=(242, 230, 204, 255), outline=(30, 20, 12, 255), width=3)
+        im.paste(portrait_placeholder(kind, col, fw, ph), (fx0, fy0 + 56))
+    d.rectangle([fx0, fy0, fx0 + fw, fy0 + 56], fill=(242, 230, 204, 255))
+    d.line([(fx0, fy0 + 56), (fx0 + fw, fy0 + 56)], fill=gold, width=4)
     from render import F_TITLE  # noqa
-    f = F_TITLE(28 if len(name) < 11 else 22); w = d.textlength(name, font=f)
-    d.text((px - w / 2, fy0 + 6), name, font=f, fill=(40, 24, 14, 255))
-    d.rectangle([fx0, fy0, fx0 + fw, fy0 + fh], outline=col + (255,), width=5)
-    for k in range(5): d.polygon([(fx0 + k * fw / 5, fy0 + fh), (fx0 + (k + 0.5) * fw / 5, fy0 + fh + 22), (fx0 + (k + 1) * fw / 5, fy0 + fh)], fill=col + (255,))
-    d.ellipse([px - 40, H0 - 16, px + 40, H0 + 4], fill=(0, 0, 0, 90))
+    size = 34
+    while d.textlength(name, font=F_TITLE(size)) > fw - 16 and size > 18: size -= 2
+    f = F_TITLE(size); w = d.textlength(name, font=f); d.text((px - w / 2, fy0 + (56 - size * 1.2) / 2), name, font=f, fill=(40, 24, 14, 255))
+    d.rectangle([fx0, fy0, fx0 + fw, fy0 + fh], outline=gold, width=6); d.rectangle([fx0 - 6, fy0 - 6, fx0 + fw + 6, fy0 + fh + 6], outline=col + (255,), width=4)
+    for k in range(6): d.polygon([(fx0 + k * fw / 6, fy0 + fh + 4), (fx0 + (k + 0.5) * fw / 6, fy0 + fh + 30), (fx0 + (k + 1) * fw / 6, fy0 + fh + 4)], fill=col + (255,), outline=dark)
+    d.ellipse([px - 50, H0 - 20, px + 50, H0 + 4], fill=(0, 0, 0, 90))
     _BANNER_CACHE[key] = im; return im
 
 def register(R, ctx, work, segs, timeline):
@@ -183,7 +190,8 @@ def register(R, ctx, work, segs, timeline):
            'm_battle': (107.05, 20.92, 1.55), 'm_reveal': (109.4, 21.9, 0.48), 'm_princes': (112.6, 23.3, 0.85),
            'm_titles': (108.6, 22.2, 0.55), 'm_retreat': (109.8, 21.5, 0.52), 'm_never': (108.2, 22.4, 0.62),
            'm_irony': (106.0, 21.1, 0.85), 'm_quote': (108.8, 21.9, 0.48), 'm_rewind': (108.8, 21.5, 0.36), 'm_question': (105.9, 21.1, 0.8)}
-    cams = [CAM.get(s['scene'], (109.3, 21.6, 0.4)) for s in segs]
+    FIXED = tuple(ctx.get('cfg', {}).get('map_view', (109.4, 22.0, 0.44)))
+    cams = [FIXED for _ in segs] if ctx.get('cfg', {}).get('camera', 'static') == 'static' else [CAM.get(s['scene'], (109.3, 21.6, 0.4)) for s in segs]
     def cam_at(idx, tl):
         prev = cams[idx - 1] if idx > 0 else cams[0]; cur = cams[idx]; u = ease(clamp01(tl / 1.3))
         lerp = lambda a, b: a + (b - a) * u
@@ -192,7 +200,7 @@ def register(R, ctx, work, segs, timeline):
     for i in range(600): _d.line([(0, i), (W, i)], fill=(14, 11, 9, int(235 * (1 - i / 600) ** 0.9)))
     for i in range(560): _d.line([(0, H - i), (W, H - i)], fill=(14, 11, 9, int(235 * (1 - i / 560) ** 0.9)))
     def view(c, drift):
-        lon, lat, z = c; z *= 1 + 0.02 * drift
+        lon, lat, z = c
         bx, by = pj(lon, lat); cw, ch = W / z, H / z
         x0 = min(max(bx - cw / 2, 0), MW - cw); y0 = min(max(by - ch * 0.5, 0), MH - ch)
         im = BIG.crop((int(x0), int(y0), int(x0 + cw), int(y0 + ch))).resize((W, H), Image.BILINEAR)
@@ -201,11 +209,11 @@ def register(R, ctx, work, segs, timeline):
         return im, S, z
     def base(idx, t):
         T = timeline[idx][0] + t; return view(cam_at(idx, t), (T % 10) / 10)
-    sc_ = lambda z: max(0.55, min(1.6, z / 0.55))
+    sc_ = lambda z: 1.0  # vật trên bản đồ luôn cùng cỡ (lớn), không đổi theo camera
     def put_banner(im, x, y, name, kind, col, port=None, s=1.0, a=1.0, rot=0.0):
         b = banner_img(name, kind, col, PORT.get(port))
         if rot: b = b.rotate(rot, resample=Image.BICUBIC, expand=True, center=(b.width / 2, b.height - 8))
-        bw, bh = int(b.width * 0.88 * s), int(b.height * 0.88 * s); b = b.resize((bw, bh), Image.LANCZOS)
+        bw, bh = int(b.width * 0.62 * s), int(b.height * 0.62 * s); b = b.resize((bw, bh), Image.LANCZOS)
         if a < 0.999: b = R.with_alpha(b, a)
         R.comp(im, b, (x - bw / 2, y - bh + 6 * s))
     def note(d, txt='Bản đồ minh họa · ranh giới và vị trí gần đúng · chân dung minh họa'):

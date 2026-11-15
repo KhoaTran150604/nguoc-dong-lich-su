@@ -121,19 +121,19 @@
    "tts": "Vậy trước Ngô Quyền, ai đã giành quyền tự chủ?"
   }
  ],
- "vbee_note": "File gốc assets/e2/E2-K1-vbee.mp3 có câu quảng cáo 'Giọng đọc nhân tạo từ vbee.vn' ở 75,7–77,8s (chen trước câu cuối) → đã cắt 74,95–78,55s thành E2-K1-vbee-sach.mp3.",
+ "vbee_note": "Giọng Vbee bản sạch (không đọc mã F, không có câu quảng cáo). Điểm cắt căn theo khoảng lặng + nhận dạng giọng nói.",
  "vbee_cuts": [
   1.5,
-  9.07,
-  14.24,
-  22.29,
-  29.57,
-  37.6,
-  43.9,
-  50.17,
-  55.45,
-  59.44,
-  67.85,
-  74.85
+  8.07,
+  12.32,
+  17.52,
+  22.83,
+  29.79,
+  35.23,
+  40.57,
+  44.7,
+  48.05,
+  55.35,
+  61.29
  ]
 }
