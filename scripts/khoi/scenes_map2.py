@@ -163,6 +163,7 @@ def banner_img(name, kind, col, portrait_path=None):
     ph = fh - 56
     if portrait_path and os.path.exists(portrait_path):
         p = Image.open(portrait_path).convert('RGBA'); tr = fw / ph
+        zw = p.width * 0.8; p = p.crop(((p.width - zw) / 2, p.height * 0.02, (p.width + zw) / 2, p.height))  # phóng mặt to hơn
         if p.width / p.height > tr:  # ảnh ngang: cắt giữa, ưu tiên phần mặt
             nw = p.height * tr; p = p.crop(((p.width - nw) / 2, 0, (p.width + nw) / 2, p.height))
         else:
