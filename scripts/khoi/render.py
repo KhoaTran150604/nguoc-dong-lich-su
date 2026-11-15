@@ -108,7 +108,7 @@ def sc_chuky(im, t, dur, ctx, seg):
     r = ring.resize((size, size), Image.LANCZOS).rotate(ang, resample=Image.BICUBIC)
     m = with_alpha(mapl.resize((size, size), Image.LANCZOS), 1 - ease(clamp01((t - 0.9) / 1.6)) * 0.88)
     im.alpha_composite(r, (cx - size // 2, cy - size // 2)); im.alpha_composite(m, (cx - size // 2, cy - size // 2))
-    d = ImageDraw.Draw(im)
+    d = ImageDraw.Draw(im, 'RGBA')
     text_center(d, cy + size // 2 + 40, str(year), F_TITLE(210), GOLD2 + (255,))
     text_center(d, 250, 'NGƯỢC DÒNG SỬ VIỆT', F_MED(40), GOLD + (255,), spacing=6)
 
@@ -120,11 +120,11 @@ def sc_hold(im, t, dur, ctx, seg):
     r = ring.resize((size, size), Image.LANCZOS).rotate(T * 22, resample=Image.BICUBIC)
     im.alpha_composite(with_alpha(r, 1 - 0.5 * ease(t / dur)), (cx - size // 2, cy - size // 2))
     im.alpha_composite(with_alpha(mapl.resize((size, size), Image.LANCZOS), 0.12 * (1 - ease(t / dur))), (cx - size // 2, cy - size // 2))
-    d = ImageDraw.Draw(im)
+    d = ImageDraw.Draw(im, 'RGBA')
     text_center(d, cy + size // 2 + 40, '938', F_TITLE(210), GOLD2 + (255,))
 
 def big_title(im, t, title, sub=None, y=640, size=150, col=GOLD2, subcol=CREAM, note=None):
-    a = int(255 * fade_in(t)); d = ImageDraw.Draw(im)
+    a = int(255 * fade_in(t)); d = ImageDraw.Draw(im, 'RGBA')
     dy = int(30 * (1 - fade_in(t)))
     font = F_TITLE(size)
     while d.textlength(title, font=font) > W - 120: size -= 6; font = F_TITLE(size)
@@ -134,7 +134,7 @@ def big_title(im, t, title, sub=None, y=640, size=150, col=GOLD2, subcol=CREAM, 
 
 def seal(im, t, cx, cy, s, lines, col=RED):
     sc = 1.25 - 0.25 * ease(t / 0.5); a = fade_in(t, 0.35)
-    tile = Image.new('RGBA', (s, s), (0, 0, 0, 0)); d = ImageDraw.Draw(tile)
+    tile = Image.new('RGBA', (s, s), (0, 0, 0, 0)); d = ImageDraw.Draw(tile, 'RGBA')
     d.rounded_rectangle([6, 6, s - 6, s - 6], radius=26, fill=col + (230,), outline=GOLD2 + (255,), width=8)
     d.rounded_rectangle([28, 28, s - 28, s - 28], radius=16, outline=GOLD2 + (160,), width=3)
     f = F_TITLE(int(s * 0.2)); tot = len(lines) * s * 0.24
@@ -147,33 +147,27 @@ def seal(im, t, cx, cy, s, lines, col=RED):
 @scene('giao_vuong')
 def sc_giao(im, t, dur, ctx, seg):
     seal(im, t, W // 2, 760, 430, ['GIAO', 'VƯƠNG'])
-    d = ImageDraw.Draw(im); a = int(255 * fade_in(t - 0.6))
+    d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t - 0.6))
     text_center(d, 1060, '« vua đất Giao »', F_SEMI(60), CREAM + (a,))
     a2 = int(255 * fade_in(t - dur * 0.55))
     text_center(d, 1160, 'khi đất Giao còn chưa về tay', F_REG(46), COPPER + (a2,))
 
 @scene('hai_mon')
 def sc_haimon(im, t, dur, ctx, seg):
-    d = ImageDraw.Draw(im); a = fade_in(t)
-    # sương
-    for i in range(5):
-        y = 1150 + i * 38; x = -200 + ((t * 40 + i * 170) % 400)
-        d.rounded_rectangle([x, y, x + 1400, y + 18], radius=9, fill=CREAM + (int(14 * a),))
-    # lầu canh gỗ (bóng)
-    c = (8, 6, 5, int(255 * a)); bx = 620
-    d.polygon([(bx, 1300), (bx + 40, 760), (bx + 300, 760), (bx + 340, 1300)], fill=c)
-    d.polygon([(bx - 30, 770), (bx + 170, 640), (bx + 370, 770)], fill=c)
-    d.rectangle([bx - 10, 760, bx + 350, 790], fill=c)
-    for k in range(5): d.line([(bx + 30 + k * 4, 820 + k * 95), (bx + 310 - k * 4, 900 + k * 95)], fill=GOLD + (int(70 * a),), width=4)
-    # người quay lưng
-    d.ellipse([bx + 150, 690, bx + 190, 730], fill=c); d.polygon([(bx + 140, 730), (bx + 200, 730), (bx + 215, 765), (bx + 125, 765)], fill=c)
-    # cờ
-    d.line([(bx + 330, 650), (bx + 330, 770)], fill=c, width=6)
-    d.polygon([(bx + 330, 650), (bx + 420, 668 + 8 * math.sin(t * 3)), (bx + 330, 690)], fill=RED + (int(220 * a),))
-    tf = F_TITLE(120); d.text((90, 840), 'HẢI MÔN', font=tf, fill=GOLD2 + (int(255 * a),))
-    d.text((96, 990), 'nơi vua Nam Hán', font=F_SEMI(46), fill=CREAM + (int(255 * a),))
-    d.text((96, 1050), 'đóng quân tiếp ứng', font=F_SEMI(46), fill=CREAM + (int(255 * a),))
-    d.text((96, 1130), '(vị trí chưa rõ)', font=F_REG(36), fill=COPPER + (int(220 * a),))
+    d = ImageDraw.Draw(im, 'RGBA'); a = fade_in(t); A = lambda k: int(255 * a * k)
+    dy = int(24 * (1 - a))
+    text_center(d, 470 + dy, 'HẢI MÔN', F_TITLE(150), GOLD2 + (A(1),))
+    text_center(d, 680 + dy, 'nơi vua Nam Hán đóng quân tiếp ứng', F_SEMI(46), CREAM + (A(1),))
+    text_center(d, 750 + dy, '(vị trí chưa rõ)', F_REG(36), COPPER + (A(0.9),))
+    # lầu canh nhỏ, quay lưng, đặt giữa phía dưới
+    cx, base = W // 2, 1330; c = (6, 5, 4, A(1)); edge = GOLD + (A(0.55),)
+    body = [(cx - 120, base), (cx - 95, 1030), (cx + 95, 1030), (cx + 120, base)]
+    roof = [(cx - 170, 1040), (cx, 940), (cx + 170, 1040)]
+    d.polygon(body, fill=c, outline=edge); d.polygon(roof, fill=c, outline=edge)
+    d.ellipse([cx - 16, 975, cx + 16, 1007], fill=c)  # bóng người quay lưng
+    d.line([(cx + 130, 925), (cx + 130, 1035)], fill=edge, width=4)
+    d.polygon([(cx + 130, 925), (cx + 205, 940 + 6 * math.sin(t * 3)), (cx + 130, 958)], fill=RED + (A(0.9),))
+    d.line([(150, base), (W - 150, base)], fill=GOLD + (A(0.5),), width=3)
 
 def river_svg(t, dur):
     random.seed(4); w, h = W, H
@@ -190,7 +184,7 @@ def river_svg(t, dur):
         s += f'<polygon points="{x-14},{top+40} {x},{top} {x+14},{top+40}" fill="#9AA3A8"/>'
     s += f'<rect x="0" y="{wl:.0f}" width="{w}" height="{h-wl:.0f}" fill="#0E161C" opacity="0.92"/>'
     tilt = 8 + 14 * p; col = '#5A3E2A'
-    s += (f'<g transform="translate(560 {1010+60*p:.0f}) rotate({tilt:.1f}) scale(1.05)">'
+    s += (f'<g transform="translate(600 {1060+50*p:.0f}) rotate({tilt:.1f}) scale(0.8)">'
           f'<path d="M-200,0 L200,0 L150,70 L-160,70 Z" fill="{col}" stroke="#C9A24A" stroke-width="3"/>'
           f'<line x1="-40" y1="0" x2="-40" y2="-300" stroke="{col}" stroke-width="9"/>'
           f'<path d="M-40,-290 L70,-278 L48,-24 L-40,-24 Z" fill="#7A5638" stroke="#C9A24A" stroke-width="3" opacity="0.95"/></g>')
@@ -200,14 +194,14 @@ def river_svg(t, dur):
 def sc_bachdang(im, t, dur, ctx, seg):
     layer = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=river_svg(t, dur).encode()))).convert('RGBA')
     im.alpha_composite(with_alpha(layer, fade_in(t)))
-    d = ImageDraw.Draw(im); a = int(255 * fade_in(t - dur * 0.45))
-    text_center(d, 520, 'quá nửa', F_TITLE(140), GOLD2 + (a,))
-    text_center(d, 690, 'chết đuối', F_SEMI(66), CREAM + (a,))
+    d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t - dur * 0.45))
+    text_center(d, 400, 'quá nửa', F_TITLE(140), GOLD2 + (a,))
+    text_center(d, 570, 'chết đuối', F_SEMI(66), CREAM + (a,))
     text_center(d, 1290, 'minh họa', F_REG(30), COPPER + (150,))
 
 @scene('doi_dau')
 def sc_doidau(im, t, dur, ctx, seg):
-    d = ImageDraw.Draw(im)
+    d = ImageDraw.Draw(im, 'RGBA')
     a1 = int(255 * fade_in(t)); a2 = int(255 * fade_in(t - dur * 0.5))
     text_center(d, 560, 'NAM HÁN', F_TITLE(140), RED + (a1,))
     d.line([(240, 800), (840, 800)], fill=GOLD + (a1,), width=3)
@@ -220,7 +214,7 @@ def year_label(y):
 
 @scene('lui')
 def sc_lui(im, t, dur, ctx, seg):
-    d = ImageDraw.Draw(im)
+    d = ImageDraw.Draw(im, 'RGBA')
     p = ease(clamp01((t - 0.3) / (dur - 0.6)))
     y = int(round(938 - (938 + 111) * p)); y = y if y != 0 else -1
     text_center(d, 640, year_label(y), F_TITLE(200), GOLD2 + (255,))
@@ -233,7 +227,7 @@ def sc_lui(im, t, dur, ctx, seg):
 
 @scene('so1050')
 def sc_1050(im, t, dur, ctx, seg):
-    d = ImageDraw.Draw(im); a = int(255 * fade_in(t))
+    d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t))
     p = ease(clamp01(t / 0.9)); x0, x1 = 150, 930; xm = x0 + (x1 - x0) * p
     d.line([(x0, 990), (xm, 990)], fill=RED + (a,), width=14)
     d.line([(x0, 960), (x0, 1020)], fill=GOLD2 + (a,), width=5); d.line([(xm, 960), (xm, 1020)], fill=GOLD2 + (a,), width=5)
@@ -250,7 +244,7 @@ def sc_vanxuan(im, t, dur, ctx, seg):
 
 @scene('thanh_62')
 def sc_62(im, t, dur, ctx, seg):
-    d = ImageDraw.Draw(im); a = int(255 * fade_in(t))
+    d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t))
     unit = 2.4; x0 = 110; y1, y2 = 700, 960
     p1 = ease(clamp01((t - 0.2) / 1.0)); p2 = ease(clamp01((t - dur * 0.55) / 1.6))
     d.rectangle([x0, y1, x0 + 62 * unit * p1, y1 + 70], fill=GOLD2 + (a,))
@@ -267,7 +261,7 @@ def sc_phung(im, t, dur, ctx, seg):
 
 @scene('ran_vo')
 def sc_ranvo(im, t, dur, ctx, seg):
-    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(layer)
+    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(layer, 'RGBA')
     a = int(255 * fade_in(t))
     text_center(d, 620, 'THẾ KỶ X', F_TITLE(170), GOLD2 + (a,))
     text_center(d, 860, 'phương Bắc rạn vỡ', F_SEMI(60), CREAM + (a,))
@@ -281,20 +275,20 @@ def sc_ranvo(im, t, dur, ctx, seg):
         right = Image.new('RGBA', (W, H), (0, 0, 0, 0)); right.paste(layer, (0, 0), mask)
         left = layer.copy(); left.paste((0, 0, 0, 0), (0, 0), mask)
         layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); layer.alpha_composite(left); layer.alpha_composite(right, (int(14 * p), int(18 * p)))
-        ImageDraw.Draw(layer).line(pts[:n], fill=RED + (230,), width=6)
+        ImageDraw.Draw(layer, 'RGBA').line(pts[:n], fill=RED + (230,), width=6)
     im.alpha_composite(layer)
 
 @scene('end')
 def sc_end(im, t, dur, ctx, seg):
     av = ctx['full'].resize((460, 460), Image.LANCZOS)
     im.alpha_composite(with_alpha(av, fade_in(t)), (W // 2 - 230, 460))
-    d = ImageDraw.Draw(im); a = int(255 * fade_in(t - 0.3))
+    d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * fade_in(t - 0.3))
     text_center(d, 1000, 'Ngược Dòng Sử Việt', F_TITLE(96), CREAM + (a,))
     text_center(d, 1150, ctx['end_next'], F_SEMI(46), GOLD2 + (a,))
 
 # ---------- lớp chung ----------
 def overlay_common(im, seg, sub_text, t_seg, ctx, show_label=True):
-    d = ImageDraw.Draw(im)
+    d = ImageDraw.Draw(im, 'RGBA')
     if show_label and seg.get('label'):
         a = int(255 * fade_in(t_seg, 0.3))
         text_center(d, 230, seg['label'], F_MED(40), GOLD + (a,), spacing=6)
@@ -306,7 +300,9 @@ def overlay_common(im, seg, sub_text, t_seg, ctx, show_label=True):
         for i, l in enumerate(lines): text_center(d, y0 + i * lh, l, f, (245, 235, 215, 255))
     if seg.get('src'):
         text_center(d, H - 120, 'Nguồn: ' + seg['src'], F_REG(28), COPPER + (190,))
-    im.alpha_composite(ctx['wm'], (W - ctx['wm'].width - 36, 40))
+    im.alpha_composite(ctx['wm'], (W - ctx['wm'].width - 40, 150))
+    if ctx.get('part'):
+        d.text((48, 178), ctx['part'], font=F_MED(30), fill=COPPER + (200,))
 
 # ---------- âm thanh ----------
 def tts_piper(model, text, out, length_scale):
@@ -415,7 +411,7 @@ def main():
 
     ring, mapl, full = avatar_layers()
     wm = with_alpha(Image.open(os.path.join(ROOT, 'assets/brand/watermark-trong-suot-vong.png')).convert('RGBA').resize((96, 96), Image.LANCZOS), 0.7)
-    ctx = dict(ring=ring, map=mapl, full=full, wm=wm, intro=intro, end_next=cfg.get('end_next', ''))
+    ctx = dict(ring=ring, map=mapl, full=full, wm=wm, intro=intro, end_next=cfg.get('end_next', ''), part=cfg.get('part', ''))
     bg = make_bg()
 
     def frame(T):
