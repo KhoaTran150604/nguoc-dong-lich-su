@@ -298,6 +298,10 @@ def sc_ranvo(im, t, dur, ctx, seg):
         ImageDraw.Draw(layer, 'RGBA').line(pts[:n], fill=RED + (230,), width=6)
     comp(im, layer)
 
+@scene('generic')
+def sc_generic(im, t, dur, ctx, seg):
+    big_title(im, t, seg.get('label', ''), y=700, size=120)
+
 @scene('end')
 def sc_end(im, t, dur, ctx, seg):
     av = ctx['full'].resize((460, 460), Image.LANCZOS)
@@ -390,12 +394,13 @@ def tick(sr, dur=0.035, f=1600):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('config'); ap.add_argument('--voice', help='model Piper .onnx (giọng tạm)'); ap.add_argument('--vbee', help='file MP3 Vbee đọc cả khối'); ap.add_argument('--out', required=True)
-    ap.add_argument('--style', default='slide', choices=['slide', 'map'], help='slide = chữ & đồ họa; map = bản đồ hoạt họa')
+    ap.add_argument('--style', default=None, choices=['slide', 'map'], help='slide = chữ & đồ họa; map = bản đồ hoạt họa')
     ap.add_argument('--cuts', type=float, nargs='*', help='điểm cắt (giây) giữa các câu, nếu tự động cắt sai')
     ap.add_argument('--length-scale', type=float, default=1.2); ap.add_argument('--work', default=None)
     ap.add_argument('--preview', type=float, nargs='*', help='chỉ xuất ảnh tĩnh tại các giây này')
     args = ap.parse_args()
     cfg = json.load(open(args.config, encoding='utf-8'))
+    args.style = args.style or cfg.get('style', 'map')
     work = args.work or os.path.splitext(args.out)[0] + '_work'; os.makedirs(work, exist_ok=True)
     segs = cfg['segments']; gap = cfg.get('gap', 0.35); intro = cfg.get('intro_seconds', 2.7)
 
@@ -433,11 +438,11 @@ def main():
 
     ring, mapl, full = avatar_layers()
     wm = with_alpha(Image.open(os.path.join(ROOT, 'assets/brand/watermark-trong-suot-vong.png')).convert('RGBA').resize((96, 96), Image.LANCZOS), 0.7)
-    ctx = dict(ring=ring, map=mapl, full=full, wm=wm, intro=intro, end_next=cfg.get('end_next', ''), part=cfg.get('part', ''))
+    ctx = dict(cfg=cfg, root=ROOT, ring=ring, map=mapl, full=full, wm=wm, intro=intro, end_next=cfg.get('end_next', ''), part=cfg.get('part', ''))
     bg = make_bg()
     if args.style == 'map':
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-        import scenes_map; scenes_map.register(sys.modules[__name__], ctx, work, segs, timeline)
+        import scenes_map2 as scenes_map; scenes_map.register(sys.modules[__name__], ctx, work, segs, timeline)
 
     def frame(T):
         z = 1.0 + 0.04 * ((T % 12) / 12)
@@ -450,7 +455,7 @@ def main():
         st, dur = timeline[idx]; seg = segs[idx]; tl = T - st
         fn = SCENES.get('map_' + seg['scene']) if args.style == 'map' else None
         if fn: im = fn(im, tl, dur + gap, ctx, seg, idx) or im
-        else: SCENES[seg['scene']](im, tl, dur + gap, ctx, seg)
+        else: SCENES.get(seg['scene'], SCENES['generic'])(im, tl, dur + gap, ctx, seg)
         sub = next((c for a, b, c in subs if a <= T < b), None)
         overlay_common(im, seg, sub, tl, ctx, show_label=seg['scene'] != 'chuky_hold')
         return im
