@@ -318,7 +318,7 @@ def read_wav(p):
         sr = w.getframerate(); a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
     return a, sr
 
-def split_vbee(mp3, segs, work, sr=44100):
+def split_vbee(mp3, segs, work, sr=44100, manual_cuts=None):
     """Cắt file giọng của cả khối thành từng câu theo khoảng lặng gần vị trí dự kiến (tỷ lệ số ký tự)."""
     wav = os.path.join(work, 'vbee.wav')
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', mp3, '-ac', '1', '-ar', str(sr), wav], check=True)
@@ -326,12 +326,35 @@ def split_vbee(mp3, segs, work, sr=44100):
     r = subprocess.run(['ffmpeg', '-i', wav, '-af', 'silencedetect=noise=-35dB:d=0.25', '-f', 'null', '-'], capture_output=True, text=True).stderr
     st = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', r)]; en = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', r)]
     total = len(a) / sr
-    sil = [((s0 + e0) / 2, e0 - s0) for s0, e0 in zip(st, en) if s0 > 0.05 and e0 < total - 0.1]; L = [len(s['sub']) for s in segs]; cum = np.cumsum(L) / sum(L)
-    K = len(segs) - 1; M = len(sil)
+    sil = [((s0 + e0) / 2, e0 - s0) for s0, e0 in zip(st, en) if s0 > 0.05 and e0 < total - 0.1]; L = [len(s.get('tts') or s['sub']) for s in segs]; cum = np.cumsum(L) / sum(L)
+    print('Khoảng lặng (giữa, độ dài):', [(round(m, 2), round(dd, 2)) for m, dd in sil])
+    K = len(segs) - 1
+    if manual_cuts:
+        if len(manual_cuts) != K: sys.exit(f'--cuts cần đúng {K} điểm cắt')
+        cuts = list(manual_cuts)
+    else:
+        cuts = auto_cuts(sil, K, total, segs)
+    edges = [0.0] + cuts + [total]; clips = []
+    for x0, x1 in zip(edges[:-1], edges[1:]):
+        seg = a[int(x0 * sr):int(x1 * sr)]
+        nz = np.where(np.abs(seg) > 0.01)[0]
+        seg = seg[max(0, nz[0] - int(0.05 * sr)):nz[-1] + int(0.08 * sr)] if len(nz) else seg
+        clips.append(seg)
+    print('Cắt Vbee tại (giây):', [round(c, 2) for c in cuts])
+    return clips, sr
+
+def auto_cuts(sil, K, total, segs):
+    L = [len(s.get('tts') or s['sub']) for s in segs]; cum = np.cumsum(L) / sum(L)
+    longp = [x for x in sil if x[1] >= 0.75]
+    if len(longp) >= K: sil = longp  # giọng có ngắt đoạn rõ: chỉ xét các khoảng lặng dài
+    M = len(sil)
     if M < K: sys.exit('Không đủ khoảng lặng để cắt câu – kiểm tra file Vbee (mỗi câu nên cách nhau ≥0,25s).')
-    targets = [c * total for c in cum[:-1]]
+    # so khớp trên 'thời gian có tiếng' (bỏ các khoảng lặng) để độ dài ngắt nghỉ không làm lệch tỷ lệ
+    sp_total = total - sum(dd for _, dd in sil); acc = 0.0; sp_pos = []
+    for m, dd in sil: sp_pos.append(m - acc - dd / 2); acc += dd
+    targets = [c * sp_total for c in cum[:-1]]
     # quy hoạch động: chọn K khoảng lặng theo thứ tự, gần vị trí dự kiến, ưu tiên khoảng lặng dài
-    cost = lambda k, i: ((sil[i][0] - targets[k]) / total) ** 2 * 50 - min(sil[i][1], 1.2)
+    cost = lambda k, i: ((sp_pos[i] - targets[k]) / sp_total) ** 2 * 400 - min(sil[i][1], 1.2)
     INF = 1e18; dp = [[INF] * M for _ in range(K)]; bk = [[-1] * M for _ in range(K)]
     for i in range(M): dp[0][i] = cost(0, i)
     for k in range(1, K):
@@ -342,14 +365,7 @@ def split_vbee(mp3, segs, work, sr=44100):
     i = min(range(M), key=lambda j: dp[K - 1][j]); idx = []
     for k in range(K - 1, -1, -1): idx.append(i); i = bk[k][i]
     cuts = [sil[j][0] for j in reversed(idx)]
-    edges = [0.0] + cuts + [total]; clips = []
-    for x0, x1 in zip(edges[:-1], edges[1:]):
-        seg = a[int(x0 * sr):int(x1 * sr)]
-        nz = np.where(np.abs(seg) > 0.01)[0]
-        seg = seg[max(0, nz[0] - int(0.05 * sr)):nz[-1] + int(0.08 * sr)] if len(nz) else seg
-        clips.append(seg)
-    print('Cắt Vbee tại (giây):', [round(c, 2) for c in cuts])
-    return clips, sr
+    return cuts
 
 def tick(sr, dur=0.035, f=1600):
     t = np.arange(int(sr * dur)) / sr; return 0.35 * np.sin(2 * np.pi * f * t) * np.exp(-t * 90)
@@ -357,6 +373,7 @@ def tick(sr, dur=0.035, f=1600):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('config'); ap.add_argument('--voice', help='model Piper .onnx (giọng tạm)'); ap.add_argument('--vbee', help='file MP3 Vbee đọc cả khối'); ap.add_argument('--out', required=True)
+    ap.add_argument('--cuts', type=float, nargs='*', help='điểm cắt (giây) giữa các câu, nếu tự động cắt sai')
     ap.add_argument('--length-scale', type=float, default=1.2); ap.add_argument('--work', default=None)
     ap.add_argument('--preview', type=float, nargs='*', help='chỉ xuất ảnh tĩnh tại các giây này')
     args = ap.parse_args()
@@ -367,7 +384,7 @@ def main():
     # 1) giọng
     clips = []
     if args.vbee:
-        clips, sr = split_vbee(args.vbee, segs, work)
+        clips, sr = split_vbee(args.vbee, segs, work, manual_cuts=args.cuts or cfg.get('vbee_cuts'))
     else:
         for i, s in enumerate(segs):
             p = os.path.join(work, f'v{i:02d}.wav')

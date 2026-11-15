@@ -26,7 +26,11 @@ python3 scripts/khoi/render.py scripts/khoi/e2_k1.json --voice <đường dẫn>
 ```bash
 python3 scripts/khoi/render.py scripts/khoi/e2_k1.json --vbee assets/e2/E2-K1-vbee.mp3 --out assets/e2/E2-K1.mp4
 ```
-Script tự cắt file MP3 thành từng câu theo khoảng lặng và in ra các điểm cắt. Số điểm cắt bằng số câu trừ 1. Cảnh và phụ đề tự khớp theo giọng thật.
+Script tự cắt file MP3 thành từng câu theo khoảng lặng, in ra danh sách khoảng lặng và các điểm cắt. Số điểm cắt bằng số câu trừ 1. Cảnh và phụ đề tự khớp theo giọng thật.
+
+**Nếu cắt sai:** Vbee hay ngắt dài ở dấu "…", nên thuật toán có thể nhầm. Xem danh sách khoảng lặng script in ra, chọn đúng các chỗ ngắt giữa các câu (thường dài khoảng 0,9 giây), rồi:
+- chạy lại với `--cuts 1.62 8.35 …`, hoặc
+- ghi vào khóa `"vbee_cuts"` trong file JSON để lần sau tự dùng. Khối 1 đã có sẵn khóa này.
 
 ## Xem trước nhanh
 Thêm `--preview 5 12 20` để xuất ảnh tĩnh tại các giây đó (vào thư mục `*_work/`) mà không phải render cả video.
