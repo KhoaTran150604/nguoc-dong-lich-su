@@ -47,6 +47,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc). Kho: **🔍 sơ bộ, chưa kiểm chứng**.
 - Mẫu kỹ thuật đã làm: `bando-dong-…` (bản đồ phẳng), `sabandong-…` (sa bàn), `bandoco-NgoQuyen-…` (bản đồ cổ + cờ tướng, dấu X khi thắng).
 - Checklist "Short đầu tiên" (23 việc): **đã xong 13** – chọn kênh, tên, tạo kênh, avatar/banner, mô tả, xác minh SĐT, prompt kịch bản, chọn giọng, chọn chủ đề, viết kịch bản, kiểm tra sơ bộ, tạo giọng. **Còn:** chốt persona (tên người kể), chọn cách làm hình, template CapCut 9:16, tạo 8 hình Flow, dựng, xem lại trên điện thoại, tiêu đề/mô tả, cài đặt khi đăng, đăng, đăng lại TikTok/Reels, đo chỉ số sau 48h.
+- **Phong cách video dài (16:9) đã chốt 16/11:** `docs/plan/phong-cach-video-dai.md`. Gồm tĩnh là mặc định, bản đồ 2 tầng, kể chi tiết có nguồn, và **thư viện 12 hiệu ứng H1–H12 đã duyệt**. Code ở `scripts/hieuung/demo.py` (mỗi hiệu ứng một hàm, render nháp 540p, cache theo clip; `--final` cho 1080p), demo ở `assets/hieuung/demo-hieuung-nhap.mp4`. Người dùng muốn sửa hiệu ứng nào sẽ gọi theo mã (vd "H3 …").
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
 
 ## 7. Việc tiếp theo (đề xuất theo thứ tự)

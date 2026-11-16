@@ -1,7 +1,7 @@
 # Phong cách video dài (16:9) – bản nháp chờ chốt
 
 > Rút ra sau khi xem Sử Lược (16/11/2026). Chỉ học **nguyên tắc**, không chép bản đồ, chân dung, khung thoại hay hiệu ứng riêng của họ.
-> Trạng thái: 🟡 nháp – người dùng duyệt từng mục rồi đổi thành ✅.
+> Trạng thái: mục 0 và 4 đã chốt (16/11/2026); mục 1–3, 5 là nguyên tắc đã thống nhất. Muốn sửa hiệu ứng nào thì sửa hàm cùng tên (H1…H12) trong `scripts/hieuung/demo.py`, render lại và cập nhật bảng.
 
 ## 0. Quy trình làm video (đã duyệt 16/11)
 - ✅ Chia theo cảnh + cache: sửa cảnh nào render lại cảnh đó.
@@ -32,13 +32,13 @@ Chuyển tầng: zoom vào điểm giao chiến → chuyển cảnh mờ sang b�
 ## 4. Thư viện hiệu ứng chuẩn (chốt một lần, dùng lại mãi)
 | # | Hành động | Hiệu ứng | Chốt |
 |---|---|---|---|
-| H1 | Hành quân bộ | Chỉ cờ trượt theo đường, không vẽ vệt | ✅ (sửa 16/11, chờ xem lại) |
-| H2 | Hành quân thủy | Thuyền gỗ buồm cánh dơi nhìn ngang, gợn sóng sau đuôi | ✅ (sửa 16/11, chờ xem lại) |
-| H3 | Giao chiến | Hai cờ áp sát → hai kiếm chém vào nhau (lóe sáng lúc chạm) + lửa bùng phía dưới. Hình vẽ riêng của kênh | ✅ (sửa 16/11, chờ xem lại) |
+| H1 | Hành quân bộ | Chỉ cờ trượt theo đường, không vẽ vệt | ✅ |
+| H2 | Hành quân thủy | Thuyền gỗ buồm cánh dơi nhìn ngang, gợn sóng sau đuôi | ✅ |
+| H3 | Giao chiến | Hai cờ áp sát → hai kiếm chém vào nhau (lóe sáng lúc chạm) + lửa bùng phía dưới. Hình vẽ riêng của kênh | ✅ |
 | H4 | Chiếm thành | Cờ phe thắng cắm lên ký hiệu thành, màu vùng loang dần sang màu phe thắng | ✅ |
 | H5 | Thắng trận | Dấu X đỏ vẽ từng nét lên cờ phe thua | ✅ |
 | H6 | Thua / rút chạy | Cờ nghiêng, lùi theo đường rút, mờ dần; không vẽ vệt | ✅ |
-| H7 | Phục binh | Nhiều cờ nhỏ lấp ló sau núi rừng, rồi cờ tướng hiện ra, viền sáng 1 lần | ✅ (sửa 16/11, chờ xem lại) |
+| H7 | Phục binh | Nhiều cờ nhỏ lấp ló sau núi rừng, rồi cờ tướng hiện ra, viền sáng 1 lần | ✅ |
 | H8 | Tướng tử trận | Cờ đổ, chân dung chuyển xám | ✅ |
 | H9 | Hỏa công | Lửa cháy lan dần qua từng thuyền | ✅ |
 | H10 | Thủy triều | Khung sa bàn nhỏ: nước lên cọc chìm, nước rút thuyền mắc cọc | ✅ |
