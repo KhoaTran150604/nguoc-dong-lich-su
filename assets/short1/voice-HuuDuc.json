@@ -1,0 +1,137 @@
+{
+ "voice": "huuduc",
+ "cfg": 2.0,
+ "speed": 1.0,
+ "seed": 7,
+ "duration": 45.195,
+ "lines": [
+  {
+   "i": 1,
+   "text": "Hàng nghìn cọc nhọn giấu dưới mặt sông…",
+   "start": 0.3,
+   "end": 2.379,
+   "score": 1.0,
+   "heard": "Hàng nghìn cọc nhọn dấu dưới mặt sông"
+  },
+  {
+   "i": 2,
+   "text": "…đã đổi vận mệnh cả dân tộc.",
+   "start": 2.629,
+   "end": 4.336,
+   "score": 1.0,
+   "heard": "Đã đổi vận mệnh cả dân tộc."
+  },
+  {
+   "i": 3,
+   "text": "Năm 938, quân Nam Hán do Lưu Hoằng Tháo chỉ huy,",
+   "start": 4.936,
+   "end": 8.589,
+   "score": 0.867,
+   "heard": "năm 938, quần Nam Hán do Lưu Hoàng Tháo chỉ huy"
+  },
+  {
+   "i": 4,
+   "text": "theo đường biển tiến vào nước ta.",
+   "start": 8.839,
+   "end": 10.616,
+   "score": 1.0,
+   "heard": "theo đường biển tiến vào nước ta."
+  },
+  {
+   "i": 5,
+   "text": "Ngô Quyền cho quân đẽo cọc gỗ, đầu bịt sắt,",
+   "start": 11.216,
+   "end": 13.693,
+   "score": 0.6,
+   "heard": "Nguồn quyền cho quân đéo Cọc Vũ đầu bịt sát."
+  },
+  {
+   "i": 6,
+   "text": "đóng ngầm ở cửa sông Bạch Đằng.",
+   "start": 13.943,
+   "end": 15.661,
+   "score": 0.857,
+   "heard": "đóng ngầm ở cửa sông Bạch Đặng"
+  },
+  {
+   "i": 7,
+   "text": "Nước triều lên, bãi cọc chìm hẳn.",
+   "start": 16.261,
+   "end": 18.344,
+   "score": 0.714,
+   "heard": "Nước chiều lên, mái cọc chìm hành."
+  },
+  {
+   "i": 8,
+   "text": "Thuyền nhẹ của ta ra khiêu chiến, rồi giả thua, nhử giặc vào sâu.",
+   "start": 18.594,
+   "end": 22.666,
+   "score": 0.786,
+   "heard": "Viện nhẹ của ta đã khiêu chiến, rồi giả thua, như giặc vào sâu."
+  },
+  {
+   "i": 9,
+   "text": "Nước triều rút. Hàng cọc nhô lên.",
+   "start": 23.266,
+   "end": 25.15,
+   "score": 0.857,
+   "heard": "Nước chiều rút hàng tọc nhô lên."
+  },
+  {
+   "i": 10,
+   "text": "Thuyền giặc to nặng đâm vào cọc, vỡ và đắm.",
+   "start": 25.4,
+   "end": 28.037,
+   "score": 0.9,
+   "heard": "Thuyền giặc to nặng đâm vào cọc vỡ và nắm."
+  },
+  {
+   "i": 11,
+   "text": "Hoằng Tháo tử trận.",
+   "start": 28.287,
+   "end": 29.647,
+   "score": 0.25,
+   "heard": "Hoàng tháo từ chợt"
+  },
+  {
+   "i": 12,
+   "text": "Kế ấy dựa vào hiểu biết con nước của chính người dân Bạch Đằng.",
+   "start": 30.247,
+   "end": 33.456,
+   "score": 0.929,
+   "heard": "Kế ấy dựa vào hiểu biết con nước của chính người dân bạch đẳng."
+  },
+  {
+   "i": 13,
+   "text": "Ba trăm năm mươi năm sau, Trần Hưng Đạo dùng lại đúng cách này.",
+   "start": 33.706,
+   "end": 36.916,
+   "score": 0.929,
+   "heard": "350 năm sau, Trần Hương Đạo dùng lại đúng cách này."
+  },
+  {
+   "i": 14,
+   "text": "Chiến thắng ấy khép lại hơn một nghìn năm Bắc thuộc.",
+   "start": 37.516,
+   "end": 40.017,
+   "score": 0.909,
+   "heard": "Kiến thắng ấy khép lại hơn 1.000 năm Bắc thuộc."
+  },
+  {
+   "i": 15,
+   "text": "Chặng sau: Sau Bạch Đằng, Ngô Quyền làm gì?",
+   "start": 40.617,
+   "end": 43.153,
+   "score": 0.667,
+   "heard": "Trạng sau sau bạch đẳng, ngu quyền làm gì?"
+  },
+  {
+   "i": 16,
+   "text": "Theo dõi để ngược dòng tiếp.",
+   "start": 43.403,
+   "end": 44.945,
+   "score": 1.0,
+   "heard": "Theo dõi để ngược dòng tiếp."
+  }
+ ]
+}

@@ -14,7 +14,7 @@
 | Tên kênh | **Ngược Dòng Sử Việt** |
 | Handle | `@nguocdongsuviet` đã có người dùng → người dùng chọn handle khác (hỏi lại để ghi) |
 | Chủ đề | Lịch sử Việt Nam theo dòng thời gian, kể **lùi** từ hiện tại về quá khứ |
-| Persona | Người kể giấu mặt. Giọng: **Vbee – "Anh Khôi nâng cao"** (nam, miền Bắc, giọng người lớn tuổi, đọc truyện; 2 điểm/ký tự) |
+| Persona | Người kể giấu mặt. Giọng: **ZeroTTS – `huuduc` (Hữu Đức)** chạy local, gần giọng cũ Vbee "Anh Khôi nâng cao" (nam, lớn tuổi, kể chuyện). Vbee giữ làm dự phòng. Skill `giong-doc` |
 | Nhận diện | Trống đồng Đông Sơn + bản đồ Việt Nam (có **Hoàng Sa, Trường Sa**) + vành chim Lạc bay **ngược chiều kim đồng hồ** = ngược dòng thời gian. Màu: đen mực `#14110F`, vàng đồng `#C9A24A`/`#F3D27A`, đỏ sơn mài `#B3261E`, kem `#F2E6CC`. Font: Playfair Display (tiêu đề), Be Vietnam Pro (chữ) |
 | Mô tả kênh | Đã dán (có dòng công khai dùng AI cho hình & giọng) |
 | Đã xong | Tạo kênh thương hiệu, xác minh SĐT, avatar, banner, watermark |
@@ -44,7 +44,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - YouTube: bật khai báo nội dung AI khi có cảnh/người trông như thật; tránh nội dung rập khuôn hàng loạt (rủi ro tắt kiếm tiền). Nhạc chỉ từ YouTube Audio Library / thư viện CapCut.
 
 ## 6. Trạng thái
-- **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc). Kho: **🔍 sơ bộ, chưa kiểm chứng**.
+- **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc, giọng Vbee). Giọng ZeroTTS: `assets/short1/voice-HuuDuc.mp3` + `.json` (lời đọc: `docs/shorts/01-loi-doc.txt`) – **chờ người dùng nghe duyệt**. Kho: **🔍 sơ bộ, chưa kiểm chứng**.
 - Mẫu kỹ thuật đã làm: `bando-dong-…` (bản đồ phẳng), `sabandong-…` (sa bàn), `bandoco-NgoQuyen-…` (bản đồ cổ + cờ tướng, dấu X khi thắng).
 - Checklist "Short đầu tiên" (23 việc): **đã xong 13** – chọn kênh, tên, tạo kênh, avatar/banner, mô tả, xác minh SĐT, prompt kịch bản, chọn giọng, chọn chủ đề, viết kịch bản, kiểm tra sơ bộ, tạo giọng. **Còn:** chốt persona (tên người kể), chọn cách làm hình, template CapCut 9:16, tạo 8 hình Flow, dựng, xem lại trên điện thoại, tiêu đề/mô tả, cài đặt khi đăng, đăng, đăng lại TikTok/Reels, đo chỉ số sau 48h.
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
@@ -58,12 +58,13 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 8. Cấu trúc thư mục
 ```
 CLAUDE.md                     ← file này
-.claude/skills/               ← 5 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, project-checklist, vn-ai-channel-research
+.claude/skills/               ← 6 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, giong-doc, project-checklist, vn-ai-channel-research
 docs/research/01–04           ← research kênh AI VN, YouTube, audio, format slideshow
 docs/plan/series-nguoc-dong.md← 38 mốc + cấu trúc tập
 docs/prompts/kich-ban-short.md← prompt kịch bản
 docs/shorts/01-bach-dang-938.md
 kb/                           ← kho tri thức (INDEX, nguon, draft/, nhan-vat/, dia-danh/)
+scripts/voice/tts.py          ← tạo giọng ZeroTTS + kiểm tra Whisper + mốc thời gian từng câu
 scripts/short/                ← dựng Short từ ảnh + phụ đề + giọng (scenes.py → caps.py → render.py)
 scripts/bando/anim.py         ← bản đồ phẳng động
 scripts/saban/sim.py          ← sa bàn mặt cắt
@@ -79,4 +80,4 @@ assets/short1/                ← giọng đọc + các video mẫu
 - Cài font: copy `fonts/*.ttf` vào thư mục font hệ thống (`~/.fonts` hoặc `~/Library/Fonts`) rồi `fc-cache -f` (Linux).
 - **Script là bản mẫu viết nhanh trong chat**: đường dẫn dữ liệu đã đổi sang tương đối (`data/`, `fonts/`) nhưng thư mục làm việc/đầu ra (`png/`, `clips/`, `frames/`) cần chạy từ đúng thư mục hoặc chỉnh lại. Nên refactor thành một package có CLI khi làm bộ công cụ (việc 7.3).
 - Video: 1080×1920, 30fps, H.264 `-crf 20 -preset veryfast`, mỗi cảnh một file rồi nối bằng concat; ghép giọng bằng `-c:v copy`.
-- Giọng đọc Vbee: tạo trên studio.vbee.vn, tải MP3 về rồi đặt vào `assets/`; căn cảnh theo khoảng lặng (`ffmpeg -af silencedetect=noise=-35dB:d=0.25`).
+- Giọng đọc: `pip install zerotts faster-whisper`, `export HF_HUB_DISABLE_XET=1`, rồi `python scripts/voice/tts.py <loi-doc.txt> -o <out> --check` (xem skill `giong-doc`); file `.json` đi kèm cho mốc thời gian từng câu. Dự phòng Vbee: studio.vbee.vn, căn cảnh bằng `ffmpeg -af silencedetect=noise=-35dB:d=0.25`.

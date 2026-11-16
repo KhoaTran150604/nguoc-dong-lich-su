@@ -4,7 +4,7 @@ _Kênh: Ngược Dòng Sử Việt · Độ dài: ~52 giây · Khung 9:16_
 
 ## 1. Kịch bản (đọc cho giọng AI)
 
-> Dán nguyên phần dưới vào Vbee / ElevenLabs. Dấu "…" và dấu chấm giúp giọng AI ngắt nghỉ.
+> Bản chia câu để tạo giọng bằng ZeroTTS: `docs/shorts/01-loi-doc.txt` (skill `giong-doc`). Nếu dùng Vbee: dán nguyên phần dưới. Dấu "…" và dấu chấm giúp giọng AI ngắt nghỉ.
 
 Hàng nghìn cọc nhọn giấu dưới mặt sông… đã đổi vận mệnh cả dân tộc.
 
