@@ -466,7 +466,7 @@ def main():
 
     n = int(total * FPS)
     p = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
-                          '-i', wav, '-c:v', 'libx264', '-crf', '20', '-preset', 'veryfast', '-pix_fmt', 'yuv420p',
+                          '-i', wav, '-c:v', 'libx264', '-crf', '16', '-preset', 'medium', '-b:v', '8M', '-minrate', '6M', '-maxrate', '12M', '-bufsize', '16M', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
                           '-c:a', 'aac', '-b:a', '160k', '-ar', '48000', '-shortest', args.out], stdin=subprocess.PIPE)
     for f in range(n):
         p.stdin.write(frame(f / FPS).convert('RGB').tobytes())
