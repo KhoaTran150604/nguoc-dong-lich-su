@@ -33,7 +33,7 @@ _Trạng thái: ✅ dữ kiện đã kiểm chứng – hồ sơ `kb/E2-bach-dan
 | s08 | VÙNG: H4 vùng Quảng Châu đổi màu, nhãn NAM HÁN | Cũng thời ấy, ở Quảng Châu phía bắc, năm 917, Lưu Nham xưng đế, ít lâu sau đặt quốc hiệu là Hán. Sử ta quen gọi là Nam Hán. Từ đây, Giao Châu có một người láng giềng đầy tham vọng. | F1 ⚠️ |
 | s09 | VÙNG: H1 cờ Nam Hán tiến xuống; H4 chiếm thành | Nam Hán sai tướng đem quân đánh Giao Châu, bắt Khúc Thừa Mỹ, người đứng đầu họ Khúc khi ấy, đem về nước. Giao Châu rơi vào tay Nam Hán. | F3 ⚠️ |
 | s10 | VÙNG: chấm Ái Châu, nhãn "nay là Thanh Hóa" | Nhưng ở Ái Châu, vùng Thanh Hóa ngày nay, có một người không chịu khuất phục. Ông tên là Dương Đình Nghệ. | F4 |
-| s11 | VÙNG: H7 nhiều cờ nhỏ quanh Ái Châu | Sử chép, năm 931, Dương Đình Nghệ nuôi ba nghìn con nuôi, ngày đêm toan tính việc khôi phục. | F4 |
+| s11 | VÙNG: H7 nhiều cờ nhỏ quanh Ái Châu | Sử chép, năm 931, Dương Đình Nghệ nuôi ba nghìn con nuôi, toan tính việc khôi phục. | F4 |
 | s12 | VÙNG: H1 cờ Dương Đình Nghệ tiến ra thành Đại La (nhãn "thành Giao Châu") | Ông cất quân vây thành, đuổi được viên quan cai trị của Nam Hán. Nam Hán vội sai quân sang cứu. | F4 |
 | s13 | VÙNG: H3 → H8 cờ tướng Nam Hán đổ | Viện binh chưa tới thì thành đã mất. Tướng Nam Hán đến vây lại, Dương Đình Nghệ ra đánh. Tướng giặc thua trận mà chết. | F4 |
 | s14 | VÙNG: H4 thành đổi màu vàng, cờ Dương Đình Nghệ | Từ đó, Dương Đình Nghệ tự xưng Tiết độ sứ, nắm việc cai quản Giao Châu. | F4 |
@@ -70,8 +70,8 @@ _Trạng thái: ✅ dữ kiện đã kiểm chứng – hồ sơ `kb/E2-bach-dan
 | s30 | VÙNG: H5 trên cờ Kiều Công Tiễn | Khi đoàn thuyền của ông còn đang trên biển, Ngô Quyền đã giết Kiều Công Tiễn, làm chủ Giao Châu. Hoằng Tháo vượt biển sang để cứu một người đã không còn nữa. | F15 |
 | s31 | H12 khung trích – nguồn: Đại Việt sử ký toàn thư | Theo Đại Việt sử ký toàn thư, nghe tin Hoằng Tháo sắp tới, Ngô Quyền bảo các tướng, đại ý rằng: "Hoằng Tháo chỉ là đứa trẻ khờ. Quân từ xa tới, lính tráng mệt mỏi. Lại nghe Công Tiễn đã chết, không có người làm nội ứng, khí thế đã nhụt trước rồi. Ta lấy quân khỏe đợi quân mệt, tất phá được." | F16 ⚠️ |
 | s32 | H12 tiếp | Nhưng ông không coi thường đối thủ: "Nó lợi vì có thuyền. Không phòng trước thì chưa biết được thua." | F16 |
-| s33 | SA BÀN: cọc được dựng xuống lòng sông ở cửa biển | Kế của Ngô Quyền là sai người cắm ngầm những cọc lớn ở cửa biển, đầu vót nhọn, bịt sắt. Thuyền giặc theo nước triều lên mà vào bên trong hàng cọc, thì ta dễ đánh. Mưu đã định, cọc được cắm ở cửa biển. | F16, F17 |
-| s34 | SA BÀN: H10 nước lên → nước xuống | Mà con nước ở đây chênh lệch rất lớn. Ngày nay, đo đạc cho thấy vùng biển này mỗi ngày thường chỉ một lần nước lên, một lần nước xuống, mực nước có lúc chênh hơn bốn mét. Nước lên, cọc chìm hẳn. Nước rút, cọc nhô lên. | F31 🔍 (nếu chưa kiểm chứng được: bỏ câu giữa, giữ câu cuối) |
+| s33 | SA BÀN: cọc được dựng xuống lòng sông ở cửa biển | Kế của Ngô Quyền là sai người cắm ngầm những cọc lớn ở cửa biển, đầu vót nhọn, bịt sắt. Thuyền giặc theo nước triều lên mà vào bên trong hàng cọc, thì ta dễ đánh. Mưu đã định, cọc được cắm xuống. | F16, F17 |
+| s34 | SA BÀN: H10 nước lên → nước xuống | Nước lên, cọc chìm hẳn. Nước rút, cọc nhô lên. | (F31 chưa kiểm chứng → bỏ số liệu) |
 
 ## 5. CAO TRÀO – Một con nước
 
