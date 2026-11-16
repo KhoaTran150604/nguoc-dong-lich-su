@@ -1,36 +1,33 @@
-# Đoạn thử 1 phút – cao trào E2 Bạch Đằng 938 (cảnh s35–s46 của docs/long/E2-bach-dang-938.md)
-# Mỗi dòng = một câu phụ đề. Dòng trống = hết đoạn.
+# Đoạn thử – cao trào E2 Bạch Đằng 938 (cảnh s35–s46 của docs/long/E2-bach-dang-938.md)
+# Mỗi dòng = một câu. Dòng trống = hết đoạn. "# sNN" = câu bên dưới thuộc cảnh sNN.
+# "# lặng 2" = chèn 2 giây lặng (cả hình lẫn tiếng) trước câu kế tiếp.
 # s35
-Bước thứ nhất: nước triều lên.
-Bãi cọc chìm sâu dưới mặt sông.
+Nước triều đang lên.
+Cả bãi cọc chìm sâu dưới mặt sông.
 
 # s36
-Khi ấy, Ngô Quyền sai thuyền nhẹ ra khiêu chiến.
+Đúng lúc ấy, Ngô Quyền sai những chiếc thuyền nhẹ ra khiêu chiến.
 # s37
 Hai bên vừa giáp mặt,
 # s38
-thuyền ta liền quay đầu, giả vờ thua chạy.
+thuyền ta đã quay đầu, giả vờ thua chạy.
 
 # s39
-Hoằng Tháo đuổi theo.
-Đoàn chiến thuyền tiến sâu vào trong.
-Bước thứ hai đã xong:
-giặc đã ở bên trong hàng cọc.
+Quả nhiên, Hoằng Tháo dẫn cả đoàn chiến thuyền đuổi theo.
+Những con thuyền lớn vượt qua hàng cọc ngầm,
+tiến sâu vào trong sông.
 
-# s40 (lặng 2 giây – chèn khi dựng) / s41
-Và rồi, bước thứ ba,
-bước mà Ngô Quyền chờ đợi.
-Theo lời sử chép, chỉ trong chốc lát,
-nước triều rút xuống rất nhanh.
-Những mũi cọc bịt sắt
-lần lượt nhô lên khỏi mặt nước.
+# lặng 2
+# s41
+Rồi nước triều bắt đầu rút.
+Sử chép rằng nước rút rất nhanh, chỉ trong chốc lát.
+Từng mũi cọc bịt sắt lần lượt nhô lên khỏi mặt nước.
 
 # s42
-Lúc ấy, Ngô Quyền mới tung quân tiến đánh.
+Lúc ấy, Ngô Quyền mới tung quân ra đánh.
 # s43
-Thuyền Nam Hán muốn quay ra biển.
-Nhưng thuyền vướng vào cọc sắt,
-không sao quay ra được.
+Thuyền Nam Hán quay đầu muốn chạy ra biển,
+nhưng thuyền vướng vào cọc sắt, không sao quay ra được.
 # s44
 Thuyền vỡ, thuyền đắm.
 Quân Nam Hán tan vỡ, quá nửa chết đuối.

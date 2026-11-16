@@ -7,6 +7,8 @@ _Trạng thái: 🟡 chờ kết quả kiểm chứng của agent cho `kb/draft/
 
 **Sửa so với nháp 1 (theo góp ý của agent `gop-y-kich-ban`, 19/30):** bỏ hiệu ứng lửa H9 (sử không chép có lửa); phần móc kết bằng câu hỏi, gọi tên Ngô Quyền sớm; mỗi cảnh tối đa ~2 tên mới, chức danh được giải nghĩa; đoạn thủy triều dời lên phần chuẩn bị; cao trào có đủ Bước 1–2–3; thống nhất vị trí cọc theo đúng chữ sử chép; bỏ phục binh hai bên bờ; gộp phần "vì sao thắng"; kết quay lại câu hỏi ở phần móc.
 
+**Quyết định 16/11 (sau bản thử):** không phụ đề, không nhãn chữ trên hình; cao trào kể liền mạch, không chia "bước"; bản đồ trận lùi xa, chi tiết hơn.
+
 **Ký hiệu cảnh:** VÙNG = bản đồ vùng · TRẬN = bản đồ trận (cận cảnh cửa sông) · SA BÀN = mặt cắt thủy triều · ẢNH = ảnh AI sơn mài (tùy chọn)
 **Hiệu ứng:** H1–H12 theo `docs/plan/phong-cach-video-dai.md`
 
@@ -73,22 +75,22 @@ _Trạng thái: 🟡 chờ kết quả kiểm chứng của agent cho `kb/draft/
 
 ## 5. CAO TRÀO – Một con nước
 
-> Nhịp chậm nhất của video. Mỗi bước một cảnh, chừa khoảng lặng. Chỉ kể đúng những gì sử chép.
+> Nhịp chậm nhất của video, kể liền mạch (không chia "bước"). Mọi hình diễn ra trên **bản đồ trận** (`scripts/video/bando_tran.py`), không phụ đề, không nhãn. Lời đọc bản thử: `docs/videos/E2-thu-caotrao-loi-doc.txt`.
 
 | Cảnh | Hình | Lời đọc | Dữ kiện |
 |---|---|---|---|
-| s35 | TRẬN: cửa sông, nước đang dâng, cọc mờ dưới nước | Bước thứ nhất: nước triều lên. Bãi cọc chìm sâu dưới mặt sông. | F17, F18 |
-| s36 | TRẬN: H2 vài thuyền nhẹ của ta tiến ra | Ngô Quyền sai thuyền nhẹ ra khiêu chiến. | F18 |
-| s37 | TRẬN: H3 chạm trán ngắn | Hai bên vừa giáp mặt… | F18 |
-| s38 | TRẬN: H6 thuyền ta quay đầu | …thuyền ta liền quay đầu, giả vờ thua chạy. | F18 |
-| s39 | TRẬN: H2 đoàn chiến thuyền Nam Hán đuổi theo, vượt qua vùng cọc | Hoằng Tháo đuổi theo. Đoàn chiến thuyền tiến sâu vào trong. Bước thứ hai đã xong: giặc đã ở bên trong hàng cọc. | F19 |
-| s40 | SA BÀN: im lặng 2 giây, mực nước bắt đầu hạ | *(lặng 2 giây)* | |
-| s41 | SA BÀN: H10 nước rút nhanh, mũi cọc nhô dần | Và rồi, bước thứ ba, bước mà Ngô Quyền chờ đợi. Theo lời sử chép, chỉ trong chốc lát, nước triều rút xuống rất nhanh. Những mũi cọc bịt sắt lần lượt nhô lên khỏi mặt nước. | F19 |
-| s42 | TRẬN: H1 cờ quân ta tiến ra | Lúc ấy, Ngô Quyền mới tung quân tiến đánh. | F19 |
-| s43 | TRẬN: H3 giao chiến nhiều điểm | Thuyền Nam Hán muốn quay ra biển. Nhưng thuyền vướng vào cọc sắt, không sao quay ra được. | F20 |
-| s44 | TRẬN: H10 (bản đồ trận) thuyền nghiêng, chìm dần – không có lửa | Thuyền vỡ, thuyền đắm. Quân Nam Hán tan vỡ, quá nửa chết đuối. | F20 |
-| s45 | TRẬN: H8 cờ Hoằng Tháo đổ, H5 | Hoằng Tháo, người được phong làm vua đất Giao, tử trận ngay trên sông Bạch Đằng. | F21 ⚠️ |
-| s46 | VÙNG: Hải Môn, H6 cờ Lưu Cung rút | Ở Hải Môn, Lưu Cung nghe tin, khóc thảm thiết, thu nhặt chỗ quân còn lại mà rút về. | F22 |
+| s35 | Nước dâng dần, bãi cọc chìm | Nước triều đang lên. Cả bãi cọc chìm sâu dưới mặt sông. | F17, F18 |
+| s36 | Thuyền nhẹ của ta tiến ra cửa sông | Đúng lúc ấy, Ngô Quyền sai những chiếc thuyền nhẹ ra khiêu chiến. | F18 |
+| s37 | H3 chạm trán ngắn | Hai bên vừa giáp mặt, | F18 |
+| s38 | Thuyền ta quay đầu | thuyền ta đã quay đầu, giả vờ thua chạy. | F18 |
+| s39 | Đoàn chiến thuyền Nam Hán đuổi theo, vượt qua vùng cọc | Quả nhiên, Hoằng Tháo dẫn cả đoàn chiến thuyền đuổi theo. Những con thuyền lớn vượt qua hàng cọc ngầm, tiến sâu vào trong sông. | F19 |
+| s40 | Lặng 2 giây, nước bắt đầu hạ | *(lặng)* | |
+| s41 | Nước rút ngay trên bản đồ, cọc nhô lên tại chỗ, thuyền vẫn chạy | Rồi nước triều bắt đầu rút. Sử chép rằng nước rút rất nhanh, chỉ trong chốc lát. Từng mũi cọc bịt sắt lần lượt nhô lên khỏi mặt nước. | F19 |
+| s42 | Cờ quân ta tiến dọc hai bờ, thuyền ta quay lại | Lúc ấy, Ngô Quyền mới tung quân ra đánh. | F19 |
+| s43 | Thuyền giặc quay ra, mắc cọc; H3 giao chiến | Thuyền Nam Hán quay đầu muốn chạy ra biển, nhưng thuyền vướng vào cọc sắt, không sao quay ra được. | F20 |
+| s44 | Thuyền nghiêng, chìm dần (không lửa) | Thuyền vỡ, thuyền đắm. Quân Nam Hán tan vỡ, quá nửa chết đuối. | F20 |
+| s45 | H8 cờ Hoằng Tháo đổ | Hoằng Tháo, người được phong làm vua đất Giao, tử trận ngay trên sông Bạch Đằng. | F21 ⚠️ |
+| s46 | Bản đồ vùng, Hải Môn (minh họa), H6 cờ Lưu Cung rút | Ở Hải Môn, Lưu Cung nghe tin, khóc thảm thiết, thu nhặt chỗ quân còn lại mà rút về. | F22 |
 
 ## 6. Vì sao thắng
 
