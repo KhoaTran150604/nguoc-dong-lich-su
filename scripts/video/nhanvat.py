@@ -12,12 +12,12 @@ DIR = os.path.join(ROOT, 'assets', 'nhanvat')
 
 # Mô tả vẽ tạm: màu nền, mũ, râu, áo, tuổi
 NHANVAT = {
-    'ngo-quyen':   dict(bg=('#5A3A10', '#C9A24A'), hat='khan', beard='ria', robe='#6A4A1E', trim='#C9A24A', age='trung'),
-    'hoang-thao':  dict(bg=('#4A1410', '#A8382A'), hat='mao',  beard='none', robe='#7A1E18', trim='#E0B060', age='tre'),
-    'luu-cung':    dict(bg=('#3A0E0A', '#8E2A20'), hat='mien', beard='dai', robe='#5A1410', trim='#E8C060', age='gia'),
-    'quan-ta':     dict(bg=('#5A3A10', '#C9A24A'), hat='non',  beard='none', robe='#5A4630', trim='#A88A50', age='tre'),
+    'ngo-quyen':   dict(bg=('#5A3A10', '#C9A24A'), hat='tru',  beard='ria', robe='#6A4A1E', trim='#C9A24A', age='trung', face='dung', armor=True),
+    'hoang-thao':  dict(bg=('#4A1410', '#A8382A'), hat='mao',  beard='ria', robe='#7A1E18', trim='#E0B060', age='tre', face='du', armor=True),
+    'luu-cung':    dict(bg=('#3A0E0A', '#8E2A20'), hat='mien', beard='dai', robe='#5A1410', trim='#E8C060', age='gia', face='du'),
+    'quan-ta':     dict(bg=('#5A3A10', '#C9A24A'), hat='non',  beard='none', robe='#5A4630', trim='#A88A50', age='tre', face='dung'),
     'duong-dinh-nghe': dict(bg=('#5A3A10', '#C9A24A'), hat='khan', beard='dai', robe='#4E3A1E', trim='#C9A24A', age='gia'),
-    'kieu-cong-tien':  dict(bg=('#2E2A26', '#6A5E50'), hat='khan', beard='ria', robe='#3A342E', trim='#8A7A60', age='trung'),
+    'kieu-cong-tien':  dict(bg=('#2E2A26', '#6A5E50'), hat='khan', beard='ria', robe='#3A342E', trim='#8A7A60', age='trung', face='du'),
 }
 
 def _vector_svg(c, w=270, h=300):
@@ -34,11 +34,28 @@ def _vector_svg(c, w=270, h=300):
          f'<rect x="39" y="56" width="12" height="14" fill="{skin}"/>',
          f'<ellipse cx="45" cy="44" rx="15" ry="18" fill="{skin}" stroke="#5A3A20" stroke-width="0.8"/>',
          f'<ellipse cx="30" cy="45" rx="2.4" ry="4" fill="{skin}"/><ellipse cx="60" cy="45" rx="2.4" ry="4" fill="{skin}"/>',
-         # mắt, mày, mũi, miệng
-         '<path d="M36,40 q3,-2 6,0" stroke="#1E120A" stroke-width="1.1" fill="none"/><path d="M48,40 q3,-2 6,0" stroke="#1E120A" stroke-width="1.1" fill="none"/>',
-         '<path d="M35,36 l7,-1.5" stroke="#1E120A" stroke-width="1.6"/><path d="M55,36 l-7,-1.5" stroke="#1E120A" stroke-width="1.6"/>',
-         '<path d="M45,42 l-1.6,7 l3,0" stroke="#8A5A3A" stroke-width="0.8" fill="none"/>',
-         '<path d="M41,54 q4,1.5 8,0" stroke="#7A3A2A" stroke-width="1" fill="none"/>']
+         '<path d="M45,42 l-1.6,7 l3,0" stroke="#8A5A3A" stroke-width="0.8" fill="none"/>']
+    face = c.get('face', 'hien')
+    if face == 'hien':
+        o += ['<path d="M36,40 q3,-2 6,0" stroke="#1E120A" stroke-width="1.1" fill="none"/><path d="M48,40 q3,-2 6,0" stroke="#1E120A" stroke-width="1.1" fill="none"/>',
+              '<path d="M35,36 l7,-1.5" stroke="#1E120A" stroke-width="1.6"/><path d="M55,36 l-7,-1.5" stroke="#1E120A" stroke-width="1.6"/>',
+              '<path d="M41,54 q4,1.5 8,0" stroke="#7A3A2A" stroke-width="1" fill="none"/>']
+    else:
+        fierce = face == 'du'
+        # mắt: lòng trắng + con ngươi, mí trên kẻ đậm và xếch
+        for ex, sgn in ((39, -1), (51, 1)):
+            o.append(f'<path d="M{ex-4},41 Q{ex},{38.6 if fierce else 38.2} {ex+4},41 Q{ex},42.6 {ex-4},41 Z" fill="#F2E6CC" stroke="#1E120A" stroke-width="0.9"/>')
+            o.append(f'<circle cx="{ex + (0.6 if fierce else 0)*sgn*-1:.1f}" cy="40.9" r="1.3" fill="#1E120A"/>')
+            o.append(f'<path d="M{ex-4.4},{40.6 if fierce else 40.2} L{ex+4.4},{39.4 if sgn>0 else 41.6}" stroke="#1E120A" stroke-width="1.1" transform="scale(1 1)"/>' if False else '')
+        if fierce:   # mày cau dựng ngược, nếp nhăn giữa trán, miệng trễ xuống
+            o += ['<path d="M33,34 L43,38.4 L42.4,39.6 L33,36 Z" fill="#1E120A"/><path d="M57,34 L47,38.4 L47.6,39.6 L57,36 Z" fill="#1E120A"/>',
+                  '<path d="M44,33 l0.4,4 M46,33 l-0.4,4" stroke="#8A5A3A" stroke-width="0.6"/>',
+                  '<path d="M40,55.5 q5,-2.6 10,0" stroke="#5A1A12" stroke-width="1.3" fill="none"/>',
+                  '<path d="M36,47 q2,2 4,2.4 M54,47 q-2,2 -4,2.4" stroke="#8A5A3A" stroke-width="0.6" fill="none"/>']
+        else:        # dũng mãnh: mày rậm thẳng hơi xếch, miệng mím chặt, cằm vuông
+            o += ['<path d="M33.5,36 L43,37.6 L43,39.2 L33.5,38 Z" fill="#1E120A"/><path d="M56.5,36 L47,37.6 L47,39.2 L56.5,38 Z" fill="#1E120A"/>',
+                  '<path d="M40.5,54.4 h9" stroke="#5A1A12" stroke-width="1.4"/>',
+                  '<path d="M33,52 Q36,61 45,62 Q54,61 57,52" stroke="#8A5A3A" stroke-width="0.7" fill="none"/>']
     if c['beard'] == 'ria':
         o.append('<path d="M38,52 q7,-3 14,0" stroke="#1E120A" stroke-width="1.6" fill="none"/><path d="M43,57 l2,6 l2,-6" fill="#1E120A"/>')
     if c['beard'] == 'dai':
@@ -53,8 +70,17 @@ def _vector_svg(c, w=270, h=300):
     elif hat == 'mien':    # mũ vua có tua (minh họa)
         o.append(f'<path d="M30,33 Q31,18 45,16 Q59,18 60,33 Z" fill="#1E120A"/><rect x="26" y="12" width="38" height="4" fill="{c["trim"]}" stroke="#1E120A" stroke-width="0.6"/>')
         o.append(''.join(f'<line x1="{x}" y1="16" x2="{x}" y2="25" stroke="{c["trim"]}" stroke-width="0.8"/>' for x in (30, 35, 55, 60)))
+    elif hat == 'tru':     # mũ trụ của tướng: chóp nhọn, chùm tua đỏ, vành che tai (minh họa)
+        o.append(f'<path d="M27,40 Q27,16 45,13 Q63,16 63,40 L58,40 Q57,25 45,24 Q33,25 32,40 Z" fill="#8A6A2A" stroke="#1E120A" stroke-width="1"/>')
+        o.append(f'<path d="M30,26 Q45,18 60,26" stroke="{c["trim"]}" stroke-width="1.6" fill="none"/><path d="M33,32 Q45,26 57,32" stroke="#F3D27A" stroke-width="0.8" fill="none"/>')
+        o.append(f'<path d="M42,14 L45,4 L48,14 Z" fill="{c["trim"]}" stroke="#1E120A" stroke-width="0.6"/><path d="M45,6 Q39,0 37,6 Q41,3 45,8 Q49,3 53,6 Q51,0 45,6 Z" fill="#B3261E"/>')
+        o.append('<circle cx="45" cy="21" r="2.2" fill="#B3261E" stroke="#F3D27A" stroke-width="0.6"/>')
+        o.append(f'<path d="M27,40 L25,52 L31,50 L32,40 Z M63,40 L65,52 L59,50 L58,40 Z" fill="#7A5A24" stroke="#1E120A" stroke-width="0.8"/>')
     elif hat == 'non':     # nón lính
         o.append('<path d="M24,32 L45,16 L66,32 Z" fill="#7A5A30" stroke="#1E120A" stroke-width="1"/><line x1="45" y1="16" x2="45" y2="12" stroke="#1E120A" stroke-width="1.2"/>')
+    if c.get('armor'):     # giáp vai + giáp ngực vảy
+        o.append(f'<path d="M10,100 Q10,78 26,70 Q33,74 34,82 Q22,84 16,100 Z M80,100 Q80,78 64,70 Q57,74 56,82 Q68,84 74,100 Z" fill="#7A5A24" stroke="#1E120A" stroke-width="0.9"/>')
+        o.append(''.join(f'<path d="M{x},{y} q3,3 6,0" stroke="#F3D27A" stroke-width="0.6" fill="none"/>' for y in (86, 91, 96) for x in range(34, 56, 6)))
     o.append('</svg>')
     return ''.join(o)
 
