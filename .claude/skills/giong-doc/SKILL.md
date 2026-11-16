@@ -45,4 +45,5 @@ export HF_HUB_DISABLE_XET=1   # proxy/mạng chặn Xet → tải weights qua HT
 - Độ rõ toàn bài (Whisper chấm, bỏ qua tr/ch, d/gi/r, s/x): **Vbee 0,94 – ZeroTTS 0,92**.
 - Hay méo: **"Ngô Quyền"** (→ "Ngu/Ngụ quyền"), "cọc" (→ "tọc"), đôi khi thêm chữ ở cuối câu ngắn ("tiếp" → "tiếp tục").
 - Whisper cũng nghe nhầm: "Hoằng" → "Hoàng", "giấu" → "dấu", "Bạch Đằng" → "Bạch Đẳng" ngay cả với giọng Vbee → điểm "XEM" không chắc là lỗi, **luôn để người nghe quyết**.
+- 16/11: người dùng nghe thấy **Anh Khôi (Vbee) ấm và hay hơn Hữu Đức**. Đang thử bản làm ấm (`assets/short1/thu-giong/`, lọc `bass=g=4:f=140,equalizer=f=3500:t=q:w=1.2:g=-3,deesser,aecho=0.8:0.6:40:0.12` + `--speed 0.94`). Chưa chốt thì **Vbee vẫn là giọng chính**, ZeroTTS dùng cho bản nháp/căn thời gian.
 - Vbee vẫn là phương án dự phòng cho tập quan trọng hoặc câu ZeroTTS không đọc được.
