@@ -9,11 +9,13 @@ Chạy trong thư mục làm việc có map_big.png (từ scripts/bandoco/build.
 Bản đồ trận là MINH HỌA: vị trí cọc, luồng sông, số thuyền không theo tỉ lệ thật.
 """
 import hashlib, io, json, math, os, re, subprocess, sys
+import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'hieuung')); sys.path.insert(0, HERE)
 import demo as L                    # thư viện hiệu ứng H1–H12 đã duyệt
 import bando_tran as BT             # bản đồ trận cửa sông
 import nhanvat as NV                # chân dung nhân vật trên cờ
+import amthanh as AT                # âm thanh hiệu ứng
 import cairosvg
 from PIL import Image
 
@@ -120,12 +122,12 @@ def s42(tl, d):
     return o
 
 def s43(tl, d):
-    o = tide(0) + stakes(1) + fleet(lerp(0.40, 0.62, seg(tl, 0, 1.6)), stuck=seg(tl, 1.4, 1.8), t=tl, facing=0)
+    o = tide(0) + stakes(1) + fleet(lerp(0.40, 0.62, seg(tl, 0, d*0.35)), stuck=seg(tl, d*0.3, d*0.4), t=tl, facing=0)
     o += light_boats(lerp(0.30, 0.50, seg(tl, 0, 2.0)), 0)
     for j, (uu, dy) in enumerate([(0.42, 34), (0.52, -40)]):
         x, y = on_river(uu); o += flag(x, y + dy*U, 'NGÔ QUYỀN' if j == 0 else 'QUÂN TA', TA)
     for k, uu in enumerate([0.64, 0.70, 0.75]):
-        x, y = on_river(uu); o += clash(x, y - 12*U, tl - 0.8 - 0.5*k)
+        x, y = on_river(uu); o += clash(x, y - 12*U, tl - d*0.25 - d*0.15*k)
     return o
 
 def s44(tl, d):
@@ -135,24 +137,39 @@ def s45(tl, d):
     x, y = on_river(0.68); fall = seg(tl, 0.6, 1.8)
     return tide(0) + stakes(1) + fleet(0.62, sink=1, facing=0, leader=False) + light_boats(0.52, 0) + flag(x, y - 4*U, 'HOẰNG THÁO', DICH, 0.32, tilt=80*fall, grey=seg(tl, 1.4, 2.6))
 
-def s46(tl, d):          # bản đồ vùng quanh Quảng Châu; Hải Môn chỉ là vị trí minh họa
+def s46(tl, d):          # bản đồ vùng quanh Quảng Châu; vị trí Hải Môn là minh họa (ghi ở mô tả video)
     STATE['region'] = True
     x, y = W*0.62, H*0.42; u = seg(tl, 0.8, d)
     return (flag(lerp(x, x + 120*U, u), lerp(y + 70*U, y - 40*U, u), 'LƯU CUNG', DICH, 0.42, tilt=-15*seg(tl, 0.2, 0.8), op=1 - 0.7*seg(tl, d*0.5, d))
-            + f'<text x="{x:.0f}" y="{y+100*U:.0f}" font-family="Playfair Display" font-weight="800" font-size="{20*U:.0f}" fill="#2A1A10" text-anchor="middle">Hải Môn (vị trí minh họa)</text>')
+            + f'<text x="{x:.0f}" y="{y+100*U:.0f}" font-family="Playfair Display" font-weight="800" font-size="{20*U:.0f}" fill="#2A1A10" text-anchor="middle">Hải Môn</text>')
 
 SCENE_FN = {k: v for k, v in globals().items() if re.fullmatch(r's\d\d', k)}
+
+# Âm thanh theo cảnh: (giây trong cảnh, tên, độ lớn, độ dài với âm dài)
+def SFX(code, d):
+    if code == 's37': return [(0.1, 'lua', 0.45, d - 0.1), (0.6, 'kiem', 0.9, None), (1.1, 'kiem', 0.7, None), (1.7, 'kiem', 0.8, None)]
+    if code == 's41': return [(0.15 * d, 'rut', 0.8, None)]
+    if code == 's42': return [(0.2 + 0.7 * k, 'trong', 0.9, None) for k in range(int(d / 0.7))]
+    if code == 's43':
+        ev = [(d * 0.35, 'roi', 0.5, None)]
+        for k in range(3):
+            c = d * 0.25 + d * 0.15 * k
+            ev += [(c, 'lua', 0.35, d - c), (c + 0.5, 'kiem', 0.8, None), (c + 0.9, 'kiem', 0.6, None)]
+        return ev
+    if code == 's44': return [(0.3, 'vo', 1.0, None), (0.3 + d * 0.2, 'vo', 0.8, None), (0.3 + d * 0.4, 'nuoc', 0.8, None), (0.3 + d * 0.55, 'vo', 0.7, None)]
+    if code == 's45': return [(1.6, 'roi', 0.8, None)]
+    return []
 
 # ---------------- Đọc lời đọc + mốc thời gian ----------------
 def read_script(path):
     """→ danh sách (cảnh, câu, lặng_trước) theo đúng thứ tự tool giọng đọc đánh số."""
-    out, scene, pause = [], None, 0.0
+    out, scene, pause = [], None, (0.0, None)
     for raw in open(path, encoding='utf-8'):
         t = raw.strip()
-        m = re.match(r'#\s*(s\d\d)\b', t); p = re.match(r'#\s*lặng\s*([\d.]+)', t)
+        m = re.match(r'#\s*(s\d\d)\b', t); p = re.match(r'#\s*lặng\s*([\d.]+)\s*(s\d\d)?', t)
         if m: scene = m.group(1)
-        elif p: pause = float(p.group(1))
-        elif t and not t.startswith('#'): out.append((scene, t, pause)); pause = 0.0
+        elif p: pause = (float(p.group(1)), p.group(2))
+        elif t and not t.startswith('#'): out.append((scene, t, pause)); pause = (0.0, None)
     return out
 
 def timeline(items, meta=None):
@@ -163,8 +180,8 @@ def timeline(items, meta=None):
         for _, txt, _ in items:
             d = len(txt.split()) * 0.33 + 0.3; base.append((t, t + d)); t += d + 0.35
     shift, res, pauses = 0.0, [], []
-    for (a, b), (_, _, p) in zip(base, items):
-        if p: pauses.append((a + shift, p)); shift += p
+    for (a, b), (_, _, (p, sc)) in zip(base, items):
+        if p: pauses.append((a + shift, p, sc)); shift += p
         res.append((a + shift, b + shift))
     end = (meta['duration'] if meta else base[-1][1] + 0.3) + shift + 0.8
     return res, pauses, end
@@ -173,9 +190,10 @@ def scenes_from(items, times, pauses, end):
     seq = []
     for (sc, _, _), (a, _) in zip(items, times):
         if not seq or seq[-1][0] != sc: seq.append([sc, max(0.0, a - 0.15)])
-    for t0, p in pauses:            # cảnh lặng s40 nằm ngay trước câu sau khoảng lặng
+    for t0, p, sc in pauses:        # lặng có tên cảnh → chèn cảnh riêng; không tên → cảnh trước kéo dài
+        if not sc: continue
         k = next(i for i, s in enumerate(seq) if s[1] >= t0 - 0.2)
-        seq.insert(k, ['s40', t0]); seq[k + 1][1] = t0 + p - 0.15
+        seq.insert(k, [sc, t0]); seq[k + 1][1] = t0 + p - 0.15
     seq[0][1] = 0.0
     return [(sc, a, (seq[i + 1][1] if i + 1 < len(seq) else end)) for i, (sc, a) in enumerate(seq)]
 
@@ -225,17 +243,17 @@ def main():
         p.stdin.close(); p.wait(); print(code, f'ok {d:.1f}s')
     open('list.txt', 'w').write(''.join(f"file '{f}'\n" for f in files))
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'list.txt', '-c', 'copy', 'hinh.mp4'], check=True)
-    # tiếng: chèn các khoảng lặng
-    fc, prev, parts = '', 0.0, []
-    for k, (t0, p) in enumerate(pauses):
-        orig = t0 - sum(pp for tt, pp in pauses[:k])
-        fc += f'[1:a]atrim={prev}:{orig},asetpts=PTS-STARTPTS[a{k}];anullsrc=r=44100:cl=mono,atrim=0:{p}[z{k}];'
-        parts += [f'[a{k}]', f'[z{k}]']; prev = orig
-    fc += f'[1:a]atrim={prev},asetpts=PTS-STARTPTS[aend];'; parts.append('[aend]')
-    fc += ''.join(parts) + f'concat=n={len(parts)}:v=0:a=1[a]'
+    # tiếng: chèn lặng vào giọng, rồi trộn hiệu ứng (tự hạ khi có giọng)
+    v = AT.load_audio(mp3); segs, prev = [], 0
+    for k, (t0, p, _) in enumerate(pauses):
+        orig = t0 - sum(pp for _, pp, _ in pauses[:k]); cut = int(orig * AT.SR)
+        segs += [v[prev:cut], np.zeros(int(p * AT.SR))]; prev = cut
+    segs.append(v[prev:]); voice = np.concatenate(segs)
+    events = [(a + t, nm, g, dd) for code, a, b in plan for t, nm, g, dd in SFX(code, b - a)]
+    AT.write_wav(AT.mix(voice, events, end), 'tieng.wav')
     name = 'E2-thu-caotrao-' + ('1080p' if L.FINAL else 'nhap') + '.mp4'
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', 'hinh.mp4', '-i', mp3, '-filter_complex', fc,
-                    '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-shortest', name], check=True)
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', 'hinh.mp4', '-i', 'tieng.wav', '-map', '0:v', '-map', '1:a',
+                    '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', name], check=True)
     print('->', name, f'{end:.1f}s')
 
 if __name__ == '__main__':
