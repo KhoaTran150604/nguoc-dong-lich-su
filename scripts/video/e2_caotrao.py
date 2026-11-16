@@ -21,7 +21,7 @@ SIL = 2.0                            # lặng s40
 # ---------------- Bản đồ trận: cửa sông (toạ độ khung 960×540, nhân U) ----------------
 RIVER = [(-20, 150), (140, 175), (280, 220), (420, 250), (560, 268), (700, 280), (800, 285)]
 COAST_X = 720                        # bên phải là biển
-STAKES = [(x, y) for x in range(585, 676, 18) for y in (238, 254, 270, 286, 302)]  # vùng cọc ở cửa sông (minh họa)
+STAKES = [(x, y) for x in range(530, 691, 20) for y in (236, 252, 268, 284, 300)]  # vùng cọc ở cửa sông (minh họa)
 
 def pts(p): return ' '.join(f'{x*U:.1f},{y*U:.1f}' for x, y in p)
 
@@ -87,7 +87,7 @@ def clash(x, y, tl):
     return ''.join(o) + '</g>'
 
 def chip(text):
-    return (f'<rect x="{16*U:.0f}" y="{16*U:.0f}" width="{(len(text)*11.5+30)*U:.0f}" height="{40*U:.0f}" rx="{6*U:.0f}" fill="{MUC}" opacity="0.88" stroke="{DONG}" stroke-width="{2*U:.1f}"/>'
+    return (f'<rect x="{16*U:.0f}" y="{16*U:.0f}" width="{(len(text)*13+34)*U:.0f}" height="{40*U:.0f}" rx="{6*U:.0f}" fill="{MUC}" opacity="0.88" stroke="{DONG}" stroke-width="{2*U:.1f}"/>'
             f'<text x="{30*U:.0f}" y="{43*U:.0f}" font-family="Be Vietnam Pro SemiBold" font-size="{20*U:.0f}" fill="{DONG2}">{text}</text>')
 
 def note():
@@ -136,17 +136,31 @@ def s39(tl, d):
     return (battle_bg(1) + stakes(0, 0.5) + light_boats(lerp(0.45, 0.12, u), 180) + fleet(lerp(0.80, 0.40, u))
             + chip('BƯỚC 2 · GIẶC VÀO TRONG HÀNG CỌC') + note())
 
-def s40(tl, d):      # lặng: sa bàn, nước bắt đầu hạ rất chậm
-    return saban(1 - 0.08*seg(tl, 0, d), tl) + chip('BƯỚC 3 · NƯỚC RÚT')
+def ripples(vis, t):
+    """Gợn nước quanh mũi cọc vừa nhô lên."""
+    o = []
+    for i, (x, y) in enumerate(STAKES):
+        a = max(0, min(1, vis * 1.6 - (i % 7) * 0.08))
+        if 0.05 < a < 1:
+            r = (4 + 10 * a) * U
+            o.append(f'<circle cx="{x*U:.1f}" cy="{y*U:.1f}" r="{r:.1f}" fill="none" stroke="#E8F0F2" stroke-width="{1.2*U:.1f}" opacity="{0.7*(1-a):.2f}"/>')
+    return ''.join(o)
 
-def s41(tl, d):
-    return saban(0.92 * (1 - seg(tl, d*0.25, d*0.85)), tl) + chip('BƯỚC 3 · NƯỚC RÚT')
+def s40(tl, d):      # lặng 2 giây: vẫn trên bản đồ trận, thuyền giặc tiếp tục tiến, nước bắt đầu hạ rất chậm
+    tide = 1 - 0.08 * seg(tl, 0, d)
+    return battle_bg(tide) + stakes(0, 0.5) + light_boats(0.12, 180, op=0.9) + fleet(lerp(0.40, 0.37, seg(tl, 0, d))) + chip('BƯỚC 3 · NƯỚC RÚT') + note()
+
+def s41(tl, d):      # nước rút ngay trên bản đồ: lòng sông hẹp lại, cọc nhô lên tại chỗ, thuyền vẫn đang chạy
+    fall = seg(tl, d * 0.2, d * 0.8)
+    tide = 0.92 * (1 - fall)
+    return (battle_bg(tide) + stakes(fall, 0.5 * (1 - fall)) + ripples(fall, tl) + light_boats(0.12, 180, op=0.9)
+            + fleet(lerp(0.37, 0.33, seg(tl, 0, d * 0.6))) + chip('BƯỚC 3 · NƯỚC RÚT') + note())
 
 def s42(tl, d):
     u = seg(tl, 0, d)
     o = battle_bg(0) + stakes(1) + fleet(lerp(0.40, 0.52, u)) + light_boats(lerp(-0.05, 0.22, u), 0)
     for j, uu in enumerate([0.18, 0.28]):   # quân bộ hai cờ tiến theo bờ (không phải phục binh)
-        x, y = on_river(lerp(uu - 0.12, uu, u)); o += L.banner(x, y - 70*U, 'NGÔ QUYỀN' if j == 0 else 'QUÂN TA', TA, 0.3)
+        x, y = on_river(lerp(uu - 0.12, uu, u)); o += L.banner(x, y + 110*U, 'NGÔ QUYỀN' if j == 0 else 'QUÂN TA', TA, 0.3)
     return o + chip('NGÔ QUYỀN TUNG QUÂN TIẾN ĐÁNH') + note()
 
 def s43(tl, d):
@@ -219,7 +233,7 @@ def main():
             ov = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg.encode()))).convert('RGBA')
             if code in REGION_SCENES: fr = region.copy(); fr.alpha_composite(ov)
             else: fr = ov
-            fa = min(1, tl / 0.2, (d - tl) / 0.2) if code in ('s40', 's41', 's42', 's46') else 1
+            fa = min(1, tl / 0.2, (d - tl) / 0.2) if code in ('s46',) else 1
             if fa < 1: fr = Image.blend(Image.new('RGBA', (W, H), (20, 17, 15, 255)), fr, max(0, fa))
             p.stdin.write(fr.convert('RGB').tobytes())
         p.stdin.close(); p.wait(); print(code, f'ok {d:.1f}s')
