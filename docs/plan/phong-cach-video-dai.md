@@ -5,7 +5,7 @@
 
 ## 0. Quy trình làm video (đã duyệt 16/11)
 - ✅ Chia theo cảnh + cache: sửa cảnh nào render lại cảnh đó.
-- 🟡 Tách lớp (nền / chuyển động / phụ đề / âm thanh) – chờ duyệt.
+- ✅ Tách lớp (nền / chuyển động / phụ đề / âm thanh).
 - ✅ Bản nháp chất lượng thấp (540p, 15fps) trước; chốt xong mới render 1080p.
 - ✅ Tăng tốc: render song song, đẩy khung hình thẳng vào ffmpeg.
 
