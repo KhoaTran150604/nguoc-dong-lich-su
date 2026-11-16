@@ -62,6 +62,43 @@ def small_flags(cx, cy, n, side, t, r=60, seed=1, appear=(0.2, 1.6)):
                  f'<path d="M0,{-26*U:.1f} L{(14+sw)*U:.1f},{-21*U:.1f} L0,{-16*U:.1f} Z" fill="{side[0]}" stroke="{side[1]}" stroke-width="{U:.1f}"/></g>')
     return ''.join(o)
 
+def soldier(x, y, side, s=1.0, t=0.0, phase=0.0, face=1):
+    """Hình lính (thay cờ nhỏ): phe ta áo vàng, nón, khiên mây, giáo; phe địch áo đỏ, mũ trụ tua đỏ, kích.
+    (x, y) = chân lính; s = cỡ (1 ≈ cao 64 đơn vị khung 960); face = 1 nhìn phải, -1 nhìn trái."""
+    ta = side is TA or side == TA
+    col, dark = (('#D9B44A', '#5A3A10') if ta else ('#A8382A', '#3A0E0A'))
+    bob = math.sin(t * 6 + phase) * 1.0
+    o = [f'<g transform="translate({x:.1f} {y + bob*U*s:.1f}) scale({face*s*U:.3f} {s*U:.3f})">',
+         '<ellipse cx="0" cy="1" rx="11" ry="3" fill="#000" opacity="0.28"/>',
+         '<rect x="-5" y="-15" width="4" height="15" rx="1.5" fill="#3A2618"/><rect x="1" y="-15" width="4" height="15" rx="1.5" fill="#3A2618"/>',
+         f'<path d="M-9,-14 L9,-14 L7,-37 L-7,-37 Z" fill="{col}" stroke="{dark}" stroke-width="1.4"/>',
+         f'<rect x="-8" y="-25" width="16" height="3" fill="{dark}"/>']
+    if not ta:   # giáp vảy
+        o.append(''.join(f'<path d="M{xx},{yy} q2,2 4,0" stroke="{dark}" stroke-width="0.8" fill="none"/>' for yy in (-34, -30) for xx in (-6, -2, 2)))
+    o.append('<circle cx="0" cy="-43" r="6.5" fill="#E2B98C" stroke="#5A3A20" stroke-width="0.9"/>')
+    o.append('<circle cx="2.2" cy="-43.5" r="0.9" fill="#1E120A"/>')
+    if ta:
+        o.append('<polygon points="-12,-45 0,-56 12,-45" fill="#B08A3A" stroke="#3A2618" stroke-width="1.2"/>')
+        o.append('<line x1="11" y1="5" x2="11" y2="-66" stroke="#4A3220" stroke-width="2"/><polygon points="8.5,-64 11,-74 13.5,-64" fill="#C8CED2" stroke="#3A3A3A" stroke-width="0.6"/>')
+        o.append('<line x1="7" y1="-31" x2="11" y2="-36" stroke="#E2B98C" stroke-width="3" stroke-linecap="round"/>')
+        o.append('<circle cx="-9" cy="-27" r="7.5" fill="#8A6A30" stroke="#C9A24A" stroke-width="1.6"/><circle cx="-9" cy="-27" r="2" fill="#C9A24A"/>')
+    else:
+        o.append(f'<path d="M-7.5,-44 Q-7,-53 0,-54 Q7,-53 7.5,-44 Z" fill="#5A2A1A" stroke="#1E120A" stroke-width="1"/><path d="M0,-54 Q-4,-60 -6,-57 Q-2,-58 0,-55 Q2,-58 6,-57 Q4,-60 0,-54 Z" fill="#B3261E"/>')
+        o.append('<line x1="11" y1="5" x2="11" y2="-66" stroke="#4A3220" stroke-width="2"/><path d="M11,-66 L11,-74 M11,-68 Q17,-70 15,-62 Q13,-66 11,-64" stroke="#3A3A3A" stroke-width="1.2" fill="#C8CED2"/>')
+        o.append('<line x1="7" y1="-31" x2="11" y2="-36" stroke="#E2B98C" stroke-width="3" stroke-linecap="round"/>')
+    o.append('</g>'); return ''.join(o)
+
+def soldiers(cx, cy, n, side, t, r=60, seed=1, appear=(0.2, 1.6), s=0.55, face=1):
+    """H7 (bản mới): một toán lính hiện dần quanh (cx, cy). Dùng cho quân đông, phục binh."""
+    import random; rng = random.Random(seed); pts = []
+    for j in range(n): pts.append((rng.uniform(-r, r), rng.uniform(-r * 0.55, r * 0.55), j))
+    o = []
+    for dx, dy, j in sorted(pts, key=lambda p: p[1]):            # vẽ từ xa đến gần
+        a = seg(t, appear[0] + j * (appear[1] - appear[0]) / n, appear[0] + j * (appear[1] - appear[0]) / n + 0.4)
+        if a <= 0: continue
+        o.append(f'<g opacity="{a:.2f}">' + soldier(cx + dx * U, cy + dy * U + (1 - a) * 8 * U, side, s, t, j * 0.7, face) + '</g>')
+    return ''.join(o)
+
 def clash(x, y, tl, s=0.45):
     """H3: hai kiếm chém vào nhau + lửa."""
     if tl < 0: return ''

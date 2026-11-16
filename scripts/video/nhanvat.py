@@ -21,7 +21,7 @@ NHANVAT = {
     'tuong-nam-han':   dict(bg=('#4A1410', '#A8382A'), hat='tru',  beard='ria', robe='#7A1E18', trim='#E0B060', age='trung', face='du', armor=True),
     'tieu-ich':        dict(bg=('#4A1410', '#A8382A'), hat='mao',  beard='dai', robe='#5A1410', trim='#E8C060', age='gia', face='hien'),
     'su-gia':          dict(bg=('#2E2A26', '#6A5E50'), hat='khan', beard='none', robe='#3A342E', trim='#8A7A60', age='tre', face='hien'),
-    'tran-hung-dao':   dict(bg=('#5A3A10', '#C9A24A'), hat='tru',  beard='dai', robe='#6A4A1E', trim='#C9A24A', age='trung', face='dung', armor=True),
+    'tran-hung-dao':   dict(bg=('#3A2A10', '#B8923A'), hat='khoi', beard='dai', robe='#2E3A4E', trim='#C9A24A', age='gia', face='dung', armor=True, armor_col='#3A4A5E'),
     'kieu-cong-tien':  dict(bg=('#2E2A26', '#6A5E50'), hat='khan', beard='ria', robe='#3A342E', trim='#8A7A60', age='trung', face='du'),
 }
 
@@ -61,7 +61,8 @@ def _vector_svg(c, w=270, h=300):
     if c['beard'] == 'ria':
         o.append('<path d="M38,52 q7,-3 14,0" stroke="#1E120A" stroke-width="1.6" fill="none"/><path d="M43,57 l2,6 l2,-6" fill="#1E120A"/>')
     if c['beard'] == 'dai':
-        o.append('<path d="M37,51 q8,-3 16,0" stroke="#2A2A2A" stroke-width="1.6" fill="none"/><path d="M38,56 Q45,78 52,56 Q45,60 38,56 Z" fill="#2A2420"/>')
+        bc = '#6A6460' if c['age'] == 'gia' else '#2A2420'
+        o.append(f'<path d="M37,51 q8,-3 16,0" stroke="{bc}" stroke-width="1.6" fill="none"/><path d="M38,56 Q45,78 52,56 Q45,60 38,56 Z" fill="{bc}"/>')
     if c['age'] == 'gia':
         o.append('<path d="M37,32 q8,-1 16,0" stroke="#8A5A3A" stroke-width="0.5" fill="none"/>')
     hat = c['hat']
@@ -78,10 +79,15 @@ def _vector_svg(c, w=270, h=300):
         o.append(f'<path d="M42,14 L45,4 L48,14 Z" fill="{c["trim"]}" stroke="#1E120A" stroke-width="0.6"/><path d="M45,6 Q39,0 37,6 Q41,3 45,8 Q49,3 53,6 Q51,0 45,6 Z" fill="#B3261E"/>')
         o.append('<circle cx="45" cy="21" r="2.2" fill="#B3261E" stroke="#F3D27A" stroke-width="0.6"/>')
         o.append(f'<path d="M27,40 L25,52 L31,50 L32,40 Z M63,40 L65,52 L59,50 L58,40 Z" fill="#7A5A24" stroke="#1E120A" stroke-width="0.8"/>')
+    elif hat == 'khoi':    # mũ khôi tròn có cánh phượng hai bên (minh họa), khác mũ trụ của Ngô Quyền
+        o.append(f'<path d="M28,38 Q28,17 45,15 Q62,17 62,38 Q56,30 45,30 Q34,30 28,38 Z" fill="#3A3A40" stroke="#1E120A" stroke-width="1"/>')
+        o.append(f'<path d="M31,31 Q45,23 59,31" stroke="{c["trim"]}" stroke-width="1.8" fill="none"/>')
+        o.append(f'<path d="M29,30 Q18,22 16,12 Q24,18 30,24 Z M61,30 Q72,22 74,12 Q66,18 60,24 Z" fill="{c["trim"]}" stroke="#1E120A" stroke-width="0.7"/>')
+        o.append(f'<rect x="42" y="9" width="6" height="7" rx="1" fill="{c["trim"]}" stroke="#1E120A" stroke-width="0.6"/><circle cx="45" cy="22" r="2.4" fill="#F3D27A" stroke="#1E120A" stroke-width="0.5"/>')
     elif hat == 'non':     # nón lính
         o.append('<path d="M24,32 L45,16 L66,32 Z" fill="#7A5A30" stroke="#1E120A" stroke-width="1"/><line x1="45" y1="16" x2="45" y2="12" stroke="#1E120A" stroke-width="1.2"/>')
     if c.get('armor'):     # giáp vai + giáp ngực vảy
-        o.append(f'<path d="M10,100 Q10,78 26,70 Q33,74 34,82 Q22,84 16,100 Z M80,100 Q80,78 64,70 Q57,74 56,82 Q68,84 74,100 Z" fill="#7A5A24" stroke="#1E120A" stroke-width="0.9"/>')
+        o.append(f'<path d="M10,100 Q10,78 26,70 Q33,74 34,82 Q22,84 16,100 Z M80,100 Q80,78 64,70 Q57,74 56,82 Q68,84 74,100 Z" fill="{c.get('armor_col', '#7A5A24')}" stroke="#1E120A" stroke-width="0.9"/>')
         o.append(''.join(f'<path d="M{x},{y} q3,3 6,0" stroke="#F3D27A" stroke-width="0.6" fill="none"/>' for y in (86, 91, 96) for x in range(34, 56, 6)))
     o.append('</svg>')
     return ''.join(o)
