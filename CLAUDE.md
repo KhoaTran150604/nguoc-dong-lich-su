@@ -1,4 +1,4 @@
-# Ngược Dòng Sử Việt – Bàn giao dự án
+# Song Tử Kể Sử (trước: Ngược Dòng Sử Việt) – Bàn giao dự án
 
 > File này tóm tắt toàn bộ những gì đã quyết định và làm trong Claude chat (14–15/11/2026), để tiếp tục trong Claude Code. Trả lời người dùng bằng **tiếng Việt**, giọng thân thiện, ngắn gọn.
 
@@ -11,8 +11,10 @@
 ## 2. Kênh đã chốt
 | Mục | Giá trị |
 |---|---|
-| Tên kênh | **Ngược Dòng Sử Việt** |
-| Handle | `@nguocdongsuviet` đã có người dùng → người dùng chọn handle khác (hỏi lại để ghi) |
+| Tên kênh | **Song Tử Kể Sử** (đổi 16/11/2026 cho kênh rộng hơn: sử Việt, Trung Hoa/Tam Quốc, thế giới). "Ngược Dòng Sử Việt" giữ làm tên series/playlist. Setup: `docs/brand/setup-kenh.md` |
+| Handle | đề xuất `@songtukesu` – người dùng đang kiểm tra |
+| Nhân vật | Hai anh em sinh đôi "Văn võ song toàn": **Anh Văn** (áo vàng, kể sử, giữ nguồn) · **Em Võ** (áo đỏ, dẫn trận) – `docs/brand/nhan-vat-song-tu.md` |
+| Avatar | ✅ mẫu "Văn – Võ": `assets/brand/song-tu/AVATAR-YouTube-800x800.png` (code `scripts/brand/avatar_5.py --van-vo`) |
 | Chủ đề | Lịch sử Việt Nam theo dòng thời gian, kể **lùi** từ hiện tại về quá khứ |
 | Persona | Người kể giấu mặt. Giọng: **ZeroTTS – Gia Huy (`giahuy`) nguyên bản** (nam, trẻ, kể chuyện, trầm ấm), chạy local, miễn phí. Chốt 16/11/2026, mặc định cho mọi video. Làm âm thanh bằng skill `giong-doc`. Vbee "Anh Khôi nâng cao" chỉ để dự phòng |
 | Nhận diện | Trống đồng Đông Sơn + bản đồ Việt Nam (có **Hoàng Sa, Trường Sa**) + vành chim Lạc bay **ngược chiều kim đồng hồ** = ngược dòng thời gian. Màu: đen mực `#14110F`, vàng đồng `#C9A24A`/`#F3D27A`, đỏ sơn mài `#B3261E`, kem `#F2E6CC`. Font: Playfair Display (tiêu đề), Be Vietnam Pro (chữ) |
