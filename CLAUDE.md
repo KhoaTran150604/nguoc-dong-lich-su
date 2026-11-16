@@ -14,7 +14,7 @@
 | Tên kênh | **Ngược Dòng Sử Việt** |
 | Handle | `@nguocdongsuviet` đã có người dùng → người dùng chọn handle khác (hỏi lại để ghi) |
 | Chủ đề | Lịch sử Việt Nam theo dòng thời gian, kể **lùi** từ hiện tại về quá khứ |
-| Persona | Người kể giấu mặt. Giọng chính: **Vbee – "Anh Khôi nâng cao"** (nam, miền Bắc, lớn tuổi, đọc truyện; người dùng thấy ấm, hay hơn). ZeroTTS `huuduc` (skill `giong-doc`) đang thử: dùng cho bản nháp và căn thời gian |
+| Persona | Người kể giấu mặt. Giọng: **ZeroTTS – Gia Huy (`giahuy`) nguyên bản** (nam, trẻ, kể chuyện, trầm ấm), chạy local, miễn phí. Chốt 16/11/2026, mặc định cho mọi video. Làm âm thanh bằng skill `giong-doc`. Vbee "Anh Khôi nâng cao" chỉ để dự phòng |
 | Nhận diện | Trống đồng Đông Sơn + bản đồ Việt Nam (có **Hoàng Sa, Trường Sa**) + vành chim Lạc bay **ngược chiều kim đồng hồ** = ngược dòng thời gian. Màu: đen mực `#14110F`, vàng đồng `#C9A24A`/`#F3D27A`, đỏ sơn mài `#B3261E`, kem `#F2E6CC`. Font: Playfair Display (tiêu đề), Be Vietnam Pro (chữ) |
 | Mô tả kênh | Đã dán (có dòng công khai dùng AI cho hình & giọng) |
 | Đã xong | Tạo kênh thương hiệu, xác minh SĐT, avatar, banner, watermark |
@@ -44,7 +44,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - YouTube: bật khai báo nội dung AI khi có cảnh/người trông như thật; tránh nội dung rập khuôn hàng loạt (rủi ro tắt kiếm tiền). Nhạc chỉ từ YouTube Audio Library / thư viện CapCut.
 
 ## 6. Trạng thái
-- **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc, giọng Vbee). Giọng ZeroTTS: `assets/short1/voice-HuuDuc.mp3` + `.json` (lời đọc: `docs/shorts/01-loi-doc.txt`) – **chờ người dùng nghe duyệt**. Kho: **🔍 sơ bộ, chưa kiểm chứng**.
+- **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc, giọng Vbee). Lời đọc chia câu: `docs/shorts/01-loi-doc.txt`. Chưa tạo giọng Gia Huy cho bài này → chạy skill `giong-doc`. Mẫu thử giọng: `assets/short1/thu-giong/`. Kho: **🔍 sơ bộ, chưa kiểm chứng**.
 - Mẫu kỹ thuật đã làm: `bando-dong-…` (bản đồ phẳng), `sabandong-…` (sa bàn), `bandoco-NgoQuyen-…` (bản đồ cổ + cờ tướng, dấu X khi thắng).
 - Checklist "Short đầu tiên" (23 việc): **đã xong 13** – chọn kênh, tên, tạo kênh, avatar/banner, mô tả, xác minh SĐT, prompt kịch bản, chọn giọng, chọn chủ đề, viết kịch bản, kiểm tra sơ bộ, tạo giọng. **Còn:** chốt persona (tên người kể), chọn cách làm hình, template CapCut 9:16, tạo 8 hình Flow, dựng, xem lại trên điện thoại, tiêu đề/mô tả, cài đặt khi đăng, đăng, đăng lại TikTok/Reels, đo chỉ số sau 48h.
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
@@ -58,13 +58,13 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 8. Cấu trúc thư mục
 ```
 CLAUDE.md                     ← file này
-.claude/skills/               ← 6 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, giong-doc, project-checklist, vn-ai-channel-research
+.claude/skills/               ← 6 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, giong-doc (giọng + âm thanh), project-checklist, vn-ai-channel-research
 docs/research/01–04           ← research kênh AI VN, YouTube, audio, format slideshow
 docs/plan/series-nguoc-dong.md← 38 mốc + cấu trúc tập
 docs/prompts/kich-ban-short.md← prompt kịch bản
 docs/shorts/01-bach-dang-938.md
 kb/                           ← kho tri thức (INDEX, nguon, draft/, nhan-vat/, dia-danh/)
-scripts/voice/tts.py          ← tạo giọng ZeroTTS + kiểm tra Whisper + mốc thời gian từng câu
+scripts/voice/tts.py          ← tạo giọng ZeroTTS (mặc định Gia Huy) + kiểm tra Whisper + mốc thời gian từng câu
 scripts/short/                ← dựng Short từ ảnh + phụ đề + giọng (scenes.py → caps.py → render.py)
 scripts/bando/anim.py         ← bản đồ phẳng động
 scripts/saban/sim.py          ← sa bàn mặt cắt

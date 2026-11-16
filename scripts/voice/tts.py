@@ -4,11 +4,11 @@
 Đầu ra:  <out>.mp3 (giọng đọc) + <out>.json (mốc thời gian từng câu → dùng cho phụ đề/cảnh).
 
 Ví dụ:
-  python scripts/voice/tts.py docs/shorts/01-loi-doc.txt -o assets/short1/voice-HuuDuc
+  python scripts/voice/tts.py docs/shorts/01-loi-doc.txt -o assets/short1/voice-GiaHuy --check
   python scripts/voice/tts.py loi.txt -o out --voice huuduc --cfg 2 --speed 0.95 --seed 7
 
-Giọng mặc định "huuduc" (Hữu Đức: nam, lớn tuổi, kể chuyện, trầm, điềm đạm) – gần
-"Anh Khôi nâng cao" của Vbee nhất trong 8 giọng có sẵn.
+Giọng kênh (chốt 16/11/2026): "giahuy" (Gia Huy) nguyên bản, cfg 1.0, không làm ấm.
+Xem skill .claude/skills/giong-doc.
 Cài: pip install zerotts ; nếu tải weights lỗi "CAS/xet" thì đặt HF_HUB_DISABLE_XET=1.
 """
 import argparse, json, os, re, subprocess, sys, tempfile
@@ -78,11 +78,11 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("text", help="file .txt, mỗi dòng một câu")
     p.add_argument("-o", "--out", required=True, help="đường dẫn đầu ra, không đuôi")
-    p.add_argument("--voice", default="huuduc",
+    p.add_argument("--voice", default="giahuy",
                    help="tên giọng, hoặc trộn: 'giahuy:0.7+huuduc:0.3'")
     p.add_argument("--warm", type=float, default=0.0,
                    help="làm ấm 0–1 (tăng trầm, giảm chói, chút vang); 0 = giữ nguyên")
-    p.add_argument("--cfg", type=float, default=2.0, help="1.0–3.0; cao = bám giọng chặt hơn (chậm gấp đôi)")
+    p.add_argument("--cfg", type=float, default=1.0, help="1.0–3.0; cao = bám giọng chặt hơn (chậm gấp đôi)")
     p.add_argument("--speed", type=float, default=1.0, help="<1 chậm lại (vd 0.93), giữ cao độ")
     p.add_argument("--gap", type=float, default=0.25, help="nghỉ giữa các câu trong một đoạn (giây)")
     p.add_argument("--para-gap", type=float, default=0.6, help="nghỉ giữa các đoạn (giây)")
