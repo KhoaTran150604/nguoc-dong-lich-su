@@ -60,7 +60,7 @@ def banner(x, y, name, side, s=0.42, tilt=0, op=1.0, grey=0.0, outline=0.0, img=
          '<line x1="-78" y1="-268" x2="78" y2="-268" stroke="#3A2618" stroke-width="7"/>',
          f'<rect x="-70" y="-266" width="140" height="190" fill="{col}" stroke="{dark}" stroke-width="5"/>',
          f'<rect x="-70" y="-266" width="140" height="40" fill="{KEM}" stroke="{dark}" stroke-width="4"/>',
-         f'<text x="0" y="-238" font-family="Be Vietnam Pro SemiBold" font-size="{min(22, 200/max(1,len(name))):.1f}" fill="#2A1A10" text-anchor="middle">{name}</text>',
+         f'<text x="0" y="-238" font-family="Be Vietnam Pro SemiBold" font-size="{min(22, 165/max(1,len(name))):.1f}" fill="#2A1A10" text-anchor="middle">{name}</text>',
          (f'<svg x="-64" y="-224" width="128" height="144" viewBox="0 0 90 100" preserveAspectRatio="xMidYMid slice"><image href="{img}" width="90" height="100" preserveAspectRatio="xMidYMid slice"/></svg>'
           f'<rect x="-64" y="-224" width="128" height="144" fill="#808080" opacity="{0.75*grey:.2f}"/><rect x="-64" y="-224" width="128" height="144" fill="none" stroke="{dark}" stroke-width="3"/>'
           if img else

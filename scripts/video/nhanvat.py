@@ -47,15 +47,12 @@ def _vector_svg(c, w=270, h=300):
             o.append(f'<path d="M{ex-4},41 Q{ex},{38.6 if fierce else 38.2} {ex+4},41 Q{ex},42.6 {ex-4},41 Z" fill="#F2E6CC" stroke="#1E120A" stroke-width="0.9"/>')
             o.append(f'<circle cx="{ex + (0.6 if fierce else 0)*sgn*-1:.1f}" cy="40.9" r="1.3" fill="#1E120A"/>')
             o.append(f'<path d="M{ex-4.4},{40.6 if fierce else 40.2} L{ex+4.4},{39.4 if sgn>0 else 41.6}" stroke="#1E120A" stroke-width="1.1" transform="scale(1 1)"/>' if False else '')
-        if fierce:   # mày cau dựng ngược, nếp nhăn giữa trán, miệng trễ xuống
-            o += ['<path d="M33,34 L43,38.4 L42.4,39.6 L33,36 Z" fill="#1E120A"/><path d="M57,34 L47,38.4 L47.6,39.6 L57,36 Z" fill="#1E120A"/>',
-                  '<path d="M44,33 l0.4,4 M46,33 l-0.4,4" stroke="#8A5A3A" stroke-width="0.6"/>',
-                  '<path d="M40,55.5 q5,-2.6 10,0" stroke="#5A1A12" stroke-width="1.3" fill="none"/>',
-                  '<path d="M36,47 q2,2 4,2.4 M54,47 q-2,2 -4,2.4" stroke="#8A5A3A" stroke-width="0.6" fill="none"/>']
-        else:        # dũng mãnh: mày rậm thẳng hơi xếch, miệng mím chặt, cằm vuông
-            o += ['<path d="M33.5,36 L43,37.6 L43,39.2 L33.5,38 Z" fill="#1E120A"/><path d="M56.5,36 L47,37.6 L47,39.2 L56.5,38 Z" fill="#1E120A"/>',
-                  '<path d="M40.5,54.4 h9" stroke="#5A1A12" stroke-width="1.4"/>',
-                  '<path d="M33,52 Q36,61 45,62 Q54,61 57,52" stroke="#8A5A3A" stroke-width="0.7" fill="none"/>']
+        if fierce:   # nghiêm, lạnh: mày hơi chau, miệng hơi trễ – không quá dữ
+            o += ['<path d="M34,35.6 Q38.5,36 43,38.2 L42.8,39.2 Q38.5,37.4 34,37.2 Z" fill="#1E120A"/><path d="M56,35.6 Q51.5,36 47,38.2 L47.2,39.2 Q51.5,37.4 56,37.2 Z" fill="#1E120A"/>',
+                  '<path d="M41,55 q4,-1.2 8,0" stroke="#5A1A12" stroke-width="1.1" fill="none"/>']
+        else:        # điềm tĩnh, tự tin: mày rậm vừa, hơi xếch; miệng thẳng, khoé hơi nhếch
+            o += ['<path d="M34,36.6 Q38.5,35.6 43,37 L43,38.2 Q38.5,37 34,38 Z" fill="#1E120A"/><path d="M56,36.6 Q51.5,35.6 47,37 L47,38.2 Q51.5,37 56,38 Z" fill="#1E120A"/>',
+                  '<path d="M41,54.2 q4,0.9 8,0" stroke="#5A1A12" stroke-width="1.1" fill="none"/>']
     if c['beard'] == 'ria':
         o.append('<path d="M38,52 q7,-3 14,0" stroke="#1E120A" stroke-width="1.6" fill="none"/><path d="M43,57 l2,6 l2,-6" fill="#1E120A"/>')
     if c['beard'] == 'dai':
