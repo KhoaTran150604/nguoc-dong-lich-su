@@ -78,7 +78,10 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("text", help="file .txt, mỗi dòng một câu")
     p.add_argument("-o", "--out", required=True, help="đường dẫn đầu ra, không đuôi")
-    p.add_argument("--voice", default="huuduc")
+    p.add_argument("--voice", default="huuduc",
+                   help="tên giọng, hoặc trộn: 'giahuy:0.7+huuduc:0.3'")
+    p.add_argument("--warm", type=float, default=0.0,
+                   help="làm ấm 0–1 (tăng trầm, giảm chói, chút vang); 0 = giữ nguyên")
     p.add_argument("--cfg", type=float, default=2.0, help="1.0–3.0; cao = bám giọng chặt hơn (chậm gấp đôi)")
     p.add_argument("--speed", type=float, default=1.0, help="<1 chậm lại (vd 0.93), giữ cao độ")
     p.add_argument("--gap", type=float, default=0.25, help="nghỉ giữa các câu trong một đoạn (giây)")
@@ -102,6 +105,11 @@ def main():
     retake = {int(x) for x in a.retake.split(",") if x.strip()}
 
     tts = ZeroTTS.from_pretrained(a.model)
+    voice = a.voice
+    if "+" in voice or ":" in voice:  # trộn latent của nhiều giọng
+        parts = [x.split(":") for x in voice.split("+")]
+        w = np.array([float(x[1]) if len(x) > 1 else 1.0 for x in parts]); w = w / w.sum()
+        voice = sum(wi * tts.load_voice(x[0]).emb for wi, x in zip(w, parts)).astype(np.float32)
     sr = tts.sample_rate
     check = make_checker(normalize_vi_text) if a.check else None
     report = []
@@ -114,7 +122,7 @@ def main():
         best = None
         for k in range(a.tries if check else 1):
             np.random.seed(a.seed + i + 100 * k + (1000 if i in retake else 0))
-            audio = tts.synthesize(spoken, voice=a.voice, cfg_scale=a.cfg).reshape(-1).astype(np.float32)
+            audio = tts.synthesize(spoken, voice=voice, cfg_scale=a.cfg).reshape(-1).astype(np.float32)
             audio = trim(audio, sr)
             score, heard = check(audio, sr, line) if check else (1.0, "")
             if best is None or score > best[0]:
@@ -139,11 +147,16 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         raw = os.path.join(td, "raw.wav")
         tts.save_audio(wav, raw)
-        af = (f"atempo={a.speed}," if a.speed != 1.0 else "") + "loudnorm=I=-16:TP=-1.5:LRA=11"
+        af = f"atempo={a.speed}," if a.speed != 1.0 else ""
+        if a.warm > 0:
+            g = a.warm
+            af += (f"bass=g={4*g:.1f}:f=140,equalizer=f=3500:t=q:w=1.2:g={-3*g:.1f},deesser,"
+                   f"aecho=0.8:0.6:40:{0.12*g:.2f},")
+        af += "loudnorm=I=-16:TP=-1.5:LRA=11"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", raw, "-af", af,
                         "-ar", "44100", "-ac", "1", "-b:a", "192k", a.out + ".mp3"], check=True)
 
-    meta = {"voice": a.voice, "cfg": a.cfg, "speed": a.speed, "seed": a.seed,
+    meta = {"voice": a.voice, "cfg": a.cfg, "speed": a.speed, "warm": a.warm, "seed": a.seed,
             "duration": round(t, 3), "lines": timeline}
     json.dump(meta, open(a.out + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"Xong: {a.out}.mp3 ({t:.1f}s) + {a.out}.json")

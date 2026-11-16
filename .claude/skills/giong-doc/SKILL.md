@@ -34,7 +34,8 @@ export HF_HUB_DISABLE_XET=1   # proxy/mạng chặn Xet → tải weights qua HT
 ## Tham số hay dùng
 | Tham số | Mặc định | Ghi chú |
 |---|---|---|
-| `--voice` | huuduc | `giahuy` trẻ hơn, `quangminh` rõ chữ hơn nhưng giọng tin tức |
+| `--voice` | huuduc | `giahuy` trẻ hơn, `quangminh` rõ chữ hơn nhưng giọng tin tức; trộn: `"giahuy:0.7+huuduc:0.3"` |
+| `--warm` | 0 | làm ấm 0–1 (tăng trầm, giảm chói, chút vang); thử 0.6 |
 | `--cfg` | 2.0 | 1.0 rõ chữ hơn chút nhưng giọng kém ổn định |
 | `--speed` | 1.0 | 0.93–0.97 cho chậm, trầm hơn |
 | `--gap` / `--para-gap` | 0.25 / 0.6 | nghỉ giữa câu / đoạn |
