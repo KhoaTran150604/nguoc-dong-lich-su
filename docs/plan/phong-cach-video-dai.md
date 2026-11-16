@@ -7,6 +7,7 @@
 - ✅ Chia theo cảnh + cache: sửa cảnh nào render lại cảnh đó.
 - ✅ Tách lớp (nền / chuyển động / phụ đề / âm thanh).
 - ✅ Bản nháp chất lượng thấp (540p, 15fps) trước; chốt xong mới render 1080p.
+- ✅ Âm thanh: skill `giong-doc` (ZeroTTS Gia Huy). Lời đọc video dài ở `docs/videos/NN-loi-doc.txt`, mỗi dòng một câu phụ đề. Video 10–20 phút tạo giọng ~15–25 phút (có `--check` có thể >1 tiếng, ước tính từ Short, chưa chạy thử) → chạy nền. File `.json` mốc từng câu dùng để đặt thời lượng cảnh, và khi cắt Short từ video dài thì cắt luôn đoạn giọng tương ứng, không tạo giọng lại.
 - ✅ Tăng tốc: render song song, đẩy khung hình thẳng vào ffmpeg.
 
 ## 1. Chuyển động: "tĩnh là mặc định"
