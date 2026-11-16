@@ -14,7 +14,7 @@
 | Tên kênh | **Ngược Dòng Sử Việt** |
 | Handle | `@nguocdongsuviet` đã có người dùng → người dùng chọn handle khác (hỏi lại để ghi) |
 | Chủ đề | Lịch sử Việt Nam theo dòng thời gian, kể **lùi** từ hiện tại về quá khứ |
-| Persona | Người kể giấu mặt. Giọng: **ZeroTTS – `huuduc` (Hữu Đức)** chạy local, gần giọng cũ Vbee "Anh Khôi nâng cao" (nam, lớn tuổi, kể chuyện). Vbee giữ làm dự phòng. Skill `giong-doc` |
+| Persona | Người kể giấu mặt. Giọng chính: **Vbee – "Anh Khôi nâng cao"** (nam, miền Bắc, lớn tuổi, đọc truyện; người dùng thấy ấm, hay hơn). ZeroTTS `huuduc` (skill `giong-doc`) đang thử: dùng cho bản nháp và căn thời gian |
 | Nhận diện | Trống đồng Đông Sơn + bản đồ Việt Nam (có **Hoàng Sa, Trường Sa**) + vành chim Lạc bay **ngược chiều kim đồng hồ** = ngược dòng thời gian. Màu: đen mực `#14110F`, vàng đồng `#C9A24A`/`#F3D27A`, đỏ sơn mài `#B3261E`, kem `#F2E6CC`. Font: Playfair Display (tiêu đề), Be Vietnam Pro (chữ) |
 | Mô tả kênh | Đã dán (có dòng công khai dùng AI cho hình & giọng) |
 | Đã xong | Tạo kênh thương hiệu, xác minh SĐT, avatar, banner, watermark |
