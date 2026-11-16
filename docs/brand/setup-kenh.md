@@ -20,14 +20,17 @@ _Cập nhật 16/11/2026. Đổi từ "Ngược Dòng Sử Việt" để kênh r
 - Cách đặt trên YouTube: YouTube Studio → Tùy chỉnh (Customization) → Xây dựng thương hiệu (Branding) → Ảnh (Picture) → Tải lên → kéo khung vừa vòng tròn → Xong → **Xuất bản**. YouTube khuyên ảnh ≥ 98×98, ≤ 4 MB, PNG/JPG.
 - Các mẫu không chọn (để dùng chỗ khác): `5-phong-cach/` – sơn mài, phẳng tối giản, ấn triện, âm dương, đêm Bạch Đằng.
 
-## Banner ⏳
-- Kích thước 2560×1440, vùng an toàn (hiện trên mọi thiết bị) 1546×423 ở giữa.
-- Ý tưởng: Anh Văn trái (bản đồ, sách sử) – Em Võ phải (chiến thuyền, lính hai phe) – giữa: "SONG TỬ KỂ SỬ" + "Văn kể sử – Võ dẫn trận".
+## Banner ✅ (bản 16/11/2026)
+- File tải lên: `assets/brand/song-tu/BANNER-YouTube-2560x1440.png` (2560×1440, ~2,5 MB; YouTube cho tối đa 6 MB)
+- Bố cục: nền bản đồ cổ (phần Bắc Bộ – Hoa Nam, không địa danh, không phải bản đồ Việt Nam toàn cảnh) · dải giữa tối: Anh Văn mở sách (trái), Em Võ kiếm + khiên (phải), ♊, "SONG TỬ KỂ SỬ", "Văn kể sử – Võ dẫn trận", "Chiến trận lịch sử Việt Nam & Trung Hoa qua bản đồ hoạt họa", "VIDEO MỚI HẰNG TUẦN" · rìa (chỉ TV thấy): thuyền và lính hai phe.
+- Toàn bộ chữ + nhân vật nằm trong vùng an toàn 1546×423. Ảnh kiểm tra: `banner-kiem-tra-vung-an-toan.jpg`, `banner-xem-tren-dien-thoai.jpg`, `banner-xem-tren-may-tinh.jpg`.
+- Code: `scripts/brand/banner.py` (sửa chữ/bố cục rồi chạy lại).
+- Cách đặt: YouTube Studio → Tùy chỉnh → Xây dựng thương hiệu → Hình ảnh biểu ngữ → Tải lên → kiểm tra khung xem trước → Xong → **Xuất bản**.
 
 ## Việc còn lại khi đổi kênh
 - [ ] Kiểm tra & đặt tên kênh + handle trên YouTube (Tùy chỉnh → Thông tin cơ bản)
 - [x] Avatar
-- [ ] Banner
+- [x] Banner
 - [ ] Watermark (avatar thu nhỏ, góc phải dưới video)
 - [ ] Viết lại mô tả kênh (giữ dòng công khai dùng AI cho hình & giọng)
 - [ ] Đổi end card video E2 sang logo mới, tạo playlist "Ngược Dòng Sử Việt"
