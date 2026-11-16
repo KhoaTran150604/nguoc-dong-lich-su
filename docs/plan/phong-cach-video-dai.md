@@ -1,4 +1,4 @@
-# Phong cách video dài (16:9) – bản nháp chờ chốt
+# Phong cách video dài (16:9) – đã chốt
 
 > Rút ra sau khi xem Sử Lược (16/11/2026). Chỉ học **nguyên tắc**, không chép bản đồ, chân dung, khung thoại hay hiệu ứng riêng của họ.
 > Trạng thái: mục 0 và 4 đã chốt (16/11/2026); mục 1–3, 5 là nguyên tắc đã thống nhất. Muốn sửa hiệu ứng nào thì sửa hàm cùng tên (H1…H12) trong `scripts/hieuung/demo.py`, render lại và cập nhật bảng.
