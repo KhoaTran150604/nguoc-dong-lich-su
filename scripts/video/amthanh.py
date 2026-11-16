@@ -85,10 +85,16 @@ GEN = dict(kiem=kiem, lua=lua, vo=vo, nuoc=nuoc, trong=trong, rut=rut, song=song
 
 
 # ---------- Bản làm lại (16/11): trống trận to, vang; thuyền gỗ vỡ không còn tiếng "chích điện" ----------
-def _bp(x, lo, hi): return LP(_hp(x, lo), hi)
+def BLP(x, cut, order=4):
+    from scipy.signal import butter, sosfilt
+    return sosfilt(butter(order, cut, 'low', fs=SR, output='sos'), x)
+def BHP(x, cut, order=2):
+    from scipy.signal import butter, sosfilt
+    return sosfilt(butter(order, cut, 'high', fs=SR, output='sos'), x)
+def _bp(x, lo, hi): return BLP(BHP(x, lo), hi)
 def _reverb(x, d=1.2, mix=0.35):
     from scipy.signal import fftconvolve
-    t = _t(d); ir = rng.normal(0, 1, len(t)) * np.exp(-t / (d / 4)); ir = LP(ir, 3000); ir /= np.sqrt(np.sum(ir ** 2))
+    t = _t(d); ir = rng.normal(0, 1, len(t)) * np.exp(-t / (d / 4)); ir = BLP(ir, 2500); ir /= np.sqrt(np.sum(ir ** 2))
     return x * (1 - mix) + fftconvolve(x, ir)[: len(x)] * mix
 def _modes(d, freqs, decay):
     t = _t(d); x = np.zeros_like(t)
@@ -99,7 +105,7 @@ def _trong_hit(big=1.0):
     t = _t(2.0); f = 52 * big ** -0.2 + 38 * np.exp(-t / 0.06)
     body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.75)
     body += 0.35 * np.sin(2 * np.pi * np.cumsum(f * 1.6) / SR) * np.exp(-t / 0.4)
-    skin = _bp(rng.normal(0, 1, len(t)), 120, 900) * np.exp(-t / 0.05) * 0.8
+    skin = _bp(rng.normal(0, 1, len(t)), 80, 600) * np.exp(-t / 0.04) * 0.6
     return (body + skin) * big
 
 def _place(n, hits):
@@ -125,11 +131,11 @@ def trong_c():   # trống + chiêng
 def _wood_crack(d=0.35):
     t = _t(d); n = len(t)
     x = _modes(d, [(rng.uniform(180, 320), 1), (rng.uniform(420, 700), .6), (rng.uniform(800, 1300), .35)], 0.06)
-    x += _bp(rng.normal(0, 1, n), 250, 2500) * np.exp(-t / 0.03) * 1.2
+    x += _bp(rng.normal(0, 1, n), 200, 1800) * np.exp(-t / 0.03) * 1.0
     return x * np.minimum(1, t / 0.002)
 
 def _splash(d=2.2, big=1.0):
-    t = _t(d); x = _bp(rng.normal(0, 1, len(t)), 150, 2200 * big)
+    t = _t(d); x = _bp(rng.normal(0, 1, len(t)), 120, 1500 * big)
     env = np.minimum(1, t / 0.05) * np.exp(-t / (0.5 * big)); bub = np.zeros_like(t)
     for p in rng.uniform(0.2, d - 0.3, 30):   # bọt nước lục bục
         i = int(p * SR); k = int(0.04 * SR); f = rng.uniform(300, 900)
@@ -144,10 +150,10 @@ def _groan(d=1.2):
     for k in range(0, len(x), 512):
         f = f0 + 40 * np.sin(2 * np.pi * 0.7 * k / SR); r = 0.995; w = 2 * np.pi * f / SR
         seg_ = lfilter([1 - r], [1, -2 * r * np.cos(w), r * r], x[k:k + 512]); out[k:k + 512] = seg_
-    return LP(out, 1200) * np.sin(np.pi * t / d) ** 2
+    return BLP(out, 900) * np.sin(np.pi * t / d) ** 2
 
 def _thud(d=1.0):
-    t = _t(d); return np.sin(2 * np.pi * (70 - 25 * t) * t) * np.exp(-t / 0.25) + LP(rng.normal(0, 1, len(t)), 300) * np.exp(-t / 0.1) * 0.8
+    t = _t(d); return np.sin(2 * np.pi * (70 - 25 * t) * t) * np.exp(-t / 0.25) + BLP(rng.normal(0, 1, len(t)), 250) * np.exp(-t / 0.1) * 0.8
 
 def _lay(n, parts):
     out = np.zeros(n)
