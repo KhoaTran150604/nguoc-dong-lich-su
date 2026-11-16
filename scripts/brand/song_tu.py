@@ -12,7 +12,7 @@ OUT = os.path.join(ROOT, 'assets', 'brand', 'song-tu')
 INK, BR, BR2, RED, CREAM = '#14110F', '#C9A24A', '#F3D27A', '#B3261E', '#F2E6CC'
 SKIN, SKIN_D = '#F0C8A0', '#B07A50'
 
-def face(cx, cy, r, mood='cuoi', wink=False):
+def face(cx, cy, r, mood='cuoi', wink=False, may='thang', not_ruoi=False, seo=False):
     """Mặt chibi: mắt to có điểm sáng, má hồng, miệng cười."""
     o = [f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{SKIN}" stroke="{SKIN_D}" stroke-width="3"/>',
          f'<ellipse cx="{cx-r*0.93}" cy="{cy+r*0.08}" rx="{r*0.13}" ry="{r*0.2}" fill="{SKIN}" stroke="{SKIN_D}" stroke-width="2.5"/>',
@@ -24,16 +24,24 @@ def face(cx, cy, r, mood='cuoi', wink=False):
         else:
             o.append(f'<ellipse cx="{ex}" cy="{ey}" rx="{r*0.12}" ry="{r*0.16}" fill="{INK}"/>')
             o.append(f'<circle cx="{ex+r*0.04}" cy="{ey-r*0.06}" r="{r*0.045}" fill="#FFFFFF"/><circle cx="{ex-r*0.04}" cy="{ey+r*0.05}" r="{r*0.022}" fill="#FFFFFF"/>')
-        o.append(f'<path d="M{ex-r*0.15},{ey-r*0.27} Q{ex},{ey-r*0.34} {ex+r*0.15},{ey-r*0.27}" stroke="{INK}" stroke-width="{r*0.05}" fill="none" stroke-linecap="round"/>')
-        o.append(f'<ellipse cx="{cx+sx*r*0.58}" cy="{cy+r*0.38}" rx="{r*0.13}" ry="{r*0.08}" fill="#E8826A" opacity="0.55"/>')
-    if mood == 'cuoi':
+        if may == 'thang':   # mày rậm, thẳng: điềm tĩnh
+            o.append(f'<path d="M{ex-r*0.18},{ey-r*0.27} L{ex+r*0.18},{ey-r*0.29}" stroke="{INK}" stroke-width="{r*0.085}" stroke-linecap="round"/>')
+        else:                # mày xếch: tinh nghịch, võ
+            o.append(f'<path d="M{ex-sx*r*0.18},{ey-r*0.24} L{ex+sx*r*0.17},{ey-r*0.36}" stroke="{INK}" stroke-width="{r*0.085}" stroke-linecap="round"/>')
+        o.append(f'<ellipse cx="{cx+sx*r*0.6}" cy="{cy+r*0.4}" rx="{r*0.11}" ry="{r*0.06}" fill="#D97A60" opacity="0.3"/>')
+    if not_ruoi: o.append(f'<circle cx="{cx-r*0.5}" cy="{cy+r*0.3}" r="{r*0.035}" fill="#5A3A20"/>')
+    if seo: o.append(f'<path d="M{cx+r*0.48},{cy+r*0.22} l{r*0.2},{r*0.12} M{cx+r*0.52},{cy+r*0.33} l{r*0.06},{-r*0.12} M{cx+r*0.62},{cy+r*0.38} l{r*0.06},{-r*0.12}" stroke="#A0523A" stroke-width="{r*0.03}" stroke-linecap="round"/>')
+    if mood == 'nhe_rang':   # cười toe, lộ răng
+        o.append(f'<path d="M{cx-r*0.26},{cy+r*0.4} Q{cx},{cy+r*0.75} {cx+r*0.26},{cy+r*0.4} Z" fill="#7A2A20" stroke="{INK}" stroke-width="2.5" stroke-linejoin="round"/>'
+                 f'<path d="M{cx-r*0.22},{cy+r*0.42} L{cx+r*0.22},{cy+r*0.42} L{cx+r*0.2},{cy+r*0.5} L{cx-r*0.2},{cy+r*0.5} Z" fill="#FFFFFF"/>')
+    elif mood == 'cuoi':
         o.append(f'<path d="M{cx-r*0.2},{cy+r*0.42} Q{cx},{cy+r*0.68} {cx+r*0.2},{cy+r*0.42} Z" fill="#7A2A20" stroke="{INK}" stroke-width="2.5" stroke-linejoin="round"/>'
                  f'<path d="M{cx-r*0.1},{cy+r*0.56} Q{cx},{cy+r*0.5} {cx+r*0.1},{cy+r*0.56} Q{cx},{cy+r*0.64} {cx-r*0.1},{cy+r*0.56} Z" fill="#E8826A"/>')
     else:
         o.append(f'<path d="M{cx-r*0.18},{cy+r*0.45} Q{cx},{cy+r*0.6} {cx+r*0.18},{cy+r*0.45}" stroke="{INK}" stroke-width="{r*0.05}" fill="none" stroke-linecap="round"/>')
     return ''.join(o)
 
-def twin(cx, cy, r, ben='vang', mood='cuoi', wink=False, tilt=0):
+def twin(cx, cy, r, ben='vang', mood='cuoi', wink=False, tilt=0, may='thang', not_ruoi=False, seo=False):
     """Một người trong cặp sinh đôi. (cx, cy) = tâm đầu, r = bán kính đầu."""
     vang = ben == 'vang'
     robe, dark, trim = ('#D9B44A', '#6A4A14', CREAM) if vang else (RED, '#4A1410', BR2)
@@ -46,13 +54,14 @@ def twin(cx, cy, r, ben='vang', mood='cuoi', wink=False, tilt=0):
     if not vang:   # giáp vai
         o.append(f'<path d="M{cx-r*0.86},{by+r*0.5} Q{cx-r*0.86},{by+r*0.05} {cx-r*0.42},{by} Q{cx-r*0.4},{by+r*0.35} {cx-r*0.6},{by+r*0.55} Z" fill="#7A5A24" stroke="{dark}" stroke-width="3"/>'
                  f'<path d="M{cx+r*0.86},{by+r*0.5} Q{cx+r*0.86},{by+r*0.05} {cx+r*0.42},{by} Q{cx+r*0.4},{by+r*0.35} {cx+r*0.6},{by+r*0.55} Z" fill="#7A5A24" stroke="{dark}" stroke-width="3"/>')
-    o.append(face(cx, cy, r, mood, wink))
-    if vang:       # tóc + búi + trâm vàng
-        o.append(f'<path d="M{cx-r*1.02},{cy+r*0.05} Q{cx-r*1.05},{cy-r*1.05} {cx},{cy-r*1.04} Q{cx+r*1.05},{cy-r*1.05} {cx+r*1.02},{cy+r*0.05} '
-                 f'Q{cx+r*0.82},{cy-r*0.45} {cx+r*0.25},{cy-r*0.52} Q{cx},{cy-r*0.3} {cx-r*0.25},{cy-r*0.52} Q{cx-r*0.82},{cy-r*0.45} {cx-r*1.02},{cy+r*0.05} Z" fill="#2A1A10"/>')
-        o.append(f'<circle cx="{cx}" cy="{cy-r*1.12}" r="{r*0.32}" fill="#2A1A10"/>')
-        o.append(f'<line x1="{cx-r*0.55}" y1="{cy-r*1.2}" x2="{cx+r*0.55}" y2="{cy-r*1.02}" stroke="{BR}" stroke-width="{r*0.07}" stroke-linecap="round"/><circle cx="{cx+r*0.55}" cy="{cy-r*1.02}" r="{r*0.08}" fill="{BR2}"/>')
-        o.append(f'<path d="M{cx-r*0.95},{cy-r*0.38} Q{cx},{cy-r*0.72} {cx+r*0.95},{cy-r*0.38}" stroke="{BR}" stroke-width="{r*0.09}" fill="none"/>')
+    o.append(face(cx, cy, r, mood, wink, may, not_ruoi, seo))
+    if vang:       # thư sinh nam: tóc mai + khăn vấn đen quấn đầu, bút lông gác tai
+        o.append(f'<path d="M{cx-r*1.0},{cy+r*0.25} L{cx-r*0.98},{cy-r*0.2} L{cx-r*0.8},{cy-r*0.2} L{cx-r*0.82},{cy+r*0.2} Z M{cx+r*1.0},{cy+r*0.25} L{cx+r*0.98},{cy-r*0.2} L{cx+r*0.8},{cy-r*0.2} L{cx+r*0.82},{cy+r*0.2} Z" fill="#2A1A10"/>')
+        o.append(f'<path d="M{cx-r*1.06},{cy-r*0.18} Q{cx-r*1.1},{cy-r*1.12} {cx},{cy-r*1.14} Q{cx+r*1.1},{cy-r*1.12} {cx+r*1.06},{cy-r*0.18} Q{cx},{cy-r*0.48} {cx-r*1.06},{cy-r*0.18} Z" fill="#1E1612" stroke="{INK}" stroke-width="3"/>')
+        for k in range(4):   # nếp khăn
+            o.append(f'<path d="M{cx-r*1.0},{cy-r*(0.32+k*0.18)} Q{cx},{cy-r*(0.62+k*0.18)} {cx+r*1.0},{cy-r*(0.32+k*0.18)}" stroke="#4A3A30" stroke-width="{r*0.035}" fill="none"/>')
+        o.append(f'<path d="M{cx-r*1.04},{cy-r*0.25} Q{cx},{cy-r*0.55} {cx+r*1.04},{cy-r*0.25}" stroke="{BR}" stroke-width="{r*0.06}" fill="none"/>')
+        o.append(f'<g transform="rotate(-35 {cx+r*0.95} {cy-r*0.1})"><rect x="{cx+r*0.7}" y="{cy-r*0.14}" width="{r*0.6}" height="{r*0.08}" rx="{r*0.03}" fill="#8A3A24"/><path d="M{cx+r*1.3},{cy-r*0.14} l{r*0.16},{r*0.04} l{-r*0.16},{r*0.04} Z" fill="{INK}"/></g>')
     else:          # tóc mái + mũ trụ tua đỏ
         o.append(f'<path d="M{cx-r*1.0},{cy+r*0.02} Q{cx-r*0.9},{cy-r*0.55} {cx-r*0.3},{cy-r*0.48} Q{cx},{cy-r*0.3} {cx+r*0.3},{cy-r*0.48} Q{cx+r*0.9},{cy-r*0.55} {cx+r*1.0},{cy+r*0.02} Z" fill="#2A1A10"/>')
         o.append(f'<path d="M{cx-r*1.1},{cy-r*0.25} Q{cx-r*1.1},{cy-r*1.2} {cx},{cy-r*1.22} Q{cx+r*1.1},{cy-r*1.2} {cx+r*1.1},{cy-r*0.25} Q{cx},{cy-r*0.55} {cx-r*1.1},{cy-r*0.25} Z" fill="#8A6A2A" stroke="{INK}" stroke-width="4"/>')
@@ -111,8 +120,8 @@ def avatar(size=800, text=False):
          '<circle cx="400" cy="400" r="400" fill="#14110F"/><circle cx="400" cy="400" r="372" fill="url(#bg)"/>',
          '<g clip-path="url(#cl)">',
          map_scroll(400, 640, 300, 150),
-         twin(255, 365, 112, 'vang', 'cuoi', tilt=-4), hand_scroll(330, 600, 1.0),
-         twin(545, 365, 112, "do", "cuoi", wink=True, tilt=4), hand_flag(655, 610, 1.0),
+         twin(255, 365, 112, "vang", "cuoi", tilt=-4, may="thang", not_ruoi=True), hand_scroll(330, 600, 1.0),
+         twin(545, 365, 112, "do", "nhe_rang", wink=True, tilt=4, may="xech", seo=True), hand_flag(655, 610, 1.0),
          '</g>', drum_ring(400, 386), gemini(400, 150, 46)]
     if text:
         o.append('<path id="arc" d="M150,560 A260,260 0 0 0 650,560" fill="none"/>')
