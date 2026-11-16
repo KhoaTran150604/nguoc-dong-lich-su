@@ -42,16 +42,14 @@ def overlay():
     o.append(sword_up(SX + SW - 55, cy + 130, 0.78) + twin(SX + SW - 135, cy, r, 'do', 'nhe_rang', tilt=4, **DO) + shield(SX + SW - 190, cy + 160, 56))
     # chữ giữa
     cx = W / 2
-    o.append(gemini(cx, SY + 62, 34))
+    o.append(gemini(cx, SY + 100, 34))
     title = 'SONG TỬ KỂ SỬ'
-    o.append(f'<text x="{cx}" y="{SY+205}" font-family="Playfair Display" font-weight="800" font-size="104" fill="none" stroke="{INK}" stroke-width="14" stroke-linejoin="round" text-anchor="middle" letter-spacing="6">{title}</text>')
-    o.append(f'<text x="{cx}" y="{SY+205}" font-family="Playfair Display" font-weight="800" font-size="104" fill="{BR2}" text-anchor="middle" letter-spacing="6">{title}</text>')
-    o.append(f'<rect x="{cx-330}" y="{SY+240}" width="660" height="62" rx="31" fill="{INK}" stroke="{BR}" stroke-width="3"/>')
-    o.append(f'<text x="{cx-28}" y="{SY+282}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="{BR2}" text-anchor="end">Văn kể sử</text>'
-             f'<text x="{cx}" y="{SY+282}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="{CREAM}" text-anchor="middle">–</text>'
-             f'<text x="{cx+28}" y="{SY+282}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="#E8604A" text-anchor="start">Võ dẫn trận</text>')
-    o.append(f'<text x="{cx}" y="{SY+352}" font-family="Be Vietnam Pro" font-size="30" fill="{CREAM}" text-anchor="middle">Chiến trận lịch sử Việt Nam &amp; Trung Hoa qua bản đồ hoạt họa</text>')
-    o.append(f'<text x="{cx}" y="{SY+398}" font-family="Be Vietnam Pro" font-size="24" fill="{BR}" text-anchor="middle" letter-spacing="2">VIDEO MỚI HẰNG TUẦN</text>')
+    o.append(f'<text x="{cx}" y="{SY+250}" font-family="Playfair Display" font-weight="800" font-size="104" fill="none" stroke="{INK}" stroke-width="14" stroke-linejoin="round" text-anchor="middle" letter-spacing="6">{title}</text>')
+    o.append(f'<text x="{cx}" y="{SY+250}" font-family="Playfair Display" font-weight="800" font-size="104" fill="{BR2}" text-anchor="middle" letter-spacing="6">{title}</text>')
+    o.append(f'<rect x="{cx-330}" y="{SY+285}" width="660" height="62" rx="31" fill="{INK}" stroke="{BR}" stroke-width="3"/>')
+    o.append(f'<text x="{cx-28}" y="{SY+327}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="{BR2}" text-anchor="end">Văn kể sử</text>'
+             f'<text x="{cx}" y="{SY+327}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="{CREAM}" text-anchor="middle">–</text>'
+             f'<text x="{cx+28}" y="{SY+327}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="#E8604A" text-anchor="start">Võ dẫn trận</text>')
     o.append('</svg>')
     return ''.join(o)
 
