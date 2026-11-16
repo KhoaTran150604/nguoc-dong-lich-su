@@ -49,6 +49,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - Mẫu kỹ thuật đã làm: `bando-dong-…` (bản đồ phẳng), `sabandong-…` (sa bàn), `bandoco-NgoQuyen-…` (bản đồ cổ + cờ tướng, dấu X khi thắng).
 - Checklist "Short đầu tiên" (23 việc): **đã xong 13** – chọn kênh, tên, tạo kênh, avatar/banner, mô tả, xác minh SĐT, prompt kịch bản, chọn giọng, chọn chủ đề, viết kịch bản, kiểm tra sơ bộ, tạo giọng. **Còn:** chốt persona (tên người kể), chọn cách làm hình, template CapCut 9:16, tạo 8 hình Flow, dựng, xem lại trên điện thoại, tiêu đề/mô tả, cài đặt khi đăng, đăng, đăng lại TikTok/Reels, đo chỉ số sau 48h.
 - **Phong cách video dài (16:9) đã chốt 16/11:** `docs/plan/phong-cach-video-dai.md`. Gồm tĩnh là mặc định, bản đồ 2 tầng, kể chi tiết có nguồn, và **thư viện 12 hiệu ứng H1–H12 đã duyệt**. Code ở `scripts/hieuung/demo.py` (mỗi hiệu ứng một hàm, render nháp 540p, cache theo clip; `--final` cho 1080p), demo ở `assets/hieuung/demo-hieuung-nhap.mp4`. Người dùng muốn sửa hiệu ứng nào sẽ gọi theo mã (vd "H3 …").
+- **Video dài E2 – Bạch Đằng 938:** kho ✅ `kb/E2-bach-dang-938.md`; kịch bản `docs/long/E2-bach-dang-938.md`; lời đọc `docs/videos/E2-loi-doc.txt`; cảnh `scripts/video/tap/e2.py`; giọng `assets/e2/E2-GiaHuy.*`. Bản cuối 1080p60 render bằng `dung.py e2 … --final --fps60`.
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
 
 ## 7. Việc tiếp theo (đề xuất theo thứ tự)
@@ -60,12 +61,13 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 8. Cấu trúc thư mục
 ```
 CLAUDE.md                     ← file này
-.claude/skills/               ← 7 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, gop-y-kich-ban, giong-doc (giọng + âm thanh), project-checklist, vn-ai-channel-research
+.claude/skills/               ← 8 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, gop-y-kich-ban, giong-doc (giọng + âm thanh), dung-video (dựng video từ bộ công cụ), project-checklist, vn-ai-channel-research
 docs/research/01–04           ← research kênh AI VN, YouTube, audio, format slideshow
 docs/plan/series-nguoc-dong.md← 38 mốc + cấu trúc tập
 docs/prompts/kich-ban-short.md← prompt kịch bản
 docs/shorts/01-bach-dang-938.md
 kb/                           ← kho tri thức (INDEX, nguon, draft/, nhan-vat/, dia-danh/)
+scripts/video/                ← BỘ CÔNG CỤ DỰNG VIDEO cả series: dung.py (bộ máy) + tap/<mã>.py (cảnh từng tập) + bando_vung.py, bando_tran.py, nhanvat.py, amthanh.py – xem skill dung-video
 scripts/voice/tts.py          ← tạo giọng ZeroTTS (mặc định Gia Huy) + kiểm tra Whisper + mốc thời gian từng câu
 scripts/short/                ← dựng Short từ ảnh + phụ đề + giọng (scenes.py → caps.py → render.py)
 scripts/bando/anim.py         ← bản đồ phẳng động

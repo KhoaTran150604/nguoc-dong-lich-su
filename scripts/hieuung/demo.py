@@ -25,7 +25,7 @@ MUC, DONG, DONG2, DO, KEM = '#14110F', '#C9A24A', '#F3D27A', '#B3261E', '#F2E6CC
 TA = ('#D9B44A', '#5A3A10')      # phe ta: vàng đồng
 DICH = ('#A8382A', '#4A1410')    # phe địch: đỏ
 
-BIG = Image.open('map_big.png').convert('RGB')
+BIG = Image.open('map_big.png').convert('RGB') if os.path.exists('map_big.png') else None   # chỉ demo cũ cần
 CAM = (106.45, 21.0, 900.0)      # tâm lon, lat, bề rộng khung (đơn vị bản đồ)
 
 def base_frame(cam=CAM):

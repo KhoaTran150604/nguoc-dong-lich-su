@@ -17,6 +17,11 @@ NHANVAT = {
     'luu-cung':    dict(bg=('#3A0E0A', '#8E2A20'), hat='mien', beard='dai', robe='#5A1410', trim='#E8C060', age='gia', face='du'),
     'quan-ta':     dict(bg=('#5A3A10', '#C9A24A'), hat='non',  beard='none', robe='#5A4630', trim='#A88A50', age='tre', face='dung'),
     'duong-dinh-nghe': dict(bg=('#5A3A10', '#C9A24A'), hat='khan', beard='dai', robe='#4E3A1E', trim='#C9A24A', age='gia'),
+    'khuc-thua-my':    dict(bg=('#5A3A10', '#C9A24A'), hat='khan', beard='ria', robe='#5A4630', trim='#C9A24A', age='trung', face='hien'),
+    'tuong-nam-han':   dict(bg=('#4A1410', '#A8382A'), hat='tru',  beard='ria', robe='#7A1E18', trim='#E0B060', age='trung', face='du', armor=True),
+    'tieu-ich':        dict(bg=('#4A1410', '#A8382A'), hat='mao',  beard='dai', robe='#5A1410', trim='#E8C060', age='gia', face='hien'),
+    'su-gia':          dict(bg=('#2E2A26', '#6A5E50'), hat='khan', beard='none', robe='#3A342E', trim='#8A7A60', age='tre', face='hien'),
+    'tran-hung-dao':   dict(bg=('#5A3A10', '#C9A24A'), hat='tru',  beard='dai', robe='#6A4A1E', trim='#C9A24A', age='trung', face='dung', armor=True),
     'kieu-cong-tien':  dict(bg=('#2E2A26', '#6A5E50'), hat='khan', beard='ria', robe='#3A342E', trim='#8A7A60', age='trung', face='du'),
 }
 
@@ -90,6 +95,12 @@ def path(ma):
         os.makedirs(os.path.dirname(vec), exist_ok=True)
         cairosvg.svg2png(bytestring=_vector_svg(NHANVAT[ma]).encode(), write_to=vec)
     return vec
+
+TEN = {'ngo-quyen': 'NGÔ QUYỀN', 'hoang-thao': 'HOẰNG THÁO', 'luu-cung': 'LƯU CUNG', 'quan-ta': 'QUÂN TA',
+       'duong-dinh-nghe': 'DƯƠNG ĐÌNH NGHỆ', 'kieu-cong-tien': 'KIỀU CÔNG TIỄN', 'khuc-thua-my': 'KHÚC THỪA MỸ',
+       'tuong-nam-han': 'TƯỚNG NAM HÁN', 'tieu-ich': 'TIÊU ÍCH', 'su-gia': 'SỨ GIẢ', 'tran-hung-dao': 'TRẦN HƯNG ĐẠO'}
+for _k, _v in TEN.items():
+    if _k in NHANVAT: NHANVAT[_k].setdefault('ten', _v)
 
 _uri = {}
 def data_uri(ma):
