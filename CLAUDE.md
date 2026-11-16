@@ -38,6 +38,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
   3. `kiem-chung-nguon` – kiểm chứng **độc lập bằng subagent** (≥2 nguồn độc lập, ≥1 nguồn cấp 1–3) → ✅/⚠️/❌.
   4. `kho-tri-thuc` – lưu hồ sơ vào `kb/`, cập nhật `kb/INDEX.md`.
   5. Viết kịch bản bằng `docs/prompts/kich-ban-short.md`, **chỉ từ dữ kiện trong kho**; chạy lại `kiem-chung-nguon` trên kịch bản.
+  6. `gop-y-kich-ban` – góp ý kể chuyện (móc, liền mạch, dễ hiểu, chi tiết, cao trào, kết) bằng subagent, trước khi tạo giọng.
 - Truyền thuyết/niên đại tranh luận: kể kèm "tương truyền", "theo sử cũ chép".
 - Bản đồ: ghi "minh họa, ranh giới gần đúng" nếu chưa có nguồn atlas; bản đồ Việt Nam toàn cảnh hiện đại luôn có Hoàng Sa, Trường Sa; không dùng hình dạng chữ S hiện đại cho thời kỳ xưa.
 - Không sao chép bản đồ/hình của kênh khác (Sử Lược, EZ Sử…), không dùng hình đối thủ, không giả giọng người thật.
@@ -59,7 +60,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 8. Cấu trúc thư mục
 ```
 CLAUDE.md                     ← file này
-.claude/skills/               ← 5 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, project-checklist, vn-ai-channel-research
+.claude/skills/               ← 6 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, gop-y-kich-ban, project-checklist, vn-ai-channel-research
 docs/research/01–04           ← research kênh AI VN, YouTube, audio, format slideshow
 docs/plan/series-nguoc-dong.md← 38 mốc + cấu trúc tập
 docs/prompts/kich-ban-short.md← prompt kịch bản
