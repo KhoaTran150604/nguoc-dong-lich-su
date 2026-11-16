@@ -12,6 +12,7 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
 FINAL = '--final' in sys.argv
 W, H, FPS = (1920, 1080, 30) if FINAL else (960, 540, 30)
+if '--fps60' in sys.argv: FPS = 60
 DUR = 3.6
 COS = math.cos(math.radians(21)); LON0, LAT0, S0 = 102.0, 26.5, 260.0
 def pj(lon, lat): return ((lon - LON0) * COS * S0, (LAT0 - lat) * S0)

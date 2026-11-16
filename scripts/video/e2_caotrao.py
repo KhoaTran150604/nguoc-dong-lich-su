@@ -149,14 +149,14 @@ SCENE_FN = {k: v for k, v in globals().items() if re.fullmatch(r's\d\d', k)}
 def SFX(code, d):
     if code == 's37': return [(0.1, 'lua', 0.45, d - 0.1), (0.6, 'kiem', 0.9, None), (1.1, 'kiem', 0.7, None), (1.7, 'kiem', 0.8, None)]
     if code == 's41': return [(0.15 * d, 'rut', 0.8, None)]
-    if code == 's42': return [(0.2 + 0.7 * k, 'trong', 0.9, None) for k in range(int(d / 0.7))]
+    if code == 's42': return [(0.2, 'trong_b', 1.0, None)]          # người dùng chọn trong_b cho đoạn phản công
     if code == 's43':
         ev = [(d * 0.35, 'roi', 0.5, None)]
         for k in range(3):
             c = d * 0.25 + d * 0.15 * k
             ev += [(c, 'lua', 0.35, d - c), (c + 0.5, 'kiem', 0.8, None), (c + 0.9, 'kiem', 0.6, None)]
         return ev
-    if code == 's44': return [(0.3, 'vo', 1.0, None), (0.3 + d * 0.2, 'vo', 0.8, None), (0.3 + d * 0.4, 'nuoc', 0.8, None), (0.3 + d * 0.55, 'vo', 0.7, None)]
+    if code == 's44': return [(0.3, 'vo_a', 1.0, None), (0.3 + d * 0.35, 'vo_a', 0.8, None)]   # người dùng chọn vo_a
     if code == 's45': return [(1.6, 'roi', 0.8, None)]
     return []
 
@@ -213,6 +213,18 @@ def frame(code, tl, d):
     if fa < 1: fr = Image.blend(Image.new('RGBA', (W, H), (20, 17, 15, 255)), fr, max(0, fa))
     return fr.convert('RGB')
 
+def render_scene(job):
+    """Render một cảnh ra clip (chạy trong tiến trình con). Khung giống hệt khung trước thì dùng lại, không vẽ lại."""
+    code, a, b, out = job; d = b - a; tmp = out + '.tmp.mp4'
+    p = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
+                          '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'veryfast' if L.FINAL else 'ultrafast', '-crf', '18' if L.FINAL else '26',
+                          '-threads', '1', tmp], stdin=subprocess.PIPE)
+    for i in range(round(b * FPS) - round(a * FPS)):
+        tl = (round(a * FPS) + i) / FPS - a
+        p.stdin.write(frame(code, tl, d).tobytes())
+    p.stdin.close(); p.wait(); os.replace(tmp, out)
+    return f'{code} ok {d:.1f}s'
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     items = read_script(args[0])
@@ -229,18 +241,17 @@ def main():
     times, pauses, end = timeline(items, meta)
     plan = scenes_from(items, times, pauses, end)
     src = open(__file__, 'rb').read() + open(L.__file__, 'rb').read() + open(BT.__file__, 'rb').read()
-    os.makedirs('clips', exist_ok=True); files = []
+    os.makedirs('clips', exist_ok=True)
+    jobs = []
     for code, a, b in plan:
-        d = b - a
-        key = hashlib.sha1(src + f'{code}{a:.2f}{d:.2f}{W}'.encode()).hexdigest()[:10]
-        out = f'clips/E2c-{code}-{W}-{key}.mp4'; files.append(out)
-        if os.path.exists(out): print(code, 'cache'); continue
-        p = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
-                              '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'veryfast' if L.FINAL else 'ultrafast', '-crf', '20' if L.FINAL else '26', out], stdin=subprocess.PIPE)
-        for i in range(round(b * FPS) - round(a * FPS)):
-            tl = (round(a * FPS) + i) / FPS - a
-            p.stdin.write(frame(code, tl, d).tobytes())
-        p.stdin.close(); p.wait(); print(code, f'ok {d:.1f}s')
+        key = hashlib.sha1(src + f'{code}{a:.2f}{b-a:.2f}{W}{FPS}'.encode()).hexdigest()[:10]
+        jobs.append((code, a, b, f'clips/E2c-{code}-{W}p{FPS}-{key}.mp4'))
+    files = [j[3] for j in jobs]
+    todo = [j for j in jobs if not os.path.exists(j[3])]
+    print(f'{len(jobs)} cảnh, {len(jobs)-len(todo)} lấy từ cache, render {len(todo)} cảnh trên {min(4, os.cpu_count())} nhân')
+    from multiprocessing import Pool
+    with Pool(min(4, os.cpu_count())) as pool:
+        for msg in pool.imap_unordered(render_scene, sorted(todo, key=lambda j: -(j[2] - j[1]))): print(msg, flush=True)
     open('list.txt', 'w').write(''.join(f"file '{f}'\n" for f in files))
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'list.txt', '-c', 'copy', 'hinh.mp4'], check=True)
     # tiếng: chèn lặng vào giọng, rồi trộn hiệu ứng (tự hạ khi có giọng)
