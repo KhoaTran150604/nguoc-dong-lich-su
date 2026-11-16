@@ -48,21 +48,28 @@ def stakes(vis, ghost=0.0):
     return ''.join(o)
 
 FLEET = [(0.0, 0, 0), (0.025, -5, 7), (0.025, 6, -6), (0.05, 0, 11), (0.05, 2, -11), (0.075, -4, 3), (0.09, 5, 8)]
-def fleet(u, sink=0.0, stuck=0.0, t=0.0, facing=170):
-    o = []
+def fleet(u, sink=0.0, stuck=0.0, t=0.0, facing=170, leader=True):
+    """Đoàn chiến thuyền Nam Hán; cờ Hoằng Tháo cắm trên thuyền chỉ huy (thuyền thứ 2 trong đội hình)."""
+    o, top = [], ''
     for j, (lag, dx, dy) in enumerate(FLEET):
         x, y = on_river(min(1.15, u + lag)); x += dx*U; y += dy*U
         jit = math.sin(t * 22 + j) * 1.2 * U * stuck
         s = max(0, min(1, sink * 1.6 - j * 0.1))
-        o.append(f'<g opacity="{1 - 0.85*s:.2f}" transform="translate({jit:.1f} {s*5*U:.1f}) rotate({s*(25 if j%2 else -22):.1f} {x:.1f} {y:.1f})">{L.boat(x, y, facing, DICH, 0.34)}</g>')
-    return ''.join(o)
+        g = f'<g opacity="{1 - 0.85*s:.2f}" transform="translate({jit:.1f} {s*5*U:.1f}) rotate({s*(25 if j%2 else -22):.1f} {x:.1f} {y:.1f})">'
+        o.append(g + L.boat(x, y, facing, DICH, 0.34) + '</g>')
+        if leader and j == 1:
+            top = g + flag(x, y - 6*U, 'HOẰNG THÁO', DICH, 0.17) + '</g>'
+    return ''.join(o) + top
 
-def light_boats(u, facing=0, op=1.0):
-    o = []
+def light_boats(u, facing=0, op=1.0, leader=True):
+    """Thuyền nhẹ của ta; cờ Quân ta trên thuyền đi đầu."""
+    o, top = [], ''
     for j, (lag, dy) in enumerate([(0, -5), (0.02, 6), (0.04, -1)]):
         x, y = on_river(max(-0.1, u - lag)); y += dy*U
         o.append(f'<g opacity="{op:.2f}">{L.boat(x, y, facing, TA, 0.24)}</g>')
-    return ''.join(o)
+        if leader and j == (0 if facing < 90 else 2):
+            top = f'<g opacity="{op:.2f}">' + flag(x, y - 4*U, 'QUÂN TA', TA, 0.13) + '</g>'
+    return ''.join(o) + top
 
 def clash(x, y, tl, s=0.45):
     """H3 thu nhỏ: hai kiếm chém vào nhau + lửa nhỏ."""
@@ -126,7 +133,7 @@ def s44(tl, d):
 
 def s45(tl, d):
     x, y = on_river(0.68); fall = seg(tl, 0.6, 1.8)
-    return tide(0) + stakes(1) + fleet(0.62, sink=1, facing=0) + light_boats(0.52, 0) + flag(x, y - 4*U, 'HOẰNG THÁO', DICH, 0.32, tilt=80*fall, grey=seg(tl, 1.4, 2.6))
+    return tide(0) + stakes(1) + fleet(0.62, sink=1, facing=0, leader=False) + light_boats(0.52, 0) + flag(x, y - 4*U, 'HOẰNG THÁO', DICH, 0.32, tilt=80*fall, grey=seg(tl, 1.4, 2.6))
 
 def s46(tl, d):          # bản đồ vùng quanh Quảng Châu; Hải Môn chỉ là vị trí minh họa
     STATE['region'] = True

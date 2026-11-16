@@ -4,205 +4,165 @@
  "speed": 1.0,
  "warm": 0.0,
  "seed": 7,
- "duration": 55.372,
+ "duration": 53.212,
  "lines": [
   {
    "i": 1,
-   "text": "Bước thứ nhất: nước triều lên.",
+   "text": "Nước triều đang lên.",
    "start": 0.3,
-   "end": 1.686,
+   "end": 1.262,
    "score": 1.0,
-   "heard": "Bước thứ nhất, nước triều lên."
+   "heard": "Nước chiều đang lên."
   },
   {
    "i": 2,
-   "text": "Bãi cọc chìm sâu dưới mặt sông.",
-   "start": 1.936,
-   "end": 3.81,
+   "text": "Cả bãi cọc chìm sâu dưới mặt sông.",
+   "start": 1.512,
+   "end": 3.413,
    "score": 1.0,
-   "heard": "Bãi cọc chìm sâu dưới mặt sông."
+   "heard": "Cả bãi cọc chìm sâu dưới mặt sông."
   },
   {
    "i": 3,
-   "text": "Khi ấy, Ngô Quyền sai thuyền nhẹ ra khiêu chiến.",
-   "start": 4.41,
-   "end": 7.267,
-   "score": 0.9,
-   "heard": "Khi ấy, ngô quyền sai thuyền nhẹ ra khiêu chính."
+   "text": "Đúng lúc ấy, Ngô Quyền sai những chiếc thuyền nhẹ ra khiêu chiến.",
+   "start": 4.013,
+   "end": 7.439,
+   "score": 1.0,
+   "heard": "Đúng lúc ấy, ngô quyền sai những chiếc thuyền nhẹ ra khiêu chiến."
   },
   {
    "i": 4,
    "text": "Hai bên vừa giáp mặt,",
-   "start": 7.867,
-   "end": 9.095,
+   "start": 8.039,
+   "end": 9.266,
    "score": 1.0,
    "heard": "Hai bên vừa giáp mặt."
   },
   {
    "i": 5,
-   "text": "thuyền ta liền quay đầu, giả vờ thua chạy.",
-   "start": 9.695,
-   "end": 12.057,
+   "text": "thuyền ta đã quay đầu, giả vờ thua chạy.",
+   "start": 9.866,
+   "end": 12.513,
    "score": 1.0,
-   "heard": "Thuyền ta liền quay đầu, giả vờ thua chạy."
+   "heard": "Thuyền ta đã quay đầu, giả vờ thua chạy."
   },
   {
    "i": 6,
-   "text": "Hoằng Tháo đuổi theo.",
-   "start": 12.657,
-   "end": 13.841,
-   "score": 0.75,
-   "heard": "Hoàn tháo đuổi theo."
+   "text": "Quả nhiên, Hoằng Tháo dẫn cả đoàn chiến thuyền đuổi theo.",
+   "start": 13.113,
+   "end": 16.065,
+   "score": 0.909,
+   "heard": "Quả nhiên Hoàng Tháo dẫn cả đoàn chiến thuyền đuổi theo."
   },
   {
    "i": 7,
-   "text": "Đoàn chiến thuyền tiến sâu vào trong.",
-   "start": 14.091,
-   "end": 16.144,
+   "text": "Những con thuyền lớn vượt qua hàng cọc ngầm,",
+   "start": 16.315,
+   "end": 18.689,
    "score": 1.0,
-   "heard": "Đoàn chiến thuyền tiến sâu vào trong"
+   "heard": "Những con thuyền lớn vượt qua hàng cọc ngầm."
   },
   {
    "i": 8,
-   "text": "Bước thứ hai đã xong:",
-   "start": 16.394,
-   "end": 17.509,
+   "text": "tiến sâu vào trong sông.",
+   "start": 18.939,
+   "end": 20.247,
    "score": 1.0,
-   "heard": "Bước thứ hai đã xong."
+   "heard": "Tiến sâu vào trong sông"
   },
   {
    "i": 9,
-   "text": "giặc đã ở bên trong hàng cọc.",
-   "start": 17.759,
-   "end": 19.464,
-   "score": 0.857,
-   "heard": "Vặt đã ở bên trong hàng cọc."
+   "text": "Rồi nước triều bắt đầu rút.",
+   "start": 20.847,
+   "end": 22.27,
+   "score": 1.0,
+   "heard": "Rồi nước chiều bắt đầu rút."
   },
   {
    "i": 10,
-   "text": "Và rồi, bước thứ ba,",
-   "start": 20.064,
-   "end": 21.281,
-   "score": 1.0,
-   "heard": "Và rồi bước thứ ba."
+   "text": "Sử chép rằng nước rút rất nhanh, chỉ trong chốc lát.",
+   "start": 22.52,
+   "end": 25.316,
+   "score": 0.909,
+   "heard": "Sự chép rằng nước rút rất nhanh, chỉ trong chốc lát."
   },
   {
    "i": 11,
-   "text": "bước mà Ngô Quyền chờ đợi.",
-   "start": 21.531,
-   "end": 23.049,
-   "score": 1.0,
-   "heard": "Bước mà ngô quyền chờ đợi."
+   "text": "Từng mũi cọc bịt sắt lần lượt nhô lên khỏi mặt nước.",
+   "start": 25.566,
+   "end": 28.635,
+   "score": 0.833,
+   "heard": "Từng mũi cọp bịt sắc lần lượt nhô lên khỏi mặt nước."
   },
   {
    "i": 12,
-   "text": "Theo lời sử chép, chỉ trong chốc lát,",
-   "start": 23.299,
-   "end": 25.371,
-   "score": 0.875,
-   "heard": "theo lời sử chép chỉ trong chút lát."
+   "text": "Lúc ấy, Ngô Quyền mới tung quân ra đánh.",
+   "start": 29.235,
+   "end": 31.516,
+   "score": 1.0,
+   "heard": "Lúc ấy ngô quyền mới tung quân ra đánh."
   },
   {
    "i": 13,
-   "text": "nước triều rút xuống rất nhanh.",
-   "start": 25.621,
-   "end": 27.073,
-   "score": 0.833,
-   "heard": "Nước tiều rút xuống rất nhanh."
+   "text": "Thuyền Nam Hán quay đầu muốn chạy ra biển,",
+   "start": 32.116,
+   "end": 34.26,
+   "score": 1.0,
+   "heard": "Thuyền Nam Hán quay đầu muốn chạy ra biển."
   },
   {
    "i": 14,
-   "text": "Những mũi cọc bịt sắt",
-   "start": 27.323,
-   "end": 28.519,
-   "score": 0.6,
-   "heard": "Những mũi cọc bịch sắc"
+   "text": "nhưng thuyền vướng vào cọc sắt, không sao quay ra được.",
+   "start": 34.51,
+   "end": 37.372,
+   "score": 0.909,
+   "heard": "Nhưng thuyền vướng vào cọp sắt không sao quay ra được."
   },
   {
    "i": 15,
-   "text": "lần lượt nhô lên khỏi mặt nước.",
-   "start": 28.769,
-   "end": 30.628,
-   "score": 1.0,
-   "heard": "lần lượt nhô lên khỏi mặt nước."
-  },
-  {
-   "i": 16,
-   "text": "Lúc ấy, Ngô Quyền mới tung quân tiến đánh.",
-   "start": 31.228,
-   "end": 33.732,
-   "score": 1.0,
-   "heard": "Lúc ấy Ngô Quyền mới tung quân tiến đánh."
-  },
-  {
-   "i": 17,
-   "text": "Thuyền Nam Hán muốn quay ra biển.",
-   "start": 34.332,
-   "end": 36.236,
-   "score": 1.0,
-   "heard": "Thuyền Nam Hán muốn quay ra biển."
-  },
-  {
-   "i": 18,
-   "text": "Nhưng thuyền vướng vào cọc sắt,",
-   "start": 36.486,
-   "end": 38.151,
-   "score": 1.0,
-   "heard": "Nhưng thuyền vướng vào cọc sắt."
-  },
-  {
-   "i": 19,
-   "text": "không sao quay ra được.",
-   "start": 38.401,
-   "end": 39.66,
-   "score": 1.0,
-   "heard": "Không sao quay ra được."
-  },
-  {
-   "i": 20,
    "text": "Thuyền vỡ, thuyền đắm.",
-   "start": 40.26,
-   "end": 41.635,
+   "start": 37.972,
+   "end": 39.322,
    "score": 1.0,
    "heard": "Thuyền vỡ, thuyền đắm"
   },
   {
-   "i": 21,
+   "i": 16,
    "text": "Quân Nam Hán tan vỡ, quá nửa chết đuối.",
-   "start": 41.885,
-   "end": 44.282,
+   "start": 39.572,
+   "end": 41.959,
    "score": 0.889,
-   "heard": "Quân Nam Hán tanh vỡ quá nửa chết đuối."
+   "heard": "Quân Nam Hán tăng vỡ, quá nửa chết đuối."
   },
   {
-   "i": 22,
+   "i": 17,
    "text": "Hoằng Tháo, người được phong làm vua đất Giao,",
-   "start": 44.882,
-   "end": 47.333,
+   "start": 42.559,
+   "end": 45.034,
    "score": 0.889,
-   "heard": "Hoàng Tháo, người được phong làm vua đất Giao"
+   "heard": "Hoàng Tháo, người được phong làm vua đất Giao."
   },
   {
-   "i": 23,
+   "i": 18,
    "text": "tử trận ngay trên sông Bạch Đằng.",
-   "start": 47.583,
-   "end": 49.411,
+   "start": 45.284,
+   "end": 46.99,
    "score": 0.857,
-   "heard": "Tử trận ngay trên sông Bạch Đẳng."
+   "heard": "Tử trận ngay trên sông Bạch Đặng"
   },
   {
-   "i": 24,
+   "i": 19,
    "text": "Ở Hải Môn, Lưu Cung nghe tin, khóc thảm thiết,",
-   "start": 50.011,
-   "end": 52.491,
-   "score": 1.0,
-   "heard": "Ở Hải Môn, lưu cung nghe tin khóc thảm thiết."
+   "start": 47.59,
+   "end": 50.387,
+   "score": 0.9,
+   "heard": "Ở Hải Môn, lưu cung nghe tin khóc thạm thiết."
   },
   {
-   "i": 25,
+   "i": 20,
    "text": "thu nhặt chỗ quân còn lại mà rút về.",
-   "start": 52.741,
-   "end": 55.122,
+   "start": 50.637,
+   "end": 52.962,
    "score": 1.0,
    "heard": "thu nhặt chỗ quân còn lại mà rút về."
   }
