@@ -79,7 +79,7 @@ def s5():
 STYLES = [('1-son-mai-co-dien', 'Sơn mài cổ điển', s1), ('2-phang-toi-gian', 'Phẳng tối giản', s2), ('3-an-trien-do', 'Ấn triện đỏ', s3),
           ('4-am-duong', 'Âm dương', s4), ('5-dem-bach-dang', 'Đêm Bạch Đằng', s5)]
 
-if __name__ == '__main__':
+if __name__ == '__main__' and '--van-vo' not in sys.argv:
     from PIL import Image, ImageDraw, ImageFont
     f = ImageFont.truetype(os.path.expanduser('~/.fonts/BeVietnamPro-SemiBold.ttf'), 30)
     sheet = Image.new('RGB', (5 * 420 + 20, 640), '#D8BE8E'); d = ImageDraw.Draw(sheet)
@@ -93,3 +93,65 @@ if __name__ == '__main__':
         d.text((x + 200, 430), f'{i+1}. {ten}', fill='#2A1A10', font=f, anchor='mm'); d.text((x + 260, 514), '88px · 40px', fill='#5A3A20', font=ImageFont.truetype(os.path.expanduser('~/.fonts/BeVietnamPro-Regular.ttf'), 22), anchor='mm')
         print(fn)
     sheet.save(os.path.join(D, 'bang-so-sanh.jpg'), quality=90)
+
+# ---------------- VĂN – VÕ: avatar nói rõ vai trò hai anh em ----------------
+def book_open(cx, cy, w):
+    """Quyển sử mở trên hai tay Anh Văn."""
+    h = w * 0.62; o = f'<g transform="translate({cx} {cy})">'
+    o += f'<path d="M0,{-h*0.42} Q{-w*0.25},{-h*0.55} {-w*0.5},{-h*0.42} L{-w*0.5},{h*0.48} Q{-w*0.25},{h*0.36} 0,{h*0.5} Z" fill="#F7EBD0" stroke="#6A4A14" stroke-width="4"/>'
+    o += f'<path d="M0,{-h*0.42} Q{w*0.25},{-h*0.55} {w*0.5},{-h*0.42} L{w*0.5},{h*0.48} Q{w*0.25},{h*0.36} 0,{h*0.5} Z" fill="#F7EBD0" stroke="#6A4A14" stroke-width="4"/>'
+    for k in range(5):
+        y = -h * 0.28 + k * h * 0.15
+        o += f'<line x1="{-w*0.42}" y1="{y}" x2="{-w*0.08}" y2="{y+4}" stroke="#8A6A3A" stroke-width="3"/><line x1="{w*0.08}" y1="{y+4}" x2="{w*0.42}" y2="{y}" stroke="#8A6A3A" stroke-width="3"/>'
+    o += f'<circle cx="{-w*0.5}" cy="{h*0.15}" r="{w*0.1}" fill="#F0C8A0" stroke="#B07A50" stroke-width="3"/><circle cx="{w*0.5}" cy="{h*0.15}" r="{w*0.1}" fill="#F0C8A0" stroke="#B07A50" stroke-width="3"/>'
+    return o + '</g>'
+
+def sword_up(x, y, s):
+    """Kiếm giơ cao của Em Võ (gốc ở nắm tay)."""
+    return (f'<g transform="translate({x} {y}) rotate(18) scale({s})">'
+            f'<polygon points="-9,-20 9,-20 7,-230 0,-252 -7,-230" fill="#DCE2E6" stroke="#3A3A3A" stroke-width="3"/><line x1="0" y1="-24" x2="0" y2="-228" stroke="#9AA2A6" stroke-width="3"/>'
+            f'<rect x="-34" y="-24" width="68" height="12" rx="5" fill="{BR}" stroke="#5A3A10" stroke-width="3"/><rect x="-8" y="-12" width="16" height="40" fill="#3A2618"/>'
+            f'<circle cx="0" cy="34" r="9" fill="{BR}" stroke="#5A3A10" stroke-width="3"/><circle cx="0" cy="0" r="17" fill="#F0C8A0" stroke="#B07A50" stroke-width="3"/></g>')
+
+def shield(x, y, r):
+    o = f'<g transform="translate({x} {y})"><circle r="{r}" fill="#7A1E18" stroke="{BR}" stroke-width="7"/><circle r="{r*0.72}" fill="none" stroke="{BR2}" stroke-width="3"/>'
+    for i in range(8):
+        a = math.radians(i * 45); o += f'<line x1="{math.cos(a)*r*0.25}" y1="{math.sin(a)*r*0.25}" x2="{math.cos(a)*r*0.68}" y2="{math.sin(a)*r*0.68}" stroke="{BR2}" stroke-width="3"/>'
+    return o + f'<circle r="{r*0.22}" fill="{BR}" stroke="#5A3A10" stroke-width="3"/></g>'
+
+def badge(x, y, chu, nen, vien):
+    return (f'<g transform="translate({x} {y})"><circle r="34" fill="{nen}" stroke="{vien}" stroke-width="5"/>'
+            f'<text y="11" font-family="Playfair Display" font-weight="800" font-size="{30 if len(chu) > 2 else 34}" fill="{vien}" text-anchor="middle">{chu}</text></g>')
+
+def van_vo(chu_ten=False):
+    o = HEAD + CLIP.format(r=380, extra='') + '<circle cx="400" cy="400" r="400" fill="#14110F"/><g clip-path="url(#cl)">'
+    o += '<rect width="800" height="800" fill="#B3261E"/><polygon points="0,0 470,0 330,800 0,800" fill="#D9B44A"/>'
+    # vân nền: bên Văn chữ + sách, bên Võ kiếm chéo
+    for i in range(7):
+        y = 90 + i * 100; o += f'<line x1="40" y1="{y}" x2="{300 - i*10}" y2="{y}" stroke="#F3D27A" stroke-width="6" opacity="0.35" stroke-dasharray="26 14"/>'
+    for i, (x, y) in enumerate([(640, 160), (720, 330), (600, 520), (730, 640)]):
+        o += f'<g transform="translate({x} {y}) rotate({30 + i*20})" opacity="0.2"><line x1="-50" y1="0" x2="50" y2="0" stroke="#F3D27A" stroke-width="8"/><line x1="0" y1="-50" x2="0" y2="50" stroke="#F3D27A" stroke-width="8"/></g>'
+    # Anh Văn (trái): mở sách
+    o += twin(250, 360, 108, 'vang', 'cuoi', tilt=-3, **TA) + book_open(250, 560, 230) + badge(250, 690, 'VĂN', '#F2E6CC', '#6A4A14')
+    # Em Võ (phải): khiên + kiếm giơ cao
+    o += sword_up(640, 520, 1.0) + twin(540, 360, 108, 'do', 'nhe_rang', tilt=4, **DO) + shield(470, 560, 72) + badge(560, 690, 'VÕ', '#14110F', '#F3D27A')
+    o += '</g><circle cx="400" cy="400" r="384" fill="none" stroke="#C9A24A" stroke-width="10"/>' + gemini(400, 92, 36)
+    if chu_ten:
+        o += '<rect x="185" y="730" width="430" height="56" rx="28" fill="#14110F" stroke="#C9A24A" stroke-width="4"/><text x="400" y="770" font-family="Playfair Display" font-weight="800" font-size="34" fill="#F3D27A" text-anchor="middle" letter-spacing="3">SONG TỬ KỂ SỬ</text>'
+    return o + '</svg>'
+
+def render_van_vo():
+    from PIL import Image, ImageDraw, ImageFont
+    out = []
+    for chu in (False, True):
+        svg = van_vo(chu); fn = os.path.join(D, 'van-vo' + ('-co-chu' if chu else '') + '.png')
+        open(fn.replace('.png', '.svg'), 'w').write(svg); cairosvg.svg2png(bytestring=svg.encode(), write_to=fn, output_width=800, output_height=800); out.append(fn)
+    a, b = (Image.open(f).convert('RGBA') for f in out)
+    sh = Image.new('RGB', (1960, 860), '#D8BE8E'); sh.paste(a, (20, 30), a); sh.paste(b, (860, 30), b)
+    f = ImageFont.truetype(os.path.expanduser('~/.fonts/BeVietnamPro-SemiBold.ttf'), 22); d = ImageDraw.Draw(sh); y = 60
+    for s in (160, 88, 40):
+        t = a.resize((s, s), Image.LANCZOS); sh.paste(t, (1740 - s // 2, y), t); d.text((1700, y + s + 6), f'{s}px', fill='#2A1A10', font=f); y += s + 60
+    sh.save(os.path.join(D, 'van-vo-xem-thu.jpg'), quality=90)
+
+if __name__ == '__main__' and '--van-vo' in sys.argv:
+    render_van_vo()

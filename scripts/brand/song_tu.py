@@ -68,7 +68,7 @@ def twin(cx, cy, r, ben='vang', mood='cuoi', wink=False, tilt=0, may='thang', no
         o.append(f'<path d="M{cx-r*0.95},{cy-r*0.5} Q{cx},{cy-r*0.85} {cx+r*0.95},{cy-r*0.5}" stroke="{BR2}" stroke-width="{r*0.07}" fill="none"/>')
         o.append(f'<circle cx="{cx}" cy="{cy-r*0.86}" r="{r*0.1}" fill="{RED}" stroke="{BR2}" stroke-width="3"/>')
         o.append(f'<path d="M{cx-r*0.08},{cy-r*1.2} L{cx},{cy-r*1.5} L{cx+r*0.08},{cy-r*1.2} Z" fill="{BR}" stroke="{INK}" stroke-width="2"/>')
-        o.append(f'<path d="M{cx},{cy-r*1.45} Q{cx-r*0.45},{cy-r*1.8} {cx-r*0.5},{cy-r*1.35} Q{cx-r*0.2},{cy-r*1.55} {cx},{cy-r*1.4} Q{cx+r*0.2},{cy-r*1.55} {cx+r*0.5},{cy-r*1.35} Q{cx+r*0.45},{cy-r*1.8} {cx},{cy-r*1.45} Z" fill="{RED}"/>')
+        o.append(f'<path d="M{cx},{cy-r*1.45} Q{cx-r*0.45},{cy-r*1.8} {cx-r*0.5},{cy-r*1.35} Q{cx-r*0.2},{cy-r*1.55} {cx},{cy-r*1.4} Q{cx+r*0.2},{cy-r*1.55} {cx+r*0.5},{cy-r*1.35} Q{cx+r*0.45},{cy-r*1.8} {cx},{cy-r*1.45} Z" fill="{RED}" stroke="{BR2}" stroke-width="3"/>')
     o.append('</g>')
     return ''.join(o)
 
