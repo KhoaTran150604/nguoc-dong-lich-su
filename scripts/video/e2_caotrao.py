@@ -13,6 +13,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'hieuung')); sys.path.insert(0, HERE)
 import demo as L                    # thư viện hiệu ứng H1–H12 đã duyệt
 import bando_tran as BT             # bản đồ trận cửa sông
+import nhanvat as NV                # chân dung nhân vật trên cờ
 import cairosvg
 from PIL import Image
 
@@ -74,7 +75,8 @@ def clash(x, y, tl, s=0.45):
     if 0 < hit < 0.6: o.append(f'<circle cx="0" cy="{-38*U:.1f}" r="{(5+18*hit)*U:.1f}" fill="{DONG2}" opacity="{0.85*(1-hit/0.6):.2f}"/>')
     return ''.join(o) + '</g>'
 
-def flag(x, y, name, side, s=0.22, **kw): return L.banner(x, y, name, side, s, **kw)
+MA = {'NGÔ QUYỀN': 'ngo-quyen', 'QUÂN TA': 'quan-ta', 'HOẰNG THÁO': 'hoang-thao', 'LƯU CUNG': 'luu-cung'}
+def flag(x, y, name, side, s=0.22, **kw): return L.banner(x, y, name, side, s, img=NV.data_uri(MA[name]) if name in MA else None, **kw)
 
 # ---------------- Các cảnh (tl = giây trong cảnh, d = độ dài cảnh) ----------------
 def s35(tl, d):

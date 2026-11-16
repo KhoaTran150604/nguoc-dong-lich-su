@@ -47,7 +47,8 @@ def path_at(pts, u):
     return pts[-1]
 
 # ---- Thư viện ký hiệu ----
-def banner(x, y, name, side, s=0.42, tilt=0, op=1.0, grey=0.0, outline=0.0):
+def banner(x, y, name, side, s=0.42, tilt=0, op=1.0, grey=0.0, outline=0.0, img=None):
+    """Cờ tướng. img = data URI chân dung (scripts/video/nhanvat.py); không có thì vẽ hình bóng người."""
     col, dark = side
     if grey > 0:
         g = lambda c: '#%02x%02x%02x' % tuple(int(lerp(int(c[i:i+2], 16), 0x80, grey)) for i in (1, 3, 5))
@@ -60,7 +61,10 @@ def banner(x, y, name, side, s=0.42, tilt=0, op=1.0, grey=0.0, outline=0.0):
          f'<rect x="-70" y="-266" width="140" height="190" fill="{col}" stroke="{dark}" stroke-width="5"/>',
          f'<rect x="-70" y="-266" width="140" height="40" fill="{KEM}" stroke="{dark}" stroke-width="4"/>',
          f'<text x="0" y="-238" font-family="Be Vietnam Pro SemiBold" font-size="22" fill="#2A1A10" text-anchor="middle">{name}</text>',
-         f'<g transform="translate(0 -150)"><circle cx="0" cy="0" r="34" fill="{dark}"/><path d="M-40,-4 Q0,-62 40,-4 L32,-2 Q0,-46 -32,-2 Z" fill="{dark}"/><rect x="-46" y="34" width="92" height="36" rx="12" fill="{dark}"/></g>',
+         (f'<svg x="-64" y="-224" width="128" height="144" viewBox="0 0 90 100" preserveAspectRatio="xMidYMid slice"><image href="{img}" width="90" height="100" preserveAspectRatio="xMidYMid slice"/></svg>'
+          f'<rect x="-64" y="-224" width="128" height="144" fill="#808080" opacity="{0.75*grey:.2f}"/><rect x="-64" y="-224" width="128" height="144" fill="none" stroke="{dark}" stroke-width="3"/>'
+          if img else
+          f'<g transform="translate(0 -150)"><circle cx="0" cy="0" r="34" fill="{dark}"/><path d="M-40,-4 Q0,-62 40,-4 L32,-2 Q0,-46 -32,-2 Z" fill="{dark}"/><rect x="-46" y="34" width="92" height="36" rx="12" fill="{dark}"/></g>'),
          f'<polygon points="-70,-76 70,-76 0,-56" fill="{col}" stroke="{dark}" stroke-width="4"/>']
     if outline > 0:
         o.append(f'<rect x="-80" y="-276" width="160" height="230" fill="none" stroke="{DONG2}" stroke-width="10" opacity="{outline:.2f}"/>')
