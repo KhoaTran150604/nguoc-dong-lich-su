@@ -72,11 +72,27 @@ def trail(pts, u, col, dash=True):
     return f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pp)}" fill="none" stroke="{col}" stroke-width="{4*U:.1f}" {da} stroke-linecap="round" opacity="0.9"/>'
 
 def boat(x, y, ang, side, s=1.0):
+    """Thuyền gỗ nhìn ngang, buồm cánh dơi; ang chỉ để biết hướng (trái/phải) và độ nghiêng nhỏ."""
     col, dark = side; s *= U
-    return (f'<g transform="translate({x:.1f} {y:.1f}) rotate({ang:.1f}) scale({s:.2f})">'
-            f'<path d="M-26,0 Q-20,10 0,10 Q20,10 30,0 Z" fill="#6A4428" stroke="#2A1A10" stroke-width="2"/>'
-            f'<line x1="0" y1="2" x2="0" y2="-26" stroke="#2A1A10" stroke-width="2"/>'
-            f'<path d="M1,-25 L16,-8 L1,-6 Z" fill="{col}" stroke="{dark}" stroke-width="1.5"/></g>')
+    flip = -1 if math.cos(math.radians(ang)) < 0 else 1
+    tilt = ang if abs(ang) < 45 else 0
+    battens = ''.join(f'<line x1="4" y1="{yy}" x2="{24 + (yy+44)*0.05:.1f}" y2="{yy+1}" stroke="{dark}" stroke-width="1.2"/>' for yy in (-36, -28, -20, -12))
+    return (f'<g transform="translate({x:.1f} {y:.1f}) rotate({tilt:.1f}) scale({flip*s:.2f} {s:.2f})">'
+            f'<path d="M-40,-6 Q-36,8 -26,12 L28,12 Q38,8 46,-10 L40,-4 L-30,-2 Z" fill="#6A4428" stroke="#2A1A10" stroke-width="2"/>'
+            f'<line x1="-30" y1="3" x2="38" y2="3" stroke="#3A2618" stroke-width="1.5"/>'
+            f'<line x1="2" y1="-2" x2="2" y2="-48" stroke="#2A1A10" stroke-width="2.5"/>'
+            f'<path d="M4,-46 Q18,-48 26,-42 L28,-6 L4,-6 Z" fill="{col}" stroke="{dark}" stroke-width="1.8"/>{battens}'
+            f'<line x1="-20" y1="-2" x2="-20" y2="-30" stroke="#2A1A10" stroke-width="2"/>'
+            f'<path d="M-18,-28 L-6,-25 L-6,-6 L-18,-6 Z" fill="{col}" stroke="{dark}" stroke-width="1.5"/>'
+            f'<polygon points="2,-48 2,-56 12,-52" fill="{DO}"/></g>')
+
+def sword(ang, s):
+    """Kiếm dựng đứng, gốc ở chuôi (0,0); xoay quanh chuôi."""
+    return (f'<g transform="rotate({ang:.1f}) scale({s:.2f})">'
+            f'<polygon points="-5,-14 5,-14 4,-120 0,-132 -4,-120" fill="#D8DDE0" stroke="#3A3A3A" stroke-width="1.5"/>'
+            f'<line x1="0" y1="-16" x2="0" y2="-118" stroke="#9AA2A6" stroke-width="1.5"/>'
+            f'<rect x="-18" y="-16" width="36" height="7" rx="3" fill="{DONG}" stroke="#5A3A10" stroke-width="1.5"/>'
+            f'<rect x="-4" y="-9" width="8" height="24" fill="#3A2618"/><circle cx="0" cy="18" r="5" fill="{DONG}" stroke="#5A3A10" stroke-width="1.5"/></g>')
 
 def city(x, y, s=1.0):
     s *= U
@@ -125,26 +141,39 @@ SEA_PATH = [(108.2, 20.45), (107.6, 20.6), (107.15, 20.72), BD]
 # ---- 12 hiệu ứng: hàm trả về SVG lớp phủ tại thời điểm t ----
 def H1(t):
     u = seg(t, 0.4, 3.0); x, y = sc(*path_at(LAND_PATH, u))
-    return trail(LAND_PATH, u, '#8A6A1A') + banner(x, y, 'NGÔ QUYỀN', TA)
+    return banner(x, y, 'NGÔ QUYỀN', TA)
 
 def H2(t):
-    u = seg(t, 0.3, 3.2); p = path_at(SEA_PATH, u); q = path_at(SEA_PATH, max(0, u - 0.02))
-    (x, y), (qx, qy) = sc(*p), sc(*q); ang = math.degrees(math.atan2(y - qy, x - qx)) if u > 0.02 else 160
-    o = []
-    for i, off in enumerate([(0, 0), (-28, -16), (-28, 16)]):
-        a = math.radians(ang); dx = off[0]*math.cos(a) - off[1]*math.sin(a); dy = off[0]*math.sin(a) + off[1]*math.cos(a)
-        bx, by = x + dx*U, y + dy*U
-        for k in (1, -1):   # vệt sóng chữ V
-            ex = bx - math.cos(a)*36*U - k*math.sin(a)*14*U; ey = by - math.sin(a)*36*U + k*math.cos(a)*14*U
-            o.append(f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="#E8F0F2" stroke-width="{2*U:.1f}" opacity="0.8"/>')
-        o.append(boat(bx, by, ang, DICH, 1.1))
+    u = seg(t, 0.3, 3.2); o = []
+    for i, lag in enumerate([0.0, 0.07, 0.13]):
+        p = path_at(SEA_PATH, max(0, u - lag)); x, y = sc(*p)
+        x += (0, 18, -14)[i] * U; y += (0, 26, -24)[i] * U
+        for k in range(3):   # gợn sóng sau đuôi thuyền (thuyền đi sang trái → sóng bên phải)
+            r = (t * 1.5 + k / 3) % 1
+            o.append(f'<path d="M{x + (40 + 30*r)*U:.1f},{y + (10 - 8*r)*U:.1f} q{6*U:.1f},{4*U:.1f} {12*U:.1f},0" fill="none" stroke="#E8F0F2" stroke-width="{2*U:.1f}" opacity="{0.8*(1-r):.2f}"/>')
+        o.append(boat(x, y, 170, DICH, 0.9))
     return ''.join(o)
 
 def H3(t):
-    u = seg(t, 0.2, 1.4); ax, ay = sc(lerp(106.0, 106.25, u), 21.0); bx, by = sc(lerp(106.9, 106.65, u), 21.0)
-    o = banner(ax, ay, 'NGÔ QUYỀN', TA) + banner(bx, by, 'HOẰNG THÁO', DICH)
-    if t > 1.4: o += burst((ax + bx) / 2, ay - 60*U, (t - 1.4) / 2.2)
-    return o
+    """Giao chiến: hai cờ áp sát, hai kiếm chém vào nhau, lửa bùng phía dưới."""
+    u = seg(t, 0.2, 1.2); ax, ay = sc(lerp(106.0, 106.25, u), 21.0); bx, by = sc(lerp(106.9, 106.65, u), 21.0)
+    o = [banner(ax, ay, 'NGÔ QUYỀN', TA), banner(bx, by, 'HOẰNG THÁO', DICH)]
+    if t > 1.0:
+        cx, cy = (ax + bx) / 2, ay - 20 * U
+        g = seg(t, 1.0, 1.5); f = min(1, (t - 1.0) / 0.5)
+        for i in range(7):   # lửa
+            fx = cx + (i - 3) * 13 * U; sz = (1.3 - abs(i - 3) * 0.16) * f
+            o.append(flame(fx, cy + 6 * U, sz, t, i))
+        hit = t - 1.5
+        shake = 4 * math.sin(t * 40) * max(0, 1 - hit * 2) if hit > 0 else 0
+        o.append(f'<g transform="translate({cx:.1f} {cy:.1f})">')
+        o.append(f'<g transform="translate({-26*U:.1f} 0)">{sword(lerp(-75, 32, g) + shake, 1.1*U)}</g>')
+        o.append(f'<g transform="translate({26*U:.1f} 0)">{sword(lerp(75, -32, g) - shake, 1.1*U)}</g>')
+        if 0 < hit < 0.6:   # tia lóe lúc chạm kiếm
+            a = 1 - hit / 0.6
+            o.append(f'<circle cx="0" cy="{-90*U:.1f}" r="{(12 + 36*hit)*U:.1f}" fill="{DONG2}" opacity="{0.85*a:.2f}"/>')
+        o.append('</g>')
+    return ''.join(o)
 
 def H4(t):
     x, y = sc(*DAILA); u = seg(t, 1.2, 3.0); r = 150 * U * u
@@ -165,13 +194,21 @@ def H5(t):
 def H6(t):
     path = [(106.45, 21.0), (106.75, 20.92), (107.1, 20.78)]
     u = seg(t, 0.6, 3.2); x, y = sc(*path_at(path, u))
-    return trail(path, u, '#9E2A1E') + banner(x, y, 'HOẰNG THÁO', DICH, tilt=-18*seg(t, 0.2, 0.7), op=1 - 0.85*seg(t, 1.8, 3.4))
+    return banner(x, y, 'HOẰNG THÁO', DICH, tilt=-18*seg(t, 0.2, 0.7), op=1 - 0.85*seg(t, 1.8, 3.4))
 
 def H7(t):
+    """Phục binh: cờ nhỏ lấp ló sau núi rừng, rồi cờ tướng hiện ra."""
     cx, cy = sc(106.3, 21.15); o = []
+    for j, (dx, dy) in enumerate([(-100, -20), (-60, -45), (-15, -40), (25, -30), (65, -42), (110, -18), (-80, 20), (90, 15)]):
+        a = seg(t, 0.3 + j * 0.12, 0.7 + j * 0.12); sway = 3 * math.sin(t * 5 + j)
+        if a > 0:
+            px, py = cx + dx * U, cy + dy * U
+            o.append(f'<g opacity="{a:.2f}" transform="translate({px:.1f} {py + (1-a)*12*U:.1f})">'
+                     f'<line x1="0" y1="0" x2="0" y2="{-34*U:.1f}" stroke="#3A2618" stroke-width="{2*U:.1f}"/>'
+                     f'<path d="M0,{-34*U:.1f} L{(18+sway)*U:.1f},{-28*U:.1f} L0,{-20*U:.1f} Z" fill="{TA[0]}" stroke="{TA[1]}" stroke-width="{1.2*U:.1f}"/></g>')
     for dx, dy, k in [(-90, 10, 'm'), (-40, -25, 'm'), (30, 5, 'm'), (85, -15, 'm'), (-70, 50, 't'), (-20, 40, 't'), (20, 55, 't'), (60, 45, 't'), (105, 35, 't')]:
         o.append(mountain(cx + dx*U, cy + dy*U, 0.9) if k == 'm' else tree(cx + dx*U, cy + dy*U))
-    a = seg(t, 0.6, 1.8); flash = math.sin(min(1, max(0, (t - 1.8) / 0.6)) * math.pi)
+    a = seg(t, 1.4, 2.2); flash = math.sin(min(1, max(0, (t - 2.2) / 0.6)) * math.pi)
     o.append(banner(cx, cy + 40*U, 'PHỤC BINH', TA, op=a, outline=flash))
     return ''.join(o)
 

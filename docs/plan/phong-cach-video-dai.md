@@ -30,20 +30,22 @@
 Chuyển tầng: zoom vào điểm giao chiến → chuyển cảnh mờ sang bản đồ trận → đánh xong zoom ra về bản đồ vùng.
 
 ## 4. Thư viện hiệu ứng chuẩn (chốt một lần, dùng lại mãi)
-| # | Hành động | Hiệu ứng đề xuất | Chốt |
+| # | Hành động | Hiệu ứng | Chốt |
 |---|---|---|---|
-| H1 | Hành quân bộ | Cờ trượt theo đường, để lại vệt chấm mờ | 🟡 |
-| H2 | Hành quân thủy | Thuyền trượt, vệt sóng chữ V phía sau | 🟡 |
-| H3 | Giao chiến | Dấu va chạm đỏ sơn mài + vòng sóng đồng tỏa ra 2–3 nhịp (không dùng kiếm + lửa giống Sử Lược) | 🟡 |
-| H4 | Chiếm thành | Cờ phe thắng cắm lên ký hiệu thành, màu vùng loang dần sang màu phe thắng | 🟡 |
-| H5 | Thắng trận | Dấu X đỏ lên cờ phe thua (đã có trong `bandoco`) | 🟡 |
-| H6 | Thua / rút chạy | Cờ nghiêng, lùi theo đường rút, mờ dần | 🟡 |
-| H7 | Phục binh | Cờ hiện mờ dần từ rừng/núi, viền nhấp nháy 1 lần | 🟡 |
-| H8 | Tướng tử trận | Cờ đổ, chân dung chuyển xám | 🟡 |
-| H9 | Hỏa công | Lửa cháy lan trên vùng/thuyền | 🟡 |
-| H10 | Thủy triều | Mực nước lên/xuống (bản đồ trận hoặc sa bàn) | 🟡 |
-| H11 | Thời gian trôi | Đồng hồ năm chạy (chữ ký kênh) | 🟡 |
-| H12 | Trích lời người xưa | Khung trích dẫn ở góc, ghi nguồn bên dưới. **Chỉ dùng cho lời được sử chép lại**, không bịa thoại | 🟡 |
+| H1 | Hành quân bộ | Chỉ cờ trượt theo đường, không vẽ vệt | ✅ (sửa 16/11, chờ xem lại) |
+| H2 | Hành quân thủy | Thuyền gỗ buồm cánh dơi nhìn ngang, gợn sóng sau đuôi | ✅ (sửa 16/11, chờ xem lại) |
+| H3 | Giao chiến | Hai cờ áp sát → hai kiếm chém vào nhau (lóe sáng lúc chạm) + lửa bùng phía dưới. Hình vẽ riêng của kênh | ✅ (sửa 16/11, chờ xem lại) |
+| H4 | Chiếm thành | Cờ phe thắng cắm lên ký hiệu thành, màu vùng loang dần sang màu phe thắng | ✅ |
+| H5 | Thắng trận | Dấu X đỏ vẽ từng nét lên cờ phe thua | ✅ |
+| H6 | Thua / rút chạy | Cờ nghiêng, lùi theo đường rút, mờ dần; không vẽ vệt | ✅ |
+| H7 | Phục binh | Nhiều cờ nhỏ lấp ló sau núi rừng, rồi cờ tướng hiện ra, viền sáng 1 lần | ✅ (sửa 16/11, chờ xem lại) |
+| H8 | Tướng tử trận | Cờ đổ, chân dung chuyển xám | ✅ |
+| H9 | Hỏa công | Lửa cháy lan dần qua từng thuyền | ✅ |
+| H10 | Thủy triều | Khung sa bàn nhỏ: nước lên cọc chìm, nước rút thuyền mắc cọc | ✅ |
+| H11 | Thời gian trôi | Vòng trống đồng quay ngược chiều kim đồng hồ, năm chạy lùi | ✅ |
+| H12 | Trích lời người xưa | Khung trích dẫn ở góc, ghi nguồn bên dưới. **Chỉ dùng cho lời được sử chép lại**, không bịa thoại | ✅ |
+
+Demo: `assets/hieuung/demo-hieuung-nhap.mp4` · code: `scripts/hieuung/demo.py`
 
 ## 5. Kịch bản video dài: kể chi tiết, không liệt kê
 - ❌ Liệt kê: "Năm 938 có trận Bạch Đằng, Ngô Quyền thắng."
