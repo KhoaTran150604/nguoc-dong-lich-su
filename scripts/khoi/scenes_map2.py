@@ -218,8 +218,8 @@ def register(R, ctx, work, segs, timeline):
         if a < 0.999: b = R.with_alpha(b, a)
         R.comp(im, b, (x - bw / 2, y - bh + 6 * s))
     def note(d, txt='Bản đồ minh họa · ranh giới và vị trí gần đúng · chân dung minh họa'):
-        d.text((48, 1690), txt, font=R.F_REG(26), fill=R.CREAM + (180,))
-    def head(d, t, txt, sub=None, y=300, size=96, col=None):
+        ctx['note'] = txt  # overlay_common vẽ dưới phụ đề, trong vùng an toàn
+    def head(d, t, txt, sub=None, y=470, size=96, col=None):
         a = int(255 * R.fade_in(t)); R.text_center(d, y, txt, R.F_TITLE(size), (col or R.GOLD2) + (a,))
         if sub: R.text_center(d, y + int(size * 1.25), sub, R.F_SEMI(42), R.CREAM + (a,))
     def dashed(d, pts, u, col, width=8, dash=26):
@@ -273,34 +273,34 @@ def register(R, ctx, work, segs, timeline):
         a = 1 - R.fade_in(t, 0.9)
         if a > 0.01:
             cover = im0.copy(); R.SCENES['chuky_hold'](cover, t, dur, ctx, seg); im = Image.blend(im, cover, a)
-        d = ImageDraw.Draw(im, 'RGBA'); head(d, t - 0.3, '938', size=170, y=300); note(d); return im
+        d = ImageDraw.Draw(im, 'RGBA'); head(d, t - 0.3, '938', size=150, y=470); note(d); return im
 
     @mk('m_giaovuong')
     def _(im0, t, dur, ctx, seg, idx):
         im, S, z = base(idx, t); s = sc_(z); d = ImageDraw.Draw(im, 'RGBA')
         qx, qy = S(*QC); gx, gy = S(*GIAO)
-        put_banner(im, qx - 70, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s, R.fade_in(t - 0.2))
+        put_banner(im, qx - 150, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s, R.fade_in(t - 0.2))
         put_banner(im, qx - 230 * s, qy + 60 * s, 'Hoằng Tháo', 'prince', RED, 'hoang_thao', s * 0.85, R.fade_in(t - 1.4))
         u = ease(clamp01((t - 2.4) / 1.8)); d = ImageDraw.Draw(im, 'RGBA')
         tip = dashed(d, [(qx - 230 * s, qy + 40), ((qx + gx) / 2, min(qy, gy) - 160), (gx + 30, gy - 30)], u, R.GOLD2 + (235,), 7); arrowhead(d, tip if u < 1 else None, R.GOLD2 + (235,))
         glow(im, gx, gy, 240 * z / 0.55, (240, 225, 190), 0.45 + 0.35 * math.sin(t * 4) if u > 0.6 else 0)
         d = ImageDraw.Draw(im, 'RGBA')
         if u >= 1: R.text_center(d, int(gy - 60), '?', R.F_TITLE(120), R.GOLD2 + (int(255 * R.fade_in(t - 4.2)),))
-        if t > 0.9: seal(im, 540, 470, 210, ['GIAO', 'VƯƠNG'], t - 0.9)
-        d = ImageDraw.Draw(im, 'RGBA'); R.text_center(d, 610, '« vua đất Giao »', R.F_SEMI(44), R.CREAM + (int(255 * R.fade_in(t - 1.2)),))
+        if t > 0.9: seal(im, 470, 560, 200, ['GIAO', 'VƯƠNG'], t - 0.9)
+        d = ImageDraw.Draw(im, 'RGBA'); R.text_center(d, 690, '« vua đất Giao »', R.F_SEMI(44), R.CREAM + (int(255 * R.fade_in(t - 1.2)),))
         note(d); return im
 
     @mk('m_haimon')
     def _(im0, t, dur, ctx, seg, idx):
         im, S, z = base(idx, t); s = sc_(z); qx, qy = S(*QC)
-        put_banner(im, qx - 70, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s, 1 - 0.6 * R.fade_in(t - 1.0))
-        d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * R.fade_in(t - 0.4)); bx, by = 90, 320
-        d.rounded_rectangle([bx, by, W - bx, by + 330], radius=22, fill=(22, 18, 14, int(a * 0.88)), outline=R.GOLD + (a,), width=3)
+        put_banner(im, qx - 150, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s, 1 - 0.6 * R.fade_in(t - 1.0))
+        d = ImageDraw.Draw(im, 'RGBA'); a = int(255 * R.fade_in(t - 0.4)); bx, by = 110, 460
+        d.rounded_rectangle([bx, by, 870, by + 330], radius=22, fill=(22, 18, 14, int(a * 0.88)), outline=R.GOLD + (a,), width=3)
         d.text((bx + 40, by + 26), 'HẢI MÔN', font=R.F_TITLE(80), fill=R.GOLD2 + (a,))
         d.text((bx + 40, by + 122), 'vua Nam Hán tự đóng quân tiếp ứng', font=R.F_SEMI(38), fill=R.CREAM + (a,))
         d.text((bx + 40, by + 172), 'vị trí chưa rõ · không đánh dấu trên bản đồ', font=R.F_REG(30), fill=R.COPPER + (a,))
         for k in range(5):  # trại quân trong ô
-            ka = int(255 * R.fade_in(t - 0.9 - k * 0.25)); x = bx + 560 + k * 70; y = by + 290
+            ka = int(255 * R.fade_in(t - 0.9 - k * 0.25)); x = bx + 430 + k * 64; y = by + 290
             d.polygon([(x - 28, y), (x, y - 44), (x + 28, y)], fill=(176, 74, 52, ka), outline=(40, 20, 10, ka)); d.line([(x, y - 44), (x, y - 62)], fill=(40, 20, 10, ka), width=3)
             d.polygon([(x, y - 62), (x + 18, y - 56), (x, y - 50)], fill=RED + (ka,))
         put_banner(im, bx + 120, by + 312, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', 0.7, R.fade_in(t - 1.0))
@@ -325,7 +325,7 @@ def register(R, ctx, work, segs, timeline):
             sx = bx - 150 * s + (k % 7) * 46 * s + (k // 7) * 20 * s; sy = by + 10 * s + (k // 7) * 34 * s
             stake(d, sx, sy, s, (20 + 34 * p2) * s, int(255 * min(1, p2 * 1.5)))
         if 0.05 < p2 < 1.2 and t < dur * 0.62:
-            R.text_center(d, 560, 'nước triều rút ↓', R.F_SEMI(46), (190, 220, 228, int(255 * R.fade_in(t - dur * 0.40))))
+            R.text_center(d, 640, 'nước triều rút ↓', R.F_SEMI(46), (190, 220, 228, int(255 * R.fade_in(t - dur * 0.40))))
         # nhịp 3: thuyền vướng cọc, nghiêng, chìm
         p3 = ease(clamp01((t - dur * 0.55) / 1.4))
         fleet = [0.93, 0.86, 0.78, 0.70, 0.62]
@@ -344,7 +344,7 @@ def register(R, ctx, work, segs, timeline):
         d = ImageDraw.Draw(im, 'RGBA')
         if p3 > 0.85:
             xmark(d, hx + 30 * s, hy - 70 * s, 34 * s, R.GOLD2 + (255,), 12)
-            R.text_center(d, 300, 'quá nửa chết đuối', R.F_TITLE(84), R.GOLD2 + (int(255 * R.fade_in(t - dur * 0.55 - 1.2)),))
+            R.text_center(d, 470, 'quá nửa chết đuối', R.F_TITLE(76), R.GOLD2 + (int(255 * R.fade_in(t - dur * 0.55 - 1.2)),))
         d.text((bx - 120 * s, by + 90 * s), 'Cửa Bạch Đằng', font=R.F_TITLE(int(34 * s)), fill=(240, 232, 210, 235), stroke_width=4, stroke_fill=(40, 60, 66))
         note(d, 'Minh họa · vị trí bãi cọc 938 chưa được khảo cổ xác định'); return im
 
@@ -352,7 +352,7 @@ def register(R, ctx, work, segs, timeline):
     def _(im0, t, dur, ctx, seg, idx):
         im, S, z = base(idx, t); s = sc_(z)
         qx, qy = S(*QC); bx, by = S(*BD)
-        put_banner(im, qx - 70, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s * 1.2, R.fade_in(t))
+        put_banner(im, qx - 150, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s * 1.2, R.fade_in(t))
         rise = ease(clamp01((t - dur * 0.45) / 0.9))
         glow(im, bx, by - 60, 160, (243, 210, 122), rise)
         put_banner(im, bx, by + int(40 * (1 - rise)), 'Ngô Quyền', 'general', GOLD, 'ngo_quyen', s * 1.25, rise)
@@ -366,19 +366,18 @@ def register(R, ctx, work, segs, timeline):
     def _(im0, t, dur, ctx, seg, idx):
         im, S, z = base(idx, t); R.comp(im, Image.new('RGBA', (W, H), (14, 11, 9, 140)))
         d = ImageDraw.Draw(im, 'RGBA'); a = R.fade_in(t)
-        hx, hy = 540, 900
-        for row, (yy, off) in enumerate(((760, 0), (1130, 95))):
+        hx = 490
+        for row, (yy, off) in enumerate(((860, 0), (1100, 95))):
             for k in range(-4, 5):
                 x = hx + k * 190 + off
                 if row == 0 and k == 0: continue
-                fade = max(0.0, 1 - abs(x - hx) / 620)
+                fade = max(0.0, 1 - abs(x - hx) / 560)
                 put_banner(im, int(x), yy, '', 'prince', (120, 90, 70), None, 0.6, R.fade_in(t - 0.1 * abs(k)) * 0.85 * fade)
-        put_banner(im, hx, 760, 'Hoằng Tháo', 'prince', RED, 'hoang_thao', 0.75, R.fade_in(t - 0.6))
+        put_banner(im, hx, 860, 'Hoằng Tháo', 'prince', RED, 'hoang_thao', 0.75, R.fade_in(t - 0.6))
         d = ImageDraw.Draw(im, 'RGBA')
         if t > 1.6:
-            ha = int(255 * R.fade_in(t - 1.6)); d.rounded_rectangle([hx - 92, 430, hx + 92, 770], radius=10, outline=R.GOLD2 + (ha,), width=6)
-            R.text_center(d, 790, 'tước cũ: Vạn vương', R.F_TITLE(48), R.GOLD2 + (ha,))
-        head(d, t, 'gần hai chục hoàng tử', 'được phong vương (theo Tân Ngũ đại sử)', y=290, size=72)
+            ha = int(255 * R.fade_in(t - 1.6)); d.rounded_rectangle([hx - 92, 560, hx + 92, 870], radius=10, outline=R.GOLD2 + (ha,), width=6)
+        head(d, t, 'gần hai chục hoàng tử', 'tước cũ của Hoằng Tháo: Vạn vương', y=440, size=64)
         note(d, 'Minh họa · chân dung minh họa'); return im
 
     @mk('m_titles')
@@ -386,12 +385,12 @@ def register(R, ctx, work, segs, timeline):
         im, S, z = base(idx, t); gx, gy = S(*GIAO); s = sc_(z)
         glow(im, gx, gy, 230 * z / 0.55, (240, 225, 190), 0.5)
         p = clamp01((t - 1.0) / 0.8)
-        seal(im, 540, 470, 210, ['VẠN', 'VƯƠNG'], t, (110, 90, 70)) if p < 1 else None
+        seal(im, 490, 560, 200, ['VẠN', 'VƯƠNG'], t, (110, 90, 70)) if p < 1 else None
         if p > 0:
-            seal(im, 330, 560, 250, ['TIẾT ĐỘ', 'SỨ TĨNH HẢI'], t - 1.0); seal(im, 750, 560, 250, ['GIAO', 'VƯƠNG'], t - 1.0)
+            seal(im, 300, 620, 240, ['TĨNH HẢI', 'TIẾT ĐỘ SỨ'], t - 1.0); seal(im, 690, 620, 240, ['GIAO', 'VƯƠNG'], t - 1.0)
         d = ImageDraw.Draw(im, 'RGBA')
         if p >= 1:
-            tl = t - 1.8; a = int(255 * R.fade_in(tl)); tip = dashed(d, [(750, 700), (gx + 40, gy - 60)], ease(clamp01(tl / 1.0)), R.GOLD2 + (a,), 6)
+            tl = t - 1.8; a = int(255 * R.fade_in(tl)); tip = dashed(d, [(690, 760), (gx + 40, gy - 60)], ease(clamp01(tl / 1.0)), R.GOLD2 + (a,), 6)
             arrowhead(d, tip, R.GOLD2 + (a,))
         note(d); return im
 
@@ -410,8 +409,8 @@ def register(R, ctx, work, segs, timeline):
             if u > f:
                 L = len(back) - 1; i = min(L - 1, int(f * L)); fx = back[i][0] + (back[i + 1][0] - back[i][0]) * (f * L - i); fy = back[i][1] + (back[i + 1][1] - back[i][1]) * (f * L - i)
                 junk(d, fx, fy, 0.6 * s, 0, int(200 * R.fade_in(t - 1.2 - f * dur * 0.6)))
-        put_banner(im, qx - 70, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s, 1.0)
-        d = ImageDraw.Draw(im, 'RGBA'); head(d, t - 0.3, 'khóc thương', 'thu tàn quân rút về', y=300, size=88)
+        put_banner(im, qx - 150, qy - 10, 'Vua Nam Hán', 'king', RED, 'luu_nghiem', s, 1.0)
+        d = ImageDraw.Draw(im, 'RGBA'); head(d, t - 0.3, 'khóc thương', 'thu tàn quân rút về', y=470, size=80)
         note(d); return im
 
     @mk('m_never')
@@ -421,38 +420,38 @@ def register(R, ctx, work, segs, timeline):
         tip = dashed(d, [(x1, y1), (x2, y2)], 1.0, R.RED + (int(a * 0.8),), 9); arrowhead(d, tip, R.RED + (int(a * 0.8),), 34)
         if t > 1.0:
             mx, my = (x1 + x2) / 2, (y1 + y2) / 2; b = int(255 * R.fade_in(t - 1.0)); xmark(d, mx, my, 60, R.GOLD2 + (b,), 14)
-        head(d, t, 'không đem quân sang nữa', None, y=300, size=72); note(d); return im
+        head(d, t, 'không đem quân', 'sang nữa', y=470, size=72); note(d); return im
 
     @mk('m_irony')
     def _(im0, t, dur, ctx, seg, idx):
         im, S, z = base(idx, t); gx, gy = S(*GIAO)
         glow(im, gx, gy, 300 * z / 0.85, (240, 225, 190), 0.5)
-        lay = Image.new('RGBA', (W, H), (0, 0, 0, 0)); R.seal(lay, 2.0, 540, 560, 300, ['GIAO', 'VƯƠNG'])
+        lay = Image.new('RGBA', (W, H), (0, 0, 0, 0)); R.seal(lay, 2.0, 490, 620, 280, ['GIAO', 'VƯƠNG'])
         p = ease(clamp01((t - 0.9) / 1.0))
         if p > 0:  # ấn nứt đôi
-            mask = Image.new('L', (W, H), 0); ImageDraw.Draw(mask).polygon([(540, 380), (520, 480), (565, 560), (515, 650), (545, 760), (W, 760), (W, 380)], fill=255)
+            mask = Image.new('L', (W, H), 0); ImageDraw.Draw(mask).polygon([(490, 450), (470, 550), (515, 620), (465, 710), (495, 820), (W, 820), (W, 450)], fill=255)
             right = Image.new('RGBA', (W, H), (0, 0, 0, 0)); right.paste(lay, (0, 0), mask); left = lay.copy(); left.paste((0, 0, 0, 0), (0, 0), mask)
             lay = Image.new('RGBA', (W, H), (0, 0, 0, 0)); lay.alpha_composite(left, (-int(16 * p), int(10 * p))); lay.alpha_composite(right, (int(16 * p), int(26 * p)))
-            ImageDraw.Draw(lay).line([(540, 380), (520, 480), (565, 560), (515, 650), (545, 760)], fill=R.INK + (255,), width=6)
+            ImageDraw.Draw(lay).line([(490, 450), (470, 550), (515, 620), (465, 710), (495, 820)], fill=R.INK + (255,), width=6)
         bx, by = S(*BD); put_banner(im, int(min(bx, W - 140)), int(by), 'Ngô Quyền', 'general', GOLD, 'ngo_quyen', sc_(z), R.fade_in(t - 1.2))
         R.comp(im, lay); d = ImageDraw.Draw(im, 'RGBA')
-        R.text_center(d, 820, 'chưa từng có đất Giao', R.F_TITLE(70), R.CREAM + (int(255 * R.fade_in(t - 1.4)),))
+        R.text_center(d, 880, 'chưa từng có đất Giao', R.F_TITLE(64), R.CREAM + (int(255 * R.fade_in(t - 1.4)),))
         note(d); return im
 
     @mk('m_quote')
     def _(im0, t, dur, ctx, seg, idx):
         im, S, z = base(idx, t); R.comp(im, Image.new('RGBA', (W, H), (14, 11, 9, 120)))
         d = ImageDraw.Draw(im, 'RGBA'); a = R.fade_in(t)
-        px0, py0, px1, py1 = 110, 330, W - 110, 1180
+        px0, py0, px1, py1 = 140, 420, 860, 1110
         page = Image.new('RGBA', (px1 - px0, py1 - py0), (232, 214, 176, int(245 * a))); pd = ImageDraw.Draw(page)
         for k in range(0, page.width, 70): pd.line([(k, 0), (k, page.height)], fill=(150, 110, 70, int(60 * a)), width=2)
         pd.rectangle([0, 0, page.width - 1, page.height - 1], outline=(120, 70, 40, int(255 * a)), width=6)
         R.comp(im, page, (px0, py0)); d = ImageDraw.Draw(im, 'RGBA')
         lines = ['« Tham đất người…', 'đất chưa lấy được,', 'đã hại chính con mình', 'và dân mình. »']
         for i, l in enumerate(lines):
-            la = int(255 * R.fade_in(t - 0.5 - i * 0.7)); R.text_center(d, py0 + 110 + i * 120, l, R.F_TITLE(70), (60, 30, 18, la))
-        sa = int(255 * R.fade_in(t - 3.0)); R.text_center(d, py0 + 650, '— Ngô Sĩ Liên', R.F_SEMI(46), (120, 40, 26, sa))
-        R.text_center(d, py0 + 720, 'Đại Việt sử ký toàn thư', R.F_REG(36), (90, 60, 40, sa))
+            la = int(255 * R.fade_in(t - 0.5 - i * 0.7)); R.text_center(d, py0 + 80 + i * 100, l, R.F_TITLE(58), (60, 30, 18, la))
+        sa = int(255 * R.fade_in(t - 3.0)); R.text_center(d, py0 + 500, '— Ngô Sĩ Liên', R.F_SEMI(46), (120, 40, 26, sa))
+        R.text_center(d, py0 + 565, 'Đại Việt sử ký toàn thư', R.F_REG(36), (90, 60, 40, sa))
         seal(im, px1 - 70, py1 - 70, 130, ['NGÔ', 'SĨ LIÊN'], t - 3.0)
         return im
 
@@ -461,9 +460,9 @@ def register(R, ctx, work, segs, timeline):
         im, S, z = base(idx, t); p = ease(clamp01((t - 0.4) / (dur - 0.8)))
         gray = im.convert('L').convert('RGB'); im = Image.blend(im, gray, 0.6 * p); R.comp(im, Image.new('RGBA', (W, H), (70, 46, 20, int(80 * p))))
         d = ImageDraw.Draw(im, 'RGBA'); y = int(round(938 - (938 + 111) * p)); y = y if y != 0 else -1
-        R.text_center(d, 300, R.year_label(y), R.F_TITLE(150), R.GOLD2 + (255,))
-        R.text_center(d, 480, '◀  ~1.050 năm (theo Trần Trọng Kim)', R.F_SEMI(42), R.CREAM + (230,))
-        x0, x1, yy = 140, W - 140, 600; xm = x1 - (x1 - x0) * p
+        R.text_center(d, 460, R.year_label(y), R.F_TITLE(140), R.GOLD2 + (255,))
+        R.text_center(d, 640, '◀  ~1.050 năm (theo Trần Trọng Kim)', R.F_SEMI(42), R.CREAM + (230,))
+        x0, x1, yy = 200, 860, 740; xm = x1 - (x1 - x0) * p
         d.line([(xm, yy), (x1, yy)], fill=R.RED + (230,), width=10); d.text((x1 - 50, yy + 20), '938', font=R.F_SEMI(34), fill=R.CREAM + (220,))
         if p > 0.95: d.text((x0 - 40, yy + 20), '111 TCN', font=R.F_SEMI(34), fill=R.CREAM + (220,))
         note(d); return im
@@ -477,5 +476,5 @@ def register(R, ctx, work, segs, timeline):
             sil = Image.new('RGBA', b.size, (0, 0, 0, 0)); sil.paste((20, 16, 12, 255), (0, 0), b)
             bw, bh = int(b.width * 0.75), int(b.height * 0.75); sil = R.with_alpha(sil.resize((bw, bh)), 0.85 * R.fade_in(t - 0.4 - 0.3 * k))
             R.comp(im, sil, (gx + dx - bw / 2, gy - bh - 20))
-        d = ImageDraw.Draw(im, 'RGBA'); head(d, t, 'Trước Ngô Quyền…', 'ai đã giành quyền tự chủ?', y=300, size=88)
+        d = ImageDraw.Draw(im, 'RGBA'); head(d, t, 'Trước Ngô Quyền…', 'ai đã giành quyền tự chủ?', y=470, size=80)
         note(d); return im

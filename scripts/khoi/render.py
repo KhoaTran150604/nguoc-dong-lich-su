@@ -121,7 +121,7 @@ def fade_in(t, d=0.45): return ease(t / d)
 @scene('chuky')
 def sc_chuky(im, t, dur, ctx, seg):
     ring, mapl = ctx['ring'], ctx['map']
-    size = 640; cx, cy = W // 2, int(H * 0.40)
+    size = 560; cx, cy = W // 2, int(H * 0.34)
     p = clamp01((t - 0.25) / 2.2)
     year = int(round(2026 - (2026 - 938) * ease(p)))
     ang = t * 22  # ngược chiều kim đồng hồ
@@ -130,12 +130,12 @@ def sc_chuky(im, t, dur, ctx, seg):
     comp(im, r, (cx - size // 2, cy - size // 2)); comp(im, m, (cx - size // 2, cy - size // 2))
     d = ImageDraw.Draw(im, 'RGBA')
     text_center(d, cy + size // 2 + 40, str(year), F_TITLE(210), GOLD2 + (255,))
-    text_center(d, 250, 'NGƯỢC DÒNG SỬ VIỆT', F_MED(40), GOLD + (255,), spacing=6)
+    text_center(d, 380, 'NGƯỢC DÒNG SỬ VIỆT', F_MED(36), GOLD + (255,), spacing=5)
 
 @scene('chuky_hold')
 def sc_hold(im, t, dur, ctx, seg):
     ring, mapl = ctx['ring'], ctx['map']
-    size = 640; cx, cy = W // 2, int(H * 0.40)
+    size = 560; cx, cy = W // 2, int(H * 0.34)
     T = t + ctx['intro']
     r = ring.resize((size, size), Image.LANCZOS).rotate(T * 22, resample=Image.BICUBIC)
     comp(im, with_alpha(r, 1 - 0.5 * ease(t / dur)), (cx - size // 2, cy - size // 2))
@@ -157,7 +157,9 @@ def seal(im, t, cx, cy, s, lines, col=RED):
     tile = Image.new('RGBA', (s, s), (0, 0, 0, 0)); d = ImageDraw.Draw(tile, 'RGBA')
     d.rounded_rectangle([6, 6, s - 6, s - 6], radius=26, fill=col + (230,), outline=GOLD2 + (255,), width=8)
     d.rounded_rectangle([28, 28, s - 28, s - 28], radius=16, outline=GOLD2 + (160,), width=3)
-    f = F_TITLE(int(s * 0.2)); tot = len(lines) * s * 0.24
+    fs = int(s * 0.2)
+    while max(d.textlength(l, font=F_TITLE(fs)) for l in lines) > s - 70 and fs > 14: fs -= 2
+    f = F_TITLE(fs); tot = len(lines) * s * 0.24
     for i, l in enumerate(lines):
         w = d.textlength(l, font=f); d.text(((s - w) / 2, s / 2 - tot / 2 + i * s * 0.24), l, font=f, fill=CREAM + (255,))
     tile = tile.rotate(-6, resample=Image.BICUBIC, expand=True)
@@ -311,22 +313,33 @@ def sc_end(im, t, dur, ctx, seg):
     text_center(d, 1150, ctx['end_next'], F_SEMI(46), GOLD2 + (a,))
 
 # ---------- lớp chung ----------
+# Vùng an toàn YouTube Shorts (khung 1080x1920): màn điện thoại dài hơn 9:16 nên bị cắt ~100px mỗi bên;
+# thanh tab che ~0-360px trên; tên kênh/tiêu đề che ~1450px trở xuống; cột nút che phải từ ~880px.
+SAFE_TOP, SAFE_BOTTOM, SAFE_L, SAFE_R = 360, 1440, 100, 880
+SAFE_W = 2 * (SAFE_R - W // 2)   # bề rộng chữ căn giữa không chạm cột nút
+
 def overlay_common(im, seg, sub_text, t_seg, ctx, show_label=True):
     d = ImageDraw.Draw(im, 'RGBA')
     if show_label and seg.get('label'):
         a = int(255 * fade_in(t_seg, 0.3))
-        text_center(d, 230, seg['label'], F_MED(40), GOLD + (a,), spacing=6)
-        d.line([(440, 296), (640, 296)], fill=RED + (a,), width=4)
+        text_center(d, 372, seg['label'], F_MED(36), GOLD + (a,), spacing=5)
+        d.line([(460, 428), (620, 428)], fill=RED + (a,), width=4)
+    y_after = 1150
     if sub_text:
-        f = F_SEMI(54); lines = wrap(d, sub_text, f, 900); lh = 72
-        y0 = int(H * 0.80); top = y0 - 22; bot = y0 + lh * len(lines) + 10
-        d.rounded_rectangle([70, top, W - 70, bot], radius=24, fill=(10, 8, 6, 175))
+        f = F_SEMI(50); lines = wrap(d, sub_text, f, SAFE_W - 40); lh = 66
+        y0 = 1150; top = y0 - 18; bot = y0 + lh * len(lines) + 8
+        d.rounded_rectangle([W // 2 - SAFE_W // 2 - 10, top, W // 2 + SAFE_W // 2 + 10, bot], radius=22, fill=(10, 8, 6, 185))
         for i, l in enumerate(lines): text_center(d, y0 + i * lh, l, f, (245, 235, 215, 255))
-    if seg.get('src'):
-        text_center(d, H - 120, 'Nguồn: ' + seg['src'], F_REG(28), COPPER + (190,))
-    comp(im, ctx['wm'], (W - ctx['wm'].width - 40, 150))
+        y_after = bot + 14
+    small = []
+    if seg.get('src'): small.append('Nguồn: ' + seg['src'])
+    if ctx.get('note'): small.append(ctx['note'])
+    for k, txt in enumerate(small):
+        f = F_REG(24)
+        for l in wrap(d, txt, f, SAFE_W):
+            text_center(d, y_after, l, f, COPPER + (200,)); y_after += 30
     if ctx.get('part'):
-        d.text((48, 178), ctx['part'], font=F_MED(30), fill=COPPER + (200,))
+        d.text((SAFE_L + 10, 300), ctx['part'], font=F_MED(28), fill=COPPER + (210,))
 
 # ---------- âm thanh ----------
 def tts_piper(model, text, out, length_scale):

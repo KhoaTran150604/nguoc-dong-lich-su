@@ -24,7 +24,7 @@
 2. **Bản đồ cổ + cờ tướng di chuyển** (kiểu kênh Sử Lược, nhưng bản đồ của mình): diễn biến, hành quân, lãnh thổ. Code ở `scripts/bandoco/`.
 3. **Sa bàn động** (mặt cắt cảnh, thuyền/nước/cọc chuyển động): giải thích "vì sao thắng". Code ở `scripts/saban/`.
 - **Chữ ký mỗi tập:** 3 giây đầu là **đồng hồ năm chạy ngược + bản đồ co dần**; kết bằng "Lùi tiếp: năm …". (Chưa làm mẫu – việc tiếp theo.)
-- Phụ đề: đặt thấp (~77–87% chiều cao khung 9:16), chữ 54px, tối đa 2 dòng.
+- **Vùng an toàn Shorts** (đã kiểm trên iPhone 16/11): màn dài hơn 9:16 nên mất ~100px mỗi bên; thanh tab che 0–360px trên; tên kênh/tiêu đề che từ ~1440px xuống; cột nút che phải từ ~880px. → Phụ đề ở **y≈1150 (~60%)**, chữ 50px, tối đa 2 dòng, rộng ≤680px; nhãn ở y≈372; nguồn + 'minh họa' ngay dưới phụ đề; nội dung chính trong x 100–880, y 360–1440. (Quy tắc cũ '77–87%' bị che – bỏ.)
 - Kịch bản Short: 130–160 từ, ~45–60 giây.
 
 ## 4. Series
