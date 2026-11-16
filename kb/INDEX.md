@@ -6,4 +6,4 @@ Trạng thái: ✅ Đã kiểm chứng · ⚠️ Có tranh luận / truyền thu
 
 | Mã | Mốc | Chủ đề | Trạng thái | Hồ sơ | Cập nhật |
 |---|---|---|---|---|---|
-| E2 | 938 | Trận Bạch Đằng – Ngô Quyền | 🔍 Sơ bộ (nguồn SGK, báo; chưa qua agent kiểm chứng) | docs/shorts/01-bach-dang-938.md (mục 5) | 15/11/2026 |
+| E2 | 938 | Trận Bạch Đằng – Ngô Quyền | ✅ Đã kiểm chứng (ĐVSKTT, Tư trị thông giám, Tân Ngũ Đại sử); 5 mục ⚠️, 2 mục ❌ | kb/E2-bach-dang-938.md | 16/11/2026 |
