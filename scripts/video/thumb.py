@@ -210,6 +210,9 @@ THUMBS = {('e2', 1): (canh_coc, [('MỘT HÀNG', 'vang'), ('CỌC GỖ', 'vang')
           ('e2', 6): (canh_xung_vuong, [('SAU', 'vang'), ('BẠCH ĐẰNG,', 'vang'), ('NGÔ QUYỀN', 'vang'), ('LÀM GÌ?', 'do')])}
 
 def make(tap, n, phan, nhan, out):
+    import subprocess, thumb_video as TV
+    if (tap, n) in TV.CFG:      # mẫu mới (duyệt 17/11): khung chính video vẽ 4K + mũi tên/X – chạy tiến trình riêng
+        subprocess.run([sys.executable, TV.__file__, tap, str(n), out], check=True, cwd=ROOT); return out
     fn, lines = THUMBS[(tap, n)]
     body, bg = fn()
     if isinstance(bg, str):   # nền vẽ bằng SVG → làm mờ nhẹ như xóa phông, tiền cảnh giữ sắc nét
