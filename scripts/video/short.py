@@ -21,17 +21,7 @@ MUC, DONG, DONG2, KEM, DO = '#14110F', '#C9A24A', '#F3D27A', '#F2E6CC', '#B3261E
 AVATAR = os.path.join(ROOT, 'assets', 'brand', 'song-tu', 'AVATAR-YouTube-800x800.png')
 FG = dict(cw=1260, y=380)          # cắt giữa video 16:9 rộng 1260px → phóng thành 1080 rộng, đặt ở y=380
 
-SHORTS = {
-    ('e2', 1): dict(
-        video='build/e2/E2-1080p60.mp4', loi_doc='docs/videos/E2-loi-doc.txt', giong='assets/e2/E2-GiaHuy-v2', tail=7.0,
-        tu='s02', den='s06',                                   # cắt từ đầu cảnh s02 đến trước cảnh s06
-        nhan='BẠCH ĐẰNG 938', phan='PHẦN 1',
-        hook='MỘT HÀNG CỌC GỖ\nĐÁNH CHÌM CẢ HẠM ĐỘI?',          # chữ trên màn hình mở đầu
-        dan='XEM TIẾP\nPHẦN 2',                               # chữ trên màn hình dẫn
-        them='build/short/e2-p1/them',                         # giọng thêm: câu 1 = hook, các câu sau = dẫn
-        thumb_t=12.0,                                          # giây (trong đoạn cắt) lấy hình thumbnail
-        thumb_chu='MỘT HÀNG\nCỌC GỖ\nĐÁNH CHÌM\nCẢ HẠM ĐỘI?'),
-}
+SHORTS = {}          # cấu hình Short đặt trong tap/<mã>.py: SHORTS = {n: {...}}
 
 def sh(cmd): subprocess.run(cmd, check=True)
 def svg_png(svg): return Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg.encode()))).convert('RGBA')
@@ -110,14 +100,28 @@ def hook_overlay(text):
                 + _lines_text(text, 74, DONG2, 765, sw=0) + '</g>')
     return f
 
-def lead_overlay(text):
+def lead_overlay(c):
+    """Màn dẫn cuối: 'XEM TIẾP PHẦN n+1' + 'hoặc xem BẢN ĐẦY ĐỦ trên kênh' (phần cuối: chỉ bản đầy đủ)."""
+    import base64
+    av = 'data:image/png;base64,' + base64.b64encode(open(AVATAR, 'rb').read()).decode()
+    nxt = None if c.get('cuoi') else f'PHẦN {c["n"] + 1}'
     def f(t):
-        k, u = pop(t, 0.1); a = 0.5 + 0.5 * math.sin(t * 6)
-        return (f'<rect width="{W}" height="{H}" fill="{MUC}" opacity="{0.6*min(1, t/0.25):.2f}"/>'
-                f'<g opacity="{u:.2f}" transform="translate({W/2} 900) scale({k:.3f}) translate({-W/2} -900)">'
-                + _lines_text(text, 112, DONG2, 860, sw=14) +
-                f'<polygon points="{W/2+250},{1010} {W/2+250},{1090} {W/2+320},{1050}" fill="{DO}" opacity="{a:.2f}"/>' +
-                f'<rect x="{W/2-260}" y="1040" width="520" height="12" rx="6" fill="{DO}" opacity="{a:.2f}"/></g>')
+        k, u = pop(t, 0.1); a = 0.5 + 0.5 * math.sin(t * 6); k2, u2 = pop(t, 0.6)
+        o = [f'<rect width="{W}" height="{H}" fill="{MUC}" opacity="{0.66*min(1, t/0.25):.2f}"/>']
+        if nxt:
+            o.append(f'<g opacity="{u:.2f}" transform="translate({W/2} 700) scale({k:.3f}) translate({-W/2} -700)">'
+                     + _lines_text('XEM TIẾP', 96, KEM, 640, sw=12) + _lines_text(nxt, 150, DONG2, 790, sw=16)
+                     + f'<polygon points="{W/2+330},{720} {W/2+330},{800} {W/2+395},{760}" fill="{DO}" opacity="{a:.2f}"/></g>')
+            o.append(f'<g opacity="{u2:.2f}"><text x="{W/2}" y="960" font-family="Be Vietnam Pro SemiBold" font-size="54" fill="{KEM}" text-anchor="middle">hoặc xem</text></g>')
+        y0 = 1060 if nxt else 760
+        o.append(f'<g opacity="{u2:.2f}" transform="translate({W/2} {y0+90}) scale({k2:.3f}) translate({-W/2} {-(y0+90)})">'
+                 f'<rect x="110" y="{y0}" width="{W-220}" height="230" rx="40" fill="{MUC}" stroke="{DONG}" stroke-width="6"/>'
+                 f'<defs><clipPath id="la"><circle cx="230" cy="{y0+115}" r="80"/></clipPath></defs><image href="{av}" x="150" y="{y0+35}" width="160" height="160" clip-path="url(#la)"/>'
+                 f'<text x="345" y="{y0+100}" font-family="Playfair Display" font-weight="800" font-size="70" fill="{DONG2}">BẢN ĐẦY ĐỦ</text>'
+                 f'<rect x="345" y="{y0+130}" width="64" height="46" rx="12" fill="#CC1F1A"/><polygon points="368,{y0+142} 368,{y0+164} 390,{y0+153}" fill="#FFFFFF"/>'
+                 f'<text x="425" y="{y0+168}" font-family="Be Vietnam Pro SemiBold" font-size="44" fill="{KEM}">trên kênh</text></g>')
+        o.append(f'<g opacity="{u2:.2f}">' + _lines_text('SONG TỬ KỂ SỬ', 76, DONG2, y0 + 340, sw=12, ls=3) + '</g>')
+        return ''.join(o)
     return f
 
 def subscribe_vertical(t):
@@ -215,7 +219,7 @@ def build(tap, n):
     hook_a = np.concatenate([np.zeros(int(0.15 * AT.SR)), hook_a]); dan_a = np.concatenate([np.zeros(int(0.2 * AT.SR)), dan_a])
     hd = len(hook_a) / AT.SR + 0.5; dd = len(dan_a) / AT.SR + 0.6
     still_clip(f_first, hook_overlay(c['hook']), hd, hook_a + 0, os.path.join(od, '1-hook.mp4'))
-    still_clip(f_last, lead_overlay(c['dan']), dd, dan_a, os.path.join(od, '3-dan.mp4'))
+    still_clip(f_last, lead_overlay(c), dd, dan_a, os.path.join(od, '3-dan.mp4'))
     sub_d = 4.5; ting = np.zeros(int(sub_d * AT.SR))
     for t, g in ((1.05, 0.25), (1.65, 0.3), (3.05, 0.2)):
         k = AT.get('kiem'); i = int(t * AT.SR); ting[i:i + len(k)] += k[: len(ting) - i] * g
@@ -227,12 +231,8 @@ def build(tap, n):
     sh(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18',
         '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '192k', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-movflags', '+faststart', out])
     # 5) thumbnail
-    # thumbnail dựng từ khung gốc của video dài (không dính phụ đề/nhãn)
-    raw = os.path.join(od, 'f-thumb-goc.png'); tt = c['thumb_t'] if c.get('thumb_t') is not None else (t1 - t0) * 0.6
-    sh(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{t0 + tt:.3f}', '-i', c['video'], '-frames:v', '1', raw])
-    g = Image.open(raw).convert('RGB'); bg = g.resize((int(g.width * H / g.height), H)).crop(((int(g.width * H / g.height) - W) // 2, 0, (int(g.width * H / g.height) - W) // 2 + W, H)).filter(ImageFilter.GaussianBlur(26))
-    cw = FG['cw']; fg = g.crop(((g.width - cw) // 2, 0, (g.width + cw) // 2, g.height)).resize((W, int(W * g.height / cw)))
-    bg.paste(fg, (0, 780)); thumbnail(bg.convert('RGBA'), c, os.path.join(od, f'THUMB-{tap.upper()}-P{n}.jpg'))
+    import thumb as TH          # thumbnail vẽ riêng ở độ phân giải gốc (scripts/video/thumb.py)
+    TH.make(tap, n, c['phan'], c['nhan'], os.path.join(od, f'THUMB-{tap.upper()}-P{n}.jpg'))
     dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', out], capture_output=True, text=True).stdout)
     print('->', out, f'{dur:.1f}s')
 
