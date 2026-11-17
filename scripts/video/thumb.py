@@ -27,17 +27,17 @@ DEFS = ('<defs>'
         '</defs>')
 
 # ---------------- cảnh nền ----------------
-def sky_sea(horizon=900, sun=(780, 760)):
+def sky_sea(horizon=900, sun=(780, 760), em=False):
     rng = random.Random(4); o = [f'<rect width="{W}" height="{H}" fill="url(#troi)"/>',
                                  f'<circle cx="{sun[0]}" cy="{sun[1]}" r="120" fill="#FFD27A" opacity="0.85"/><circle cx="{sun[0]}" cy="{sun[1]}" r="220" fill="#FFB050" opacity="0.18"/>']
     for k, (y, col, op) in enumerate([(horizon - 60, '#3A2030', 0.9), (horizon - 25, '#24161E', 1)]):   # núi xa
         pts = [(0, horizon)] + [(x, y - rng.uniform(20, 120) * (1 - k * 0.4)) for x in range(0, W + 120, 120)] + [(W, horizon)]
         o.append(f'<polygon points="{" ".join(f"{x:.0f},{yy:.0f}" for x, yy in pts)}" fill="{col}" opacity="{op}"/>')
     o.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H-horizon}" fill="url(#nuoc)"/>')
-    for i in range(70):                       # vệt sáng mặt nước
+    for i in range(25 if em else 70):         # vệt sáng mặt nước
         y = horizon + 10 + (i ** 1.35) * 1.6; w = rng.uniform(30, 160) * (1 + i / 40)
         o.append(f'<rect x="{sun[0] - w/2 + rng.uniform(-60, 60):.0f}" y="{y:.0f}" width="{w:.0f}" height="{2 + i/25:.1f}" fill="#FFC870" opacity="{max(0.05, 0.5 - i/150):.2f}"/>')
-    for i in range(50):                       # sóng
+    for i in range(12 if em else 50):         # sóng
         x, y = rng.uniform(0, W), rng.uniform(horizon + 40, H)
         s = 10 + (y - horizon) / 30
         o.append(f'<path d="M{x:.0f},{y:.0f} q{s},{-s*0.6} {2*s},0 q{s},{s*0.6} {2*s},0" fill="none" stroke="#9CC4D4" stroke-width="{1.5 + (y-horizon)/400:.1f}" opacity="0.35"/>')
@@ -136,14 +136,12 @@ def footer(phan, nhan):
 # ---------------- cảnh từng phần ----------------
 TA, DICH, GIAN = ('#D9B44A', '#5A3A10'), ('#A8382A', '#4A1410'), ('#4A4440', '#1E1A16')
 
-def canh_coc():        # P1: cọc gỗ khổng lồ xuyên thủng chiến thuyền
-    o = [sky_sea(900)]
-    o.append(junk(820, 1000, 0.55, -6, flip=True)); o.append(junk(230, 960, 0.45, 4))
-    o.append(junk(560, 1230, 1.05, 14, broken=True)); o.append(splash(600, 1330, 220))
-    for x, h, w, t in ((140, 760, 74, -6), (330, 920, 88, 3), (700, 860, 84, -4), (920, 980, 96, 7), (520, 700, 70, -2)):
-        o.append(stake(x, 1700, h, w, t, water=1320))
-    o.append(f'<rect x="0" y="1340" width="{W}" height="{H-1340}" fill="#0E2230" opacity="0.35"/>')
-    return ''.join(o), None
+def canh_coc():        # P1 (tối giản): MỘT cọc khổng lồ đâm thủng MỘT chiến thuyền
+    bg = sky_sea(980, (300, 860), em=True) + junk(860, 1040, 0.35, -3, flip=True)
+    o = [f'<ellipse cx="560" cy="1330" rx="520" ry="70" fill="#0E2230" opacity="0.5"/>',
+         junk(470, 1250, 1.1, 12, broken=True), splash(560, 1335, 240),
+         stake(640, 1760, 1060, 128, 4, water=1335)]
+    return ''.join(o), bg
 
 def canh_phan_boi():   # P2: Dương Đình Nghệ ngã xuống, Kiều Công Tiễn đứng sau
     o = [glow(330, 1180, 230, '#B3261E', 0.22), portrait_flag('duong-dinh-nghe', TA, 330, 1560, 1.55, tilt=-24, grey=0.5),
@@ -155,21 +153,22 @@ def canh_loi_can():    # P3: Tiêu Ích can, Lưu Cung không nghe, đoàn thuy�
          portrait_flag('luu-cung', DICH, 790, 1330, 1.25, tilt=6), junk(560, 1560, 0.5, 2, flip=True), junk(860, 1600, 0.42, -3, flip=True)]
     return ''.join(o), None
 
-def canh_chuan_bi():   # P4: Ngô Quyền + hàng cọc đang cắm, giặc còn xa trên biển
-    o = [sky_sea(950, (860, 850)), junk(880, 960, 0.22, 0, flip=True), junk(980, 950, 0.18, 0, flip=True)]
-    for x, h, w in ((90, 520, 58), (250, 600, 64), (420, 560, 60), (600, 640, 66), (780, 580, 62), (960, 620, 64)):
-        o.append(stake(x, 1650, h, w, 0, water=1240))
-    o.append(f'<rect x="0" y="1240" width="{W}" height="{H-1240}" fill="#3E6E86" opacity="0.55"/>')   # nước che phần dưới cọc
-    o.append(glow(540, 900, 300, '#F3D27A', 0.25)); o.append(portrait_flag('ngo-quyen', TA, 540, 1200, 1.35))
-    return ''.join(o), None
+def canh_chuan_bi():   # P4 (tối giản): Ngô Quyền + 3 cọc ngầm dưới làn nước trong, giặc nhỏ ở chân trời
+    bg = sky_sea(1000, (820, 900), em=True) + junk(860, 1005, 0.16, 0, flip=True) + junk(950, 1000, 0.13, 0, flip=True)
+    o = []
+    for x, h, w in ((230, 520, 70), (540, 470, 76), (850, 520, 70)):
+        o.append(stake(x, 1660, h, w, 0))
+    o.append(f'<rect x="0" y="1180" width="{W}" height="{H-1180}" fill="#2E6E8E" opacity="0.6"/>')
+    o.append(f'<path d="M0,1180 Q270,1165 540,1180 T1080,1180" stroke="#DCEBF0" stroke-width="5" fill="none" opacity="0.8"/>')
+    o.append(glow(540, 760, 250, '#F3D27A', 0.22)); o.append(portrait_flag('ngo-quyen', TA, 540, 1050, 1.25))
+    return ''.join(o), bg
 
-def canh_nuoc_rut():   # P5: nước rút, cọc trồi lên, thuyền mắc cọc, giao chiến
-    o = [sky_sea(820, (300, 700)), junk(700, 1150, 0.9, -16, broken=True), splash(680, 1250, 180)]
-    for x, h, w, t in ((120, 820, 80, 4), (380, 760, 74, -3), (900, 880, 88, 5), (560, 700, 70, 0)):
-        o.append(stake(x, 1720, h, w, t, water=1300))
-    o.append(f'<circle cx="300" cy="1060" r="140" fill="url(#lua)"/>')
-    o.append(portrait_flag('ngo-quyen', TA, 230, 1260, 0.95))
-    return ''.join(o), None
+def canh_nuoc_rut():   # P5 (tối giản): nước rút lộ HAI cọc lớn, MỘT chiến thuyền mắc cọc nghiêng
+    bg = sky_sea(900, (760, 780), em=True)
+    o = [f'<rect x="0" y="1380" width="{W}" height="{H-1380}" fill="#6A5A40" opacity="0.55"/>',   # bãi bùn lộ ra khi nước rút
+         junk(560, 1230, 1.0, -15, broken=True),
+         stake(250, 1760, 900, 110, -5, water=1380), stake(860, 1760, 960, 118, 6, water=1380)]
+    return ''.join(o), bg
 
 def canh_xung_vuong():  # P6: Ngô Quyền xưng vương, đóng đô Cổ Loa
     rays = ''.join(f'<polygon points="540,1000 {540+math.cos(math.radians(a-4))*1400:.0f},{1000+math.sin(math.radians(a-4))*1400:.0f} {540+math.cos(math.radians(a+4))*1400:.0f},{1000+math.sin(math.radians(a+4))*1400:.0f}" fill="#F3D27A" opacity="0.12"/>' for a in range(0, 360, 20))
@@ -186,8 +185,12 @@ THUMBS = {('e2', 1): (canh_coc, [('MỘT HÀNG', 'vang'), ('CỌC GỖ', 'vang')
 def make(tap, n, phan, nhan, out):
     fn, lines = THUMBS[(tap, n)]
     body, bg = fn()
-    base = (bg.convert('RGBA') if bg is not None else Image.new('RGBA', (W, H), (20, 17, 15, 255)))
-    if bg is not None:   # nền bản đồ tối lại để nổi chữ và nhân vật
+    if isinstance(bg, str):   # nền vẽ bằng SVG → làm mờ nhẹ như xóa phông, tiền cảnh giữ sắc nét
+        bg = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">{DEFS}{bg}</svg>'.encode()))).convert('RGBA').filter(ImageFilter.GaussianBlur(5))
+        base = bg
+    else:
+        base = (bg.convert('RGBA') if bg is not None else Image.new('RGBA', (W, H), (20, 17, 15, 255)))
+    if bg is not None and base is not bg:   # nền bản đồ tối lại để nổi chữ và nhân vật
         base = Image.blend(base, Image.new('RGBA', (W, H), (12, 9, 6, 255)), 0.35)
     size = 118 if len(lines) <= 3 else 108
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">{DEFS}{body}'
