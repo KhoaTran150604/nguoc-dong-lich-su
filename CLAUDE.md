@@ -62,7 +62,8 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - YouTube: bật khai báo nội dung AI khi có cảnh/người trông như thật; tránh nội dung rập khuôn hàng loạt (rủi ro tắt kiếm tiền). Nhạc chỉ từ YouTube Audio Library / thư viện CapCut.
 
 ## 6. Trạng thái
-- ⚠️ **Hai nhánh làm song song đã gộp (17/11):** nhánh `awesome-tesla` (bộ công cụ `scripts/khoi/`, Short P1 "Một vị Giao vương…" ĐÃ HẸN ĐĂNG 15/11, thumbnail "bản khắc cổ", kho E2 bản 15/11 lưu ở `kb/E2-bach-dang-938.ban-15-11.md`) và nhánh `bold-volta` (bộ công cụ `scripts/video/`, video dài E2 1080p60, 6 Short cắt từ video dài, thumbnail mẫu P1 mới). **Người dùng cần chốt dùng bộ nào làm chuẩn**; kho E2 chuẩn hiện là `kb/E2-bach-dang-938.md` (bản 16/11), bản 15/11 giữ để đối chiếu.
+- ✅ **CHỐT CHUẨN (17/11/2026, người dùng chọn):** bộ công cụ **`scripts/video/`** (video dài `dung.py` + Short cắt từ video dài `short.py`, khung gần full, thumbnail `thumb_video.py` mũi tên/X) là **chuẩn duy nhất**. Short P1 chuẩn = **"Một hàng cọc gỗ đánh chìm cả hạm đội? | Bạch Đằng 938 – Phần 1"**. Kho E2 chuẩn: `kb/E2-bach-dang-938.md` (bản 16/11).
+- 🗄️ **Bản cũ – KHÔNG dùng nữa** (nhánh `awesome-tesla`, gộp 17/11 chỉ để lưu): `scripts/khoi/`, Short P1 "Một vị Giao vương chưa từng có đất Giao" (đã hẹn đăng 15/11 → **người dùng cần hủy lịch/xóa trên YouTube Studio** trước khi đăng P1 chuẩn), thumbnail "bản khắc cổ", kho `kb/E2-bach-dang-938.ban-15-11.md` (chỉ để đối chiếu). Các mục bên dưới nói về khối/Vbee/`scripts/khoi` là lịch sử, không làm theo.
 - **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` (kịch bản, prompt Flow 8 cảnh, các bước CapCut, tiêu đề, bảng nguồn sơ bộ). Bản nháp có giọng: `assets/short1/Short1-BachDang938-co-giong.mp4` (hình vẽ tạm, chưa nhạc, giọng Vbee). Lời đọc chia câu: `docs/shorts/01-loi-doc.txt`. Chưa tạo giọng Gia Huy cho bài này → chạy skill `giong-doc`. Mẫu thử giọng: `assets/short1/thu-giong/`. Kho: **🔍 sơ bộ, chưa kiểm chứng**.
 - **Short #1 – Bạch Đằng 938:** `docs/shorts/01-bach-dang-938.md` **bản 2** (viết lại từ kho, đã qua kiểm chứng kịch bản). Kho: **`kb/E2-bach-dang-938.md` ✅** (hồ sơ mẫu đầu tiên, 15/11/2026). Giọng và bản dựng cũ trong `assets/short1/` làm theo bản 1, **cần tạo lại giọng Vbee**. "Lùi tiếp: năm 544" chờ hồ sơ E3.
 - **Video dài E2 – Bạch Đằng 938:** `docs/videos/E2-bach-dang-938.md` (12 khối ≈ 13–14 phút, mỗi khối cắt được Short; đã qua kiểm chứng: **Đạt**). Kho dùng: `kb/E2-…` + `kb/E2b-boi-canh-905-937.md`. Khối 12 phần "Lùi tiếp: 544" ⏳ chờ hồ sơ E3.
@@ -85,7 +86,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
   - Thông tin đăng Short P1: `docs/videos/E2-dang-youtube.md`. Lịch: video dài T3/T5/T7 18:00, Short các ngày còn lại 18:00, chỉ lên lịch.
 
 ## 7. Việc tiếp theo (đề xuất theo thứ tự)
-0. (17/11) Đăng Short E2 P1 bằng skill `dang-youtube` (Claude in Chrome, máy local). Làm thumbnail P2–P6 theo mẫu P1 → dựng lại P2–P6 khung gần full → người dùng duyệt → lên lịch.
+0. (17/11) Hủy lịch Short P1 cũ "Một vị Giao vương…" trên YouTube Studio → đăng Short E2 P1 chuẩn bằng skill `dang-youtube` (Claude in Chrome, máy local). Làm thumbnail P2–P6 theo mẫu P1 → dựng lại P2–P6 khung gần full → người dùng duyệt → lên lịch.
 1. ~~Quy trình nguồn E2~~ (xong 15/11). Tiếp: tạo lại giọng Vbee cho Short #1 bản 2; chạy quy trình nguồn E3 (544) hoặc E1 (968).
 2. Làm mẫu **đồng hồ năm chạy ngược + bản đồ co dần** (4 giây) trên nền bản đồ cổ.
 3. Đóng gói code thành bộ công cụ: thư viện hình (thuyền, cọc, cờ tướng, thành, mũi tên), bản đồ theo thời kỳ, khung phụ đề, end card; mỗi tập một file cấu hình (YAML/JSON) mô tả cảnh → render.
@@ -103,7 +104,7 @@ docs/videos/                  ← kịch bản video dài (chia khối → Short
 kb/                           ← kho tri thức (INDEX, nguon, draft/, nhan-vat/, dia-danh/)
 scripts/video/                ← BỘ CÔNG CỤ DỰNG VIDEO cả series: dung.py (bộ máy) + tap/<mã>.py (cảnh từng tập) + bando_vung.py, bando_tran.py, nhanvat.py, amthanh.py – xem skill dung-video
 scripts/voice/tts.py          ← tạo giọng ZeroTTS (mặc định Gia Huy) + kiểm tra Whisper + mốc thời gian từng câu
-scripts/khoi/                 ← dựng 1 khối Short từ JSON (giọng tạm Piper hoặc MP3 Vbee) – bộ công cụ mới
+scripts/khoi/                 ← (CŨ, không dùng – lưu lại từ nhánh awesome-tesla) dựng khối Short từ JSON
 scripts/short/                ← dựng Short từ ảnh + phụ đề + giọng (scenes.py → caps.py → render.py)
 scripts/bando/anim.py         ← bản đồ phẳng động
 scripts/saban/sim.py          ← sa bàn mặt cắt
