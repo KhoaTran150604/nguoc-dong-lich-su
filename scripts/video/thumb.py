@@ -53,25 +53,37 @@ def map_bg(cam, cfg=None):
 
 # ---------------- vật thể chi tiết ----------------
 def stake(x, y_bot, h, w, tilt=0, water=None):
-    """Cọc gỗ lớn: vân gỗ, mắt gỗ, chóp sắt đinh tán; water = y mặt nước (vẽ gợn quanh cọc)."""
-    rng = random.Random(int(x * 7 + h)); top = y_bot - h
-    o = [f'<g transform="rotate({tilt} {x} {y_bot})">',
-         f'<polygon points="{x-w/2},{y_bot} {x+w/2},{y_bot} {x+w/2},{top+w*1.1} {x-w/2},{top+w*1.1}" fill="url(#go)" stroke="#1E120A" stroke-width="4"/>']
-    for k in range(int(h / 26)):              # vân gỗ
-        yy = top + w * 1.2 + k * 26 + rng.uniform(-6, 6); dx = rng.uniform(-w * 0.3, w * 0.3)
-        o.append(f'<path d="M{x-w*0.35+dx},{yy} q{w*0.2},{rng.uniform(-8,8)} {w*0.5},{rng.uniform(-4,10)}" stroke="#2A160A" stroke-width="2" fill="none" opacity="0.55"/>')
-    for k in range(2):                        # mắt gỗ
-        yy = top + h * rng.uniform(0.35, 0.8); xx = x + rng.uniform(-w * 0.2, w * 0.2)
-        o.append(f'<ellipse cx="{xx:.0f}" cy="{yy:.0f}" rx="{w*0.12:.0f}" ry="{w*0.08:.0f}" fill="#2A160A" opacity="0.7"/>')
-    tip = top - w * 1.0                        # chóp sắt
-    o.append(f'<polygon points="{x-w/2-4},{top+w*1.1} {x+w/2+4},{top+w*1.1} {x+w/2},{top+w*0.4} {x},{tip} {x-w/2},{top+w*0.4}" fill="url(#sat)" stroke="#1A1E22" stroke-width="4"/>')
-    o.append(f'<rect x="{x-w/2-6}" y="{top+w*0.95}" width="{w+12}" height="{w*0.28}" fill="#5A646A" stroke="#1A1E22" stroke-width="3"/>')
-    for k in range(3): o.append(f'<circle cx="{x-w*0.3+k*w*0.3}" cy="{top+w*1.09}" r="{w*0.06}" fill="#D8E0E4"/>')
-    o.append(f'<line x1="{x-w*0.15}" y1="{top+w*0.3}" x2="{x}" y2="{tip+w*0.2}" stroke="#FFFFFF" stroke-width="3" opacity="0.6"/>')
+    """Cọc gỗ kiểu hoạt hình (cel-shading): thân gỗ tròn hơi cong, có vỏ, mấu cành; đầu vót lởm chởm
+    nhiều mặt + chóp sắt (sử chép cọc "đầu bịt sắt"); water = y mặt nước (gợn nước quanh cọc)."""
+    rng = random.Random(int(x * 7 + h)); top = y_bot - h; L = '#2A170B'; sw = max(5, w * 0.07)
+    neck = top + w * 0.7; bend = rng.uniform(-0.06, 0.06) * w
+    wb, wt = w * 0.56, w * 0.5                 # nửa bề rộng chân / cổ (thân hơi thon)
+    body = (f'M{x-wb},{y_bot+w} C{x-wb-bend},{(y_bot+neck)/2+40} {x-wt+bend},{(y_bot+neck)/2-60} {x-wt},{neck} '
+            f'L{x+wt},{neck} C{x+wt+bend},{(y_bot+neck)/2-60} {x+wb-bend},{(y_bot+neck)/2+40} {x+wb},{y_bot+w} Z')
+    o = [f'<g transform="rotate({tilt} {x} {y_bot})" stroke-linejoin="round" stroke-linecap="round">',
+         f'<path d="{body}" fill="#8E5527" stroke="{L}" stroke-width="{sw}"/>',
+         f'<path d="M{x+w*0.2},{neck+sw} C{x+w*0.24},{(y_bot+neck)/2} {x+w*0.26},{y_bot} {x+w*0.28},{y_bot+w} L{x+wb-sw},{y_bot+w} '
+         f'C{x+wb-bend-sw},{(y_bot+neck)/2+40} {x+wt+bend-sw},{(y_bot+neck)/2-60} {x+wt-sw},{neck+sw} Z" fill="#673A18"/>',   # mảng tối
+         f'<path d="M{x-w*0.3},{neck+w*0.5} L{x-w*0.33},{neck+(y_bot-neck)*0.75}" stroke="#B87A42" stroke-width="{w*0.09:.1f}"/>']  # vệt sáng
+    for k in range(4):                         # mảng vỏ cây: nét dọc ngắn lệch nhau
+        yy = neck + (y_bot - neck) * rng.uniform(0.15, 0.85); xx = x + rng.uniform(-w * 0.25, w * 0.15); ll = rng.uniform(40, 90)
+        o.append(f'<path d="M{xx:.0f},{yy:.0f} q{rng.uniform(-6,6):.0f},{ll/2:.0f} 0,{ll:.0f}" fill="none" stroke="#4A2810" stroke-width="{sw*0.55:.1f}"/>')
+    side = rng.choice((-1, 1)); by = neck + (y_bot - neck) * 0.45      # mấu cành chặt
+    o.append(f'<path d="M{x+side*wt*0.9},{by} l{side*w*0.28},{-w*0.14} l{side*w*0.04},{w*0.2} l{-side*w*0.3},{w*0.12} Z" fill="#8E5527" stroke="{L}" stroke-width="{sw*0.8}"/>')
+    o.append(f'<ellipse cx="{x+side*(wt*0.9+w*0.31)}" cy="{by-w*0.03}" rx="{w*0.05}" ry="{w*0.1}" fill="#E0A964" stroke="{L}" stroke-width="{sw*0.6}"/>')
+    tip = top - w * 0.5                         # đầu vót: các mặt vát cao thấp không đều
+    j = [rng.uniform(-0.12, 0.12) * w for _ in range(3)]
+    o.append(f'<polygon points="{x-wt},{neck} {x-wt*0.55},{neck-w*0.25+j[0]} {x-wt*0.1},{neck-w*0.08+j[1]} {x+wt*0.45},{neck-w*0.3+j[2]} {x+wt},{neck} '
+             f'{x+w*0.2},{top} {x-w*0.2},{top}" fill="#D9A062" stroke="{L}" stroke-width="{sw}"/>')
+    o.append(f'<polygon points="{x+wt*0.45},{neck-w*0.3+j[2]} {x+wt-sw/2},{neck} {x+w*0.2},{top} {x+w*0.05},{top}" fill="#AE7038"/>')
+    o.append(f'<path d="M{x-wt*0.1},{neck-w*0.08+j[1]} L{x-w*0.05},{top}" stroke="#AE7038" stroke-width="{sw*0.6}"/>')
+    o.append(f'<rect x="{x-w*0.25}" y="{top-w*0.02}" width="{w*0.5}" height="{w*0.14}" rx="{w*0.04}" fill="#4E565C" stroke="{L}" stroke-width="{sw*0.8}"/>')  # đai sắt
+    o.append(f'<polygon points="{x-w*0.2},{top} {x+w*0.2},{top} {x},{tip}" fill="#6E787E" stroke="{L}" stroke-width="{sw}"/>')  # chóp sắt
+    o.append(f'<polygon points="{x-w*0.11},{top-w*0.04} {x-w*0.02},{top-w*0.04} {x},{tip+w*0.14}" fill="#C4CDD2"/>')
     o.append('</g>')
     if water is not None:
-        for k in range(3):
-            o.append(f'<ellipse cx="{x}" cy="{water+k*6}" rx="{w*(0.9+k*0.6):.0f}" ry="{w*(0.18+k*0.08):.0f}" fill="none" stroke="#DCEBF0" stroke-width="{4-k}" opacity="{0.8-k*0.22:.2f}"/>')
+        for k in range(2):
+            o.append(f'<ellipse cx="{x}" cy="{water+k*14}" rx="{w*(0.85+k*0.55):.0f}" ry="{w*(0.16+k*0.07):.0f}" fill="none" stroke="#E8F4F8" stroke-width="{7-k*2}" opacity="{0.85-k*0.3:.2f}"/>')
     return ''.join(o)
 
 def junk(x, y, s=1.0, tilt=0, broken=False, flip=False):
