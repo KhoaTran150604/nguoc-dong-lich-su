@@ -36,6 +36,8 @@ def bg_vung(bando, cam):             # bản đồ vùng (bando_vung) theo camer
     STATE['bg'] = ('vung', bando, cam); return ''
 def bg_den():                        # nền mực tối (thẻ tiêu đề, sa bàn)
     STATE['bg'] = ('den',); return ''
+def bg_anh(path):                    # nền là một ảnh có sẵn (banner, thumbnail...)
+    STATE['bg'] = ('anh', path); return ''
 def dim(a):                          # làm tối nền (cho khung trích, chân dung lớn)
     return f'<rect width="{W}" height="{H}" fill="{MUC}" opacity="{a:.2f}"/>'
 
@@ -43,6 +45,9 @@ def _bg_image():
     b = STATE.get('bg', ('den',))
     if b[0] == 'tran': return b[1].background(W, H, U, b[2]).copy()
     if b[0] == 'vung': return b[1].view(W, H, b[2]).convert('RGBA')
+    if b[0] == 'anh':
+        if b[1] not in STATE_C: STATE_C[b[1]] = Image.open(b[1]).convert('RGBA').resize((W, H), Image.LANCZOS)
+        return STATE_C[b[1]].copy()
     return Image.new('RGBA', (W, H), (20, 17, 15, 255))
 
 # ---------------- Ký hiệu dùng chung ----------------
@@ -88,10 +93,13 @@ def soldier(x, y, side, s=1.0, t=0.0, phase=0.0, face=1):
         o.append('<line x1="7" y1="-31" x2="11" y2="-36" stroke="#E2B98C" stroke-width="3" stroke-linecap="round"/>')
     o.append('</g>'); return ''.join(o)
 
-def soldiers(cx, cy, n, side, t, r=60, seed=1, appear=(0.2, 1.6), s=0.55, face=1):
+def soldiers(cx, cy, n, side, t, r=60, seed=1, appear=(0.2, 1.6), s=0.55, face=1, ok=None):
     """H7 (bản mới): một toán lính hiện dần quanh (cx, cy). Dùng cho quân đông, phục binh."""
     import random; rng = random.Random(seed); pts = []
-    for j in range(n): pts.append((rng.uniform(-r, r), rng.uniform(-r * 0.55, r * 0.55), j))
+    tries = 0
+    while len(pts) < n and tries < n * 30:                      # ok(x, y) = điểm hợp lệ (vd đất liền)
+        dx, dy = rng.uniform(-r, r), rng.uniform(-r * 0.55, r * 0.55); tries += 1
+        if ok is None or ok(cx + dx * U, cy + dy * U): pts.append((dx, dy, len(pts)))
     o = []
     for dx, dy, j in sorted(pts, key=lambda p: p[1]):            # vẽ từ xa đến gần
         a = seg(t, appear[0] + j * (appear[1] - appear[0]) / n, appear[0] + j * (appear[1] - appear[0]) / n + 0.4)
@@ -177,6 +185,41 @@ def logo_card(a=1.0, sub=None):
     o.append('</g>'); return ''.join(o)
 STATE_C = {}
 
+def _uri(path):
+    if path not in STATE_C:
+        import base64; STATE_C[path] = 'data:image/png;base64,' + base64.b64encode(open(path, 'rb').read()).decode()
+    return STATE_C[path]
+
+def subscribe_card(t, avatar):
+    """Màn hình kết: avatar kênh + thanh Thích · Không thích · ĐĂNG KÝ · Chuông; nút Thích và Đăng ký nhấp nháy."""
+    cx = W / 2; pop = ease(min(1, t / 0.5)); sl = ease(min(1, max(0, (t - 0.3) / 0.5)))
+    s = 230 * U * (0.6 + 0.4 * pop); ay = H * 0.33
+    o = [f'<rect width="{W}" height="{H}" fill="{MUC}"/>',
+         f'<defs><clipPath id="av"><circle cx="{cx:.0f}" cy="{ay:.0f}" r="{s/2:.0f}"/></clipPath></defs>',
+         f'<image href="{_uri(avatar)}" x="{cx-s/2:.0f}" y="{ay-s/2:.0f}" width="{s:.0f}" height="{s:.0f}" clip-path="url(#av)" opacity="{pop:.2f}"/>']
+    bw, bh = 560 * U, 104 * U; bx = cx - bw / 2; by = H * 0.6 + (1 - sl) * 60 * U
+    o.append(f'<g opacity="{sl:.2f}"><rect x="{bx:.0f}" y="{by:.0f}" width="{bw:.0f}" height="{bh:.0f}" rx="{30*U:.0f}" fill="{KEM}" stroke="{DONG}" stroke-width="{4*U:.1f}"/>')
+    def pulse(t0): return max(0, math.sin(max(0, t - t0) * 2 * math.pi * 1.2)) if t > t0 else 0
+    pl, ps = pulse(1.0), pulse(1.6); ic = by + bh / 2
+    # Thích
+    lx = bx + 80 * U; lk = 1 + 0.22 * pl; lcol = '#2F7BEA' if t > 1.0 else '#3A3A3A'
+    o.append(f'<g transform="translate({lx:.0f} {ic:.0f}) scale({U*lk:.3f})"><circle r="40" fill="#2F7BEA" opacity="{0.25*pl:.2f}"/>'
+             f'<rect x="-22" y="-4" width="11" height="26" rx="3" fill="{lcol}"/><path d="M-8,-4 L2,-24 Q6,-32 12,-26 Q14,-20 10,-8 L22,-8 Q28,-7 26,0 L22,18 Q20,22 15,22 L-8,22 Z" fill="{lcol}"/></g>')
+    # Không thích
+    dx = bx + 175 * U
+    o.append(f'<g transform="translate({dx:.0f} {ic:.0f}) scale({U:.3f}) rotate(180)"><rect x="-22" y="-4" width="11" height="26" rx="3" fill="#3A3A3A"/><path d="M-8,-4 L2,-24 Q6,-32 12,-26 Q14,-20 10,-8 L22,-8 Q28,-7 26,0 L22,18 Q20,22 15,22 L-8,22 Z" fill="#3A3A3A"/></g>')
+    # ĐĂNG KÝ (nhấp nháy, đổi sang đỏ khi "bấm")
+    sx = bx + 345 * U; sk = 1 + 0.12 * ps; on = t > 1.6
+    o.append(f'<g transform="translate({sx:.0f} {ic:.0f}) scale({sk:.3f})"><rect x="{-115*U:.0f}" y="{-30*U:.0f}" width="{230*U:.0f}" height="{60*U:.0f}" rx="{30*U:.0f}" fill="{"#CC1F1A" if on else MUC}"/>'
+             f'<rect x="{-100*U:.0f}" y="{-14*U:.0f}" width="{40*U:.0f}" height="{28*U:.0f}" rx="{8*U:.0f}" fill="#FFFFFF"/><polygon points="{-86*U:.0f},{-8*U:.0f} {-86*U:.0f},{8*U:.0f} {-71*U:.0f},0" fill="{"#CC1F1A" if on else MUC}"/>'
+             f'<text x="{26*U:.0f}" y="{9*U:.0f}" font-family="Be Vietnam Pro SemiBold" font-size="{25*U:.0f}" fill="#FFFFFF" text-anchor="middle">{"ĐÃ ĐĂNG KÝ" if t > 3.2 else "ĐĂNG KÝ"}</text>'
+             f'<rect x="{-122*U:.0f}" y="{-37*U:.0f}" width="{244*U:.0f}" height="{74*U:.0f}" rx="{37*U:.0f}" fill="none" stroke="#CC1F1A" stroke-width="{4*U:.1f}" opacity="{0.8*ps:.2f}"/></g>')
+    # Chuông (lắc nhẹ sau khi đăng ký)
+    bxl = bx + bw - 62 * U; wob = 18 * math.sin(t * 18) * max(0, 1 - abs(t - 3.6) * 2) if t > 3.2 else 0
+    o.append(f'<g transform="translate({bxl:.0f} {ic:.0f}) rotate({wob:.1f} 0 {-26*U:.0f}) scale({U:.3f})"><path d="M-18,12 Q-18,-20 0,-22 Q18,-20 18,12 L24,18 L-24,18 Z" fill="#2A2A2A"/><circle cy="24" r="6" fill="#2A2A2A"/><rect x="-3" y="-30" width="6" height="8" rx="2" fill="#2A2A2A"/></g>')
+    o.append('</g>')
+    return ''.join(o)
+
 def saban(level, stakes_up=1.0, boats=(), x0=None, y0=None, w=None, h=None, show_stakes=True):
     """Sa bàn mặt cắt cửa sông (minh họa). level 1 = nước lên, 0 = nước rút; stakes_up 0–1 = cọc đang được cắm."""
     x0 = 140 * U if x0 is None else x0; y0 = 70 * U if y0 is None else y0; w = 680 * U if w is None else w; h = 400 * U if h is None else h
@@ -254,8 +297,8 @@ def render_scene(job):
                           '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'veryfast' if L.FINAL else 'ultrafast', '-crf', '18' if L.FINAL else '26',
                           '-threads', '1', tmp], stdin=subprocess.PIPE)
     prev_svg, prev = None, None
-    for i in range(round(b * FPS) - round(a * FPS)):
-        tl = (round(a * FPS) + i) / FPS - a
+    for i in range(round(d * FPS)):              # số khung chỉ theo độ dài cảnh → clip cache dùng lại được khi cảnh bị dời
+        tl = i / FPS
         STATE.clear(); svg = EP.SCENES[code](tl, d); key = (svg, repr(STATE.get('bg')))
         if key == prev_svg and not getattr(EP, 'FADE', {}).get(code):   # khung tĩnh → dùng lại
             p.stdin.write(prev); continue
@@ -283,9 +326,19 @@ def main():
     assert len(meta['lines']) == len(items), f'Số câu trong {voice}.json ({len(meta["lines"])}) khác file lời đọc ({len(items)}) – tạo lại giọng'
     times, pauses, end = timeline(items, meta, tail)
     plan = plan_scenes(items, times, pauses, end)
-    src = b''.join(open(f, 'rb').read() for f in (__file__, L.__file__, EP.__file__, NV.__file__) + tuple(getattr(EP, 'DEPS', ())))
+    # Cache theo NỘI DUNG từng cảnh: thư viện dùng chung + phần chung của file tập + hàm của riêng cảnh đó + độ dài cảnh.
+    # Không tính giờ bắt đầu → dời/cắt câu không làm render lại cảnh có hình y nguyên; sửa 1 cảnh chỉ render cảnh đó.
+    import inspect
+    shared = b''.join(open(f, 'rb').read() for f in (__file__, L.__file__, NV.__file__) + tuple(getattr(EP, 'DEPS', ())))
+    ep_src = open(EP.__file__, encoding='utf-8').read(); fn_src = {}
+    for c, f in EP.SCENES.items():
+        try: fn_src[c] = inspect.getsource(f)
+        except (OSError, TypeError): fn_src[c] = c
+    ep_common = ep_src
+    for t in fn_src.values(): ep_common = ep_common.replace(t, '')
+    def scene_key(c, d): return hashlib.sha1(shared + ep_common.encode() + fn_src[c].encode() + f'{c}{d:.2f}{W}{FPS}'.encode()).hexdigest()[:12]
     cd = os.path.join(out_dir, 'clips'); os.makedirs(cd, exist_ok=True)
-    jobs = [(c, a, b, os.path.join(cd, f'{c}-{W}p{FPS}-{hashlib.sha1(src + f"{c}{a:.2f}{b-a:.2f}{W}{FPS}".encode()).hexdigest()[:10]}.mp4')) for c, a, b in plan]
+    jobs = [(c, a, b, os.path.join(cd, f'{c}-{W}p{FPS}-{scene_key(c, b - a)}.mp4')) for c, a, b in plan]
     todo = [j for j in jobs if not os.path.exists(j[3])]
     print(f'{len(jobs)} cảnh · {len(jobs)-len(todo)} dùng lại cache · render {len(todo)} · {W}x{H} {FPS}fps · dài {end/60:.1f} phút', flush=True)
     from multiprocessing import Pool

@@ -2,14 +2,17 @@
 Dữ kiện: kb/E2-bach-dang-938.md. Bản đồ, chân dung, trang phục, vị trí Hải Môn và bãi cọc là MINH HỌA.
 """
 import math
-from dung import (W, H, U, TA, DICH, GIAN, DONG2, KEM, MUC, DO, seg, lerp, ease, L, NV,
+import os
+from dung import (W, H, U, TA, DICH, GIAN, DONG2, KEM, MUC, DO, seg, lerp, ease, L, NV, ROOT, soldiers, bg_anh, subscribe_card,
                   bg_tran, bg_vung, bg_den, dim, flag, small_flags, clash, xmark, glow, tint, link, quote, clock, logo_card, saban)
 import bando_tran as BT
 from bando_vung import BanDoVung, lerp_cam
 
 DEPS = (BT.__file__,)
-TAIL = 3.5
+TAIL = 7.0          # giữ cảnh cuối cho màn hình đăng ký kênh
 FADE = {'s05': (0, 0.4), 's53': (0, 0.8), 's55': (0.5, 0)}
+BANNER = os.path.join(ROOT, 'assets', 'brand', 'song-tu', 'BANNER-YouTube-2560x1440.png')
+AVATAR = os.path.join(ROOT, 'assets', 'brand', 'song-tu', 'AVATAR-YouTube-800x800.png')
 
 # ---------------- Bản đồ vùng của tập (dùng chung style series) ----------------
 DAILA, AICHAU, DUONGLAM, COLOA = (105.85, 21.03), (105.75, 19.85), (105.45, 21.2), (105.88, 21.13)
@@ -27,6 +30,7 @@ VUNG = dict(bbox=(101.0, 16.5, 118.0, 26.0), seed=3,
 M = BanDoVung(VUNG)
 CAM_ALL, CAM_GIAO, CAM_HM = (109.3, 21.6, 14.5), (105.9, 20.7, 5.5), (112.6, 22.6, 5.5)
 def P(pt, cam): return M.to_screen(pt[0], pt[1], W, H, cam)
+def DAT(cam): return lambda x, y: M.is_land(x, y, W, H, cam)      # lính chỉ đứng trên đất liền
 def V(cam): return bg_vung(M, cam)
 def go(a, b, u): return (lerp(a[0], b[0], u), lerp(a[1], b[1], u))
 def along(pts, u): return L.path_at(pts, u)
@@ -103,9 +107,8 @@ def s04(tl, d):
     return o
 
 def s05(tl, d):
-    x, y = W / 2, H * 0.86; a = 1 - seg(tl, d * 0.55, d * 0.7)
-    o = V(CAM_GIAO) + dim(0.5) + f'<g opacity="{a:.2f}">' + flag('ngo-quyen', TA, x, y, 0.62) + '</g>'
-    return o + logo_card(seg(tl, d * 0.6, d * 0.75))
+    x, y = W / 2, H * 0.86
+    return V(CAM_GIAO) + dim(0.5) + flag('ngo-quyen', TA, x, y, 0.62 + 0.04 * seg(tl, 0, d))      # bỏ thẻ tên kênh: mạch truyện liền
 
 # ======================= 1. GIAO CHÂU HỖN LOẠN =======================
 def s06(tl, d): return V(lerp_cam(CAM_ALL, (108.6, 21.4, 13.0), seg(tl, 0, d)))
@@ -129,10 +132,10 @@ def s10(tl, d):
     return V(c) + glow(x, y, tl, 70) + f'<g opacity="{seg(tl, 0.4, 1.2):.2f}">' + flag('duong-dinh-nghe', TA, x, y, 0.34) + '</g>'
 def s11(tl, d):
     c = CAM_GIAO; x, y = P(AICHAU, c)
-    return V(c) + small_flags(x, y + 20 * U, 26, TA, tl, r=150, seed=4, appear=(0.2, d * 0.7)) + flag('duong-dinh-nghe', TA, x, y, 0.34)
+    return V(c) + soldiers(x, y + 20 * U, 22, TA, tl, r=150, seed=4, appear=(0.2, d * 0.7), ok=DAT(c)) + flag('duong-dinh-nghe', TA, x, y, 0.34)
 def s12(tl, d):
     c = CAM_GIAO; u = seg(tl, 0, d * 0.6); r = seg(tl, d * 0.5, d)
-    o = V(c) + small_flags(*P(go(AICHAU, DAILA, u), c), 14, TA, 9, r=110, seed=4)
+    o = V(c) + soldiers(*P(go(AICHAU, DAILA, u), c), 14, TA, tl, r=110, seed=4, appear=(0, 0.01), ok=DAT(c))
     o += flag('tuong-nam-han', DICH, *P(go(DAILA, (106.6, 22.3), r), c), 0.28, ten='LÝ TIẾN', tilt=-14 * r, op=1 - 0.8 * r)
     return o + flag('duong-dinh-nghe', TA, *P(go(AICHAU, (105.85, 20.8), u), c), 0.34)
 def s13(tl, d):
@@ -171,7 +174,7 @@ def s21(tl, d):
     return o + flag('kieu-cong-tien', GIAN, b[0] + 40 * U, b[1], 0.36) + glow(b[0] + 40 * U, b[1] - 60 * U, tl, 70, DO) + flag('ngo-quyen', TA, *a, 0.4)
 def s22(tl, d):
     c = CAM_GIAO; u = seg(tl, 0.2, d)
-    return V(c) + flag('kieu-cong-tien', GIAN, *P(DAILA, c), 0.36) + small_flags(*P(go(AICHAU, (105.82, 20.55), u), c), 12, TA, 9, r=100, seed=2) + \
+    return V(c) + flag('kieu-cong-tien', GIAN, *P(DAILA, c), 0.36) + soldiers(*P(go(AICHAU, (105.82, 20.55), u), c), 12, TA, tl, r=100, seed=2, appear=(0, 0.01), ok=DAT(c)) + \
         flag('ngo-quyen', TA, *P(go(AICHAU, (105.82, 20.55), u), c), 0.4)
 
 # ======================= 3. NƯỚC CỜ CỦA NAM HÁN =======================
@@ -288,8 +291,13 @@ def s53(tl, d):
 def s54(tl, d):
     u = seg(tl, 0.2, d)
     return V(lerp_cam(CAM_ALL, (107.0, 21.0, 17.0), u)) + dim(0.45) + clock(int(round(lerp(938, 544, ease(u)))), tl, u)
-def s55(tl, d):
-    return bg_den() + logo_card(1, sub='Lùi tiếp: năm 544')
+def s55(tl, d):          # banner kênh + "Lùi tiếp", rồi màn hình đăng ký (7 giây cuối)
+    end = 7.0
+    if tl < d - end:
+        a = seg(tl, 0.2, 0.8)
+        return bg_anh(BANNER) + f'<g opacity="{a:.2f}"><rect x="{W/2-190*U:.0f}" y="{H*0.80:.0f}" width="{380*U:.0f}" height="{58*U:.0f}" rx="{29*U:.0f}" fill="{MUC}" stroke="#C9A24A" stroke-width="{3*U:.1f}"/>' \
+            f'<text x="{W/2:.0f}" y="{H*0.80+39*U:.0f}" font-family="Be Vietnam Pro SemiBold" font-size="{28*U:.0f}" fill="{DONG2}" text-anchor="middle">LÙI TIẾP: NĂM 544</text></g>'
+    return bg_den() + subscribe_card(tl - (d - end), AVATAR)
 
 SCENES = {k: v for k, v in globals().items() if k[:1] == 's' and k[1:].isdigit() and len(k) == 3}
 
@@ -313,5 +321,5 @@ def SFX(code, d):
     if code == 's44': return [(0.3, 'vo_a', 1.0, None), (0.3 + d * 0.35, 'vo_a', 0.8, None)]
     if code == 's45': return [(1.6, 'roi', 0.8, None)]
     if code == 's54': return [(0.2, 'rut', 0.5, None)]
-    if code == 's55': return [(0.3, 'trong_a', 0.7, None)]
+    if code == 's55': return [(0.3, 'trong_a', 0.7, None), (d - 7.0 + 1.05, 'kiem', 0.25, None), (d - 7.0 + 1.65, 'kiem', 0.3, None), (d - 7.0 + 3.3, 'kiem', 0.2, None)]
     return []

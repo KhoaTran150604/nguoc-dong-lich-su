@@ -138,11 +138,22 @@ class BanDoVung:
         x = max(0, min(self.w - vw, x)); y = max(0, min(self.h - vh, y))
         return self.img.crop((int(x), int(y), int(x + vw), int(y + vh))).resize((W, H), Image.LANCZOS)
 
+    def is_land(self, sx, sy, W, H, cam):
+        """(sx, sy) trên màn hình có rơi vào đất liền không – dùng để lính không đứng dưới biển."""
+        x, y, vw, vh = self._box(W, H, cam)
+        x = max(0, min(self.w - vw, x)); y = max(0, min(self.h - vh, y))
+        return _is_land_px(self.img, x + sx * vw / W, y + sy * vh / H)
+
     def to_screen(self, lon, lat, W, H, cam):
         x, y, vw, vh = self._box(W, H, cam)
         x = max(0, min(self.w - vw, x)); y = max(0, min(self.h - vh, y))
         px, py = self.pj(lon, lat)
         return (px - x) * W / vw, (py - y) * H / vh
+
+def _is_land_px(img, x, y):
+    if not (0 <= x < img.width and 0 <= y < img.height): return False
+    r, g, b = img.getpixel((int(x), int(y)))[:3]
+    return not (b > r + 15)          # biển: xanh lam rõ hơn đỏ
 
 def lerp_cam(a, b, u):
     """Lia/zoom mượt giữa hai camera (zoom theo hàm mũ cho đều mắt)."""
