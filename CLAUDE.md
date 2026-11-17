@@ -27,6 +27,14 @@
 - Phụ đề: đặt thấp (~77–87% chiều cao khung 9:16), chữ 54px, tối đa 2 dòng.
 - Kịch bản Short: 130–160 từ, ~45–60 giây.
 
+### Cách đặt tên video dài (đã chốt 17/11/2026)
+- Công thức: `(Ngược Dòng Sử Việt #[số tập]) Năm [năm]: [hình ảnh/câu chuyện]` — tên series trong ngoặc đặt đầu (kiểu "Goose Goose Duck Funny Moments #1").
+- Số tập đánh **#1, #2, #3…** theo thứ tự đăng (không dùng mã E2, B4… của kế hoạch trên YouTube).
+- Viết hoa "Ngược Dòng Sử Việt"; năm luôn đứng ngay sau ngoặc; vế sau là hình ảnh cụ thể, **chỉ dựa trên dữ kiện đã kiểm chứng trong `kb/`**.
+- Tập 1: **(Ngược Dòng Sử Việt #1) Năm 938: Khi Thủy Triều Rút Trên Sông Bạch Đằng**
+- Phương án dự phòng nếu tiêu đề bị cắt trên điện thoại (~60–70 ký tự): rút thành `(Ngược Dòng #n)`.
+- Mỗi video nằm trong playlist chính "Ngược Dòng Sử Việt" + 1 playlist nhánh (vd. "Trận Đánh Định Mệnh", "Tên Nước Qua Các Thời", "Kinh Đô Đã Dời", "Một Đời Trên Bản Đồ", "Sử Cũ Chép Gì?"). Thumbnail: năm to, màu vàng đồng, cùng vị trí mọi tập.
+
 ## 4. Series
 Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang (A hiện đại 6 · B Nguyễn/Tây Sơn 8 · C Lê/Mạc/Hồ 6 · D Trần/Lý 9 · E Đinh/Ngô/Bắc thuộc/dựng nước 9). Làm **giai đoạn A sau cùng** (nhạy cảm). Danh sách là bản nháp, phải qua quy trình nguồn.
 
