@@ -19,7 +19,7 @@ import amthanh as AT
 W, H, FPS = 1080, 1920, 60
 MUC, DONG, DONG2, KEM, DO = '#14110F', '#C9A24A', '#F3D27A', '#F2E6CC', '#B3261E'
 AVATAR = os.path.join(ROOT, 'assets', 'brand', 'song-tu', 'AVATAR-YouTube-800x800.png')
-FG = dict(cw=1260, y=380)          # cắt giữa video 16:9 rộng 1260px → phóng thành 1080 rộng, đặt ở y=380
+FG = dict(cw=700, y=254)           # khung 'gần full' (duyệt 17/11): cắt 700px của video 16:9 → 1080×1666, đặt ở y=254; khung tự lia theo cờ
 
 SHORTS = {}          # cấu hình Short đặt trong tap/<mã>.py: SHORTS = {n: {...}}
 
@@ -35,15 +35,12 @@ def _lines_text(t, size, col, y, stroke=MUC, sw=10, anchor='middle', x=W / 2, fa
     return ''.join(o)
 
 def title_band(c):
-    """Nhãn trên cùng: tên trận + PHẦN n + avatar nhỏ."""
+    """Nhãn trên cùng (dải 254px phía trên khung video): tên trận + PHẦN n."""
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">',
-         f'<rect x="0" y="0" width="{W}" height="330" fill="{MUC}" opacity="0.55"/>',
-         _lines_text(c['nhan'], 92, DONG2, 205, sw=12),
-         f'<rect x="{W/2-120}" y="238" width="240" height="64" rx="32" fill="{DO}" stroke="{DONG2}" stroke-width="4"/>',
-         f'<text x="{W/2}" y="283" font-family="Be Vietnam Pro SemiBold" font-size="38" fill="#FFFFFF" text-anchor="middle">{c["phan"]}</text>']
-    import base64; av = 'data:image/png;base64,' + base64.b64encode(open(AVATAR, 'rb').read()).decode()
-    o.append(f'<defs><clipPath id="a"><circle cx="{W/2}" cy="1810" r="58"/></clipPath></defs><image href="{av}" x="{W/2-58}" y="1752" width="116" height="116" clip-path="url(#a)"/>')
-    o.append(f'<text x="{W/2}" y="1735" font-family="Be Vietnam Pro SemiBold" font-size="30" fill="{KEM}" text-anchor="middle" opacity="0.85">Song Tử Kể Sử</text>')
+         f'<rect x="0" y="0" width="{W}" height="{FG["y"]}" fill="{MUC}" opacity="0.55"/>',
+         _lines_text(c['nhan'], 84, DONG2, 140, sw=11),
+         f'<rect x="{W/2-105}" y="166" width="210" height="58" rx="29" fill="{DO}" stroke="{DONG2}" stroke-width="4"/>',
+         f'<text x="{W/2}" y="207" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="#FFFFFF" text-anchor="middle">{c["phan"]}</text>']
     return ''.join(o) + '</svg>'
 
 def ass_subs(lines, path):
@@ -64,12 +61,35 @@ def ass_subs(lines, path):
     ev = ''.join(f'Dialogue: 0,{ts(a)},{ts(b)},S,,0,0,0,,{wrap(t)}\n' for a, b, t in lines)
     open(path, 'w', encoding='utf-8').write(hdr + ev)
 
-def compose(src, t0, dur, subs, overlay_png, out):
-    """Video dài [t0, t0+dur] → khung dọc: nền mờ + video giữa phóng to + nhãn + phụ đề."""
+def track_flags(tap, plan, t0, t1, step=1 / 30):
+    """Tâm khung cắt theo thời gian: lấy vị trí các cờ chân dung trong từng cảnh của video dài (gọi lại hàm cảnh,
+    không render), lấy giữa cụm cờ; cảnh không có cờ → giữa màn. Mượt trong cảnh, chuyển cảnh thì nhảy theo."""
+    import importlib
+    sys.modules['dung'] = D; EP = importlib.import_module('tap.' + tap); D.EP = EP
+    pts = []; orig = EP.flag
+    def rec(ma, side, x, y, *a, **kw): pts.append(x); return orig(ma, side, x, y, *a, **kw)
+    EP.flag = rec; out = []; prev_code = None; cur = 0.5
+    try:
+        t = t0
+        while t < t1:
+            code, a, b = next((c, a, b) for c, a, b in plan if a <= t < b) if any(a <= t < b for _, a, b in plan) else plan[-1]
+            pts.clear(); D.STATE.clear(); EP.SCENES[code](t - a, b - a)
+            xs = [min(max(x / D.W, 0.0), 1.0) for x in pts]
+            tgt = (min(xs) + max(xs)) / 2 if xs else 0.5
+            cur = tgt if code != prev_code else cur + (tgt - cur) * min(1, step / 0.7)   # mượt ~0,7 s
+            prev_code = code; out.append((t - t0, cur)); t += step
+    finally:
+        EP.flag = orig
+    return out
+
+def compose(src, t0, dur, overlay_png, out, track=None):
+    """Video dài [t0, t0+dur] → khung dọc gần full: nền mờ + video cắt 700px (lia theo cờ) phóng 1080×1666 + nhãn trên."""
     cw, y = FG['cw'], FG['y']; fh = round(1080 * 1080 / cw / 2) * 2
+    def xpx(u): return int(min(max(u * 1920 - cw / 2, 0), 1920 - cw))
+    cmd = os.path.splitext(out)[0] + '.cmd'
+    open(cmd, 'w').write(''.join(f'{t:.3f} crop@c x {xpx(u)};\n' for t, u in (track or [(0, 0.5)])))
     fc = (f'[0:v]split[a][b];[a]scale=-2:{H},crop={W}:{H},gblur=sigma=28,eq=brightness=-0.18[bg];'
-          f'[b]crop={cw}:1080:(iw-{cw})/2:0,scale={W}:{fh}[fg];[bg][fg]overlay=0:{y}[v1];[v1][1:v]overlay=0:0[v2];'
-          f"[v2]ass='{subs}'[v]")
+          f"[b]sendcmd=f='{cmd}',crop@c={cw}:1080:{xpx((track or [(0, 0.5)])[0][1])}:0,scale={W}:{fh}[fg];[bg][fg]overlay=0:{y}[v1];[v1][1:v]overlay=0:0[v]")
     sh(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{t0:.3f}', '-t', f'{dur:.3f}', '-i', src, '-i', overlay_png, '-filter_complex', fc,
         '-map', '[v]', '-map', '0:a', '-r', str(FPS), '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p',
         '-c:a', 'aac', '-b:a', '192k', '-ar', '44100', '-ac', '1', out])
@@ -206,8 +226,9 @@ def build(tap, n):
     subs = [(a - t0, b - t0 + 0.15, txt) for (a, b), (_, txt, _) in zip(times, items) if a >= t0 - 0.05 and a < t1]
     ass = os.path.join(od, 'phude.ass'); ass_subs(subs, ass)
     band = os.path.join(od, 'nhan.png'); svg_png(title_band(c)).save(band)
-    main_mp4 = os.path.join(od, '2-doan-cat.mp4'); compose(c['video'], t0, t1 - t0, ass, band, main_mp4)
-    print(f'đoạn cắt {t0:.1f}s → {t1:.1f}s ({t1-t0:.1f}s), {len(subs)} câu phụ đề')
+    main_mp4 = os.path.join(od, '2-doan-cat.mp4')
+    compose(c['video'], t0, t1 - t0, band, main_mp4, track_flags(tap, plan, t0, t1))
+    print(f'đoạn cắt {t0:.1f}s → {t1:.1f}s ({t1-t0:.1f}s), khung lia theo cờ, không phụ đề')
     # 2) khung đầu/cuối làm nền cho hook và câu dẫn
     def grab(t, path):
         sh(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{t:.3f}', '-i', main_mp4, '-frames:v', '1', path]); return Image.open(path).convert('RGBA')
