@@ -1,0 +1,10 @@
+{
+  "_ghi_chu": "Danh sách video ĐÃ DUYỆT mà máy nào cũng phải có. Cloud thêm vào đây khi người dùng duyệt; scripts/dong_bo.py tự dựng lại phần máy còn thiếu.",
+  "dai": [
+    {"tap": "e2", "file": "assets/e2/E2-BachDang938-1080p60.mp4", "ghi_chu": "bản cuối 1080p60"}
+  ],
+  "short": [
+    {"tap": "e2", "phan": 1, "ghi_chu": "khung gần full + thumbnail mũi tên/X, duyệt 17/11",
+     "phu_thuoc": ["docs/videos/E2-loi-doc.txt", "assets/e2/E2-GiaHuy-v2.json"]}
+  ]
+}
