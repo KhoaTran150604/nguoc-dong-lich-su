@@ -86,6 +86,21 @@ def stake(x, y_bot, h, w, tilt=0, water=None):
             o.append(f'<ellipse cx="{x}" cy="{water+k*14}" rx="{w*(0.85+k*0.55):.0f}" ry="{w*(0.16+k*0.07):.0f}" fill="none" stroke="#E8F4F8" stroke-width="{7-k*2}" opacity="{0.85-k*0.3:.2f}"/>')
     return ''.join(o)
 
+def bai_coc(y0, y1, n_rows=5, seed=3, w0=26, w1=70, water_col='#2E5E78', skip=None, thua=4.0, cao=(2.8, 3.8)):
+    """Bãi cọc nhiều cây nhỏ, xa nhỏ gần to (phối cảnh); hàng xa vẽ trước. skip(x, y) -> True để chừa chỗ."""
+    rng = random.Random(seed); o = []
+    for r in range(n_rows):
+        u = r / max(1, n_rows - 1); y = y0 + (y1 - y0) * u ** 1.3; w = w0 + (w1 - w0) * u
+        gap = w * thua * rng.uniform(0.9, 1.1); x = rng.uniform(-w, gap * 0.6)
+        while x < W + w:
+            yy = y + rng.uniform(-w * 0.25, w * 0.25); ww = w * rng.uniform(0.85, 1.12)
+            if not (skip and skip(x, yy)):
+                o.append(stake(x, yy, ww * rng.uniform(*cao), ww, rng.uniform(-7, 7)))
+                o.append(f'<ellipse cx="{x:.0f}" cy="{yy+ww*0.1:.0f}" rx="{ww*0.75:.0f}" ry="{ww*0.2:.0f}" fill="{water_col}"/>'
+                         f'<ellipse cx="{x:.0f}" cy="{yy+ww*0.08:.0f}" rx="{ww*0.85:.0f}" ry="{ww*0.2:.0f}" fill="none" stroke="#E8F4F8" stroke-width="{max(2,ww*0.06):.1f}" opacity="0.8"/>')
+            x += gap * rng.uniform(0.8, 1.2)
+    return ''.join(o)
+
 def junk(x, y, s=1.0, tilt=0, broken=False, flip=False):
     """Chiến thuyền Nam Hán chi tiết: thân ván, buồm cánh dơi có nan, cờ."""
     f = -1 if flip else 1
@@ -148,11 +163,11 @@ def footer(phan, nhan):
 # ---------------- cảnh từng phần ----------------
 TA, DICH, GIAN = ('#D9B44A', '#5A3A10'), ('#A8382A', '#4A1410'), ('#4A4440', '#1E1A16')
 
-def canh_coc():        # P1 (tối giản): MỘT cọc khổng lồ đâm thủng MỘT chiến thuyền
-    bg = sky_sea(980, (300, 860), em=True) + junk(860, 1040, 0.35, -3, flip=True)
-    o = [f'<ellipse cx="560" cy="1330" rx="520" ry="70" fill="#0E2230" opacity="0.5"/>',
-         junk(470, 1250, 1.1, 12, broken=True), splash(560, 1335, 240),
-         stake(640, 1760, 1060, 128, 4, water=1335)]
+def canh_coc():        # P1: bãi cọc nhỏ dày đặc, một chiến thuyền mắc giữa bãi cọc, đoàn thuyền giặc phía sau
+    bg = sky_sea(960, (300, 840), em=True) + junk(820, 985, 0.22, -2, flip=True) + junk(960, 990, 0.18, 1, flip=True)
+    hole = lambda x, y: 300 < x < 820 and 1150 < y < 1330
+    o = [bai_coc(1010, 1110, 2, seed=5, w0=16, w1=24), junk(560, 1250, 0.95, 10, broken=True), splash(600, 1300, 200),
+         bai_coc(1500, 1800, 3, seed=8, w0=46, w1=74, thua=4.5)]
     return ''.join(o), bg
 
 def canh_phan_boi():   # P2: Dương Đình Nghệ ngã xuống, Kiều Công Tiễn đứng sau
@@ -165,21 +180,21 @@ def canh_loi_can():    # P3: Tiêu Ích can, Lưu Cung không nghe, đoàn thuy�
          portrait_flag('luu-cung', DICH, 790, 1330, 1.25, tilt=6), junk(560, 1560, 0.5, 2, flip=True), junk(860, 1600, 0.42, -3, flip=True)]
     return ''.join(o), None
 
-def canh_chuan_bi():   # P4 (tối giản): Ngô Quyền + 3 cọc ngầm dưới làn nước trong, giặc nhỏ ở chân trời
+def canh_chuan_bi():   # P4: bãi cọc ngầm dưới làn nước, Ngô Quyền ở trên, giặc nhỏ ở chân trời
     bg = sky_sea(1000, (820, 900), em=True) + junk(860, 1005, 0.16, 0, flip=True) + junk(950, 1000, 0.13, 0, flip=True)
-    o = []
-    for x, h, w in ((230, 520, 70), (540, 470, 76), (850, 520, 70)):
-        o.append(stake(x, 1660, h, w, 0))
-    o.append(f'<rect x="0" y="1180" width="{W}" height="{H-1180}" fill="#2E6E8E" opacity="0.6"/>')
-    o.append(f'<path d="M0,1180 Q270,1165 540,1180 T1080,1180" stroke="#DCEBF0" stroke-width="5" fill="none" opacity="0.8"/>')
+    o = [bai_coc(1300, 1780, 3, seed=11, w0=36, w1=66, water_col='#2E6E8E', thua=4.5)]
+    o.append(f'<rect x="0" y="1150" width="{W}" height="{H-1150}" fill="#2E6E8E" opacity="0.55"/>')
+    o.append(f'<path d="M0,1150 Q270,1135 540,1150 T1080,1150" stroke="#DCEBF0" stroke-width="5" fill="none" opacity="0.8"/>')
     o.append(glow(540, 760, 250, '#F3D27A', 0.22)); o.append(portrait_flag('ngo-quyen', TA, 540, 1050, 1.25))
     return ''.join(o), bg
 
-def canh_nuoc_rut():   # P5 (tối giản): nước rút lộ HAI cọc lớn, MỘT chiến thuyền mắc cọc nghiêng
+def canh_nuoc_rut():   # P5: nước rút lộ cả bãi cọc trên bùn, chiến thuyền mắc cọc nghiêng
     bg = sky_sea(900, (760, 780), em=True)
-    o = [f'<rect x="0" y="1380" width="{W}" height="{H-1380}" fill="#6A5A40" opacity="0.55"/>',   # bãi bùn lộ ra khi nước rút
-         junk(560, 1230, 1.0, -15, broken=True),
-         stake(250, 1760, 900, 110, -5, water=1380), stake(860, 1760, 960, 118, 6, water=1380)]
+    hole = lambda x, y: 230 < x < 880 and 1180 < y < 1400
+    o = [f'<rect x="0" y="1060" width="{W}" height="{H-1060}" fill="#6A5A40" opacity="0.6"/>',
+         bai_coc(1090, 1180, 2, seed=21, w0=18, w1=26, water_col='#5A4C36'),
+         junk(560, 1250, 1.0, -15, broken=True),
+         bai_coc(1520, 1800, 3, seed=23, w0=48, w1=76, water_col='#5A4C36', thua=4.5)]
     return ''.join(o), bg
 
 def canh_xung_vuong():  # P6: Ngô Quyền xưng vương, đóng đô Cổ Loa
