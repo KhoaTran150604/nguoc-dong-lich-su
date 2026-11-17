@@ -218,7 +218,11 @@ def build(tap, n):
     dan_a = v2[int(L2[1]['start'] * AT.SR): int(L2[-1]['end'] * AT.SR)]
     hook_a = np.concatenate([np.zeros(int(0.15 * AT.SR)), hook_a]); dan_a = np.concatenate([np.zeros(int(0.2 * AT.SR)), dan_a])
     hd = len(hook_a) / AT.SR + 0.5; dd = len(dan_a) / AT.SR + 0.6
-    still_clip(f_first, hook_overlay(c['hook']), hd, hook_a + 0, os.path.join(od, '1-hook.mp4'))
+    # Hook = THUMBNAIL (khung 1080×1920 đúng tỉ lệ 9:16): người xem thấy ngay ảnh bìa + nghe câu hỏi;
+    # khi đăng, chọn khung đầu tiên làm ảnh thu nhỏ Short.
+    import thumb as TH
+    th = os.path.join(od, f'THUMB-{tap.upper()}-P{n}.jpg'); TH.make(tap, n, c['phan'], c['nhan'], th)
+    still_clip(Image.open(th).convert('RGBA'), lambda t: '', max(hd, 2.8), hook_a + 0, os.path.join(od, '1-hook.mp4'))
     still_clip(f_last, lead_overlay(c), dd, dan_a, os.path.join(od, '3-dan.mp4'))
     sub_d = 4.5; ting = np.zeros(int(sub_d * AT.SR))
     for t, g in ((1.05, 0.25), (1.65, 0.3), (3.05, 0.2)):
@@ -231,8 +235,6 @@ def build(tap, n):
     sh(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18',
         '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '192k', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-movflags', '+faststart', out])
     # 5) thumbnail
-    import thumb as TH          # thumbnail vẽ riêng ở độ phân giải gốc (scripts/video/thumb.py)
-    TH.make(tap, n, c['phan'], c['nhan'], os.path.join(od, f'THUMB-{tap.upper()}-P{n}.jpg'))
     dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', out], capture_output=True, text=True).stdout)
     print('->', out, f'{dur:.1f}s')
 
