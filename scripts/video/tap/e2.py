@@ -323,3 +323,22 @@ def SFX(code, d):
     if code == 's54': return [(0.2, 'rut', 0.5, None)]
     if code == 's55': return [(0.3, 'trong_a', 0.7, None), (d - 7.0 + 1.05, 'kiem', 0.25, None), (d - 7.0 + 1.65, 'kiem', 0.3, None), (d - 7.0 + 3.3, 'kiem', 0.2, None)]
     return []
+
+# ---------------- SHORT cắt từ tập này (scripts/video/short.py) ----------------
+# tu/den: cắt từ đầu cảnh `tu` đến trước cảnh `den`. hook_doc/dan_doc: câu giọng đọc thêm (chỉ dùng dữ kiện trong kho).
+_S = dict(video='build/e2/E2-1080p60.mp4', loi_doc='docs/videos/E2-loi-doc.txt', giong='assets/e2/E2-GiaHuy-v2', tail=7.0, nhan='BẠCH ĐẰNG 938')
+def _p(n, tu, den, hook, hook_doc, dan_doc, thumb_chu, cuoi=False):
+    return {**_S, 'tu': tu, 'den': den, 'phan': f'PHẦN {n}', 'hook': hook, 'hook_doc': hook_doc,
+            'dan': 'LÙI TIẾP\nNĂM 544' if cuoi else f'XEM TIẾP\nPHẦN {n + 1}', 'dan_doc': dan_doc,
+            'them': f'build/short/e2-p{n}/them', 'thumb_chu': thumb_chu}
+_SO = {2: 'hai', 3: 'ba', 4: 'bốn', 5: 'năm', 6: 'sáu', 7: 'bảy', 8: 'tám'}
+def _dan(n): return [f'Chuyện gì xảy ra tiếp theo?', f'Lùi về phần {_SO[n + 1]} nhé.']
+SHORTS = {
+    2: _p(2, 's06', 's12', 'TRƯỚC NGÔ QUYỀN,\nAI DÁM CHỐNG NAM HÁN?', 'Trước Ngô Quyền, ai đã dám đứng lên chống Nam Hán?', _dan(2), 'AI DÁM\nCHỐNG\nNAM HÁN?'),
+    3: _p(3, 's12', 's17', 'THẮNG GIẶC NGOÀI,\nCHẾT VÌ NGƯỜI TRONG', 'Thắng được giặc ngoài, nhưng lại chết dưới tay người trong nhà.', _dan(3), 'THẮNG GIẶC\nNGOÀI, CHẾT\nVÌ NGƯỜI\nTRONG NHÀ'),
+    4: _p(4, 's17', 's23', 'GIẾT CHỦ TƯỚNG,\nGIẾT CẢ CHA VỢ AI?', 'Kẻ ấy giết chủ tướng, và cũng là giết cha vợ của Ngô Quyền.', _dan(4), 'GIẾT CẢ\nCHA VỢ\nNGÔ QUYỀN'),
+    5: _p(5, 's23', 's29', 'MỘT LỜI CAN\nBỊ BỎ NGOÀI TAI', 'Một lời can bị bỏ ngoài tai, và cái giá là cả một hạm đội.', _dan(5), 'LỜI CAN\nBỊ BỎ\nNGOÀI TAI'),
+    6: _p(6, 's29', 's35', 'GIẶC CÒN TRÊN BIỂN,\nNGÔ QUYỀN ĐÃ…', 'Khi giặc còn trên biển, Ngô Quyền đã chuẩn bị điều gì?', _dan(6), 'NGÔ QUYỀN\nCHUẨN BỊ\nGÌ?'),
+    7: _p(7, 's35', 's47', 'CHỈ TRONG CHỐC LÁT,\nNƯỚC RÚT…', 'Chỉ trong chốc lát, nước triều rút xuống. Và rồi…', _dan(7), 'CHỈ TRONG\nCHỐC LÁT,\nNƯỚC RÚT…'),
+    8: _p(8, 's47', 's54', 'SAU BẠCH ĐẰNG,\nNGÔ QUYỀN LÀM GÌ?', 'Sau trận Bạch Đằng, Ngô Quyền đã làm gì?', ['Nhưng Ngô Quyền không phải người đầu tiên.', 'Lùi tiếp, năm 544.'], 'SAU BẠCH\nĐẰNG, NGÔ\nQUYỀN LÀM\nGÌ?', cuoi=True),
+}

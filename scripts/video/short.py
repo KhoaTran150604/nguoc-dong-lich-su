@@ -158,8 +158,41 @@ def thumbnail(frame, c, out):
            + _lines_text(c['nhan'], 80, KEM, 1750, sw=10) + '</svg>')
     im.alpha_composite(svg_png(svg)); im.convert('RGB').save(out, quality=92)
 
+def get_cfg(tap, n):
+    if (tap, n) in SHORTS: return SHORTS[(tap, n)]
+    import importlib; sys.modules['dung'] = D
+    ep = importlib.import_module('tap.' + tap); c = dict(ep.SHORTS[n]); c.setdefault('thumb_t', None); return c
+
+def ensure_voice(c):
+    """Tạo giọng câu hook + câu dẫn nếu chưa có (giọng Gia Huy, có kiểm tra phát âm)."""
+    if os.path.exists(c['them'] + '.json') or 'hook_doc' not in c: return
+    os.makedirs(os.path.dirname(c['them']), exist_ok=True)
+    open(c['them'] + '.txt', 'w', encoding='utf-8').write(c['hook_doc'] + '\n\n' + '\n'.join(c['dan_doc']) + '\n')
+    env = dict(os.environ, HF_HUB_DISABLE_XET='1')
+    subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'voice', 'tts.py'), c['them'] + '.txt', '-o', c['them'], '--check'],
+                   check=True, env=env, stdout=open(c['them'] + '.log', 'w'), stderr=subprocess.STDOUT)
+
+def progress(done, total, t0, label, path=os.path.join(ROOT, 'build', 'short', 'tien-do.txt')):
+    import time
+    f = done / total; el = time.time() - t0; eta = el / f * (1 - f) if f else 0
+    line = f'Short {"█" * int(f * 20)}{"░" * (20 - int(f * 20))} {f*100:3.0f}%  ({done}/{total} bước)  đã {el/60:.1f} phút · còn ~{eta/60:.1f} phút  [{label}]'
+    print(line, flush=True); os.makedirs(os.path.dirname(path), exist_ok=True); open(path, 'w').write(line + '\n')
+
 def main():
-    tap, n = sys.argv[1], int(sys.argv[2]); c = SHORTS[(tap, n)]
+    tap, spec = sys.argv[1], sys.argv[2]
+    if '-' in spec or ',' in spec:          # nhiều phần: "2-8" hoặc "2,4,5" → giọng rồi dựng, có thanh tiến độ
+        import time
+        ns = list(range(int(spec.split('-')[0]), int(spec.split('-')[1]) + 1)) if '-' in spec else [int(x) for x in spec.split(',')]
+        t0 = time.time(); total = 2 * len(ns); k = 0
+        for n in ns:
+            ensure_voice(get_cfg(tap, n)); k += 1; progress(k, total, t0, f'giọng P{n}')
+        for n in ns:
+            build(tap, n); k += 1; progress(k, total, t0, f'dựng P{n}')
+        print('XONG TẤT CẢ', flush=True); return
+    build(tap, int(spec))
+
+def build(tap, n):
+    c = get_cfg(tap, n); ensure_voice(c)
     od = os.path.join(ROOT, 'build', 'short', f'{tap}-p{n}'); os.makedirs(od, exist_ok=True)
     os.chdir(ROOT)
     # 1) mốc thời gian trong video dài
@@ -195,8 +228,8 @@ def main():
         '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '192k', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-movflags', '+faststart', out])
     # 5) thumbnail
     # thumbnail dựng từ khung gốc của video dài (không dính phụ đề/nhãn)
-    raw = os.path.join(od, 'f-thumb-goc.png')
-    sh(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{t0 + c["thumb_t"]:.3f}', '-i', c['video'], '-frames:v', '1', raw])
+    raw = os.path.join(od, 'f-thumb-goc.png'); tt = c['thumb_t'] if c.get('thumb_t') is not None else (t1 - t0) * 0.6
+    sh(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{t0 + tt:.3f}', '-i', c['video'], '-frames:v', '1', raw])
     g = Image.open(raw).convert('RGB'); bg = g.resize((int(g.width * H / g.height), H)).crop(((int(g.width * H / g.height) - W) // 2, 0, (int(g.width * H / g.height) - W) // 2 + W, H)).filter(ImageFilter.GaussianBlur(26))
     cw = FG['cw']; fg = g.crop(((g.width - cw) // 2, 0, (g.width + cw) // 2, g.height)).resize((W, int(W * g.height / cw)))
     bg.paste(fg, (0, 780)); thumbnail(bg.convert('RGBA'), c, os.path.join(od, f'THUMB-{tap.upper()}-P{n}.jpg'))

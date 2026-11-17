@@ -336,6 +336,7 @@ def main():
         except (OSError, TypeError): fn_src[c] = c
     ep_common = ep_src
     for t in fn_src.values(): ep_common = ep_common.replace(t, '')
+    ep_common = ep_common.split('# ---------------- SHORT')[0]     # phần cấu hình Short không ảnh hưởng hình video dài
     def scene_key(c, d): return hashlib.sha1(shared + ep_common.encode() + fn_src[c].encode() + f'{c}{d:.2f}{W}{FPS}'.encode()).hexdigest()[:12]
     cd = os.path.join(out_dir, 'clips'); os.makedirs(cd, exist_ok=True)
     jobs = [(c, a, b, os.path.join(cd, f'{c}-{W}p{FPS}-{scene_key(c, b - a)}.mp4')) for c, a, b in plan]
