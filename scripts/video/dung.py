@@ -343,7 +343,14 @@ def main():
     print(f'{len(jobs)} cảnh · {len(jobs)-len(todo)} dùng lại cache · render {len(todo)} · {W}x{H} {FPS}fps · dài {end/60:.1f} phút', flush=True)
     from multiprocessing import Pool
     with Pool(min(4, os.cpu_count())) as pool:
-        for msg in pool.imap_unordered(render_scene, sorted(todo, key=lambda j: -(j[2] - j[1]))): print(msg, flush=True)
+        import time; t0 = time.time(); tot = sum(j[2] - j[1] for j in todo) or 1; done = 0.0; n = 0
+        prog = os.path.join(out_dir, 'tien-do.txt')
+        for msg in pool.imap_unordered(render_scene, sorted(todo, key=lambda j: -(j[2] - j[1]))):
+            n += 1; done += float(msg.split()[-1][:-1]); f = done / tot; el = time.time() - t0
+            eta = el / f * (1 - f) if f > 0 else 0
+            bar = '█' * int(f * 20) + '░' * (20 - int(f * 20))
+            line = f'Render {bar} {f*100:3.0f}%  ({n}/{len(todo)} cảnh)  đã {el/60:.1f} phút · còn ~{eta/60:.1f} phút  [{msg}]'
+            print(line, flush=True); open(prog, 'w').write(line + '\n')
     lst = os.path.join(out_dir, 'list.txt'); open(lst, 'w').write(''.join(f"file '{j[3]}'\n" for j in jobs))
     hinh = os.path.join(out_dir, 'hinh.mp4')
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', hinh], check=True)

@@ -28,7 +28,8 @@ Hàm dùng chung trong `dung.py`: `bg_vung(M, cam)`, `bg_tran(BT, mức_nước)
 5. Ảnh tĩnh duyệt khung (vài giây): `python3 scripts/video/dung.py <mã> docs/videos/<MÃ>-loi-doc.txt --stills` (hoặc `--stills=s05,s12`) → `build/<mã>/stills/`. Ghép thành ảnh tổng để tự soát, rồi gửi người dùng các khung tiêu biểu.
 6. Nháp 540p30: `python3 scripts/video/dung.py <mã> docs/videos/<MÃ>-loi-doc.txt assets/<mã>/<MÃ>-GiaHuy`.
 7. Bản cuối: thêm `--final --fps60` → `build/<mã>/<MÃ>-1080p60.mp4`. Thời gian đo được: ~2,3 phút render cho 1 phút video (4 nhân), cảnh tĩnh nhanh hơn nhiều.
-8. Sửa theo góp ý **theo mã cảnh**: chỉ cảnh có thay đổi được render lại (cache theo nội dung).
+8. **Thanh tiến độ:** khi render, `dung.py` in thanh `█████░░░ 60% (33/55 cảnh) · còn ~4 phút` và ghi vào `build/<mã>/tien-do.txt`. Người dùng muốn được báo tiến độ: chạy render nền, gửi thanh tiến độ ở các mốc (bắt đầu, ~50%, xong) – dùng vòng chờ nền theo số dòng `ok` trong log để tự được đánh thức.
+9. Sửa theo góp ý **theo mã cảnh**: chỉ cảnh có thay đổi được render lại (cache theo nội dung).
 
 ## Phong cách đã chốt (người dùng duyệt 16/11/2026) – không tự đổi
 - **Tĩnh là mặc định**: chỉ cờ/thuyền di chuyển; camera lia/zoom chậm khi đổi vùng.
