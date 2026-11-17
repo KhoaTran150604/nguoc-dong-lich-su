@@ -6,3 +6,9 @@ png/
 build/
 assets/bando/_cache/
 assets/nhanvat/_vector/
+
+# Video thành phẩm để đăng (lưu bằng GitHub Releases, không commit)
+/video/
+
+# Rác macOS
+.DS_Store
