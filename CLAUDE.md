@@ -63,7 +63,7 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 ## 8. Cấu trúc thư mục
 ```
 CLAUDE.md                     ← file này
-.claude/skills/               ← 8 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, gop-y-kich-ban, giong-doc (giọng + âm thanh), dung-video (dựng video từ bộ công cụ), project-checklist, vn-ai-channel-research
+.claude/skills/               ← 9 agent: nguon-lich-su, kiem-chung-nguon, kho-tri-thuc, gop-y-kich-ban, giong-doc (giọng + âm thanh), dung-video (dựng video từ bộ công cụ), dang-youtube (lên lịch đăng qua Claude in Chrome), project-checklist, vn-ai-channel-research
 docs/research/01–04           ← research kênh AI VN, YouTube, audio, format slideshow
 docs/plan/series-nguoc-dong.md← 38 mốc + cấu trúc tập
 docs/prompts/kich-ban-short.md← prompt kịch bản
