@@ -3,3 +3,6 @@ __pycache__/
 frames/
 clips/
 png/
+build/
+assets/bando/_cache/
+assets/nhanvat/_vector/

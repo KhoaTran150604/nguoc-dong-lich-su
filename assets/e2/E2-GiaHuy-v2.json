@@ -1,0 +1,623 @@
+{
+ "voice": "giahuy",
+ "cfg": 1.0,
+ "speed": 1.0,
+ "warm": 0.0,
+ "seed": 7,
+ "duration": 390.126,
+ "lines": [
+  {
+   "i": 1,
+   "text": "Cuối năm 938.",
+   "start": 0.3,
+   "end": 1.898
+  },
+  {
+   "i": 2,
+   "text": "Một đoàn chiến thuyền của nước Nam Hán vượt biển, tiến vào cửa sông Bạch Đằng.",
+   "start": 2.148,
+   "end": 6.296
+  },
+  {
+   "i": 3,
+   "text": "Họ không biết rằng ngay dưới mặt nước kia là những hàng cọc gỗ lớn, đầu vót nhọn, bịt sắt.",
+   "start": 6.896,
+   "end": 12.163
+  },
+  {
+   "i": 4,
+   "text": "Họ có chiến thuyền lớn.",
+   "start": 12.763,
+   "end": 13.944
+  },
+  {
+   "i": 5,
+   "text": "Có vua cha đích thân đem quân đứng phía sau tiếp ứng.",
+   "start": 14.194,
+   "end": 17.496
+  },
+  {
+   "i": 6,
+   "text": "Còn bên kia chỉ có một vị tướng vừa mới nắm quyền, và một dòng sông.",
+   "start": 17.746,
+   "end": 21.93
+  },
+  {
+   "i": 7,
+   "text": "Vậy một hàng cọc gỗ thì làm được gì trước cả một đoàn chiến thuyền?",
+   "start": 22.18,
+   "end": 25.894
+  },
+  {
+   "i": 8,
+   "text": "Người cho cắm những hàng cọc ấy tên là Ngô Quyền.",
+   "start": 26.494,
+   "end": 29.378
+  },
+  {
+   "i": 9,
+   "text": "Nhưng để hiểu vì sao ông phải đánh trận này, chúng ta phải lùi về mấy chục năm trước.",
+   "start": 29.628,
+   "end": 33.975
+  },
+  {
+   "i": 10,
+   "text": "Đầu thế kỷ thứ mười, vùng đất nay là miền Bắc nước ta khi ấy gọi là Giao Châu, vẫn nằm dưới quyền các triều đại phương Bắc.",
+   "start": 34.225,
+   "end": 41.218
+  },
+  {
+   "i": 11,
+   "text": "Nhân lúc phương Bắc rối ren, một dòng họ có thế lực ở địa phương là họ Khúc đã tự xưng Tiết độ sứ, tức chức đứng đầu cả vùng, tự lo việc trong châu.",
+   "start": 41.818,
+   "end": 51.053
+  },
+  {
+   "i": 12,
+   "text": "Cũng thời ấy, ở Quảng Châu phía bắc, năm 917, Lưu Nham xưng đế, ít lâu sau đặt quốc hiệu là Hán.",
+   "start": 51.653,
+   "end": 57.978
+  },
+  {
+   "i": 13,
+   "text": "Sử ta quen gọi là Nam Hán.",
+   "start": 58.228,
+   "end": 60.209
+  },
+  {
+   "i": 14,
+   "text": "Từ đây, Giao Châu có một người láng giềng đầy tham vọng.",
+   "start": 60.459,
+   "end": 63.394
+  },
+  {
+   "i": 15,
+   "text": "Nam Hán sai tướng đem quân đánh Giao Châu, bắt Khúc Thừa Mỹ, người đứng đầu họ Khúc khi ấy, đem về nước.",
+   "start": 63.994,
+   "end": 70.478
+  },
+  {
+   "i": 16,
+   "text": "Giao Châu rơi vào tay Nam Hán.",
+   "start": 70.728,
+   "end": 72.701
+  },
+  {
+   "i": 17,
+   "text": "Nhưng ở Ái Châu, vùng Thanh Hóa ngày nay, có một người không chịu khuất phục.",
+   "start": 73.301,
+   "end": 77.473
+  },
+  {
+   "i": 18,
+   "text": "Ông tên là Dương Đình Nghệ.",
+   "start": 77.723,
+   "end": 79.269
+  },
+  {
+   "i": 19,
+   "text": "Sử chép, năm 931, Dương Đình Nghệ nuôi ba nghìn con nuôi, toan tính việc khôi phục.",
+   "start": 79.869,
+   "end": 85.663
+  },
+  {
+   "i": 20,
+   "text": "Ông cất quân vây thành, đuổi được viên quan cai trị của Nam Hán.",
+   "start": 86.263,
+   "end": 89.92
+  },
+  {
+   "i": 21,
+   "text": "Nam Hán vội sai quân sang cứu.",
+   "start": 90.17,
+   "end": 92.098
+  },
+  {
+   "i": 22,
+   "text": "Viện binh chưa tới thì thành đã mất.",
+   "start": 92.698,
+   "end": 94.444
+  },
+  {
+   "i": 23,
+   "text": "Tướng Nam Hán đến vây lại, Dương Đình Nghệ ra đánh.",
+   "start": 94.694,
+   "end": 97.464
+  },
+  {
+   "i": 24,
+   "text": "Tướng giặc thua trận mà chết.",
+   "start": 97.714,
+   "end": 99.184
+  },
+  {
+   "i": 25,
+   "text": "Từ đó, Dương Đình Nghệ tự xưng Tiết độ sứ, nắm việc cai quản Giao Châu.",
+   "start": 99.784,
+   "end": 104.035
+  },
+  {
+   "i": 26,
+   "text": "Bên cạnh ông có một nha tướng, tức viên tướng thân cận, tên là Kiều Công Tiễn.",
+   "start": 104.635,
+   "end": 109.459
+  },
+  {
+   "i": 27,
+   "text": "Sáu năm sau, mùa xuân năm 937, chính Kiều Công Tiễn đã giết Dương Đình Nghệ, rồi ngồi vào chỗ của chủ mình.",
+   "start": 110.059,
+   "end": 117.489
+  },
+  {
+   "i": 28,
+   "text": "Kẻ giết chủ đã ngồi vào ghế cao nhất.",
+   "start": 118.089,
+   "end": 120.465
+  },
+  {
+   "i": 29,
+   "text": "Nhưng ở Ái Châu vẫn còn một người.",
+   "start": 120.715,
+   "end": 122.837
+  },
+  {
+   "i": 30,
+   "text": "Đó là Ngô Quyền.",
+   "start": 123.087,
+   "end": 124.348
+  },
+  {
+   "i": 31,
+   "text": "Ngô Quyền người Đường Lâm.",
+   "start": 124.948,
+   "end": 126.541
+  },
+  {
+   "i": 32,
+   "text": "Cha ông làm quan cai quản một châu.",
+   "start": 126.791,
+   "end": 128.728
+  },
+  {
+   "i": 33,
+   "text": "Sử cũ chép rằng khi ông sinh ra có ánh sáng lạ đầy nhà.",
+   "start": 129.328,
+   "end": 132.854
+  },
+  {
+   "i": 34,
+   "text": "Lớn lên, mắt sáng như chớp, đi êm như cọp, sức kéo nổi cả cái vạc.",
+   "start": 133.104,
+   "end": 137.381
+  },
+  {
+   "i": 35,
+   "text": "Ông là nha tướng của Dương Đình Nghệ, được Đình Nghệ gả con gái cho, và cho tạm coi Ái Châu.",
+   "start": 137.981,
+   "end": 143.004
+  },
+  {
+   "i": 36,
+   "text": "Vậy là Kiều Công Tiễn đã giết cả chủ tướng, lẫn cha vợ của Ngô Quyền.",
+   "start": 143.604,
+   "end": 147.961
+  },
+  {
+   "i": 37,
+   "text": "Cuối năm 938, Ngô Quyền từ Ái Châu cất quân ra đánh Kiều Công Tiễn.",
+   "start": 148.561,
+   "end": 153.623
+  },
+  {
+   "i": 38,
+   "text": "Trong khi đó, thấy thế nguy, Kiều Công Tiễn sai sứ mang của cải sang đút lót, cầu cứu Nam Hán.",
+   "start": 154.223,
+   "end": 160.077
+  },
+  {
+   "i": 39,
+   "text": "Kẻ giết chủ, giờ lại đi cầu viện chính kẻ thù cũ.",
+   "start": 160.327,
+   "end": 163.737
+  },
+  {
+   "i": 40,
+   "text": "Vua Nam Hán khi ấy là Lưu Cung.",
+   "start": 164.337,
+   "end": 166.635
+  },
+  {
+   "i": 41,
+   "text": "Ông muốn nhân lúc Giao Châu rối loạn mà chiếm lấy đất này.",
+   "start": 166.885,
+   "end": 170.071
+  },
+  {
+   "i": 42,
+   "text": "Lưu Cung phong con trai là Hoằng Tháo làm Giao vương, nghĩa là vua đất Giao Châu, rồi sai đem quân sang.",
+   "start": 170.671,
+   "end": 177.406
+  },
+  {
+   "i": 43,
+   "text": "Đất chưa lấy được, mà tước vua đã phong sẵn.",
+   "start": 177.656,
+   "end": 180.058
+  },
+  {
+   "i": 44,
+   "text": "Chính Lưu Cung cũng tự làm tướng, đem quân đóng ở Hải Môn, làm thanh thế tiếp ứng cho con.",
+   "start": 180.658,
+   "end": 185.805
+  },
+  {
+   "i": 45,
+   "text": "Trước khi xuất quân, Lưu Cung hỏi kế một vị quan thân cận tên là Tiêu Ích.",
+   "start": 186.405,
+   "end": 190.803
+  },
+  {
+   "i": 46,
+   "text": "Tiêu Ích can rằng: \"Hiện nay mưa dầm mấy tuần, đường biển hiểm và xa.",
+   "start": 191.053,
+   "end": 195.049
+  },
+  {
+   "i": 47,
+   "text": "Ngô Quyền là người kiệt hiệt, chưa thể coi thường.",
+   "start": 195.299,
+   "end": 198.195
+  },
+  {
+   "i": 48,
+   "text": "Đại quân nên thận trọng, dùng nhiều người dẫn đường, rồi mới có thể tiến.\"",
+   "start": 198.445,
+   "end": 202.493
+  },
+  {
+   "i": 49,
+   "text": "Lưu Cung không nghe.",
+   "start": 203.093,
+   "end": 204.241
+  },
+  {
+   "i": 50,
+   "text": "Ông sai Hoằng Tháo đem chiến thuyền vượt biển, theo sông Bạch Đằng mà tiến vào.",
+   "start": 204.491,
+   "end": 208.795
+  },
+  {
+   "i": 51,
+   "text": "Nhưng có một điều mà Hoằng Tháo không biết.",
+   "start": 209.395,
+   "end": 211.335
+  },
+  {
+   "i": 52,
+   "text": "Khi đoàn thuyền của ông còn đang trên biển, Ngô Quyền đã giết Kiều Công Tiễn, làm chủ Giao Châu.",
+   "start": 211.935,
+   "end": 216.886
+  },
+  {
+   "i": 53,
+   "text": "Hoằng Tháo vượt biển sang để cứu một người đã không còn nữa.",
+   "start": 217.136,
+   "end": 220.371
+  },
+  {
+   "i": 54,
+   "text": "Theo Đại Việt sử ký toàn thư, nghe tin Hoằng Tháo sắp tới, Ngô Quyền bảo các tướng, đại ý rằng: \"Hoằng Tháo chỉ là đứa trẻ khờ.",
+   "start": 220.971,
+   "end": 228.64
+  },
+  {
+   "i": 55,
+   "text": "Quân từ xa tới, lính tráng mệt mỏi.",
+   "start": 228.89,
+   "end": 231.253
+  },
+  {
+   "i": 56,
+   "text": "Lại nghe Công Tiễn đã chết, không có người làm nội ứng, khí thế đã nhụt trước rồi.",
+   "start": 231.503,
+   "end": 235.876
+  },
+  {
+   "i": 57,
+   "text": "Ta lấy quân khỏe đợi quân mệt, tất phá được.\"",
+   "start": 236.126,
+   "end": 238.554
+  },
+  {
+   "i": 58,
+   "text": "Nhưng ông không coi thường đối thủ: \"Nó lợi vì có thuyền.",
+   "start": 239.154,
+   "end": 242.354
+  },
+  {
+   "i": 59,
+   "text": "Không phòng trước thì chưa biết được thua.\"",
+   "start": 242.604,
+   "end": 244.652
+  },
+  {
+   "i": 60,
+   "text": "Kế của Ngô Quyền là sai người cắm ngầm những cọc lớn ở cửa biển, đầu vót nhọn, bịt sắt.",
+   "start": 245.252,
+   "end": 250.847
+  },
+  {
+   "i": 61,
+   "text": "Thuyền giặc theo nước triều lên mà vào bên trong hàng cọc, thì ta dễ đánh.",
+   "start": 251.097,
+   "end": 255.344
+  },
+  {
+   "i": 62,
+   "text": "Mưu đã định, cọc được cắm xuống.",
+   "start": 255.594,
+   "end": 257.426
+  },
+  {
+   "i": 63,
+   "text": "Nước lên, cọc chìm hẳn.",
+   "start": 258.026,
+   "end": 259.497
+  },
+  {
+   "i": 64,
+   "text": "Nước rút, cọc nhô lên.",
+   "start": 259.747,
+   "end": 261.056
+  },
+  {
+   "i": 65,
+   "text": "Nước triều đang lên.",
+   "start": 261.656,
+   "end": 262.84
+  },
+  {
+   "i": 66,
+   "text": "Cả bãi cọc chìm sâu dưới mặt sông.",
+   "start": 263.09,
+   "end": 265.157
+  },
+  {
+   "i": 67,
+   "text": "Đúng lúc ấy, Ngô Quyền sai những chiếc thuyền nhẹ ra khiêu chiến.",
+   "start": 265.757,
+   "end": 269.093
+  },
+  {
+   "i": 68,
+   "text": "Hai bên vừa giáp mặt,",
+   "start": 269.693,
+   "end": 270.885
+  },
+  {
+   "i": 69,
+   "text": "thuyền ta đã quay đầu, giả vờ thua chạy.",
+   "start": 271.485,
+   "end": 274.032
+  },
+  {
+   "i": 70,
+   "text": "Quả nhiên, Hoằng Tháo dẫn cả đoàn chiến thuyền đuổi theo.",
+   "start": 274.632,
+   "end": 277.477
+  },
+  {
+   "i": 71,
+   "text": "Những con thuyền lớn vượt qua hàng cọc ngầm,",
+   "start": 277.727,
+   "end": 280.15
+  },
+  {
+   "i": 72,
+   "text": "tiến sâu vào trong sông.",
+   "start": 280.4,
+   "end": 281.841
+  },
+  {
+   "i": 73,
+   "text": "Rồi nước triều bắt đầu rút.",
+   "start": 282.441,
+   "end": 283.798
+  },
+  {
+   "i": 74,
+   "text": "Sử chép rằng nước rút rất nhanh, chỉ trong chốc lát.",
+   "start": 284.048,
+   "end": 286.875
+  },
+  {
+   "i": 75,
+   "text": "Từng mũi cọc bịt sắt lần lượt nhô lên khỏi mặt nước.",
+   "start": 287.125,
+   "end": 290.07
+  },
+  {
+   "i": 76,
+   "text": "Lúc ấy, Ngô Quyền mới tung quân ra đánh.",
+   "start": 290.67,
+   "end": 293.048
+  },
+  {
+   "i": 77,
+   "text": "Thuyền Nam Hán quay đầu muốn chạy ra biển,",
+   "start": 293.648,
+   "end": 296.034
+  },
+  {
+   "i": 78,
+   "text": "nhưng thuyền vướng vào cọc sắt, không sao quay ra được.",
+   "start": 296.284,
+   "end": 299.291
+  },
+  {
+   "i": 79,
+   "text": "Thuyền vỡ, thuyền đắm.",
+   "start": 299.891,
+   "end": 301.359
+  },
+  {
+   "i": 80,
+   "text": "Quân Nam Hán tan vỡ, quá nửa chết đuối.",
+   "start": 301.959,
+   "end": 304.3
+  },
+  {
+   "i": 81,
+   "text": "Hoằng Tháo, người được phong làm vua đất Giao,",
+   "start": 304.9,
+   "end": 307.282
+  },
+  {
+   "i": 82,
+   "text": "tử trận ngay trên sông Bạch Đằng.",
+   "start": 307.532,
+   "end": 309.407
+  },
+  {
+   "i": 83,
+   "text": "Ở Hải Môn, Lưu Cung nghe tin, khóc thảm thiết,",
+   "start": 310.007,
+   "end": 312.697
+  },
+  {
+   "i": 84,
+   "text": "thu nhặt chỗ quân còn lại mà rút về.",
+   "start": 312.947,
+   "end": 315.218
+  },
+  {
+   "i": 85,
+   "text": "Trở lại câu hỏi ban đầu: một hàng cọc gỗ thì làm được gì trước cả một đoàn chiến thuyền?",
+   "start": 315.818,
+   "end": 320.571
+  },
+  {
+   "i": 86,
+   "text": "Thuyền lớn là thế mạnh của Nam Hán.",
+   "start": 320.821,
+   "end": 322.804
+  },
+  {
+   "i": 87,
+   "text": "Ngô Quyền không chặn thế mạnh ấy.",
+   "start": 323.054,
+   "end": 324.848
+  },
+  {
+   "i": 88,
+   "text": "Ông dùng chính con nước của dòng sông này để biến nó thành cái bẫy.",
+   "start": 325.098,
+   "end": 328.562
+  },
+  {
+   "i": 89,
+   "text": "Còn ở phía bên kia, lời cảnh báo của Tiêu Ích đã thành sự thật.",
+   "start": 329.162,
+   "end": 332.607
+  },
+  {
+   "i": 90,
+   "text": "Đường biển xa và hiểm, và Ngô Quyền là người không thể coi thường.",
+   "start": 332.857,
+   "end": 336.523
+  },
+  {
+   "i": 91,
+   "text": "Mùa xuân năm 939, Ngô Quyền xưng vương, đóng đô ở Cổ Loa.",
+   "start": 337.123,
+   "end": 341.501
+  },
+  {
+   "i": 92,
+   "text": "Ông lập bà họ Dương, con gái Dương Đình Nghệ, làm vương hậu.",
+   "start": 341.751,
+   "end": 345.418
+  },
+  {
+   "i": 93,
+   "text": "Ông đặt trăm quan, định nghi lễ triều đình, định cả màu áo mặc.",
+   "start": 346.018,
+   "end": 349.403
+  },
+  {
+   "i": 94,
+   "text": "Sử gia Lê Văn Hưu đời Trần viết rằng Ngô Quyền là người mưu giỏi, đánh giỏi, khiến người phương Bắc không dám lại sang.",
+   "start": 350.003,
+   "end": 356.806
+  },
+  {
+   "i": 95,
+   "text": "Hơn ba trăm năm sau, năm 1288, cũng trên dòng sông này, Trần Hưng Đạo lại dùng kế cọc để đánh tan thủy quân Nguyên.",
+   "start": 357.406,
+   "end": 366.083
+  },
+  {
+   "i": 96,
+   "text": "Ngô Quyền ở ngôi sáu năm, mất năm 944, thọ 47 tuổi.",
+   "start": 366.683,
+   "end": 371.505
+  },
+  {
+   "i": 97,
+   "text": "Còn con nước Bạch Đằng năm 938 được giới sử học coi là dấu mốc khép lại hơn một nghìn năm Bắc thuộc.",
+   "start": 371.755,
+   "end": 378.373
+  },
+  {
+   "i": 98,
+   "text": "Nhưng Ngô Quyền không phải người đầu tiên đứng lên trên mảnh đất này.",
+   "start": 378.973,
+   "end": 382.276
+  },
+  {
+   "i": 99,
+   "text": "Ngược dòng thêm gần bốn trăm năm nữa…",
+   "start": 382.526,
+   "end": 384.804
+  },
+  {
+   "i": 100,
+   "text": "Lùi tiếp: năm 544.",
+   "start": 385.404,
+   "end": 387.276
+  },
+  {
+   "i": 101,
+   "text": "Hẹn gặp lại trên Song Tử Kể Sử.",
+   "start": 387.526,
+   "end": 389.876
+  }
+ ],
+ "sua_tu": "assets/e2/E2-GiaHuy",
+ "bo": [
+  10
+ ],
+ "thay": [
+  102
+ ]
+}

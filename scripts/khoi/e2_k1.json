@@ -1,0 +1,145 @@
+{
+ "id": "E2-K1",
+ "title": "Vua đất Giao chưa có đất",
+ "part": "BẠCH ĐẰNG 938 · P1",
+ "version": "bản 3 – ít mà sâu",
+ "kb": [
+  "kb/E2-bach-dang-938.md",
+  "kb/E2b-boi-canh-905-937.md"
+ ],
+ "style": "map",
+ "voice_note": "Giọng tạm Piper cho bản mẫu; bản đăng thay bằng Vbee (tạo lại theo assets/e2/E2-K1-loi-doc-vbee.txt, rồi đặt vbee_cuts/vbee_trim_end mới).",
+ "portraits": {
+  "luu_nghiem": "assets/portraits/luu-nghiem.png",
+  "hoang_thao": "assets/portraits/hoang-thao.png",
+  "ngo_quyen": "assets/portraits/ngo-quyen.png"
+ },
+ "intro_seconds": 2.7,
+ "gap": 0.35,
+ "end_seconds": 3.5,
+ "end_next": "P2 · Trước Ngô Quyền là họ Khúc",
+ "segments": [
+  {
+   "scene": "m_open",
+   "label": "NĂM 938",
+   "codes": "",
+   "sub": "Năm 938.",
+   "tts": "Năm chín trăm ba mươi tám."
+  },
+  {
+   "scene": "m_giaovuong",
+   "label": "GIAO VƯƠNG",
+   "codes": "E2-F09",
+   "sub": "Có một ông vua… phong con trai mình làm Giao vương, tức vua đất Giao… khi đất Giao còn chưa về tay ông.",
+   "tts": "Có một ông vua, phong con trai mình làm Giao vương, tức vua đất Giao, khi đất Giao còn chưa về tay ông.",
+   "src": "Tư trị thông giám (q.281) · Tân Ngũ đại sử (q.65)"
+  },
+  {
+   "scene": "m_haimon",
+   "label": "HẢI MÔN",
+   "codes": "E2-F10",
+   "sub": "Ông còn tự đem quân ra đóng ở Hải Môn, để tiếp ứng cho con.",
+   "tts": "Ông còn tự đem quân ra đóng ở Hải Môn, để tiếp ứng cho con.",
+   "src": "Tư trị thông giám (q.281) · Tân Ngũ đại sử (q.65)"
+  },
+  {
+   "scene": "m_battle",
+   "label": "SÔNG BẠCH ĐẰNG",
+   "codes": "E2-F12 F21 F20",
+   "sub": "Nhưng trên sông Bạch Đằng… người con ấy bỏ mạng, quân Hán chết đuối quá nửa.",
+   "tts": "Nhưng trên sông Bạch Đằng, người con ấy bỏ mạng, quân Hán chết đuối quá nửa.",
+   "src": "Tư trị thông giám · Tân Ngũ đại sử · Việt sử lược"
+  },
+  {
+   "scene": "m_reveal",
+   "label": "938",
+   "codes": "E2-F16 F19",
+   "sub": "Ông vua ấy… là vua Nam Hán. Người chặn họ lại… là Ngô Quyền.",
+   "tts": "Ông vua ấy, là vua Nam Hán. Người chặn họ lại, là Ngô Quyền.",
+   "src": "Tư trị thông giám · Tân Ngũ đại sử · Việt sử lược"
+  },
+  {
+   "scene": "m_princes",
+   "label": "HOẰNG THÁO",
+   "codes": "E2b-B23 E2-F09",
+   "sub": "Người con ấy, Hoằng Tháo… chỉ là một trong gần hai chục hoàng tử được phong vương, tước cũ là Vạn vương.",
+   "tts": "Người con ấy, Hoằng Tháo, chỉ là một trong gần hai chục hoàng tử được phong vương, tước cũ là Vạn vương.",
+   "src": "Tân Ngũ đại sử (q.65) · Đại Việt sử ký toàn thư"
+  },
+  {
+   "scene": "m_titles",
+   "label": "ĐỔI TƯỚC",
+   "codes": "E2-F09",
+   "sub": "Vua cha phong con làm Tiết độ sứ Tĩnh Hải… rồi đổi Vạn vương thành Giao vương.",
+   "tts": "Vua cha phong con làm Tiết độ sứ Tĩnh Hải, rồi đổi Vạn vương thành Giao vương.",
+   "src": "Tư trị thông giám (q.281) · Tân Ngũ đại sử (q.65)"
+  },
+  {
+   "scene": "m_retreat",
+   "label": "MẤT CON, MẤT QUÂN",
+   "codes": "E2-F22",
+   "sub": "Mất con, mất quân… vua Hán khóc thương, thu tàn quân rút về.",
+   "tts": "Mất con, mất quân, vua Hán khóc thương, thu tàn quân rút về.",
+   "src": "Tư trị thông giám (q.281) · Tân Ngũ đại sử (q.65)"
+  },
+  {
+   "scene": "m_never",
+   "label": "TỪ ĐÓ",
+   "codes": "E2-F23",
+   "sub": "Từ đó, Nam Hán bỏ hẳn… không đem quân sang nữa.",
+   "tts": "Từ đó, Nam Hán bỏ hẳn, không đem quân sang nữa.",
+   "src": "Tân Ngũ đại sử (q.65)"
+  },
+  {
+   "scene": "m_irony",
+   "label": "GIAO VƯƠNG",
+   "codes": "",
+   "sub": "Một vị Giao vương… chưa từng có đất Giao.",
+   "tts": "Một vị Giao vương, chưa từng có đất Giao."
+  },
+  {
+   "scene": "m_quote",
+   "label": "LỜI SỬ GIA",
+   "codes": "E2-F32",
+   "sub": "Sử gia Ngô Sĩ Liên chê vua Hán: tham đất người… đất chưa lấy được, đã hại chính con mình, và dân mình.",
+   "tts": "Sử gia Ngô Sĩ Liên chê vua Hán: tham đất người, đất chưa lấy được, đã hại chính con mình, và dân mình.",
+   "src": "Đại Việt sử ký toàn thư"
+  },
+  {
+   "scene": "m_rewind",
+   "label": "NGHÌN NĂM",
+   "codes": "E2-F36",
+   "sub": "Muốn hiểu trận này, phải lùi về hơn một nghìn năm phương Bắc đô hộ, như Trần Trọng Kim tính.",
+   "tts": "Muốn hiểu trận này, phải lùi về hơn một nghìn năm phương Bắc đô hộ, như Trần Trọng Kim tính.",
+   "src": "Trần Trọng Kim, Việt Nam sử lược"
+  },
+  {
+   "scene": "m_question",
+   "label": "AI ĐÃ ĐI TRƯỚC?",
+   "codes": "",
+   "sub": "Vậy trước Ngô Quyền… ai đã giành quyền tự chủ?",
+   "tts": "Vậy trước Ngô Quyền, ai đã giành quyền tự chủ?"
+  }
+ ],
+ "vbee_note": "Giọng Vbee bản sạch (không đọc mã F, không có câu quảng cáo). Điểm cắt căn theo khoảng lặng + nhận dạng giọng nói.",
+ "vbee_cuts": [
+  1.5,
+  8.07,
+  12.32,
+  17.52,
+  22.83,
+  29.79,
+  35.23,
+  40.57,
+  44.7,
+  48.05,
+  55.35,
+  61.29
+ ],
+ "camera": "static",
+ "map_view": [
+  109.2,
+  21.9,
+  0.36
+ ]
+}
