@@ -45,6 +45,13 @@ Hàm dùng chung trong `dung.py`: `bg_vung(M, cam)`, `bg_tran(BT, mức_nước)
 - Lời trong khung H12 phải là lời sử chép, ghi nguồn; không dùng câu đã bị ❌ ở kho (vd "trăm vạn").
 - Bản đồ cổ: không vẽ biên giới hiện đại, không dùng hình chữ S cho thời xưa; bản đồ Việt Nam toàn cảnh hiện đại luôn có Hoàng Sa, Trường Sa.
 
+## Lưu trữ video (người dùng chưa có Drive – 17/11/2026)
+- **Không commit file video vào repo** (GitHub chặn file >100 MB, video nằm vĩnh viễn trong lịch sử git làm repo phình to).
+- Sau khi render bản cuối, lưu bằng **GitHub Releases** (mỗi file ≤ 2 GB, repo riêng tư → release riêng tư), chạy trên máy người dùng:
+  `gh release create <mã>-<chủ-đề> "build/<mã>/<MÃ>-1080p60.mp4" --title "<MÃ> – <tên tập>" --notes "Bản cuối 1080p60"`
+  (tập đã có release thì `gh release upload <tag> <file> --clobber`). Báo người dùng link trang release.
+- Bản dự phòng thứ hai: chính video đã đăng trên YouTube Studio. Khi người dùng có Google Drive cho máy tính: xuất video thẳng vào thư mục đồng bộ.
+
 ## Đầu ra & lưu
 - Code + lời đọc + giọng commit vào repo; `build/` và `assets/bando/_cache/` không commit (tạo lại được).
 - Video nháp/cuối gửi người dùng bằng SendUserFile; bản cuối lớn thì chỉ commit nếu người dùng muốn.
