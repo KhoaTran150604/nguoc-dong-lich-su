@@ -54,7 +54,15 @@ Xem `docs/plan/series-nguoc-dong.md`: **38 mốc** lùi từ 1976 về Văn Lang
 - **Video dài E2 – Bạch Đằng 938:** kho ✅ `kb/E2-bach-dang-938.md`; kịch bản `docs/long/E2-bach-dang-938.md`; lời đọc `docs/videos/E2-loi-doc.txt`; cảnh `scripts/video/tap/e2.py`; giọng `assets/e2/E2-GiaHuy.*`. Bản cuối 1080p60 render bằng `dung.py e2 … --final --fps60`.
 - Kế hoạch test (sau khi có vài video): so sánh bằng **trung vị view**, % xem hết, sub/1.000 view; đánh giá sau 8–10 video.
 
+- **Short cắt từ video dài E2 (17/11/2026):** 6 phần 1–2 phút, cấu hình ở `SHORTS` trong `scripts/video/tap/e2.py`, dựng bằng `python3 scripts/video/short.py e2 <n|a-b|a,b>` → `build/short/e2-p<n>/SHORT-E2-P<n>.mp4` + `THUMB-E2-P<n>.jpg` (có thanh tiến độ `build/short/tien-do.txt`).
+  - **Khung đã chốt "gần full":** cắt 700px của video 16:9 → 1080×1666 đặt ở y=254, dải tên "BẠCH ĐẰNG 938 · PHẦN n" phía trên, **không phụ đề**, khung **tự lia theo cờ chân dung** (`track_flags` trong `short.py`).
+  - Cấu trúc: hook = thumbnail + câu hỏi (giọng Gia Huy) → đoạn cắt → "Xem tiếp phần n+1 / bản đầy đủ trên kênh Song Tử Kể Sử" → màn đăng ký.
+  - **Thumbnail đã chốt (P1):** phong cách mộc mạc như video – lấy chính cảnh trong video vẽ lại 4K, thêm **mũi tên nét đứt đỏ + dấu X** chỉ vào chi tiết chính, dải mực trên (chữ kem, dòng 2 vàng đồng, gạch đỏ), chân "PHẦN n · BẠCH ĐẰNG 938" + avatar. Code `scripts/video/thumb_video.py` (bảng `CFG`; `thumb.py` tự gọi khi phần có trong CFG). Người dùng KHÔNG thích kiểu vẽ màu mè/gradient/"trông như AI" (bản cũ trong `thumb.py`).
+  - Trạng thái: **P1 xong theo khung mới** (người dùng đang đăng). **P2–P6 chưa dựng lại** khung mới; cần làm thumbnail P2–P6 theo kiểu P1 (thêm vào `CFG`) rồi `short.py e2 2-6`.
+  - Thông tin đăng Short P1: `docs/videos/E2-dang-youtube.md`. Lịch: video dài T3/T5/T7 18:00, Short các ngày còn lại 18:00, chỉ lên lịch.
+
 ## 7. Việc tiếp theo (đề xuất theo thứ tự)
+0. (17/11) Đăng Short E2 P1 bằng skill `dang-youtube` (Claude in Chrome, máy local). Làm thumbnail P2–P6 theo mẫu P1 → dựng lại P2–P6 khung gần full → người dùng duyệt → lên lịch.
 1. Chạy quy trình nguồn đầy đủ cho **E2 – Bạch Đằng 938** → hồ sơ mẫu đầu tiên `kb/E2-bach-dang-938.md`; sửa kịch bản Short #1 nếu cần.
 2. Làm mẫu **đồng hồ năm chạy ngược + bản đồ co dần** (4 giây) trên nền bản đồ cổ.
 3. Đóng gói code thành bộ công cụ: thư viện hình (thuyền, cọc, cờ tướng, thành, mũi tên), bản đồ theo thời kỳ, khung phụ đề, end card; mỗi tập một file cấu hình (YAML/JSON) mô tả cảnh → render.

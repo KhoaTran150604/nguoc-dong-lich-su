@@ -326,7 +326,8 @@ def SFX(code, d):
 
 # ---------------- SHORT cắt từ tập này (scripts/video/short.py) ----------------
 # Mỗi Short 1–2 phút. tu/den: cắt từ đầu cảnh `tu` đến trước cảnh `den`. Câu đọc thêm chỉ dùng dữ kiện trong kho.
-_S = dict(video='build/e2/E2-1080p60.mp4', loi_doc='docs/videos/E2-loi-doc.txt', giong='assets/e2/E2-GiaHuy-v2', tail=7.0, nhan='BẠCH ĐẰNG 938')
+_S = dict(video=('build/e2/E2-1080p60.mp4' if os.path.exists(os.path.join(ROOT, 'build/e2/E2-1080p60.mp4')) else 'assets/e2/E2-BachDang938-1080p60.mp4'),   # máy mới chưa render: dùng bản cuối trong repo
+          loi_doc='docs/videos/E2-loi-doc.txt', giong='assets/e2/E2-GiaHuy-v2', tail=7.0, nhan='BẠCH ĐẰNG 938')
 _SO = {2: 'hai', 3: 'ba', 4: 'bốn', 5: 'năm', 6: 'sáu'}
 def _p(n, tu, den, hook, hook_doc, cuoi=False):
     dan_doc = (['Xem bản đầy đủ trên kênh Song Tử Kể Sử nhé.'] if cuoi else
