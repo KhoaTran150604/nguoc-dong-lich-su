@@ -3,17 +3,13 @@
 
 KHÁC bộ người (Ngộ Không/Bát Giới/Đường Tăng): đây là CON VẬT 4 CHÂN NẰM NGANG,
 nên KHÔNG kế thừa goc.py (khung "bia mộ" đứng). Dựng KHUNG THÚ NGANG riêng ở đây
-(sau này tái dùng cho chó Gâu Nghệ, các linh vật khác). Vẫn mượn bộ bút ve.py +
-màu mực/nền + kiểu mắt–mày cong hiền để ĐỒNG BỘ phong cách bộ.
+(sau này tái dùng cho chó Gâu Nghệ, linh vật khác). Mượn bộ bút ve.py + màu mực/nền
++ kiểu mắt cong hiền để ĐỒNG BỘ phong cách bộ.
 
-Hướng: ĐẦU bên PHẢI, MÔNG bên TRÁI (đồng bộ mặt 3/4 phải của bộ nhân vật).
+Hướng: ĐẦU bên PHẢI nhìn NGHIÊNG (profile), MÔNG bên TRÁI (đồng bộ bộ nhân vật).
 
-Đặc điểm bám mẫu:
-- Thân trắng khối ngang mập; đầu to, mõm dài bo tròn, 2 lỗ mũi; mắt nhắm cười; tai lá.
-- Bờm trắng: lọn trước trán + bờm gáy lượn sóng.
-- Yên cương: KHĂN/YẾM ĐEN ở ngực (họa tiết MÂY vàng đồng) + YÊN ĐEN trên lưng
-  + DÂY ĐAI vàng đồng vòng bụng.
-- 4 chân trụ ngắn, cổ chân có "tất" (vạch ngang) + móng.
+Vòng sửa (chấm agent 70→ ...): lộ CỔ trắng rõ, thân THON lại, tách khăn/yên,
+tai nhỏ bớt nhọn, thêm lọn bờm trán xõa, mõm bo, thêm đuôi xù.
 
 Chạy:  python scripts/hoathinh/chibi/bach_long_ma.py
 Ra:    build/thu-hoathinh/nhan-vat/bach-long-ma.png
@@ -34,42 +30,44 @@ C = dict(
     white='#FDFDFB', white_dk='#ECEAE3',
     black='#28252C', black_dk='#1A181E',
     gold='#C3A763', gold_dk='#9C8446',
-    tai_in='#DFC4BD', hoof='#EDEAE1', shadow='#E6E0D4',
+    tai_in='#E7D2CC', hoof='#EDEAE1', shadow='#E6E0D4',
 )
 
-# ── KHUNG THÚ NGANG (px trên canvas 1000×1000) – ĐẦU PHẢI, MÔNG TRÁI ───────────
+# ── KHUNG THÚ NGANG (px / canvas 1000×1000) – ĐẦU PHẢI, MÔNG TRÁI ──────────────
 P = dict(
     canvas=(1000, 1000), line=10, ld=6,
-    # ĐẦU: sọ tròn + mõm nhô phải–xuống
-    skull=(662, 376, 132),
-    muzzle=(772, 440, 104, 86),
-    # MẶT (nhìn NGHIÊNG profile phải): 1 mắt nhắm cười + 1 lỗ mũi
-    eye=(708, 396), eye_w=30, eye_h=9,
-    brow_dy=-48, brow_w=19,
-    nostril=((844, 456),),
-    mouth=(808, 504, 26),
-    # TAI: (gốc_trái, gốc_phải, chóp) – 2 tai dựng gần nhau, nghiêng phải
-    earN=((640, 270), (698, 258), (654, 152)),
-    earF=((706, 262), (754, 276), (776, 178)),
-    # BỜM
-    forelock=[(682, 250), (714, 230), (744, 256), (736, 322), (714, 352), (690, 320)],
-    mane=[(596, 312), (628, 300), (566, 540), (520, 566), (548, 440), (556, 338)],
-    # CỔ (polygon trắng nối đầu→vai)
-    neck=[(600, 352), (654, 376), (636, 474), (598, 528), (520, 548), (544, 426)],
-    # THÂN
-    body=(420, 606, 214, 152),
-    # CHÂN: (x, y_trên, y_dưới, nửa_rộng) – 2 xa vẽ trước
-    legs_far=[(300, 652, 806, 23), (548, 648, 806, 23)],
-    legs_near=[(330, 668, 822, 27), (576, 664, 822, 27)],
-    hoof_h=30,
-    # YÊN LƯNG (đen) trên sống lưng
-    saddle=(356, 452, 510, 544),
-    # KHĂN/YẾM NGỰC (đen)
-    scarf=[(556, 452), (648, 462), (666, 522), (622, 584), (556, 582), (536, 500)],
-    cloud=(600, 520),
-    # DÂY ĐAI vàng (girth quanh bụng) + dây nối vai
-    girth=[(486, 512), (512, 570), (520, 628), (512, 668)], girth_w=13,
-    strap=[(508, 500), (542, 512), (574, 516)], strap_w=12,
+    # ĐẦU: sọ + mõm (bo tròn hơn)
+    skull=(672, 366, 126),
+    muzzle=(778, 436, 98, 90),
+    # MẶT (profile phải): 1 mắt cười + 1 lỗ mũi
+    eye=(714, 392), eye_w=29, eye_h=9,
+    brow_dy=-46, brow_w=18,
+    nostril=((846, 452),),
+    mouth=(812, 500, 25),
+    # TAI: nhỏ hơn, thấp hơn, bớt nhọn (gốc_trái, gốc_phải, chóp)
+    earN=((636, 288), (688, 278), (652, 198)),
+    earF=((696, 282), (742, 294), (758, 210)),
+    # BỜM trán (lọn chính) + CỔ + bờm gáy
+    forelock=[(688, 270), (718, 252), (746, 276), (738, 334), (716, 360), (692, 332)],
+    neck=[(582, 402), (650, 446), (632, 552), (556, 570), (506, 520), (542, 440)],
+    mane=[(578, 398), (610, 392), (556, 552), (518, 568), (538, 452), (552, 416)],
+    # THÂN – THON & dài hơn (bớt mập)
+    body=(414, 616, 182, 140),
+    # ĐUÔI xù (mông trái, ló ra ngoài thân) – khối liền
+    tail=[(236, 542), (204, 586), (190, 650), (200, 708), (226, 726), (246, 706),
+          (238, 648), (260, 588), (270, 546)],
+    # CHÂN: (x, y_trên, y_dưới, nửa_rộng)
+    legs_far=[(300, 660, 808, 22), (548, 654, 808, 22)],
+    legs_near=[(332, 672, 824, 26), (574, 668, 824, 26)],
+    hoof_h=28,
+    # YÊN LƯNG (đen) – miếng NHỎ trên sống lưng
+    saddle=(372, 456, 478, 528),
+    # KHĂN/YẾM NGỰC (đen) – quấn phần DƯỚI cổ, chừa cổ trắng phía trên
+    scarf=[(548, 502), (636, 504), (650, 560), (602, 592), (544, 582), (528, 530)],
+    cloud=(594, 548),
+    # DÂY ĐAI vàng
+    girth=[(452, 524), (470, 568), (470, 612)], girth_w=12,
+    strap=[(490, 514), (524, 522), (556, 526)], strap_w=11,
 )
 
 
@@ -86,60 +84,63 @@ def draw(P):
         cv.part([rrect(x - hw - 1, yb - hh + 2, x + hw + 1, yb, 9)], C['hoof'], line=vn)
 
     # 1) BÓNG
-    cv.part([ellipse(430, 862, 300, 42)], C['shadow'], line=0)
-    # 2) CHÂN XA
+    cv.part([ellipse(430, 862, 290, 40)], C['shadow'], line=0)
+    # 2) ĐUÔI xù (sau thân) – khối trắng liền + 1 nếp mềm
+    cv.part([catmull(P['tail'], 10)], C['white'], line=vn)
+    cv.stroke([(224, 578), (214, 648), (222, 706)], ld * 0.6)
+    # 3) CHÂN XA
     for x, yt, yb, hw in P['legs_far']:
         leg(x, yt, yb, hw, far=True)
-    # 3) THÂN
+    # 4) THÂN (thon)
     bx, by, brx, bry = P['body']
     cv.part([ellipse(bx, by, brx, bry)], C['white'], line=vn)
-    # 4) CHÂN GẦN
+    # 5) CHÂN GẦN
     for x, yt, yb, hw in P['legs_near']:
         leg(x, yt, yb, hw)
-    # 5) CỔ
+    # 6) CỔ trắng (nổi rõ, nối đầu→vai)
     cv.part([catmull(P['neck'] + P['neck'][:1], 10)], C['white'], line=vn)
-    # 6) BỜM GÁY
+    # 7) BỜM GÁY (trắng lượn sóng, sau cổ)
     cv.part([catmull(P['mane'] + P['mane'][:1], 10)], C['white'], line=vn)
-    cv.stroke([(592, 338), (560, 470), (556, 546)], ld * 0.8)
-    cv.stroke([(610, 320), (580, 450), (574, 520)], ld * 0.7)
-    # 7) YÊN LƯNG (đen)
+    # 8) YÊN LƯNG (đen) – miếng nhỏ
     sx0, sy0, sx1, sy1 = P['saddle']
-    cv.part([round_poly([(sx0 - 6, sy0 + 8), (sx1, sy0 - 6), (sx1 + 6, sy1), (sx0 - 6, sy1 + 6)], 26, 10)],
+    cv.part([round_poly([(sx0 - 4, sy0 + 6), (sx1, sy0 - 4), (sx1 + 4, sy1), (sx0 - 4, sy1 + 4)], 22, 10)],
             C['black'], line=vn)
-    cv.stroke([(sx0, sy0 + 26), (sx1, sy0 + 10)], ld * 0.8, color=C['black_dk'])
-    # 8) ĐẦU + MÕM
+    cv.stroke([(sx0, sy0 + 22), (sx1, sy0 + 8)], ld * 0.8, color=C['black_dk'])
+    # 9) ĐẦU + MÕM
     sk, mz = P['skull'], P['muzzle']
     cv.part([circle(sk[0], sk[1], sk[2]), ellipse(mz[0], mz[1], mz[2], mz[3])], C['white'], line=vn)
-    # 9) TAI
+    # 10) TAI
     def ear(g0, g1, tip, far=False):
         col = C['white_dk'] if far else C['white']
-        cv.part([round_poly([g0, g1, tip], 16, 8)], col, line=vn)
+        cv.part([round_poly([g0, g1, tip], 20, 8)], col, line=vn)
         ix, iy = (g0[0] + g1[0] + 2 * tip[0]) / 4, (g0[1] + g1[1] + 2 * tip[1]) / 4
-        cv.part([round_poly([lerp(g0, (ix, iy), 0.3), lerp(g1, (ix, iy), 0.3), lerp(tip, (ix, iy), 0.22)], 10, 6)],
+        cv.part([round_poly([lerp(g0, (ix, iy), 0.34), lerp(g1, (ix, iy), 0.34), lerp(tip, (ix, iy), 0.3)], 10, 6)],
                 C['tai_in'], line=0)
     ear(*P['earF'], far=True)
     ear(*P['earN'])
-    # 10) BỜM TRƯỚC TRÁN
-    cv.part([catmull(P['forelock'] + P['forelock'][:1], 10)], C['white'], line=vn)
-    cv.stroke([(714, 256), (720, 316)], ld * 0.7)
-    # 11) KHĂN NGỰC (đen) + MÂY vàng
+    # 11) BỜM TRƯỚC TRÁN – cụm 3 lọn khối trắng (không kẻ sọc)
+    for cx0, cy0, w0, h0 in [(706, 300, 22, 58), (724, 292, 24, 64), (742, 300, 20, 54)]:
+        lock = [(cx0 - w0, cy0 - h0 * 0.5), (cx0 - w0 * 0.3, cy0 - h0), (cx0 + w0 * 0.3, cy0 - h0),
+                (cx0 + w0, cy0 - h0 * 0.4), (cx0 + w0 * 0.2, cy0 + h0), (cx0 - w0 * 0.5, cy0 + h0 * 0.8)]
+        cv.part([catmull(lock + lock[:1], 8)], C['white'], line=vn)
+    # 12) KHĂN NGỰC (đen) + MÂY vàng
     cv.part([catmull(P['scarf'] + P['scarf'][:1], 10)], C['black'], line=vn)
-    cxx, cyy = P['cloud']                                  # vân mây RUYI = 2 xoắn ốc nhỏ
-    for ox in (-22, 22):
+    cxx, cyy = P['cloud']
+    for ox in (-20, 20):
         sp = []
-        for i in range(26):
-            a = math.radians(i * 20)
-            r = 5 + i * 1.1
+        for i in range(24):
+            a = math.radians(i * 21)
+            r = 5 + i * 1.05
             sp.append((cxx + ox + r * math.cos(a), cyy + r * math.sin(a) * 0.9))
-        cv.stroke(catmull(sp, 6), ld * 0.95, color=C['gold'])
-    # 12) DÂY ĐAI vàng
+        cv.stroke(catmull(sp, 6), ld * 0.9, color=C['gold'])
+    # 13) DÂY ĐAI vàng
     def band(pts, hw, col):
         q = catmull(pts, 12)
         cv.part([bar(q[i], q[i + 1], hw) for i in range(len(q) - 1)], col, line=vn * 0.7)
     band(P['girth'], P['girth_w'], C['gold'])
     band(P['strap'], P['strap_w'], C['gold'])
-    # 13) MẶT
-    def smile_eye(cx, cy, w, h):   # cong CƯỜI (võng giữa, hai đuôi hất lên) → hiền
+    # 14) MẶT
+    def smile_eye(cx, cy, w, h):
         cv.stroke(catmull([(cx - w, cy - h * 0.45), (cx, cy + h), (cx + w, cy - h * 0.45)], 10), ld * 1.15)
 
     def brow(cx, cy, w):
