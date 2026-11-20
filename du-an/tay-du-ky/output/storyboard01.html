@@ -1,0 +1,193 @@
+<title>Storyboard · Short 01</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: storyboard dọc, chia theo hồi; mỗi cảnh một khung 9:16 + lời dẫn dưới. Màu mực–chu sa–kim. */
+:root{
+  --bg:#17130f; --panel:#201a15; --panel2:#271f19; --ink:#f1e9dd; --muted:#a7998a;
+  --line:#352b22; --chu:#e2654f; --kim:#d6a848; --ngoc:#4fb89d; --chip:#2c231c;
+  --sans:"Be Vietnam Pro",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 12px 30px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f4f1ea; --panel:#fffdf8; --panel2:#f6f0e6; --ink:#241c17; --muted:#766a5c;
+  --line:#e2d8c8; --chu:#c23d2b; --kim:#b8862b; --ngoc:#2f7d6b; --chip:#eadfce;
+  --shadow:0 1px 2px rgba(36,28,23,.06),0 10px 26px rgba(36,28,23,.08);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f4f1ea; --panel:#fffdf8; --panel2:#f6f0e6; --ink:#241c17; --muted:#766a5c;
+  --line:#e2d8c8; --chu:#c23d2b; --kim:#b8862b; --ngoc:#2f7d6b; --chip:#eadfce;
+  --shadow:0 1px 2px rgba(36,28,23,.06),0 10px 26px rgba(36,28,23,.08);
+  color-scheme:light;
+}}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;margin:0}
+.wrap{max-width:1040px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:26px 60px}
+h1,h2,h3{text-wrap:balance;margin:0}
+
+.head{display:flex;flex-direction:column;gap:9px;margin-bottom:8px}
+.kick{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--chu);font-weight:700}
+h1{font-size:1.85rem;font-weight:800;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:.95rem;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:3px}
+.tag{font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.tag b{color:var(--ink);font-variant-numeric:tabular-nums}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);
+  border-left:3px solid var(--kim);border-radius:10px;padding:12px 14px;font-size:.9rem;color:var(--muted);margin-top:12px}
+.note b{color:var(--ink)}
+
+.act{margin-top:30px}
+.act-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;position:sticky;top:env(safe-area-inset-top,0px);
+  background:linear-gradient(var(--bg) 70%,transparent);padding:8px 0 10px;z-index:5}
+.act-h .nm{font-size:1.1rem;font-weight:800;color:var(--kim);letter-spacing:.01em}
+.act-h .rng{font-size:.76rem;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;
+  background:var(--chip);padding:3px 9px;border-radius:7px}
+.act-h .ln{flex:1;height:1px;background:var(--line)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:16px}
+.scene{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);
+  display:flex;flex-direction:column}
+.frame{position:relative;aspect-ratio:9/16;background:#0c0a08;max-width:100%}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.frame .idx{position:absolute;top:8px;left:8px;background:rgba(18,12,8,.82);color:#fff;
+  font-weight:800;font-size:.78rem;padding:3px 8px;border-radius:7px;font-variant-numeric:tabular-nums}
+.frame .tc{position:absolute;top:8px;right:8px;background:rgba(214,168,72,.92);color:#1a130a;
+  font-weight:700;font-size:.72rem;padding:3px 8px;border-radius:7px;font-variant-numeric:tabular-nums}
+.body{padding:11px 12px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.loi{font-size:.9rem;line-height:1.45}
+.loi .q{color:var(--kim);font-weight:700}
+textarea{width:100%;font-family:inherit;font-size:.84rem;color:var(--ink);background:var(--bg);
+  border:1px solid var(--line);border-radius:8px;padding:7px 9px;resize:vertical;min-height:34px}
+textarea:focus-visible,button:focus-visible{outline:2px solid var(--chu);outline-offset:2px}
+
+.gom{margin-top:34px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.gom h3{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+.gom p{color:var(--muted);font-size:.88rem;margin:0 0 14px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+button{font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;border-radius:10px;padding:10px 18px;border:1px solid transparent}
+.primary{background:var(--chu);color:#fff}
+.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+#out{width:100%;margin-top:14px;min-height:130px;font-size:.84rem;line-height:1.5}
+.hint{font-size:.8rem;color:var(--ngoc);font-weight:600;margin-top:8px;min-height:1.1em}
+.foot{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div class="kick">Tây Du Ký · Storyboard duyệt trước khi làm video</div>
+    <h1>Short 01 — Đường Tăng: lãnh đạo hay gánh nặng?</h1>
+    <p class="sub">Mỗi cảnh một khung hình, xem trọn mạch kể ~90 giây. Hình chỉ là ảnh tĩnh phác cảnh — khi làm video sẽ có chuyển động, giọng đọc và hiệu ứng.</p>
+    <div class="meta">
+      <span class="tag"><b>17</b> cảnh</span>
+      <span class="tag"><b>1:32</b></span>
+      <span class="tag">Dọc 9:16</span>
+      <span class="tag">HOOK · HỒI 1 · CÚ LẬT · CHỐT · CTA</span>
+    </div>
+    <div class="note"><span>📝</span><div>Lời dẫn để <b>dưới mỗi hình</b> cho bạn hiểu mạch (video sẽ <b>không</b> hiện chữ này). Thấy cảnh nào cần sửa thì gõ vào ô ghi chú dưới hình, cuối trang bấm <b>Gom góp ý</b> gửi lại cho mình.</div></div>
+  </header>
+
+  <div id="acts"></div>
+
+  <div class="gom">
+    <h3>Gom góp ý</h3>
+    <p>Gộp mọi ghi chú theo cảnh thành một đoạn — rồi Sao chép dán vào chat.</p>
+    <div class="btns">
+      <button class="primary" id="btn-gom">Gom góp ý</button>
+      <button class="ghost" id="btn-copy">Sao chép</button>
+      <button class="ghost" id="btn-clear">Xoá hết</button>
+    </div>
+    <div class="hint" id="hint"></div>
+    <textarea id="out" readonly placeholder="Nội dung gom sẽ hiện ở đây…"></textarea>
+  </div>
+
+  <p class="foot">Storyboard nội bộ · kênh Tây Du Ký chibi · duyệt xong sẽ dựng video</p>
+</div>
+
+<script>
+const SCENES=[
+ ["s01","HOOK","0:00–0:05","Một người không biết võ, mắt không nhìn ra yêu quái, bị bắt cóc hơn hai mươi lần."],
+ ["s02","HOOK","0:05–0:10","Vậy mà hắn là trưởng đoàn của đội mạnh nhất Tam Giới. Vì sao?"],
+ ["s03","HỒI 1 · Gánh nặng","0:10–0:13","Nói về sự vô dụng thì… khó ai bằng."],
+ ["s04","HỒI 1 · Gánh nặng","0:13–0:18","Bạch Cốt Tinh hóa ba lần — thiếu nữ, bà lão, ông lão — ông tin cả ba."],
+ ["s05","HỒI 1 · Gánh nặng","0:18–0:22","@Đường Tăng: \"Ngộ Không! Con lại giết người, cút về đi!\""],
+ ["s06","HỒI 1 · Gánh nặng","0:22–0:26","Giết đúng yêu quái — lại bị đuổi đi."],
+ ["s07","HỒI 1 · Gánh nặng","0:26–0:34","Kim–Ngân Giác nhốt vào bình. Hồng Hài Nhi treo lên nướng. Nữ Nhi Quốc đòi cưới. Bọ Cạp Tinh ép duyên."],
+ ["s08","HỒI 1 · Gánh nặng","0:34–0:42","Cứ vài tập, ba đệ tử lại đi dọn hậu quả. Một người sếp như thế — ai mà không ức?"],
+ ["s09","HỒI 2 · Cú lật","0:42–0:49","Nhưng khoan — vì sao ai cũng muốn bắt ông? Vì ông là Kim Thiền Tử chuyển thế."],
+ ["s10","HỒI 2 · Cú lật","0:49–0:55","Ăn một miếng thịt ông: trường sinh bất lão. Hắn không yếu — hắn là phần thưởng cả Tam Giới thèm khát."],
+ ["s11","HỒI 2 · Cú lật","0:55–1:00","Nữ Nhi Quốc dâng cả ngai vàng lẫn sắc đẹp — ông từ chối."],
+ ["s12","HỒI 2 · Cú lật","1:00–1:05","Bọ Cạp Tinh ép chết — ông thà chết không chịu. 14 năm, 108.000 dặm, chưa một lần quay đầu."],
+ ["s13","HỒI 2 · Cú lật","1:05–1:09","@Bát Giới: \"Sư phụ lại bị bắt! Không có người, còn thỉnh kinh làm gì — chia hành lý, ai về nhà nấy cho rồi!\""],
+ ["s14","HỒI 2 · Cú lật","1:09–1:13","@Sa Tăng: \"Nhị sư huynh! Sư phụ là cái đích. Mất người thì cả đoàn mất hướng — còn đi đâu nữa?\""],
+ ["s15","HỒI 2 · Cú lật","1:13–1:17","Thấy chưa — bỏ sư phụ ra, đội mạnh nhất Tam Giới tan ngay. Nhưng ông giữ Ngộ Không bằng đức độ… hay bằng vòng kim cô?"],
+ ["s16","HỒI 3 · Chốt","1:17–1:25","Vậy Đường Tăng là gì? Kẻ vô dụng được bảo kê? Hay lãnh đạo cai trị bằng cái vòng trên đầu kẻ mạnh nhất?"],
+ ["s17","CTA","1:25–1:32","Theo bạn — ông lãnh đạo bằng đức, hay bằng vòng kim cô? Gõ phe bạn 👇"],
+];
+const ACT_RANGE={"HOOK":"0:00–0:10","HỒI 1 · Gánh nặng":"0:10–0:42","HỒI 2 · Cú lật":"0:42–1:17","HỒI 3 · Chốt":"1:17–1:25","CTA":"1:25–1:32"};
+const KEY="sb01-gopy-v1";
+let notes={};
+try{const s=localStorage.getItem(KEY);if(s)notes=JSON.parse(s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(notes));}catch(e){}}
+
+function loiHTML(t){ // tô vàng tên nhân vật sau @
+  if(t.startsWith("@")){const i=t.indexOf(":");return '<span class="q">'+t.slice(1,i)+'</span>'+t.slice(i);}
+  return t;
+}
+const actsEl=document.getElementById("acts");
+let curAct=null, grid=null;
+SCENES.forEach((sc,n)=>{
+  const [sid,act,tc,loi]=sc;
+  if(act!==curAct){
+    curAct=act;
+    const sec=document.createElement("section");sec.className="act";
+    sec.innerHTML=`<div class="act-h"><span class="nm">${act}</span><span class="rng">${ACT_RANGE[act]||""}</span><span class="ln"></span></div>`;
+    grid=document.createElement("div");grid.className="grid";
+    sec.appendChild(grid);actsEl.appendChild(sec);
+  }
+  const card=document.createElement("div");card.className="scene";
+  card.innerHTML=`
+    <div class="frame">
+      <img src="img/${sid}.jpg" alt="Cảnh ${n+1}" loading="lazy">
+      <span class="idx">${n+1}</span><span class="tc">${tc}</span>
+    </div>
+    <div class="body">
+      <div class="loi">${loiHTML(loi)}</div>
+      <textarea data-sid="${sid}" placeholder="Góp ý cảnh ${n+1}…">${notes[sid]||""}</textarea>
+    </div>`;
+  grid.appendChild(card);
+});
+
+document.addEventListener("input",e=>{
+  if(e.target.dataset.sid!==undefined){notes[e.target.dataset.sid]=e.target.value;save();}
+});
+function gom(){
+  let t="GÓP Ý STORYBOARD — Short 01 (17 cảnh · 1:32)\n==============================\n";
+  let act=null;
+  SCENES.forEach((sc,n)=>{
+    const [sid,a,tc]=sc;const nt=(notes[sid]||"").trim();
+    if(!nt)return;
+    if(a!==act){act=a;t+=`\n[${a}]\n`;}
+    t+=`Cảnh ${n+1} (${tc}): ${nt}\n`;
+  });
+  if(t.endsWith("==============================\n"))t+="\n(chưa có ghi chú nào)";
+  document.getElementById("out").value=t;return t;
+}
+document.getElementById("btn-gom").onclick=()=>{gom();hint("Đã gom. Bấm Sao chép.");};
+document.getElementById("btn-copy").onclick=async()=>{
+  const t=gom();const out=document.getElementById("out");
+  try{await navigator.clipboard.writeText(t);hint("Đã sao chép! Dán vào chat cho mình nhé.");}
+  catch(e){out.focus();out.select();hint("Nhấn Ctrl/⌘+C để chép.");}
+};
+document.getElementById("btn-clear").onclick=()=>{
+  notes={};save();document.querySelectorAll("textarea[data-sid]").forEach(x=>x.value="");
+  document.getElementById("out").value="";hint("Đã xoá hết ghi chú.");
+};
+let ht;function hint(m){const h=document.getElementById("hint");h.textContent=m;clearTimeout(ht);ht=setTimeout(()=>h.textContent="",4000);}
+</script>

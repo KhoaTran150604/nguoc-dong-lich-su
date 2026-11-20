@@ -9,7 +9,7 @@
 | **Vẽ nhân vật chibi, Tây Du Ký, hoạt hình nhân vật** | `du-an/tay-du-ky/CLAUDE.md` |
 | **Sử Việt, Ngược Dòng, Bạch Đằng, kênh Song Tử Kể Sử, mascot Gâu Nghệ, dựng video sử** (📦 lưu trữ, ít dùng) | `du-an/nguoc-dong-su-viet/CLAUDE.md` |
 
-- Skill cũng tách theo dự án: skill của mỗi dự án nằm trong `du-an/<dự án>/.claude/skills/` — **chỉ hiện khi làm trong nhánh đó**. Gốc chỉ giữ skill **dùng chung**: `bo-ve`, `dong-bo`.
+- Skill cũng tách theo dự án: skill của mỗi dự án nằm trong `du-an/<dự án>/.claude/skills/` — **chỉ hiện khi làm trong nhánh đó**. Gốc chỉ giữ skill **dùng chung**: `bo-ve`, `dong-bo`, `dang-short`, `dang-youtube`.
 - Khi tạo/sửa nhân vật: vào `du-an/tay-du-ky/` để prompt → nạp đúng luật vẽ, đỡ tốn token.
 
 ## 🔧 Dùng chung (cả 2 dự án)
@@ -18,6 +18,10 @@
 - Engine: `scripts/hoathinh/but/` (skia) — `but.py` lõi, `khung.py`, `bo_phan.py`, `nv/<ma>.py` spec, `ve.py` render.
 - Skill **`bo-ve`**: 12 luật vẽ đẹp (nét 3 cấp, bóng phẳng, khối cộng/trừ, khung chung, vũ khí thấp một tay, KHÔNG cổ) + API + bộ phận. Trước đây tên `but-ve`.
 - Chi tiết dùng ở dự án Tây Du → `du-an/tay-du-ky/CLAUDE.md`.
+
+### Đăng YouTube (dùng chung – Claude in Chrome)
+- Skill **`dang-short`** (Short 9:16) + **`dang-youtube`** (video dài): điều khiển YouTube Studio của người dùng, tải file >10 MB không nén, điền metadata, **chỉ lên lịch, không "Công khai ngay"**. Cùng **kênh Song Tử Kể Sử** cho cả 2 dự án.
+- Tây Du: Short xong → vào `du-an/tay-du-ky/upload-video/` rồi gọi `dang-short` (mục **TÂY DU** trong skill: file lấy ở `thanh-pham.json` mục `short_hoathinh`, tiêu đề/mô tả theo kịch bản Tây Du, playlist hỏi người dùng).
 
 ### Đồng bộ cloud ↔ máy nhà (LUẬT ĐỒNG BỘ)
 - **`main` là nhánh chuẩn duy nhất.** Mỗi phiên cloud làm trên nhánh `claude/…` riêng → **kết thúc phiên: tạo PR vào main**, người dùng bấm Merge. Không để nhánh cloud nằm treo.
@@ -33,7 +37,7 @@
 ## 📂 Cấu trúc gốc
 ```
 CLAUDE.md                 ← file này (mỏng)
-.claude/skills/           ← CHỈ skill dùng chung: bo-ve, dong-bo
+.claude/skills/           ← CHỈ skill dùng chung: bo-ve, dong-bo, dang-short, dang-youtube
 chung (sắp xếp ở GĐ2)     ← Bộ Bút engine dự kiến tách ra scripts/hoathinh/but/ hiện vẫn ở chỗ cũ
 du-an/
   tay-du-ky/              ← 🎯 ĐANG LÀM: CLAUDE.md + nhan-vat/ kich-ban/ animation/ + .claude/skills/

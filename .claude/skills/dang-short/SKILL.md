@@ -1,11 +1,22 @@
 ---
 name: dang-short
-description: Đăng (lên lịch) một Short 9:16 của kênh Song Tử Kể Sử lên YouTube bằng Claude in Chrome – tải video >10 MB không nén (cắt byte + ghép trong trang), đặt tiêu đề theo công thức Short, mô tả mẫu kênh, thumbnail, playlist "1-2p hay ho", thẻ, các mục mặc định, lên lịch. Dùng khi Short đã dựng xong ở build/short/<mã>-p<n>/.
+description: Đăng (lên lịch) một Short 9:16 lên YouTube bằng Claude in Chrome – DÙNG CHUNG cho cả Short sử Việt (kênh Song Tử Kể Sử) lẫn Short hoạt hình Tây Du Ký (cùng kênh). Tải video >10 MB không nén (cắt byte + ghép trong trang), đặt tiêu đề, mô tả, thumbnail, playlist, thẻ, các mục mặc định, lên lịch. Dùng khi Short đã dựng xong (sử Việt: build/short/<mã>-p<n>/; Tây Du: du-an/tay-du-ky/output/short/).
 ---
 
 # Agent Đăng Short YouTube
 
 Trả lời tiếng Việt, ngắn. Người dùng muốn **không phải thao tác gì** và **không nén video**. Đọc skill `anthropic-skills:chrome-browser` trước bước trình duyệt đầu tiên. Quy tắc chung (không bấm "Công khai ngay" khi chưa được bảo, không đổi cài đặt kênh…) theo skill `dang-youtube`.
+
+> **Skill dùng chung 2 dự án.** Hai nguồn Short khác nhau; **cơ chế đăng (mục 4 Quy trình Studio, cắt byte >10 MB, kiểm radio, lên lịch) y nhau — chỉ khác đường dẫn file + tiêu đề/mô tả/playlist**:
+> - **Sử Việt (Song Tử Kể Sử):** làm theo mục 0–3 bên dưới (công thức tiêu đề Bạch Đằng, playlist `1-2p hay ho`, file `build/short/...`).
+> - **Hoạt hình Tây Du Ký (upload ở `du-an/tay-du-ky/upload-video/`):** dùng mục **TÂY DU** ngay dưới đây thay cho mục 0–3; mục 4 Studio giữ nguyên. **Cùng kênh Song Tử Kể Sử** (giữ nguyên URL kênh ở mục 4).
+
+## TÂY DU — Short hoạt hình (thay mục 0–3 khi đăng Short Tây Du)
+- **File video:** lấy từ `docs/videos/thanh-pham.json` mục `short_hoathinh` (trường `file`, vd `du-an/tay-du-ky/output/short/short01-full.mp4` — dọc 9:16 720×1280 @24fps). Máy thiếu file → dựng lại bằng trường `lenh` của mục đó (vd `PYTHONUTF8=1 HF_HUB_DISABLE_XET=1 python scripts/hoathinh/but/short01.py`).
+- **Tiêu đề / mô tả / hashtag:** theo NỘI DUNG Tây Du, **không** dùng ví dụ Bạch Đằng. Soạn từ kịch bản của tập (`du-an/tay-du-ky/kich-ban/short-01-*.md`): câu móc = câu hỏi ở đầu Short, khớp chữ trên banner. Hashtag gợi ý `#TayDuKy #Shorts` + chủ đề tập. Cho người dùng **duyệt tiêu đề + mô tả trước khi mở Chrome** (như Bước 0 của `dang-youtube`).
+- **Thumbnail:** banner tập ở `du-an/tay-du-ky/output/banner/` (vd `short01-doan-16x9.png`) — dùng cho video liên quan/16:9; với Short, thumbnail tùy chỉnh thường bị chặn → theo luật "Select from video" ở mục Lưu ý.
+- **Playlist:** Tây Du **chưa chốt playlist** — HỎI người dùng, đừng mặc định `1-2p hay ho` (đó là của sử Việt).
+- Các mục mặc định còn lại (Audience No kids, AI use No, Vietnamese, Education, remixing, lịch) dùng chung như `dang-youtube`.
 
 ## 0. Chuẩn bị (máy local)
 - File: `build/short/<mã>-p<n>/SHORT-<MÃ>-P<n>.mp4` + `THUMB-<MÃ>-P<n>.jpg`. Chưa có → dựng: `PATH=~/.local/mm/root/envs/kenh312/bin:$PATH HF_HUB_DISABLE_XET=1 python scripts/video/short.py <mã> <n>` (cần Python 3.12 + cairo + ffmpeg + ZeroTTS; môi trường micromamba `~/.local/mm/root/envs/kenh312`, cài 17/11/2026).
