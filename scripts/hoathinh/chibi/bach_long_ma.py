@@ -40,13 +40,13 @@ P = dict(
     # MẶT 3/4: 2 mắt cười gần mõm (xa=trái, gần=phải)
     eyeF=(656, 356), eyeN=(726, 364), eye_w=24, eye_h=8,
     brow_dy=-38, brow_w=16,
-    nostril=((834, 392), (830, 416)),           # nhấc LÊN cho mõm bớt chúi
-    mouth=(816, 436, 21),
-    # TAI tách 2 bên + trong tai hồng
-    earN=((640, 256), (686, 250), (650, 196)),
-    earF=((702, 250), (744, 260), (728, 198)),
-    # BỜM gáy (sau cổ) + CỔ ngắn-mập
-    mane=[(590, 420), (624, 412), (560, 548), (518, 560), (542, 470), (558, 432)],
+    nostril=((820, 388), (816, 412)),           # lùi vào trong + nhích lên (mõm tròn đầy)
+    mouth=(802, 430, 21),
+    # TAI tách RÕ 2 bên đỉnh đầu (không chụm như nơ) + trong tai hồng
+    earN=((618, 260), (660, 254), (626, 194)),
+    earF=((708, 254), (750, 262), (748, 198)),
+    # BỜM gáy (sau cổ) – bớt lồi mấu + CỔ ngắn-mập
+    mane=[(584, 424), (610, 418), (558, 548), (520, 558), (544, 474), (558, 436)],
     neck=[(588, 430), (664, 452), (640, 544), (540, 554), (512, 494), (548, 448)],
     # THÂN hộp bo góc (vững, bớt phệ)
     body_poly=[(262, 506), (560, 492), (570, 712), (252, 726)], body_r=74,
@@ -115,9 +115,9 @@ def draw(P):
                 C['tai_in'], line=0)
     ear(*P['earF'], far=True)
     ear(*P['earN'])
-    # 11) BỜM TRƯỚC TRÁN – chỏm LƯỢN SÓNG mềm (bỏ răng cưa "vương miện")
-    fl = [(648, 310), (662, 272), (680, 262), (692, 270), (706, 260), (720, 272), (726, 310),
-          (712, 322), (662, 322)]
+    # 11) BỜM TRƯỚC TRÁN – lọn mềm rủ nhẹ xuống trán (giữa 2 tai đã tách)
+    fl = [(660, 264), (678, 252), (698, 252), (712, 266), (706, 300), (692, 324),
+          (676, 324), (662, 300)]
     cv.part([catmull(fl + fl[:1], 14)], C['white'], line=vn)
     # 12) YẾM NGỰC (navy) + MÂY vàng
     cv.part([catmull(P['scarf'] + P['scarf'][:1], 10)], C['navy'], line=vn)
