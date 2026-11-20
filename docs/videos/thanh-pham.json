@@ -6,5 +6,16 @@
   "short": [
     {"tap": "e2", "phan": 1, "ghi_chu": "khung gần full + thumbnail mũi tên/X, duyệt 17/11",
      "phu_thuoc": ["docs/videos/E2-loi-doc.txt", "assets/e2/E2-GiaHuy-v2.json"]}
+  ],
+  "_ghi_chu_hoathinh": "Short hoạt hình Tây Du (Bộ Bút + ZeroTTS). dong_bo.py hiện CHƯA auto dựng mục này (sẽ nối ở GĐ2); dựng lại thủ công bằng trường 'lenh'. Giọng cache ở build/thu-hoathinh/<tap>/voices.npz, xoá đi sẽ tự tạo lại.",
+  "short_hoathinh": [
+    {"tap": "short-01", "du_an": "tay-du-ky", "ten": "Đường Tăng: lãnh đạo hay gánh nặng?",
+     "file": "du-an/tay-du-ky/output/short/short01-full.mp4", "thoi_luong": "~84s", "duyet": "21/11/2026",
+     "lenh": "PYTHONUTF8=1 HF_HUB_DISABLE_XET=1 python scripts/hoathinh/but/short01.py",
+     "thumbnail": {"file": "du-an/tay-du-ky/output/banner/short01-thumbnail-doc.png", "ti_le": "9:16 1080x1920", "lenh": "PYTHONUTF8=1 python scripts/hoathinh/but/thumb_short01.py",
+                   "ghi_chu": "Đường Tăng chia đôi BẤT TÀI/CHỈ HUY, dấu ?, keyword ĐƯỜNG TĂNG + #Du Ký 1"},
+     "banner": {"file": "du-an/tay-du-ky/output/banner/short01-doan-16x9.png", "ti_le": "16:9", "lenh": "PYTHONUTF8=1 python scripts/hoathinh/but/banner_doan.py"},
+     "phu_thuoc": ["scripts/hoathinh/but/short01.py", "scripts/hoathinh/but/thumb_short01.py", "scripts/hoathinh/but/banner_doan.py", "du-an/tay-du-ky/kich-ban/short-01-duong-tang-lanh-dao-hay-ganh-nang.md"],
+     "ghi_chu": "17 cảnh, dọc 9:16 720x1280 @24fps; KHÔNG phụ đề đen; đội hình Sa Tăng·ngựa·Đường Tăng·Bát Giới·Ngộ Không; giọng dẫn=giahuy, Đường Tăng=tiendat, Bát Giới=quangminh, Sa Tăng=huuduc. ĐÂY LÀ TẬP 1 — CHUẨN cho các tập sau."}
   ]
 }

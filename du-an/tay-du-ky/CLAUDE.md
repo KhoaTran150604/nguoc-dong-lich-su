@@ -66,6 +66,15 @@ du-an/tay-du-ky/
 - Bộ phận dùng chung đã có: khỉ (`_gai`, `mat_na`, `duoi_xoan`, `vong_tran.nut` kim cô, `ao.vay`+`gau_rang`, `vu_khi.ha`); heo (tai/mõm, `mu` tròn/Tì Lư, `day_mu`, `ao.mo`+`bung_loi`); sư (`khan_co`, `_ca_sa`, `cao_chin_rang`, `tich_truong`); ngựa (`KhungNgua` + `chan_*`, `than_ngua`, `yen_ngua`, `khan_ngua`, `bom_*`, `tai_ngua`, `dau_ngua`, `sung_rong`, `cuong_ngua`, `duoi_ngua`).
 - Nhánh cloud `claude/exciting-hawking-4tp7r5` (Sa Tăng + Bạch Long Mã bản chibi cũ) đã kéo về máy, **chưa gộp main**.
 
+## 🎬 Short 01 / TẬP 1 — ĐÃ CHỐT (21/11/2026) · là CHUẨN cho các tập sau
+- **Tên:** "Đường Tăng: lãnh đạo hay gánh nặng?" · dọc 9:16 720×1280 @24fps · **~84s, 17 cảnh**.
+- **Video:** `du-an/tay-du-ky/output/short/short01-full.mp4` — dựng lại: `python scripts/hoathinh/but/short01.py`.
+- **Thumbnail (dọc):** `.../banner/short01-thumbnail-doc.png` (`thumb_short01.py`) — Đường Tăng chia đôi BẤT TÀI/CHỈ HUY + dấu ?.
+- **Banner đoàn 16:9:** `.../banner/short01-doan-16x9.png` (`banner_doan.py`).
+- **Pipeline video:** `scripts/hoathinh/but/short01.py` (17 shot + giọng ZeroTTS cache + SFX + mux). **Storyboard** duyệt trước: `storyboard01.py`.
+- **Chuẩn + điểm cải tiến tập 2:** xem `kich-ban/_CHUAN-tap-1-va-note-tap-2.md`. Đã đăng ký `docs/videos/thanh-pham.json` (mục `short_hoathinh`).
+
 ## Việc tiếp
+- **Tập 2:** theo chuẩn tập 1, áp các cải tiến trong `_CHUAN-tap-1-va-note-tap-2.md` (lip-sync mượt hơn, cảnh bớt tĩnh, đa dạng nền…).
 - GĐ2: dời spec `but/nv/*.py` + ảnh chốt vào `du-an/tay-du-ky/nhan-vat/`, tách Bộ Bút thành lớp dùng chung, sửa import, render thử lại.
 - Nhân vật mới / chuyển động nhân vật đã chốt.
