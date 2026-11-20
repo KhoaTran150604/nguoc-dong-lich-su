@@ -34,14 +34,14 @@ C = dict(
 
 P = dict(
     canvas=(1000, 1000), line=10, ld=6,
-    # ĐẦU – NHỎ lại (bớt trống mặt) + mõm bo gần
+    # ĐẦU – NHỎ lại (bớt trống mặt) + mõm bo tròn mềm
     skull=(684, 356, 112),
-    muzzle=(772, 402, 86, 78),
+    muzzle=(768, 398, 86, 81),
     # MẶT 3/4: 2 mắt cười gần mõm (xa=trái, gần=phải)
     eyeF=(656, 356), eyeN=(726, 364), eye_w=24, eye_h=8,
     brow_dy=-38, brow_w=16,
-    nostril=((838, 408), (834, 434)),
-    mouth=(820, 450, 22),
+    nostril=((834, 392), (830, 416)),           # nhấc LÊN cho mõm bớt chúi
+    mouth=(816, 436, 21),
     # TAI tách 2 bên + trong tai hồng
     earN=((640, 256), (686, 250), (650, 196)),
     earF=((702, 250), (744, 260), (728, 198)),
@@ -58,7 +58,7 @@ P = dict(
     legs_near=[(350, 698, 826, 29), (520, 698, 826, 29)],
     hoof_h=30,
     # YÊN LƯNG (navy) ôm lưng
-    saddle=[(330, 474), (476, 462), (488, 534), (326, 548)], saddle_r=24,
+    saddle=[(330, 474), (476, 462), (488, 534), (326, 548)], saddle_r=34,
     # YẾM NGỰC (navy) ôm cổ/ngực + MÂY vàng
     scarf=[(560, 476), (650, 472), (666, 538), (616, 588), (556, 580), (532, 516)],
     cloud=(602, 540),
@@ -115,10 +115,10 @@ def draw(P):
                 C['tai_in'], line=0)
     ear(*P['earF'], far=True)
     ear(*P['earN'])
-    # 11) BỜM TRƯỚC TRÁN – tuft răng cưa trên ĐỈNH giữa 2 tai (TRÊN mắt, không xuống mặt)
-    fl = [(648, 304), (658, 248), (674, 284), (686, 240), (700, 284), (716, 250), (724, 304),
-          (710, 312), (662, 312)]
-    cv.part([catmull(fl + fl[:1], 8)], C['white'], line=vn)
+    # 11) BỜM TRƯỚC TRÁN – chỏm LƯỢN SÓNG mềm (bỏ răng cưa "vương miện")
+    fl = [(648, 310), (662, 272), (680, 262), (692, 270), (706, 260), (720, 272), (726, 310),
+          (712, 322), (662, 322)]
+    cv.part([catmull(fl + fl[:1], 14)], C['white'], line=vn)
     # 12) YẾM NGỰC (navy) + MÂY vàng
     cv.part([catmull(P['scarf'] + P['scarf'][:1], 10)], C['navy'], line=vn)
     cxx, cyy = P['cloud']
@@ -129,10 +129,22 @@ def draw(P):
             r = 5 + i * 1.05
             sp.append((cxx + ox + r * math.cos(a), cyy + r * math.sin(a) * 0.9))
         cv.stroke(catmull(sp, 6), ld * 0.9, color=C['gold'])
-    # 13) DÂY ĐAI vàng
+    # 13) DÂY ĐAI vàng – dải LIỀN MẠCH (1 viền, không vạch nối "thước kẻ")
     def band(pts, hw, col):
-        q = catmull(pts, 12)
-        cv.part([bar(q[i], q[i + 1], hw) for i in range(len(q) - 1)], col, line=vn * 0.7)
+        q = catmull(pts, 16)
+        left, right = [], []
+        for i in range(len(q)):
+            if i == 0:
+                dx, dy = q[1][0] - q[0][0], q[1][1] - q[0][1]
+            elif i == len(q) - 1:
+                dx, dy = q[-1][0] - q[-2][0], q[-1][1] - q[-2][1]
+            else:
+                dx, dy = q[i + 1][0] - q[i - 1][0], q[i + 1][1] - q[i - 1][1]
+            L = math.hypot(dx, dy) or 1
+            nx, ny = -dy / L * hw, dx / L * hw
+            left.append((q[i][0] + nx, q[i][1] + ny))
+            right.append((q[i][0] - nx, q[i][1] - ny))
+        cv.part([left + right[::-1]], col, line=vn * 0.7)
     band(P['girth'], P['girth_w'], C['gold'])
     band(P['strap'], P['strap_w'], C['gold'])
     # 14) MẶT: 2 mắt cười + mày + 2 lỗ mũi + miệng
