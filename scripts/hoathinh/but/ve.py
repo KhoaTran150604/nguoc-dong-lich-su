@@ -28,7 +28,6 @@ LOP = [
     ('duoi', bp.duoi_xoan),
     ('mu', bp.day_mu),
     (None, bp.tai),
-    ('co_nguoi', bp.co_nguoi),
     ('ao', bp.ao_giao_linh),
     ('chuoi_so', bp.chuoi_so),
     ('khan', bp.khan_co),

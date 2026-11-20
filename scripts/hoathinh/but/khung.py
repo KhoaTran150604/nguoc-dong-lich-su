@@ -7,6 +7,9 @@ LUẬT VŨ KHÍ (người dùng chốt 20/11/2026 – "cầm thấp, lấy Ngộ
 - Trục vũ khí đi QUA TÂM BÀN TAY, nghiêng 8.7° (đầu trên ngả phải) như gậy Ngộ Không.
 - ĐỈNH vũ khí (kể cả lưỡi/hoa văn trên cùng) không cao hơn tâm đầu 1.76R; CHÂN ở tâm đầu + 3.20R.
 - Mỗi nhân vật chỉ MỘT tay. Bàn tay vẽ ĐÈ lên cán (đọc ra là đang nắm).
+
+LUẬT KHÔNG CỔ (người dùng chốt 21/11/2026): nhân vật KHÔNG được có cổ – đầu đặt thẳng lên mép trên thân.
+Không thêm trụ cổ, mảng da lấp khe cằm–vai, hay nâng/hạ thân để lộ cổ.
 """
 import math
 import os

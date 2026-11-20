@@ -33,6 +33,7 @@ python scripts/hoathinh/but/ve.py <ma> --so-cu <ảnh cũ> # ảnh so cũ/mới
 6. **Bảng màu ≤ 5 màu chính** + da + mực; một màu chủ đạo chiếm phần lớn (áo), một màu nhấn (vàng/đỏ) cho phụ kiện.
 7. **Khung chung bất biến** (`khung.py` lấy tỉ lệ từ `chibi/goc.py`): đầu tròn R, thân bia mộ lệch trái, mặt 3/4 quay phải. Nhân vật vạm vỡ/mập: `dang='map'`. Không tự chế tỉ lệ thân.
 8. **MỘT tay duy nhất** (bàn tay tròn bên phải), vẽ **đè lên cán** vũ khí – có nét ngón cái gợi đang nắm.
+9b. **KHÔNG CÓ CỔ** (người dùng chốt 21/11/2026): đầu đặt thẳng lên mép trên thân. Không vẽ trụ cổ, không lấp khe cằm–vai bằng mảng da, không đổi khung để lộ cổ. Khe nhỏ giữa cằm và vai trái là chủ ý của khung (như Ngộ Không).
 9. **Vũ khí cầm THẤP, chuẩn Ngộ Không**: trục qua tâm bàn tay, nghiêng 8.7°, đỉnh (kể cả lưỡi, hoa văn) ≤ tâm đầu − 1.76R, chân ở + 3.20R. Mọi vũ khí vẽ theo `_khung_truc(k)` → `P(s, w)` (s tính từ ĐỈNH xuống), không đặt toạ độ tự do.
 10. **Thứ tự lớp cố định** (`ve.py LOP`): tai → thân/áo → phụ kiện cổ → vũ khí → đầu → tóc → vòng trán/mũ → râu → mặt → bàn tay → viền ngoài.
 11. **Bóng dáng đọc được**: ảnh `--bong-den` tô đen vẫn phải nhận ra nhân vật (nhờ tóc/mũ/vũ khí). Đặc trưng nhận diện đặt ở RÌA bóng dáng, không giấu ở giữa.
@@ -68,7 +69,6 @@ Toạ độ đầu: (dx, dy) theo R từ TÂM ĐẦU (`k.H`). Toạ độ thân:
 | `duoi_xoan` | khỉ | đuôi xoắn thuôn, toạ độ thân |
 | `_gai` | tiện ích | chỏm lông gai quanh vành đầu (`gai` trong spec) |
 | `ban_tay` | mọi người | đè lên cán |
-| `co_nguoi` | NV không râu/khăn che cổ | cổ màu da lấp khe cằm–vai (`co_nguoi=(dx, dy, rx, ry)`), vẽ trước áo |
 | `_tai_heo` | Bát Giới | `tai.kieu='heo'`: tai quạt cụp, gốc giấu sau đầu, lòng hồng |
 | `mom_heo` | Bát Giới | `mat.mom`: mõm bầu dục + 2 lỗ mũi; `mat.ma_vt` đặt má riêng khi mõm chiếm giữa mặt |
 | `mu` → `mu_tron` · `mu_ti_lu` | Bát Giới · Đường Tăng | `mu.kieu`: mũ tròn vành vàng + hoa mây / mũ Tì Lư 5 cánh sen + dải buông |

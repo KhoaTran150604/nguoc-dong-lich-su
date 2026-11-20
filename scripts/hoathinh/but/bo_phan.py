@@ -47,18 +47,6 @@ def tai(b, k, S):
                (x + s * k.r(rx) * 0.25, y + k.r(ry) * 0.35), (x - s * k.r(rx) * 0.1, y + k.r(ry) * 0.5)], 'ct')
 
 
-def co_nguoi(b, k, S):
-    """Cổ (màu da) lấp khe giữa đáy đầu và mép trên thân – cho nhân vật không râu/không khăn che cổ.
-    S.co_nguoi = (dx, dy, rx, ry) theo đầu. Vẽ TRƯỚC áo: thân đè đáy, đầu đè đỉnh."""
-    dx, dy, rx, ry = S['co_nguoi']
-    da = S['mau']['da']
-    h = elip(*k.H(dx, dy), k.r(rx), k.r(ry))
-    h = h & k.than().phong(-k.r(0.16)).dich(0, -k.r(0.30))      # gọn trong bề ngang vai, không lòi ra cạnh cằm
-    b.khoi(h, da, 'trong', dang=False)
-    b.to(h & k.than().dich(0, -k.r(0.10)), toi(da, 0.10))      # bóng cổ áo đổ lên cổ
-    return h
-
-
 def _tai_heo(b, k, S):
     """Tai heo quạt cụp (Bát Giới): gốc giấu sau đầu/mũ, vành trên phồng, chóp rủ xuống, lòng hồng đậm.
     T.trai/phai = dict(goc=(dx, dy), dinh=(dx, dy), rong=R). Tai phải (xa) vẽ trước, nhỏ hơn."""
