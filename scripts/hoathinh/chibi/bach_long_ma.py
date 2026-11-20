@@ -45,13 +45,13 @@ P = dict(
     # TAI tách RÕ 2 bên đỉnh đầu (không chụm như nơ) + trong tai hồng
     earN=((618, 260), (660, 254), (626, 194)),
     earF=((708, 254), (750, 262), (748, 198)),
-    # CỔ ngắn-mập, GỌN (bỏ mảng bờm trắng lồi gây rối)
-    neck=[(594, 440), (652, 458), (632, 520), (552, 528), (528, 496), (560, 452)],
+    # CỔ ngắn-mập, ĐẦY ĐẶN (base rộng liền thân – tránh "thắt cổ chai")
+    neck=[(580, 430), (662, 456), (648, 526), (540, 544), (514, 498), (552, 446)],
     # THÂN hộp bo góc (vững, bớt phệ)
     body_poly=[(262, 506), (560, 492), (570, 712), (252, 726)], body_r=74,
-    # ĐUÔI cong thuôn mềm (centerline gốc→đầu + bề rộng)
-    tail=[(252, 512), (232, 556), (212, 610), (206, 664), (218, 706), (236, 724)],
-    tail_w=(28, 12),
+    # ĐUÔI cong thuôn – vươn ra TRÁI, tách rõ khỏi mông (centerline + bề rộng)
+    tail=[(258, 516), (224, 552), (200, 606), (192, 664), (204, 712), (228, 734)],
+    tail_w=(30, 13),
     # CHÂN 4 trụ bo (x, y_trên, y_dưới, nửa_rộng)
     legs_far=[(306, 688, 814, 25), (476, 688, 814, 25)],
     legs_near=[(350, 698, 826, 29), (520, 698, 826, 29)],
@@ -101,7 +101,9 @@ def draw(P):
             right.append((q[i][0] - nx, q[i][1] - ny))
         return left + right[::-1]
     cv.part([tail_shape(P['tail'], *P['tail_w'])], C['white'], line=vn)
-    cv.stroke(catmull([(242, 548), (222, 606), (216, 664), (228, 708)], 12), ld * 0.6)
+    # 1–2 nét cong bên trong tạo độ phồng / lọn đuôi
+    cv.stroke(catmull([(238, 550), (210, 606), (202, 664), (214, 712)], 12), ld * 0.65)
+    cv.stroke(catmull([(256, 560), (230, 610), (224, 662), (236, 706)], 12), ld * 0.55)
     # 3) CHÂN XA
     for x, yt, yb, hw in P['legs_far']:
         leg(x, yt, yb, hw, far=True)
