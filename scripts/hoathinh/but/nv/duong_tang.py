@@ -26,6 +26,5 @@ NV = dict(
     ),
     ao=dict(dai=(1.22, 1.38), v=(0.22, 0.46), gau=1.90, nep=[],
             ca_sa=dict(cheo=((-1.30, -0.89), (1.30, 1.84)), duoi=1.90, o=0.22, gach=0.45)),
-    co_nguoi=(-0.30, 0.86, 0.62, 0.26),
     vu_khi=dict(kieu='tich_truong', khoen_r=0.13, khoen_lo=0.46, vong_s=0.68),
 )

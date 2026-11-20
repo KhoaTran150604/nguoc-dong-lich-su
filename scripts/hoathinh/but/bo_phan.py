@@ -53,7 +53,8 @@ def co_nguoi(b, k, S):
     dx, dy, rx, ry = S['co_nguoi']
     da = S['mau']['da']
     h = elip(*k.H(dx, dy), k.r(rx), k.r(ry))
-    b.khoi(h, da, 'trong')
+    h = h & k.than().phong(-k.r(0.16)).dich(0, -k.r(0.30))      # gọn trong bề ngang vai, không lòi ra cạnh cằm
+    b.khoi(h, da, 'trong', dang=False)
     b.to(h & k.than().dich(0, -k.r(0.10)), toi(da, 0.10))      # bóng cổ áo đổ lên cổ
     return h
 
@@ -440,6 +441,8 @@ def _bung(b, k, S):
     loi = A.get('bung_loi', False)                             # bụng phệ phình RA NGOÀI thân (rìa bóng dáng)
     if not loi:
         belly = belly & body
+    else:                                                      # chỉ phình ở eo/bụng, không nhú lên trên vai
+        belly = belly & (body + hop(k.bx - 3 * k.R, k.top + k.r(0.45), k.bx + 3 * k.R, k.bot + k.R))
     vat = m.get('vat', sang(m['ao'], 0.10))                    # viền vạt áo sáng hơn thân (đọc được trên nền tối)
     b.to(belly.phong(k.r(A.get('vat_day', 0.07))) & body, vat)
     b.khoi(belly, da, 'trong', dang=loi)
@@ -460,7 +463,7 @@ def khan_co(b, k, S):
     K_ = S['khan']
     c = S['mau'].get('khan', S['mau']['vang'])
     d = k.r(K_.get('day', 0.14))
-    dai = net_thuon(_pts_b(k, K_['duong']), d, d, d, dau_tron=False) & (k.than() + k.dau().phong(k.r(0.04)))
+    dai = net_thuon(_pts_b(k, K_['duong']), d, d, d, dau_tron=False) & k.than()
     b.khoi(dai, c, 'trong', dang=False)
     with b.cat(dai):
         b.bong(dai, toi(c, 0.14), 0, k.r(0.05))

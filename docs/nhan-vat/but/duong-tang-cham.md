@@ -22,3 +22,6 @@ Mài thêm sau khi đạt (không chấm lại):
 - Gấu áo dùng chung màu áo `#E6A91E` (gom sắc vàng).
 
 Chốt → `assets/nhan-vat/but/duong-tang.png` + `duong-tang-bieu-cam.png`.
+
+## Sửa sau duyệt mắt – 20/11/2026
+Người dùng: cổ "bị dư ra". Bỏ `co_nguoi` (cục cổ màu da lòi bên trái cằm) – để trống như Ngộ Không đã duyệt (dải mũ đã buông sau đầu nên không còn nêm đen).

@@ -23,3 +23,6 @@ Mài thêm sau khi đạt (không chấm lại):
 - Miệng mặc định `cuoi_mo` (khoái chí); bỏ đốm sáng trên mõm (luật 4); rốn to + rõ hơn `#D9708A`.
 
 Chốt → `assets/nhan-vat/but/bat-gioi.png` + `bat-gioi-bieu-cam.png`.
+
+## Sửa sau duyệt mắt – 20/11/2026
+Người dùng: cổ "bị dư ra". Bỏ `co_nguoi` (cổ màu da lòi bên trái cằm) – để trống như Ngộ Không đã duyệt; khăn cổ cắt gọn trong thân; bụng lồi chỉ phình từ eo xuống (không nhú lên vai).
