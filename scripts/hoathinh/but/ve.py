@@ -25,11 +25,13 @@ from khung import Khung  # noqa: E402
 
 # (khoá spec cần có, hàm vẽ) – None = luôn vẽ
 LOP = [
+    ('duoi', bp.duoi_xoan),
     (None, bp.tai),
     ('ao', bp.ao_giao_linh),
     ('chuoi_so', bp.chuoi_so),
     ('vu_khi', bp.vu_khi),
     (None, bp.dau_da),
+    ('mat_na', bp.mat_na),
     ('toc', bp.toc_chom),
     ('vong_tran', bp.vong_tran),
     ('rau', bp.rau_quai_non),

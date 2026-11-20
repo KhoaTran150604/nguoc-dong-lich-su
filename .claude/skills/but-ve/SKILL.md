@@ -64,7 +64,12 @@ Toạ độ đầu: (dx, dy) theo R từ TÂM ĐẦU (`k.H`). Toạ độ thân:
 | `_bup(k, goc, r, d)` | tiện ích | búp tròn quanh vành đầu – dùng cho tóc xoăn, râu rậm, lông xù |
 | `ao_giao_linh` | áo cổ chéo | đúng chiều "y" (vạt trái đè phải), đai + nơ, gấu |
 | `chuoi_so` | Sa Tăng | sọ dễ thương, vẽ từ ngoài vào giữa |
+| `mat_na` | khỉ (Ngộ Không) | mặt nạ da 2 thùy + mõm + mũi lông, cắt trong đầu |
+| `duoi_xoan` | khỉ | đuôi xoắn thuôn, toạ độ thân |
+| `_gai` | tiện ích | chỏm lông gai quanh vành đầu (`gai` trong spec) |
 | `ban_tay` | mọi người | đè lên cán |
-| `gay_nhu_y` · `nguyet_san` | Ngộ Không · Sa Tăng | theo trục chuẩn |
+| `gay_nhu_y` · `nguyet_san` | Ngộ Không · Sa Tăng | theo trục chuẩn; `vu_khi.ha` hạ cả vũ khí xuống |
 
-Còn thiếu (thêm khi cần): mũ Tì Lư (Đường Tăng), tai/mõm heo + mũ (Bát Giới), lông khỉ + kim cô + đuôi (Ngộ Không), tích trượng, cào chín răng.
+Bộ phận có thêm tham số: `vong_tran.nut` (nút vòng khuyên kim cô thay hoa văn mây), `mat.mui` (2 lỗ mũi), `ao.vay`+`vay_soc` (váy da hổ + sọc), `ao.gau_rang` (gấu răng cưa), `tai.trong` (cỡ lòng tai), `mau.dau` (màu đầu khác màu da = lông).
+
+Còn thiếu (thêm khi cần): mũ Tì Lư (Đường Tăng), tai/mõm heo + mũ (Bát Giới), tích trượng, cào chín răng.

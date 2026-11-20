@@ -33,4 +33,5 @@ A 20 · B 13 · C 12 · D 11 · E 11 · F 11. Mép râu trơn trông như khăn 
 ## Vòng 4 – 20/11/2026 – 82/100 ✅ ĐẠT
 A 20 · B 14 · C 12 · D 12 · E 11 · F 13. Người xem đoán đúng Sa Tăng (râu đỏ + chuỗi sọ + nguyệt nha sản). Chốt → `assets/nhan-vat/but/sa-tang.png` + `sa-tang-bieu-cam.png`.
 Góp ý còn lại (để vòng chỉnh sau nếu người dùng muốn): chòm râu ngắn/hẹp lại để lộ cổ áo; vòng sọ dời tâm sang phải +0.25R, 7–9 sọ nhỏ hơn màu ngà ấm `#EADFC6`; tóc mai thái dương trái + búp đỉnh to hơn; cán gỗ nâu `#9A7328` (giữ vàng cho khâu); nét gấu áo chạm viền phải.
+**✅ Người dùng DUYỆT bằng mắt 20/11/2026** – Sa Tăng là CHUẨN cho các nhân vật Bộ Bút sau.
 Lưu ý: giám khảo các vòng có lúc trái ý nhau (vòng 3 muốn sọ trắng hơn + cán vàng, vòng 4 muốn ngược lại) → người dùng duyệt mắt là chốt cuối.
