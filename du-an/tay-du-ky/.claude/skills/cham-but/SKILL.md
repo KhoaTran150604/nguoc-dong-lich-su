@@ -14,7 +14,7 @@ python scripts/hoathinh/but/ve.py <ma> --bong-den --bieu-cam-bang
 → `build/thu-hoathinh/but/<ma>.png`, `<ma>-bong.png`, `<ma>-bieu-cam.png`. Có **phiếu nhận diện** `docs/nhan-vat/but/<ma>.md` (xem skill `tu-ve-nhan-vat`).
 
 ## Gọi subagent (Agent, general-purpose) – prompt mẫu
-> Bạn là giám khảo thiết kế nhân vật hoạt hình chibi cho kênh YouTube lịch sử Việt. Đọc phiếu nhận diện `<đường dẫn phiếu>` và luật vẽ trong `.claude/skills/but-ve/SKILL.md` (mục "12 luật vẽ đẹp"). Xem 3 ảnh: `<ma>.png` (toàn thân), `<ma>-bong.png` (bóng dáng tô đen), `<ma>-bieu-cam.png` (6 biểu cảm). Không đọc code. Chấm khắt khe theo thang dưới, trả về:
+> Bạn là giám khảo thiết kế nhân vật hoạt hình chibi cho kênh YouTube lịch sử Việt. Đọc phiếu nhận diện `<đường dẫn phiếu>` và luật vẽ trong `.claude/skills/bo-ve/SKILL.md` (mục "12 luật vẽ đẹp"). Xem 3 ảnh: `<ma>.png` (toàn thân), `<ma>-bong.png` (bóng dáng tô đen), `<ma>-bieu-cam.png` (6 biểu cảm). Không đọc code. Chấm khắt khe theo thang dưới, trả về:
 > 1. Bảng điểm từng mục + lý do 1 câu.
 > 2. TỔNG /100.
 > 3. Tối đa 5 việc CẦN SỬA, xếp theo mức ảnh hưởng, mỗi việc cụ thể theo R hoặc mã màu (vd "râu: mép giữa hạ thấp 0.1R", "áo #5E7B50 hơi xỉn → xanh rêu sáng hơn"). Không khen chung chung.

@@ -5,7 +5,7 @@ description: Làm một nhân vật chibi mới theo FLOW TỰ VẼ (người d�
 
 # Tự vẽ nhân vật (Bộ Bút)
 
-**Nguyên tắc:** Claude tự thiết kế và tự vẽ bằng code (skill [[but-ve]]). Không vector hoá ảnh AI, không bám nét ảnh Gemini. Ảnh người dùng gửi chỉ là tham khảo đặc trưng. Trả lời tiếng Việt, ngắn gọn.
+**Nguyên tắc:** Claude tự thiết kế và tự vẽ bằng code (skill [[bo-ve]]). Không vector hoá ảnh AI, không bám nét ảnh Gemini. Ảnh người dùng gửi chỉ là tham khảo đặc trưng. Trả lời tiếng Việt, ngắn gọn.
 
 ```
 Tên / ảnh tham khảo
@@ -28,7 +28,7 @@ Ngắn, 1 trang. Nếu nhân vật lịch sử/văn học: tra nguồn (Tây Du 
 Nếu người dùng gửi ảnh: rút đặc trưng từ ảnh vào phiếu, ghi "ảnh tham khảo: <đường dẫn>". Không đo nét từ ảnh.
 
 ## 2. Viết spec
-Chép `scripts/hoathinh/but/nv/sa_tang.py` → `nv/<ma>.py`, thay số liệu theo phiếu. Bộ phận chưa có (mũ, đuôi, vũ khí mới…) → thêm vào `bo_phan.py` theo mục "Thêm bộ phận mới" trong [[but-ve]], tuân 12 luật vẽ đẹp. Giữ khung chung; một tay; vũ khí theo trục chuẩn.
+Chép `scripts/hoathinh/but/nv/sa_tang.py` → `nv/<ma>.py`, thay số liệu theo phiếu. Bộ phận chưa có (mũ, đuôi, vũ khí mới…) → thêm vào `bo_phan.py` theo mục "Thêm bộ phận mới" trong [[bo-ve]], tuân 12 luật vẽ đẹp. Giữ khung chung; một tay; vũ khí theo trục chuẩn.
 
 ## 3–4. Render + tự soát
 ```
@@ -46,7 +46,7 @@ Theo [[cham-but]]: subagent mới mỗi vòng, đạt **≥ 80**. Dưới 80: s�
 - Cập nhật mục 6 Trạng thái trong `CLAUDE.md`.
 
 ## Ghi nhớ
-- Mỗi nhân vật chỉ MỘT tay; vũ khí cầm thấp theo chuẩn Ngộ Không (luật 8–9 trong [[but-ve]]).
+- Mỗi nhân vật chỉ MỘT tay; vũ khí cầm thấp theo chuẩn Ngộ Không (luật 8–9 trong [[bo-ve]]).
 - Không gradient/blur/glow. Biểu cảm mặc định hiền, dễ thương.
 - Bộ phận dùng chung sửa ở `bo_phan.py` → render lại MỌI nhân vật đã chốt để kiểm không vỡ.
 - Flow cũ (`nhan-vat-gemini`, `tao-nhan-vat`, bộ `chibi/`) giữ để tham chiếu, không dùng cho nhân vật mới.

@@ -1,5 +1,5 @@
 ---
-name: but-ve
+name: bo-ve
 description: Kỹ thuật vẽ nhân vật chibi bằng BỘ BÚT (scripts/hoathinh/but/, thư viện skia) – 12 luật vẽ đẹp (nét 3 cấp, bóng phẳng, khối cộng/trừ, khung chung, vũ khí thấp, một tay), API lõi, danh mục bộ phận có sẵn và cách thêm bộ phận mới. Dùng mỗi khi viết/sửa spec nhân vật trong scripts/hoathinh/but/nv/ hoặc thêm hàm bộ phận vào bo_phan.py.
 ---
 
