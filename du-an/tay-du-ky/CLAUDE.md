@@ -28,11 +28,13 @@ du-an/tay-du-ky/
 | Bạch Long Mã | `bach_long_ma` | `assets/nhan-vat/but/bach-long-ma.png` | `bach-long-ma-bieu-cam.png` | `but/nv/bach_long_ma.py` | 81 ✅ |
 | Bạch Cốt Tinh | `bach_cot_tinh` | `assets/nhan-vat/but/bach-cot-tinh.png` | `bach-cot-tinh-bieu-cam.png` | `but/nv/bach_cot_tinh.py` | 83 ✅ |
 | Nữ Vương Nữ Nhi Quốc | `nu_vuong` | `assets/nhan-vat/but/nu-vuong.png` | `nu-vuong-bieu-cam.png` | `but/nv/nu_vuong.py` | 81 ✅ |
+| Tiểu yêu (lính quèn) | `tieu_yeu` (+ `_do`, `_lam`) | `assets/nhan-vat/but/tieu-yeu.png` (đỏ: `tieu-yeu-do.png`, lam: `tieu-yeu-lam.png`) | `tieu-yeu-bieu-cam.png` | `but/nv/tieu_yeu*.py` | 83 ⚠️ |
 
 - Ảnh ghép 5 thầy trò (gồm ngựa): `assets/nhan-vat/but/thay-tro.png` (`but/thay_tro.py`).
+- Đám đông lính yêu: `assets/nhan-vat/but/tieu-yeu-dam-dong.png` gồm 3 bản xanh, đỏ, lam. Muốn thêm lính thì chép `nv/tieu_yeu_do.py`, đổi màu, sừng và biểu cảm.
 - Ngựa dùng dáng `ngua` (`KhungNgua` trong `khung.py`, `LOP_NGUA` trong `ve.py`), `head_c=(540, 399)` – cùng R, cùng mặt đất với người.
 - Cần render lại / sửa nhân vật → vào `nhan-vat/`, đọc skill `bo-ve` + `tu-ve-nhan-vat`.
-- ⚠️ Bát Giới + Đường Tăng chưa được duyệt mắt bản Bộ Bút. Bạch Long Mã, Bạch Cốt Tinh, Nữ Vương người dùng đã duyệt (20/11/2026).
+- ⚠️ Bát Giới + Đường Tăng + Tiểu yêu chưa được duyệt mắt bản Bộ Bút. Bạch Long Mã, Bạch Cốt Tinh, Nữ Vương người dùng đã duyệt (20/11/2026).
 - **GĐ2:** các ảnh/spec trên sẽ dời vào `du-an/tay-du-ky/nhan-vat/`; bảng này cập nhật đường dẫn mới khi dời.
 
 ## Công cụ & skill
@@ -58,6 +60,7 @@ du-an/tay-du-ky/
   - **Bát Giới 83/100** — `but/nv/bat_gioi.py`.
   - **Đường Tăng 83/100** — `but/nv/duong_tang.py`.
   - **Bạch Cốt Tinh 83/100** + **Nữ Vương Nữ Nhi Quốc 81/100** (20/11, tự vẽ không ảnh tham khảo vì Gemini hết lượt; người dùng đã duyệt) — `but/nv/bach_cot_tinh.py`, `but/nv/nu_vuong.py`.
+  - **Tiểu yêu (lính quèn) 83/100** + 2 biến thể đỏ/lam cho đám đông (20/11, tự vẽ) — `but/nv/tieu_yeu.py`, `tieu_yeu_do.py`, `tieu_yeu_lam.py`.
   - **Bạch Long Mã 81/100** – người dùng đã duyệt (20/11, dáng `ngua` – thú 4 chân, đầu đè thẳng lên ngực, không cổ) — `but/nv/bach_long_ma.py`.
   - ⚠️ Bát Giới + Đường Tăng bản Bộ Bút **chưa được người dùng duyệt bằng mắt**.
 - Bộ phận dùng chung đã có: khỉ (`_gai`, `mat_na`, `duoi_xoan`, `vong_tran.nut` kim cô, `ao.vay`+`gau_rang`, `vu_khi.ha`); heo (tai/mõm, `mu` tròn/Tì Lư, `day_mu`, `ao.mo`+`bung_loi`); sư (`khan_co`, `_ca_sa`, `cao_chin_rang`, `tich_truong`); ngựa (`KhungNgua` + `chan_*`, `than_ngua`, `yen_ngua`, `khan_ngua`, `bom_*`, `tai_ngua`, `dau_ngua`, `sung_rong`, `cuong_ngua`, `duoi_ngua`).
