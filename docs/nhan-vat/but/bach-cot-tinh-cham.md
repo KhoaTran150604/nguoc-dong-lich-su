@@ -31,3 +31,5 @@ Mài thêm sau khi đạt (không chấm lại):
 - Còn để lại: tóc vẫn ngả tím lilac; tông áo nhạt hơn hẳn nhóm thầy trò.
 
 Chốt → `assets/nhan-vat/but/bach-cot-tinh.png` + `bach-cot-tinh-bieu-cam.png`.
+
+**Người dùng duyệt bằng mắt – 20/11/2026.**

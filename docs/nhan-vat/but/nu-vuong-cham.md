@@ -15,3 +15,5 @@ Mài thêm sau khi đạt (không chấm lại):
 - Miệng rộng 0.26R.
 
 Chốt → `assets/nhan-vat/but/nu-vuong.png` + `nu-vuong-bieu-cam.png`.
+
+**Người dùng duyệt bằng mắt – 20/11/2026.**
