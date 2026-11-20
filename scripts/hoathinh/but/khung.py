@@ -99,3 +99,56 @@ class Khung:
         """Điểm trên trục vũ khí, s tính bằng R đo từ ĐỈNH xuống (s=0 là đỉnh)."""
         top, _, (ux, uy) = self.truc_vu_khi()
         return (top[0] - ux * s * self.R, top[1] - uy * s * self.R)
+
+
+# ═══════════════════════════ DÁNG NGỰA (Bạch Long Mã) ═══════════════════════════
+# Thú 4 chân dùng CÙNG R, cùng nét 3 cấp, cùng mặt đất với người (tâm đầu + 3.13R = đáy thân người),
+# đầu cùng cỡ để đứng cạnh thầy trò. Thân bầu dục NẰM NGANG lùi sang TRÁI sau đầu, 4 chân ngắn mập.
+# LUẬT KHÔNG CỔ áp cho ngựa: đầu đè thẳng lên góc trước-trên của thân (ngực), bờm che chỗ nối –
+# không vẽ khối cổ dài.
+NGUA = dict(
+    dat_y=3.13,                                   # mặt đất (theo R, so với tâm đầu) – như đáy thân người
+    than=[(-2.62, 1.62), (-2.40, 1.08), (-1.85, 0.84), (-1.10, 0.80), (-0.45, 0.66), (0.12, 0.82),
+          (0.36, 1.42), (0.24, 2.00), (-0.40, 2.36), (-1.30, 2.44), (-2.15, 2.34), (-2.62, 1.95)],
+    mom=(0.70, 0.50, 0.70, 0.48),                 # mõm bầu dục (tâm x, y, rx, ry) – liền khối đầu
+    chan_tren=1.90, chan_rong=0.50, mong=0.15,    # chân: mép trên (giấu sau thân), bề ngang, cao móng
+    chan_gan=(-2.26, -0.62), chan_xa=(-1.64, 0.02), xa_nang=0.07,   # x chân gần / xa; chân xa nhấc 0.07R (chiều sâu)
+)
+
+
+class KhungNgua(Khung):
+    """Khung thú 4 chân. Đầu tròn R tại head_c (như người) + mõm; thân theo NGUA['than'] (toạ độ đầu)."""
+
+    def __init__(self, head_c=(540, 399), R=KIEU['R'], K=None):
+        super().__init__(head_c, R, 'chuan')
+        self.N = dict(NGUA)
+        if K:
+            self.N.update(K)
+        self.dat = self.hy + self.N['dat_y'] * R
+        ys = [p[1] for p in self.N['than']]
+        self.top, self.bot = self.hy + min(ys) * R, self.hy + max(ys) * R
+
+    def than(self):
+        return cong([self.H(*p) for p in self.N['than']], 1.0)
+
+    def mom(self):
+        from but import elip
+        x, y, rx, ry = self.N['mom']
+        return elip(*self.H(x, y), self.r(rx), self.r(ry))
+
+    def dau_mom(self):
+        return self.dau() + self.mom()
+
+    def chan(self, x, xa=False):
+        """Một chân (khối bo tròn) + mảng móng dưới; x theo R so với tâm đầu."""
+        from but import hop
+        N = self.N
+        w = self.r(N['chan_rong'])
+        cx = self.hx + x * self.R
+        day = self.dat - (self.r(N['xa_nang']) if xa else 0)
+        tren = self.hy + N['chan_tren'] * self.R
+        wd = w * 0.86                                              # ống chân thon dần xuống móng
+        chan = cong([(cx - w / 2, tren, 0), (cx + w / 2, tren, 0), (cx + wd / 2, day - wd * 0.40),
+                     (cx + wd * 0.30, day), (cx - wd * 0.30, day), (cx - wd / 2, day - wd * 0.40)], 0.9)
+        mong = chan & hop(cx - w, day - self.r(N['mong']), cx + w, day + w)
+        return chan, mong

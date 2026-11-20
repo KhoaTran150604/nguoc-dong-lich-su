@@ -21,7 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 
 import bo_phan as bp  # noqa: E402
 from but import Buc, gop  # noqa: E402
-from khung import Khung  # noqa: E402
+from khung import Khung, KhungNgua  # noqa: E402
 
 # (khoá spec cần có, hàm vẽ) – None = luôn vẽ
 LOP = [
@@ -42,15 +42,39 @@ LOP = [
     ('vu_khi', bp.ban_tay),
 ]
 
+# Ngựa (dang='ngua', KhungNgua) – thú 4 chân, không tay/vũ khí. Đầu đè thẳng lên ngực (luật KHÔNG CỔ).
+LOP_NGUA = [
+    ('duoi_ngua', bp.duoi_ngua),
+    (None, bp.chan_xa),
+    (None, bp.chan_gan),
+    (None, bp.than_ngua),
+    ('yen', bp.yen_ngua),
+    ('khan_ngua', bp.khan_ngua),
+    ('bom', bp.bom_sau),
+    ('tai_ngua', bp.tai_ngua),
+    (None, bp.dau_ngua),
+    ('bom', bp.bom_tren),
+    ('sung', bp.sung_rong),
+    ('mat', bp.mat),
+    ('cuong', bp.cuong_ngua),
+]
+
 
 def nap(ma):
     return copy.deepcopy(importlib.import_module('nv.' + ma.replace('-', '_')).NV)
 
 
-def ve(NV, ra, scale=1.0, head_c=(413, 399), canvas=(800, 1000), nen='#F6F3EC', bong_den=False):
-    k = Khung(head_c, dang=NV.get('dang', 'chuan'), K=NV.get('K'))
+def tao_khung(NV, head_c=None):
+    head_c = head_c or NV.get('head_c', (413, 399))
+    if NV.get('dang') == 'ngua':
+        return KhungNgua(head_c, K=NV.get('K')), LOP_NGUA
+    return Khung(head_c, dang=NV.get('dang', 'chuan'), K=NV.get('K')), LOP
+
+
+def ve(NV, ra, scale=1.0, head_c=None, canvas=(800, 1000), nen='#F6F3EC', bong_den=False):
+    k, lop = tao_khung(NV, head_c)
     b = Buc(*canvas, nen=nen, D=k.D(), scale=scale)
-    for khoa, ham in LOP:
+    for khoa, ham in lop:
         if khoa is None or NV.get(khoa):
             ham(b, k, NV)
     u = b.chot_vien()
@@ -98,7 +122,8 @@ def bang_bieu_cam(NV, ra):
     out = Image.new('RGB', (W * 3, H * 2), (246, 243, 236))
     d = ImageDraw.Draw(out)
     for i, (p, (_, _, ten)) in enumerate(zip(tmp, BIEU_CAM)):
-        im = Image.open(p).convert('RGB').crop((233, 239, 593, 599))
+        hx, hy = NV.get('head_c', (413, 399))
+        im = Image.open(p).convert('RGB').crop((hx - 180, hy - 160, hx + 180, hy + 200))
         out.paste(im, ((i % 3) * W, (i // 3) * H + 40))
         d.text(((i % 3) * W + 16, (i // 3) * H + 6), ten, font=f, fill=(60, 60, 60))
         os.remove(p)

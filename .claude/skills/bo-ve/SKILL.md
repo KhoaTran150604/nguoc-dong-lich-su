@@ -75,6 +75,7 @@ Toạ độ đầu: (dx, dy) theo R từ TÂM ĐẦU (`k.H`). Toạ độ thân:
 | `_bung` (`ao.mo`) | Bát Giới | áo phanh lộ bụng + rốn; `bung_loi` cho bụng phình ra rìa bóng dáng |
 | `khan_co` | Bát Giới | khăn cổ thắt nút + 2 vạt |
 | `_ca_sa` (`ao.ca_sa`) | Đường Tăng | cà sa vắt chéo, lưới gạch so le (tối theo mảng bóng) |
+| **Ngựa** (dáng `ngua`, `KhungNgua`, `LOP_NGUA`): `duoi_ngua` · `chan_xa`/`chan_gan` · `than_ngua` · `yen_ngua` · `khan_ngua` · `bom_sau`/`bom_tren` · `tai_ngua` · `dau_ngua` · `sung_rong` · `cuong_ngua` | Bạch Long Mã | thú 4 chân cùng R + mặt đất với người; đầu + mõm liền khối đè thẳng lên ngực (KHÔNG CỔ); chân vẽ trước thân; tà khăn vào `dang_phu` |
 | `gay_nhu_y` · `nguyet_san` · `cao_chin_rang` · `tich_truong` | Ngộ Không · Sa Tăng · Bát Giới · Đường Tăng | theo trục chuẩn; `vu_khi.ha` hạ cả vũ khí xuống |
 
 Bộ phận có thêm tham số: `vong_tran.nut` (nút vòng khuyên kim cô thay hoa văn mây), `mat.mui` (2 lỗ mũi), `ao.vay`+`vay_soc` (váy da hổ + sọc), `ao.gau_rang` (gấu răng cưa), `tai.trong` (cỡ lòng tai), `mau.dau` (màu đầu khác màu da = lông).

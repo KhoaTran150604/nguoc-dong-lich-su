@@ -839,3 +839,239 @@ def tich_truong(b, k, S):
 
 
 VU_KHI_KIEU = dict(gay=gay_nhu_y, nguyet_san=nguyet_san, cao=cao_chin_rang, tich_truong=tich_truong)
+
+
+# ═══════════════════════════ NGỰA (Bạch Long Mã) ═══════════════════════════
+# Dùng với KhungNgua (khung.py). Lông trắng: bóng phẳng màu `mau.bong` (xám-xanh nhạt) thay vì toi().
+def _bong_long(S):
+    return S['mau'].get('bong') or toi(S['mau']['da'], 0.10)
+
+
+def _xoan(b, k, x, y, r, c, quay=1, w=0.022):
+    """Nét xoắn mây nhỏ (bờm, đuôi, hoạ tiết) tâm (x, y) px, bán kính r px."""
+    sp = [(x + quay * r * (1 - i / 16) * math.cos(i * 0.55 + 2.2), y + r * (1 - i / 16) * math.sin(i * 0.55 + 2.2))
+          for i in range(15)]
+    b.net(sp, k.r(w), c)
+
+
+def _cum_may(k, bup):
+    """Cụm búp mây (bờm, đuôi): bup = [(dx, dy, r), …] theo R so với tâm đầu."""
+    return gop(*[tron(*k.H(dx, dy), k.r(r)) for dx, dy, r in bup])
+
+
+def _ve_cum_may(b, k, S, bup, xoan=(), dang=True):
+    c = S['mau']['bom']
+    h = _cum_may(k, bup)
+    b.khoi(h, c, 'trong', dang=dang)
+    with b.cat(h):
+        b.bong(h, toi(c, 0.10), k.r(0.08), k.r(0.08))
+    for dx, dy, r, q in xoan:
+        x, y = k.H(dx, dy)
+        _xoan(b, k, x, y, k.r(r), toi(c, 0.30), q)
+    return h
+
+
+def duoi_ngua(b, k, S):
+    """Đuôi bông mây (lớp sau cùng, bám mông trái)."""
+    D = S['duoi_ngua']
+    if D.get('bup'):
+        return _ve_cum_may(b, k, S, D['bup'], D.get('xoan', ()))
+    c = S['mau']['bom']
+    w0, wm, w1 = (k.r(v) for v in D.get('day', (0.34, 0.44, 0.10)))
+    h = net_thuon(_pts(k, D['duong']), w0, wm, w1)
+    b.khoi(h, c, 'trong')
+    with b.cat(h):
+        b.bong(h, toi(c, 0.10), k.r(0.09), k.r(0.06))
+    for seg in D.get('soi', []):
+        b.net(_pts(k, seg), 'ct', toi(c, 0.30))
+    if D.get('cuon'):                                            # lọn cuộn mây ở chóp đuôi (cùng "ngôn ngữ mây" với bờm)
+        h = h + _ve_cum_may(b, k, S, D['cuon'], D.get('xoan', ()))
+    return h
+
+
+def chan_ngua(b, k, S, xa):
+    """2 chân phía xa (xa=True, tô màu bóng, nhấc nhẹ) hoặc 2 chân phía gần. Vẽ TRƯỚC thân (thân đè mép trên)."""
+    m = S['mau']
+    c = _bong_long(S) if xa else m['da']
+    cm = m.get('mong_xa' if xa else 'mong', toi(c, 0.12))
+    for x in (k.N['chan_xa'] if xa else k.N['chan_gan']):
+        chan, mong = k.chan(x, xa)
+        b.khoi(chan, c)
+        with b.cat(chan):
+            if not xa:
+                b.bong(chan, _bong_long(S), k.r(0.12), 0)
+            else:
+                b.vet_sang(chan, m['da'], k.r(0.09), 0)
+            b.to(mong, cm)
+            b.ke(mong, b.D['ct'])
+            b.bong(mong, toi(cm, 0.10), k.r(0.08), 0)
+
+
+def chan_xa(b, k, S):
+    chan_ngua(b, k, S, True)
+
+
+def chan_gan(b, k, S):
+    chan_ngua(b, k, S, False)
+
+
+def than_ngua(b, k, S):
+    """Thân bầu dục nằm ngang + bóng phẳng dưới-phải + bóng đầu đổ lên ngực."""
+    c = S['mau']['da']
+    h = k.than()
+    b.khoi(h, c)
+    with b.cat(h):
+        b.bong(h, _bong_long(S), k.r(0.20), k.r(0.18))
+        b.to(elip(*k.H(0.10, 0.92), k.r(0.95), k.r(0.30)), _bong_long(S))       # bóng đầu đổ xuống ngực
+    return h
+
+
+def yen_ngua(b, k, S):
+    """Yên: dây đai vàng vòng bụng (trong thân) + tấm yên xanh đen viền vàng gồ nhẹ trên lưng."""
+    Y, m = S['yen'], S['mau']
+    vang, c = m['vang'], m['yen']
+    body = k.than()
+    dw = k.r(Y.get('dai_rong', 0.17))
+    dai = net_thuon(_pts(k, Y['dai']), dw, dw, dw, dau_tron=False) & body
+    b.khoi(dai, vang, 'trong', dang=False)
+    with b.cat(dai):
+        b.bong(dai, toi(vang, 0.14), k.r(0.05), 0)
+    tam = cong(_pts(k, Y['tam']))
+    b.do_bong(tam, toi(_bong_long(S), 0.04), k.r(0.04), k.r(0.07), trong=body)
+    b.khoi(tam, vang, 'trong')                                    # viền vàng = tấm yên vàng, lõi xanh co vào
+    long_ = tam.phong(-k.r(Y.get('vien', 0.08)))
+    b.to(long_, c)
+    with b.cat(long_):
+        b.bong(long_, toi(c, 0.08), k.r(0.10), k.r(0.10))
+    b.ke(long_, b.D['ct'])
+    return tam
+
+
+def _hoa_may(b, k, x, y, r, c):
+    """Hoa mây vàng nhỏ (như trên mũ Bát Giới) tâm (x, y) px, cỡ r px."""
+    may = (tron(x, y - r * 0.18, r * 0.55) + tron(x - r * 0.55, y + r * 0.10, r * 0.42) +
+           tron(x + r * 0.55, y + r * 0.10, r * 0.42) + hop(x - r * 0.95, y + r * 0.05, x + r * 0.95, y + r * 0.50, r * 0.22))
+    b.khoi(may, c, 'ct', dang=False)
+    for sx_ in (-1, 0, 1):
+        cx_, cy_ = x + sx_ * r * 0.55, y + (0.12 if sx_ else -0.14) * r
+        _xoan(b, k, cx_, cy_, r * (0.22 if sx_ else 0.28), toi(c, 0.35), 1, 0.016)
+
+
+def khan_ngua(b, k, S):
+    """Khăn quàng ngực xanh đen dưới đầu: dải cong + nút thắt + 2 vạt buông + hoa mây vàng (vẽ trước đầu)."""
+    K_, m = S['khan_ngua'], S['mau']
+    c = m['khan']
+    d = k.r(K_.get('day', 0.30))
+    dai = net_thuon(_pts(k, K_['duong']), d * 0.8, d, d * 0.7, dau_tron=True)
+    nx, ny, nr = K_['nut']
+    x, y = k.H(nx, ny)
+    vats = [cong([(x, y)] + [k.H(*q) for q in v]) for v in K_.get('vat', [])]   # tà khăn bầu (không góc nhọn)
+    for v in vats:                                               # tà khăn: viền trong, không ăn viền ngoài dày
+        b.khoi(v, c, 'trong', dang=False)
+        b.dang_phu.append(v)
+        with b.cat(v):
+            b.bong(v, toi(c, 0.08), k.r(0.05), k.r(0.04))
+    if K_.get('vat_nguc'):                                       # vạt tam giác buông trước ngực (sau dải)
+        vn = cong(_pts(k, K_['vat_nguc']))
+        b.khoi(vn, c)
+        with b.cat(vn):
+            b.bong(vn, toi(c, 0.08), k.r(0.08), k.r(0.04))
+    b.khoi(dai, c)
+    with b.cat(dai):
+        b.bong(dai, toi(c, 0.08), 0, k.r(0.07))
+    b.khoi(elip(x, y, k.r(nr * 1.15), k.r(nr)), toi(c, 0.04), 'trong')
+    b.to(elip(x - k.r(nr * 0.38), y - k.r(nr * 0.38), k.r(nr * 0.36), k.r(nr * 0.24), -30), sang(c, 0.22))  # tách nút khỏi màu mực
+    if K_.get('may'):
+        mx, my, mr = K_['may']
+        _hoa_may(b, k, *k.H(mx, my), k.r(mr), m['vang'])
+    return dai
+
+
+def bom_sau(b, k, S):
+    """Bờm phía sau gáy (vẽ TRƯỚC đầu): búp mây buông dọc gáy trái xuống lưng – che chỗ đầu nối thân."""
+    B_ = S['bom']
+    c = S['mau']['bom']
+    for loc in B_.get('loc', []):                                # lọn bờm dài buông qua vai (vẽ sau búp)
+        pts, (w0, wm, w1) = loc
+        h = net_thuon(_pts(k, pts), k.r(w0), k.r(wm), k.r(w1))
+        b.khoi(h, c, 'trong')
+        with b.cat(h):
+            b.bong(h, toi(c, 0.10), k.r(0.07), k.r(0.05))
+    return _ve_cum_may(b, k, S, B_['sau'], B_.get('xoan_sau', ()))
+
+
+def tai_ngua(b, k, S):
+    """Tai ngựa nhọn hình lá (sau đầu): lòng hồng; tai xa nhỏ hơn. tai_ngua = [dict(goc, dinh, rong), …] xa→gần."""
+    m = S['mau']
+    c, long_ = m['da'], m.get('tai_trong', '#F4AFC0')
+    for E in S['tai_ngua']:
+        g, t = k.H(*E['goc']), k.H(*E['dinh'])
+        L = math.hypot(t[0] - g[0], t[1] - g[1])
+        ux, uy = (t[0] - g[0]) / L, (t[1] - g[1]) / L
+        nx, ny = -uy, ux
+        w = k.r(E['rong'])
+
+        def Q(a, s):
+            return (g[0] + ux * L * a + nx * w * s, g[1] + uy * L * a + ny * w * s)
+        h = cong([Q(0, -0.5), Q(0.45, -0.52), Q(1.0, 0.0) + (0,), Q(0.45, 0.52), Q(0, 0.5)])
+        b.khoi(h, c)
+        with b.cat(h):
+            b.to(cong([Q(0.12, -0.26), Q(0.50, -0.26), Q(0.86, 0.0) + (0,), Q(0.50, 0.26), Q(0.12, 0.26)]), long_)
+            b.bong(h, _bong_long(S), k.r(0.07), k.r(0.04))
+
+
+def dau_ngua(b, k, S):
+    """Khối đầu + mõm liền (lông trắng) + bóng trăng khuyết dưới-phải."""
+    c = S['mau']['da']
+    h = k.dau_mom()
+    b.khoi(h, c)
+    with b.cat(h):
+        b.bong(h, _bong_long(S), k.r(0.10), k.r(0.10))
+    mx, my, rx, ry = k.N['mom']
+    tu, den = S.get('mom_vien', (125, 215))                    # nét trong mép trái mõm (ranh mõm – má)
+    b.net([k.H(mx + rx * math.cos(math.radians(a)), my + ry * math.sin(math.radians(a))) for a in range(tu, den + 1, 10)],
+          'trong')
+    return h
+
+
+def bom_tren(b, k, S):
+    """Bờm trước trán (chỏm mây) – đè lên đỉnh đầu, giữa hai tai."""
+    B_ = S['bom']
+    return _ve_cum_may(b, k, S, B_['tren'], B_.get('xoan_tren', ()))
+
+
+def sung_rong(b, k, S):
+    """2 sừng rồng vàng ngắn, mỗi sừng 1 nhánh. sung = [dict(goc, dinh, nhanh, day), …] xa→gần."""
+    c = S['mau']['vang']
+    for E in S['sung']:
+        g, t, n = k.H(*E['goc']), k.H(*E['dinh']), E['nhanh']
+        d = k.r(E.get('day', 0.15))
+        m_ = ((g[0] + t[0]) / 2 + k.r(E.get('cong', 0.04)), (g[1] + t[1]) / 2)
+        than = net_thuon([g, m_, t], d, d * 0.92, d * 0.62)
+        p0 = (g[0] + (t[0] - g[0]) * 0.50, g[1] + (t[1] - g[1]) * 0.50)
+        nh = net_thuon([p0, k.H(*n)], d * 0.75, d * 0.62, d * 0.50)
+        h = than + nh
+        b.khoi(h, c)
+        with b.cat(h):
+            b.bong(h, toi(c, 0.14), k.r(0.05), 0)
+
+
+def cuong_ngua(b, k, S):
+    """Dây cương vàng mảnh: vòng mũi ôm mõm + dây má lên sau tai + khoen tròn; 2 lỗ mũi chấm."""
+    C = S['cuong']
+    c = S['mau']['vang']
+    mx, my, rx, ry = k.N['mom']
+    s = C.get('s', 0.90)
+    d = k.r(C.get('day', 0.075))
+    vong = [k.H(mx + rx * s * math.cos(math.radians(a)), my + ry * s * math.sin(math.radians(a)))
+            for a in range(C.get('tu', 196), C.get('den', 336), 10)]
+    mui = net_thuon(vong, d, d, d, dau_tron=True)
+    ma = net_thuon(_pts(k, C['ma']), d, d, d)
+    for h in (ma, mui):
+        b.khoi(h, c, 'ct', dang=False)
+    x, y = vong[0]
+    b.khoi(tron(x, y, k.r(0.07)), c, 'ct', dang=False)
+    b.to(tron(x, y, k.r(0.028)), toi(c, 0.40))
+    for i, (dx, dy) in enumerate(C.get('lo_mui', [])):
+        f = 1.0 if i == 0 else 0.86
+        b.to(elip(*k.H(dx, dy), k.r(0.032) * f, k.r(0.062) * f, C.get('mui_xoay', 28)), b.muc)
