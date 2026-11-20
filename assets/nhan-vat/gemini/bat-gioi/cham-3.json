@@ -1,0 +1,32 @@
+{
+  "score": 72,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 14,
+    "headwear_hair": 11,
+    "weapon": 11,
+    "appeal": 3
+  },
+  "matches": [
+    "Khuôn mặt heo chuẩn nét vẽ chibi với mắt cười và mũi hồng",
+    "Bảng màu trang phục và phụ kiện sát với mẫu tham chiếu",
+    "Cào chín răng được vẽ đầy đủ chi tiết"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "outfit",
+      "problem": "Vùng bụng hở màu hồng quá hẹp theo chiều ngang.",
+      "how_to_fix": "Mở rộng mảng bụng hồng khoảng 20% chiều ngang cho tròn trịa hơn."
+    },
+    {
+      "priority": 2,
+      "area": "headwear_hair",
+      "problem": "Dáng mũ đen quá tròn so với bản gốc.",
+      "how_to_fix": "Giảm độ cong đỉnh mũ và hạ viền vàng ôm sát trán."
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

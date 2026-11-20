@@ -66,8 +66,9 @@ def _compass(x, y, U):
         o += f'<polygon points="0,{-r*l:.1f} {4*U:.1f},0 0,{4*U:.1f} {-4*U:.1f},0" fill="{BRONZE2 if a == 0 else BRONZE}" transform="rotate({a})"/>'
     return o + f'<text y="{-r-5*U:.1f}" font-family="Playfair Display" font-weight="800" font-size="{11*U:.0f}" fill="{BRONZE2}" text-anchor="middle">B</text></g>'
 
-def bg_svg(W, H, U, tide):
-    """tide 1 = nước lên, 0 = nước rút."""
+def bg_svg(W, H, U, tide, part='all'):
+    """tide 1 = nước lên, 0 = nước rút. part: 'all' | 'dat' (mặt đất, nước) | 'vat' (đảo, đồi, cây) | 'chu' (chữ, khung)
+    – tách lớp để anhsang.py đổ bóng / tô 3 tông cho đồi núi, cây."""
     rng = random.Random(11)
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">', f'<rect width="{W}" height="{H}" fill="{LAND}"/>']
     # đồng bằng phía nam: ruộng
@@ -90,6 +91,7 @@ def bg_svg(W, H, U, tide):
     for k in range(3):   # vệt sóng ven bờ
         o.append(f'<path d="{SEA}" fill="none" stroke="#C4DCE2" stroke-width="{0.9:.1f}" opacity="{0.55-0.15*k:.2f}" transform="translate({(10+9*k+(0 if tide > 0.5 else 14))*U:.1f} 0) scale({U:.3f})"/>')
     o.append(_waves(U, rng))
+    dat = o; o = []
     # đảo đá ngoài cửa biển
     for x, y, r in ISLANDS:
         o.append(f'<ellipse cx="{x*U:.1f}" cy="{y*U:.1f}" rx="{r*1.4*U:.1f}" ry="{r*0.8*U:.1f}" fill="{MUD}" opacity="{0.0 if tide > 0.5 else 0.8}"/>')
@@ -104,6 +106,7 @@ def bg_svg(W, H, U, tide):
         x, y = rng.uniform(10, 640), rng.uniform(150, 530)
         ry = 132 + (x / 900) * 200
         if abs(y - ry) > 40: o.append(_tree(x, y, rng.uniform(0.7, 1.1), U))
+    vat = o; o = []
     # chữ
     t = lambda x, y, s, txt, c=INK, rot=0, ls=2: (f'<text x="{x*U:.0f}" y="{y*U:.0f}" font-family="Playfair Display" font-weight="800" font-size="{s*U:.0f}" fill="{c}" text-anchor="middle" letter-spacing="{ls}" transform="rotate({rot} {x*U:.0f} {y*U:.0f})">{txt}</text>')
     o.append(t(250, 172, 17, 'Sông Bạch Đằng', '#1E3A44', 13, 1))
@@ -115,17 +118,28 @@ def bg_svg(W, H, U, tide):
     o.append(f'<rect x="{11*U:.1f}" y="{11*U:.1f}" width="{W-22*U:.1f}" height="{H-22*U:.1f}" fill="none" stroke="{BRONZE}" stroke-width="{1*U:.1f}"/>')
     o.append(f'<rect x="{20*U:.1f}" y="{H-44*U:.1f}" width="{238*U:.1f}" height="{26*U:.1f}" fill="{CREAM}" stroke="{INK}" stroke-width="{1.2*U:.1f}" opacity="0.92"/>')
     o.append(f'<text x="{139*U:.1f}" y="{H-26*U:.1f}" font-family="Be Vietnam Pro SemiBold" font-size="{11.5*U:.0f}" fill="{INK}" text-anchor="middle">Cửa sông Bạch Đằng · bản đồ minh họa</text>')
-    o.append('</svg>')
-    return ''.join(o)
+    chu = o
+    head = dat[:2]
+    pick = {'all': dat + vat + chu, 'dat': dat, 'vat': head[:1] + vat, 'chu': head[:1] + chu}[part]
+    return ''.join(pick) + '</svg>'
 
 _cache = {}
-def background(W, H, U, tide):
-    """Ảnh nền RGBA đã trộn theo mức triều (0–1), có vân giấy."""
-    if (W, 'hi') not in _cache:
+def _png(svg): return Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg.encode()))).convert('RGBA')
+
+def background(W, H, U, tide, lit=None):
+    """Ảnh nền RGBA đã trộn theo mức triều (0–1), có vân giấy. lit = tên bộ ánh sáng (anhsang.py) -> đồi, cây, đảo có bóng + 3 tông."""
+    if (W, 'hi', lit) not in _cache:
         tex = _texture(W, H, 5)
         for k, tv in (('hi', 1), ('lo', 0)):
-            im = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=bg_svg(W, H, U, tv).encode()))).convert('RGB')
+            if lit:
+                import anhsang as AS
+                im = _png(bg_svg(W, H, U, tv, 'dat'))
+                im = AS.noi_khoi(im, _png(bg_svg(W, H, U, tv, 'vat')), lit, U, manh=0.8)
+                im.alpha_composite(_png(bg_svg(W, H, U, tv, 'chu')))
+                im = im.convert('RGB')
+            else:
+                im = _png(bg_svg(W, H, U, tv)).convert('RGB')
             arr = np.asarray(im).astype(float) * (0.86 + 0.28 * np.asarray(tex)[..., None] / 255)
-            _cache[(W, k)] = Image.fromarray(np.clip(arr, 0, 255).astype('uint8')).convert('RGBA')
+            _cache[(W, k, lit)] = Image.fromarray(np.clip(arr, 0, 255).astype('uint8')).convert('RGBA')
     tide = max(0.0, min(1.0, tide))
-    return Image.blend(_cache[(W, 'lo')], _cache[(W, 'hi')], tide)
+    return Image.blend(_cache[(W, 'lo', lit)], _cache[(W, 'hi', lit)], tide)

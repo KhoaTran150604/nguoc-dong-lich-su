@@ -1,0 +1,38 @@
+{
+  "score": 75,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 15,
+    "headwear_hair": 11,
+    "weapon": 12,
+    "appeal": 4
+  },
+  "matches": [
+    "Đúng tạo hình Trư Bát Giới với bụng hồng và rốn tròn",
+    "Màu sắc trang phục đen vàng và các chi tiết chính xác",
+    "Vũ khí cây cào 9 răng có đai vàng đúng vị trí"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "face_expression",
+      "problem": "Mắt nhắm dạng chữ V gập góc thay vì nét cong mềm mại",
+      "how_to_fix": "Thay đổi nét vẽ mắt thành hình cung tròn mềm mại hơn."
+    },
+    {
+      "priority": 2,
+      "area": "headwear_hair",
+      "problem": "Viền mũ vàng quá dày và hình đám mây bị biến dạng nhẹ",
+      "how_to_fix": "Giảm độ dày viền vàng xuống 0.015 head width, chỉnh nét mây cong tròn hơn."
+    },
+    {
+      "priority": 3,
+      "area": "weapon",
+      "problem": "Đầu cào hơi to so với cán và chi tiết răng cào hơi dày",
+      "how_to_fix": "Thu nhỏ chiều rộng đầu cào khoảng 15% cho cân đối."
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

@@ -1,0 +1,101 @@
+{
+  "proportions": {
+    "head_width_vs_body_width": 1.25,
+    "head_height_vs_total_height": 0.45,
+    "head_shape": "large rounded circle",
+    "body_shape": "compact vertical capsule",
+    "view_angle": "three-quarters right",
+    "notes": "Chibi monk proportions with oversized head and minimal limbs."
+  },
+  "outline": {
+    "color_hex": "#1F1815",
+    "thickness_vs_head_width": 0.04
+  },
+  "background_hex": "#F9F6EC",
+  "face": {
+    "skin_hex": "#FFEBD6",
+    "skin_shadow_hex": null,
+    "eyes": "vertical oval outlines with black inner rings",
+    "brows": "simple black arched lines",
+    "cheeks_hex": null,
+    "snout_or_nose": "none",
+    "snout_hex": null,
+    "nostrils_hex": null,
+    "mouth": "small upward curved line",
+    "ears": "large rounded left ear with inner curve line"
+  },
+  "hair_and_headwear": {
+    "description": "Five-Buddha crown in red with gold lotus-petal peaks and hanging side ribbons.",
+    "colors_hex": [
+      "#D92B28",
+      "#ECAE23",
+      "#F6E489"
+    ],
+    "emblem": "five-pointed lotus crown pattern",
+    "band": "red base band with black border"
+  },
+  "outfit": [
+    {
+      "part": "inner robe",
+      "description": "yellow shoulder wrap with cream collar trim",
+      "color_hex": "#ECC028"
+    },
+    {
+      "part": "kasaya robe",
+      "description": "red draped robe with yellow rectangular grid pattern",
+      "color_hex": "#BA2A26"
+    },
+    {
+      "part": "sash belt",
+      "description": "cream tied belt with front knot",
+      "color_hex": "#F6E9A9"
+    }
+  ],
+  "weapon": {
+    "name": "Khakkhara (Monk Staff)",
+    "parts": [
+      {
+        "part": "staff shaft",
+        "shape": "long vertical cylinder",
+        "color_hex": "#C89926"
+      },
+      {
+        "part": "staff top loops",
+        "shape": "ornate looped metal headpiece with small side rings",
+        "color_hex": "#ECAE23"
+      }
+    ],
+    "length_vs_character_height": 1.05,
+    "angle_deg_from_vertical": -5.0,
+    "position": "held to the right side of the character",
+    "held_how": "gripped near hip level by small round hand"
+  },
+  "hands_and_limbs": "Right arm tucked behind back; left arm represented by a simple round peach hand gripping the staff.",
+  "distinctive_details": [
+    "Five-Buddha crown (Vairochana hat)",
+    "Red and gold grid-patterned kasaya robe",
+    "Golden khakkhara monk staff"
+  ],
+  "positions_percent": {
+    "head_center": [
+      52,
+      38
+    ],
+    "body_center": [
+      43,
+      75
+    ],
+    "hand": [
+      77,
+      72
+    ],
+    "weapon_top": [
+      90,
+      6
+    ],
+    "weapon_bottom": [
+      75,
+      97
+    ]
+  }
+}

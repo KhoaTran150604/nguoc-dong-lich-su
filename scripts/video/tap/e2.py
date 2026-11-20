@@ -299,6 +299,16 @@ def s55(tl, d):          # banner kênh + "Lùi tiếp", rồi màn hình đăng
             f'<text x="{W/2:.0f}" y="{H*0.80+39*U:.0f}" font-family="Be Vietnam Pro SemiBold" font-size="{28*U:.0f}" fill="{DONG2}" text-anchor="middle">LÙI TIẾP: NĂM 544</text></g>'
     return bg_den() + subscribe_card(tl - (d - end), AVATAR)
 
+# Bản vẽ dọc cho Short (canvas 540×960, U=1; fy = mép trên khung video) – cảnh 16:9 bị xén khi cắt dọc
+def _s47_doc(tl, d, fy):
+    w, h, gap = 380, 248, 18; x0 = (540 - w) / 2; y = fy + 22
+    o = [f'<rect x="0" y="{fy:.0f}" width="540" height="{960-fy:.0f}" fill="{MUC}"/>']
+    for i, (lv, bx) in enumerate([(1, 0.5), (1, 0.75), (0, 0.5)]):
+        a = seg(tl, 0.3 + i * d * 0.22, 0.8 + i * d * 0.22)
+        o.append(f'<g opacity="{a:.2f}">' + saban(lv, boats=[(bx, DICH, 12 if lv == 0 else 0)], x0=x0, y0=y + i * (h + gap), w=w, h=h) + '</g>')
+    return ''.join(o)
+SHORT_DOC = {'s47': _s47_doc}
+
 SCENES = {k: v for k, v in globals().items() if k[:1] == 's' and k[1:].isdigit() and len(k) == 3}
 
 # ---------------- Âm thanh (âm tổng hợp; file thật đặt ở assets/sfx/<tên>.wav sẽ được ưu tiên) ----------------

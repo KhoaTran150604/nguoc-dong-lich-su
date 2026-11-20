@@ -21,6 +21,10 @@ MUC, DONG, DONG2, KEM, DO = '#14110F', '#C9A24A', '#F3D27A', '#F2E6CC', '#B3261E
 AVATAR = os.path.join(ROOT, 'assets', 'brand', 'song-tu', 'AVATAR-YouTube-800x800.png')
 FG = dict(cw=700, y=254)           # khung 'gần full' (duyệt 17/11): cắt 700px của video 16:9 → 1080×1666, đặt ở y=254; khung tự lia theo cờ
 
+BAND_DY = 40        # hạ chữ + khung nền (khung video dời xuống theo: FG['y'] = 254 + BAND_DY); 'BẠCH ĐẰNG 938 · PHẦN n' xuống (tránh thanh trên của YouTube Shorts, người dùng góp ý 17/11)
+
+FG['y'] = 254 + BAND_DY
+
 SHORTS = {}          # cấu hình Short đặt trong tap/<mã>.py: SHORTS = {n: {...}}
 
 def sh(cmd): subprocess.run(cmd, check=True)
@@ -38,9 +42,9 @@ def title_band(c):
     """Nhãn trên cùng (dải 254px phía trên khung video): tên trận + PHẦN n."""
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">',
          f'<rect x="0" y="0" width="{W}" height="{FG["y"]}" fill="{MUC}" opacity="0.55"/>',
-         _lines_text(c['nhan'], 84, DONG2, 140, sw=11),
-         f'<rect x="{W/2-105}" y="166" width="210" height="58" rx="29" fill="{DO}" stroke="{DONG2}" stroke-width="4"/>',
-         f'<text x="{W/2}" y="207" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="#FFFFFF" text-anchor="middle">{c["phan"]}</text>']
+         _lines_text(c['nhan'], 84, DONG2, 140 + BAND_DY, sw=11),
+         f'<rect x="{W/2-105}" y="{166 + BAND_DY}" width="210" height="58" rx="29" fill="{DO}" stroke="{DONG2}" stroke-width="4"/>',
+         f'<text x="{W/2}" y="{207 + BAND_DY}" font-family="Be Vietnam Pro SemiBold" font-size="34" fill="#FFFFFF" text-anchor="middle">{c["phan"]}</text>']
     return ''.join(o) + '</svg>'
 
 def ass_subs(lines, path):
@@ -202,6 +206,75 @@ def progress(done, total, t0, label, path=os.path.join(ROOT, 'build', 'short', '
     line = f'Short {"█" * int(f * 20)}{"░" * (20 - int(f * 20))} {f*100:3.0f}%  ({done}/{total} bước)  đã {el/60:.1f} phút · còn ~{eta/60:.1f} phút  [{label}]'
     print(line, flush=True); os.makedirs(os.path.dirname(path), exist_ok=True); open(path, 'w').write(line + '\n')
 
+# ---------------- Lớp "vẽ lại cho khung dọc" (17/11/2026) ----------------
+# Khung trích dẫn (quote) và cảnh nhiều sa bàn được vẽ cho màn ngang 16:9 → khi cắt dọc 700px bị xén chữ.
+# Ở những cảnh đó vẽ lại bản dọc (canvas 540×960, U=1, phóng ×2) rồi phủ lên đoạn cắt đúng thời điểm.
+# Cảnh nào cần vẽ dọc riêng thì khai báo trong tap/<mã>.py: SHORT_DOC = {'s47': fn(tl, d, fy) -> svg 540×960}.
+def quote_doc(text, nguon, a=1.0, ma=None, side=None, ten=None):
+    fy = FG['y'] / 2; fh = round(1080 * 1080 / FG['cw'] / 2) * 2 / 2      # khung video trong canvas 540×960
+    k = fh / 540                                                         # tỉ lệ khung 16:9 (960×540) → canvas dọc
+    old_h = (len(D._wrap(text, 40)) * 34 + 110) * k; cy = fy + 270 * k   # khung cũ (đã bị xén) cần che kín
+    lines = D._wrap(text, 31); lh = 31; pad_top = 118 if ma else 50
+    h = max(len(lines) * lh + pad_top + 62, old_h + 24); y0 = cy - h / 2; x0, w = 18, 504
+    o = [f'<g opacity="{a:.2f}">',
+         f'<rect x="0" y="{cy-old_h/2-14:.0f}" width="540" height="{old_h+28:.0f}" fill="{MUC}" opacity="0.96"/>',
+         f'<rect x="{x0}" y="{y0:.0f}" width="{w}" height="{h:.0f}" rx="10" fill="{MUC}" opacity="0.97" stroke="{DONG}" stroke-width="2.5"/>']
+    if ma: o.append(D.flag(ma, side or D.TA, 270, y0 + 104, 0.42, ten=ten))
+    ty = y0 + pad_top
+    o.append(f'<text x="{x0+14}" y="{ty+24:.0f}" font-family="Playfair Display" font-weight="800" font-size="56" fill="{DONG}">“</text>')
+    for i, ln in enumerate(lines):
+        o.append(f'<text x="{x0+46}" y="{ty+22+i*lh:.0f}" font-family="Be Vietnam Pro" font-size="20" fill="{KEM}">{ln}</text>')
+    o.append(f'<text x="{x0+w-16}" y="{y0+h-20:.0f}" font-family="Be Vietnam Pro" font-size="14" fill="{DONG}" text-anchor="end">— {nguon}</text>')
+    return ''.join(o) + '</g>'
+
+def doc_layers(tap, plan, t0, t1, od, fps=30):
+    """Tìm cảnh có quote / có trong SHORT_DOC trong đoạn [t0, t1), dựng lớp phủ dọc (mov có alpha). Trả [(file, bắt đầu)]."""
+    import importlib
+    sys.modules['dung'] = D; EP = importlib.import_module('tap.' + tap); D.EP = EP
+    docs = getattr(EP, 'SHORT_DOC', {}); out = []; cap = []; orig = EP.quote
+    def rec(*a, **kw): cap.append((a, kw)); return ''
+    EP.quote = rec
+    try:
+        for code, a, b in plan:
+            if b <= t0 or a >= t1: continue
+            d = b - a; lo, hi = max(a, t0), min(b, t1)
+            cap.clear(); D.STATE.clear(); EP.SCENES[code](d * 0.95, d)
+            if code not in docs and not cap: continue
+            frames = []; t = lo
+            while t < hi:
+                tl = t - a
+                if code in docs: body = docs[code](tl, d, FG['y'] / 2)
+                else:
+                    cap.clear(); D.STATE.clear(); EP.SCENES[code](tl, d)
+                    body = ''.join(quote_doc(*ca, **ck) for ca, ck in cap)
+                frames.append(body); t += 1 / fps
+            mov = os.path.join(od, f'doc-{code}.mov')
+            p = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', f'{W}x{H}', '-r', str(fps), '-i', '-',
+                                  '-c:v', 'qtrle', '-pix_fmt', 'argb', mov], stdin=subprocess.PIPE)
+            cache = {}
+            for body in frames:
+                if body not in cache:
+                    svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}"><g transform="scale(2)">{body}</g></svg>'
+                    cache = {body: svg_png(svg).tobytes()}
+                p.stdin.write(cache[body])
+            p.stdin.close(); p.wait()
+            out.append((mov, lo - t0)); print(f'  vẽ dọc lại cảnh {code} ({lo-t0:.1f}s → {hi-t0:.1f}s)', flush=True)
+    finally:
+        EP.quote = orig
+    return out
+
+def apply_layers(main_mp4, layers):
+    if not layers: return
+    tmp = main_mp4.replace('.mp4', '-goc.mp4'); os.replace(main_mp4, tmp)
+    cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-i', tmp]; fc = []; last = '0:v'
+    for i, (mov, st) in enumerate(layers):
+        cmd += ['-itsoffset', f'{st:.3f}', '-i', mov]
+        fc.append(f'[{last}][{i+1}:v]overlay=0:0:eof_action=pass[v{i}]' if last == '0:v' else f'[{last}][{i+1}:v]overlay=0:0:eof_action=pass[v{i}]')
+        last = f'v{i}'
+    cmd += ['-filter_complex', ';'.join(fc), '-map', f'[{last}]', '-map', '0:a', '-r', str(FPS), '-c:v', 'libx264', '-preset', 'veryfast',
+            '-crf', '18', '-pix_fmt', 'yuv420p', '-c:a', 'copy', main_mp4]
+    sh(cmd)
+
 def main():
     tap, spec = sys.argv[1], sys.argv[2]
     if '-' in spec or ',' in spec:          # nhiều phần: "2-8" hoặc "2,4,5" → giọng rồi dựng, có thanh tiến độ
@@ -229,6 +302,7 @@ def build(tap, n):
     main_mp4 = os.path.join(od, '2-doan-cat.mp4')
     compose(c['video'], t0, t1 - t0, band, main_mp4, track_flags(tap, plan, t0, t1))
     print(f'đoạn cắt {t0:.1f}s → {t1:.1f}s ({t1-t0:.1f}s), khung lia theo cờ, không phụ đề')
+    apply_layers(main_mp4, doc_layers(tap, plan, t0, t1, od))
     # 2) khung đầu/cuối làm nền cho hook và câu dẫn
     def grab(t, path):
         sh(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{t:.3f}', '-i', main_mp4, '-frames:v', '1', path]); return Image.open(path).convert('RGBA')

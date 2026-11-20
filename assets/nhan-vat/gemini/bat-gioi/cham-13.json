@@ -1,0 +1,62 @@
+{
+  "score": 73,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 15,
+    "headwear_hair": 12,
+    "weapon": 11,
+    "appeal": 3
+  },
+  "matches": [
+    "Khuôn mặt có mắt nhắm hình cung, má hồng và mũi heo đúng tông màu",
+    "Trang phục áo choàng đen hở bụng có rốn chấm tròn và thắt lưng vàng",
+    "Mũ đen có viền và biểu tượng mây vàng",
+    "Gậy cào chín răng metallic cầm bên tay trái"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "ears",
+      "problem": "Tai bên phải bị biến dạng và đẩy ra sau cào thay vì xòe ngang",
+      "how_to_fix": "Vẽ tai phải đối xứng với tai trái, đặt lớp đè phía sau cán cào"
+    },
+    {
+      "priority": 2,
+      "area": "weapon",
+      "problem": "Đầu cào hơi to so với tỉ lệ đầu nhân vật",
+      "how_to_fix": "Giảm chiều rộng đầu cào xuống khoảng 15% để cân đối hơn"
+    },
+    {
+      "priority": 1,
+      "area": "face_expression",
+      "problem": "Vành tai hơi tròn và lớn hơn so với reference",
+      "how_to_fix": "Thu hẹp tai chiều ngang khoảng 10% và bo nhọn nhẹ góc trên"
+    },
+    {
+      "priority": 2,
+      "area": "weapon",
+      "problem": "Đầu cào sắt bị nghiêng nhẹ so với cán",
+      "how_to_fix": "Căn chỉnh khớp nối giữa cán và lưỡi cào vuông góc 90 độ"
+    },
+    {
+      "priority": 1,
+      "area": "face",
+      "problem": "Tai bên phải (góc nhìn người xem) bị biến dạng và đặt quá cao đằng sau đầu.",
+      "how_to_fix": "Điều chỉnh tai phải đối xứng hơn với tai trái, hạ thấp xuống khoảng 5% chiều cao đầu."
+    },
+    {
+      "priority": 2,
+      "area": "weapon",
+      "problem": "Đầu cào bị đè lên phần tai và mũ quá nhiều.",
+      "how_to_fix": "Dịch chuyển gậy cào sang bên phải khoảng 5% chiều rộng khung hình để tránh đè lấp tai."
+    }
+  ],
+  "verdict": "FAIL",
+  "cac_lan": [
+    71,
+    73,
+    74
+  ],
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

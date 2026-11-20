@@ -1,0 +1,31 @@
+{
+  "score": 74,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 16,
+    "outfit": 16,
+    "headwear_hair": 11,
+    "weapon": 10,
+    "appeal": 3
+  },
+  "matches": [
+    "Màu sắc tổng thể khớp với mẫu (hồng, đen, vàng gold)",
+    "Có đầy đủ các chi tiết đặc trưng: nón đen mây vàng, khăn quàng, đai lưng và bụng trần có rốn"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào quay ngang hướng lên thay vì nằm ngang hướng về phía nhân vật như bản gốc.",
+      "how_to_fix": "Xoay phần đầu cào ngang 90 độ, các răng cào hướng sang bên trái."
+    },
+    {
+      "priority": 2,
+      "area": "face_expression",
+      "problem": "Tai hai bên hơi vểnh ngang và hình dạng chưa đạt độ rủ mềm mại như mẫu.",
+      "how_to_fix": "Điều chỉnh viền tai rủ xuống hơn, tăng độ cong bo tròn góc tai."
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

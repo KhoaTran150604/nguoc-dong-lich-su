@@ -87,7 +87,7 @@ def _vector_svg(c, w=270, h=300):
     elif hat == 'non':     # nón lính
         o.append('<path d="M24,32 L45,16 L66,32 Z" fill="#7A5A30" stroke="#1E120A" stroke-width="1"/><line x1="45" y1="16" x2="45" y2="12" stroke="#1E120A" stroke-width="1.2"/>')
     if c.get('armor'):     # giáp vai + giáp ngực vảy
-        o.append(f'<path d="M10,100 Q10,78 26,70 Q33,74 34,82 Q22,84 16,100 Z M80,100 Q80,78 64,70 Q57,74 56,82 Q68,84 74,100 Z" fill="{c.get('armor_col', '#7A5A24')}" stroke="#1E120A" stroke-width="0.9"/>')
+        o.append(f'<path d="M10,100 Q10,78 26,70 Q33,74 34,82 Q22,84 16,100 Z M80,100 Q80,78 64,70 Q57,74 56,82 Q68,84 74,100 Z" fill="{c.get("armor_col", "#7A5A24")}" stroke="#1E120A" stroke-width="0.9"/>')
         o.append(''.join(f'<path d="M{x},{y} q3,3 6,0" stroke="#F3D27A" stroke-width="0.6" fill="none"/>' for y in (86, 91, 96) for x in range(34, 56, 6)))
     o.append('</svg>')
     return ''.join(o)
