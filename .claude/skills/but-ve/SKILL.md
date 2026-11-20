@@ -68,8 +68,17 @@ Toạ độ đầu: (dx, dy) theo R từ TÂM ĐẦU (`k.H`). Toạ độ thân:
 | `duoi_xoan` | khỉ | đuôi xoắn thuôn, toạ độ thân |
 | `_gai` | tiện ích | chỏm lông gai quanh vành đầu (`gai` trong spec) |
 | `ban_tay` | mọi người | đè lên cán |
-| `gay_nhu_y` · `nguyet_san` | Ngộ Không · Sa Tăng | theo trục chuẩn; `vu_khi.ha` hạ cả vũ khí xuống |
+| `co_nguoi` | NV không râu/khăn che cổ | cổ màu da lấp khe cằm–vai (`co_nguoi=(dx, dy, rx, ry)`), vẽ trước áo |
+| `_tai_heo` | Bát Giới | `tai.kieu='heo'`: tai quạt cụp, gốc giấu sau đầu, lòng hồng |
+| `mom_heo` | Bát Giới | `mat.mom`: mõm bầu dục + 2 lỗ mũi; `mat.ma_vt` đặt má riêng khi mõm chiếm giữa mặt |
+| `mu` → `mu_tron` · `mu_ti_lu` | Bát Giới · Đường Tăng | `mu.kieu`: mũ tròn vành vàng + hoa mây / mũ Tì Lư 5 cánh sen + dải buông |
+| `_bung` (`ao.mo`) | Bát Giới | áo phanh lộ bụng + rốn; `bung_loi` cho bụng phình ra rìa bóng dáng |
+| `khan_co` | Bát Giới | khăn cổ thắt nút + 2 vạt |
+| `_ca_sa` (`ao.ca_sa`) | Đường Tăng | cà sa vắt chéo, lưới gạch so le (tối theo mảng bóng) |
+| `gay_nhu_y` · `nguyet_san` · `cao_chin_rang` · `tich_truong` | Ngộ Không · Sa Tăng · Bát Giới · Đường Tăng | theo trục chuẩn; `vu_khi.ha` hạ cả vũ khí xuống |
 
 Bộ phận có thêm tham số: `vong_tran.nut` (nút vòng khuyên kim cô thay hoa văn mây), `mat.mui` (2 lỗ mũi), `ao.vay`+`vay_soc` (váy da hổ + sọc), `ao.gau_rang` (gấu răng cưa), `tai.trong` (cỡ lòng tai), `mau.dau` (màu đầu khác màu da = lông).
 
-Còn thiếu (thêm khi cần): mũ Tì Lư (Đường Tăng), tai/mõm heo + mũ (Bát Giới), tích trượng, cào chín răng.
+**Chi tiết mảnh (răng cào, lòng vòng):** viền ngoài 9px nuốt mất chi tiết ≤ 15px thành vạch đen. Cách xử lý:
+- Chi tiết mảnh: vẽ viền 'trong', không góp vào `b.dang` mà thêm vào `b.dang_phu` (chỉ dùng cho ảnh bóng dáng).
+- Vòng rỗng: góp ĐĨA NGOÀI vào `b.dang`, còn lỗ thì thêm vào `b.lo` (ảnh bóng dáng sẽ khoét trắng lỗ này).

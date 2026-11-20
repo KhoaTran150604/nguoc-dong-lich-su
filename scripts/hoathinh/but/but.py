@@ -269,6 +269,8 @@ class Buc:
         else:
             self.c.clear(skia.ColorTRANSPARENT)
         self.dang = []            # khối thuộc bóng dáng ngoài (để chốt viền ngoài)
+        self.lo = []              # lỗ rỗng (lòng vòng trượng…) – khoét trắng trong ảnh bóng dáng
+        self.dang_phu = []        # chi tiết mảnh (răng cào…) chỉ góp vào phép thử bóng dáng, không ăn viền ngoài dày
 
     # ── tô / kẻ ──
     def to(self, h, m, a=255):

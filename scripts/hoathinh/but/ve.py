@@ -20,20 +20,24 @@ sys.path.insert(0, HERE)
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 
 import bo_phan as bp  # noqa: E402
-from but import Buc  # noqa: E402
+from but import Buc, gop  # noqa: E402
 from khung import Khung  # noqa: E402
 
 # (khoá spec cần có, hàm vẽ) – None = luôn vẽ
 LOP = [
     ('duoi', bp.duoi_xoan),
+    ('mu', bp.day_mu),
     (None, bp.tai),
+    ('co_nguoi', bp.co_nguoi),
     ('ao', bp.ao_giao_linh),
     ('chuoi_so', bp.chuoi_so),
+    ('khan', bp.khan_co),
     ('vu_khi', bp.vu_khi),
     (None, bp.dau_da),
     ('mat_na', bp.mat_na),
     ('toc', bp.toc_chom),
     ('vong_tran', bp.vong_tran),
+    ('mu', bp.mu),
     ('rau', bp.rau_quai_non),
     ('mat', bp.mat),
     ('vu_khi', bp.ban_tay),
@@ -54,7 +58,9 @@ def ve(NV, ra, scale=1.0, head_c=(413, 399), canvas=(800, 1000), nen='#F6F3EC', 
     os.makedirs(os.path.dirname(ra), exist_ok=True)
     if bong_den:                       # phép thử BÓNG DÁNG: tô đen cả nhân vật – vẫn phải nhận ra là ai
         s = Buc(*canvas, nen='#FFFFFF', D=k.D(), scale=scale)
-        s.to(u.phong(b.D['ngoai'] / 2), '#000000')
+        s.to((u + gop(*b.dang_phu)).phong(b.D['ngoai'] / 2) if b.dang_phu else u.phong(b.D['ngoai'] / 2), '#000000')
+        for lo in b.lo:
+            s.to(lo.phong(-b.D['trong'] / 2), '#FFFFFF')
         s.luu(ra.replace('.png', '-bong.png'))
     return b.luu(ra)
 
