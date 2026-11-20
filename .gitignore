@@ -15,3 +15,6 @@ assets/nhanvat/_vector/
 
 # Khóa API (không commit)
 .env
+
+# Ảnh tạm của bàn soát khung (publish artifact)
+du-an/tay-du-ky/animation/_soat_tmp/
