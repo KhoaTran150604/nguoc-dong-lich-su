@@ -1,0 +1,105 @@
+{
+  "proportions": {
+    "head_width_vs_body_width": 1.1,
+    "head_height_vs_total_height": 0.48,
+    "head_shape": "wide rounded squircle",
+    "body_shape": "rounded vertical capsule",
+    "view_angle": "front",
+    "notes": "Chibi Zhu Bajie style with oversized head and flat-bottom capsule body."
+  },
+  "outline": {
+    "color_hex": "#292125",
+    "thickness_vs_head_width": 0.018
+  },
+  "background_hex": "#f5f0e6",
+  "face": {
+    "skin_hex": "#ffc0c7",
+    "skin_shadow_hex": "#f19ca9",
+    "eyes": "happy closed arcs",
+    "brows": "short arched lines",
+    "cheeks_hex": "#ff8e9e",
+    "snout_or_nose": "oval pig snout",
+    "snout_hex": "#ff8fa1",
+    "nostrils_hex": "#c9465d",
+    "mouth": "small curved smile",
+    "ears": "large floppy side ears with inner pink shading"
+  },
+  "hair_and_headwear": {
+    "description": "Black cap with gold border and cloud emblem.",
+    "colors_hex": [
+      "#29282c",
+      "#d3a85b"
+    ],
+    "emblem": "gold cloud motif",
+    "band": "gold rim along base"
+  },
+  "outfit": [
+    {
+      "part": "scarf",
+      "description": "Tied gold neck scarf",
+      "color_hex": "#d3a85b"
+    },
+    {
+      "part": "robe",
+      "description": "Black open robe revealing pink belly",
+      "color_hex": "#29282c"
+    },
+    {
+      "part": "belt",
+      "description": "Tied gold waist belt",
+      "color_hex": "#d3a85b"
+    }
+  ],
+  "weapon": {
+    "name": "nine-toothed rake",
+    "parts": [
+      {
+        "part": "rake head",
+        "shape": "horizontal comb with teeth",
+        "color_hex": "#e0e0e0"
+      },
+      {
+        "part": "rings",
+        "shape": "double gold collar",
+        "color_hex": "#d3a85b"
+      },
+      {
+        "part": "shaft",
+        "shape": "straight pole",
+        "color_hex": "#d0d0d0"
+      }
+    ],
+    "length_vs_character_height": 0.95,
+    "angle_deg_from_vertical": 8.0,
+    "position": "held at character's left side",
+    "held_how": "clasped by circular stubby hand"
+  },
+  "hands_and_limbs": "Single stubby pink right hand holding staff; legs hidden inside base.",
+  "distinctive_details": [
+    "Exposed pink belly with dot navel",
+    "Gold cloud symbol on black cap",
+    "Nine-toothed metallic rake staff"
+  ],
+  "positions_percent": {
+    "head_center": [
+      49.5,
+      32.0
+    ],
+    "body_center": [
+      48.0,
+      68.0
+    ],
+    "hand": [
+      65.0,
+      61.2
+    ],
+    "weapon_top": [
+      67.5,
+      36.0
+    ],
+    "weapon_bottom": [
+      63.2,
+      89.0
+    ]
+  }
+}

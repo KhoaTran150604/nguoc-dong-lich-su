@@ -1,0 +1,73 @@
+{
+  "score": 76,
+  "breakdown": {
+    "face_expression": 20,
+    "colors": 17,
+    "outfit": 16,
+    "headwear_hair": 12,
+    "weapon": 12,
+    "appeal": 4
+  },
+  "matches": [
+    "Đúng biểu cảm mắt nhắm hình cung, mũi heo hồng và má hồng",
+    "Đầy đủ trang phục áo choàng đen hở bụng, khăn quàng và thắt lưng vàng",
+    "Mũ đen có huy hiệu mây vàng và bồ cào 9 răng chuẩn chi tiết"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào bị xoay nghiêng quá nhiều.",
+      "how_to_fix": "Xoay đầu cào nằm ngang hơn, giảm góc nghiêng bớt 5-8 độ."
+    },
+    {
+      "priority": 2,
+      "area": "headwear_hair",
+      "problem": "Nét viền đen của mũ quá dày làm chèn vào phần tai.",
+      "how_to_fix": "Giảm độ dày stroke đường viền mũ xuống khoảng 15%."
+    },
+    {
+      "priority": 1,
+      "area": "outfit",
+      "problem": "Nơ thắt ở cổ và thắt lưng hơi thô, chưa có độ mềm mại như bản gốc.",
+      "how_to_fix": "Vẽ lại hình dáng nút thắt nơ ở cổ và bụng bo tròn, mềm hơn."
+    },
+    {
+      "priority": 2,
+      "area": "colors",
+      "problem": "Tông màu vàng của chi tiết trang trí hơi lệch so với tham chiếu.",
+      "how_to_fix": "Đổi màu vàng ở viền mũ, khăn quàng và thắt lưng sang mã #d3a85b."
+    },
+    {
+      "priority": 3,
+      "area": "weapon",
+      "problem": "Đầu cào 9 răng hơi to và cán gậy nghiêng chưa đúng góc.",
+      "how_to_fix": "Thu nhỏ đầu cào khoảng 15%, nghiêng cán gậy 8 độ về bên phải."
+    },
+    {
+      "priority": 1,
+      "area": "outline",
+      "problem": "Nét vẽ viền quanh đầu và trang phục hơi quá dày làm giảm độ mềm mại.",
+      "how_to_fix": "Giảm thickness của stroke viền xuống khoảng 0.018 chiều rộng đầu."
+    },
+    {
+      "priority": 2,
+      "area": "headwear",
+      "problem": "Mũ đen bị hơi dẹt và viền vàng hơi cứng.",
+      "how_to_fix": "Bo tròn đường cong của mũ đen và làm dải viền vàng ôm sát trán hơn."
+    },
+    {
+      "priority": 3,
+      "area": "weapon",
+      "problem": "Phần đầu bồ cào hơi to so với tỉ lệ nhân vật.",
+      "how_to_fix": "Giảm kích thước đầu bồ cào khoảng 15% và căn chỉnh góc nghiêng khoảng 8 độ."
+    }
+  ],
+  "verdict": "PASS",
+  "cac_lan": [
+    74,
+    72,
+    81
+  ],
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

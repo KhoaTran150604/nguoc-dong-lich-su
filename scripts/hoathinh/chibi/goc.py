@@ -50,11 +50,24 @@ MAU_GOI_Y = dict(
 )
 
 
-def tao_P(**rieng):
-    """Tạo bảng P cho một nhân vật: nền gốc + phần riêng (rieng).
+# ── DÁNG NGƯỜI (build) – chuẩn hoá để mọi nhân vật MẬP dùng CHUNG một dáng ───────
+# GIỮ NGUYÊN than_cao & than_lech_x (mọi nhân vật CÙNG chiều cao, cùng khung, khớp
+# đỉnh đầu/vai/đáy thân) – dáng chỉ đổi BỀ NGANG + bo góc. NV mập (Bát Giới, Sa
+# Tăng…) dùng dang='map' để nhất quán, KHÔNG tự chế số riêng từng nhân vật.
+DANG = {
+    'chuan': {},                                                   # như Ngộ Không
+    'map': dict(than_rong_tren=1.46, than_rong_duoi=2.00,          # thân rộng hơn
+                than_bo_tren=0.26, than_bo_duoi=0.54),             # bo góc tròn hơn
+}
+
+
+def tao_P(dang='chuan', **rieng):
+    """Tạo bảng P: nền gốc + DÁNG (DANG) + phần riêng (rieng).
     K và M được HỢP NHẤT (chỉ ghi đè khoá truyền vào); các khoá khác thay trực tiếp."""
     P = dict(copy.deepcopy(KIEU))
     P['K'] = copy.deepcopy(TI_LE)
+    P['K'].update(DANG.get(dang, {}))                              # dáng người; GIỮ than_cao → cùng chiều cao
+    P['dang'] = dang
     P['M'] = copy.deepcopy(MAT_GOC)
     for k, v in rieng.items():
         if k in ('K', 'M') and isinstance(v, dict):

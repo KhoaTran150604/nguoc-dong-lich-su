@@ -1,0 +1,164 @@
+<title>Chọn series Gâu Nghệ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap">
+<style>
+/* Layout: một cột đọc; bảng xếp hạng sống ở trên, thẻ series bên dưới, mỗi thẻ có 2 thanh chấm của người dùng */
+:root{
+  --bg:#F6F1E6; --surface:#FFFCF5; --ink:#1E1A16; --muted:#6B6155; --line:#E3D8C3;
+  --bronze:#9C7A2E; --bronze-soft:#F1E3BC; --red:#B3261E; --good:#3E7A3A;
+  --display:"Playfair Display",Georgia,serif; --body:"Be Vietnam Pro",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14110F; --surface:#1E1A16; --ink:#F2E6CC; --muted:#B3A68E; --line:#3A3229;
+  --bronze:#E3BE62; --bronze-soft:#3A3020; --red:#E2685F; --good:#8CC47F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14110F; --surface:#1E1A16; --ink:#F2E6CC; --muted:#B3A68E; --line:#3A3229;
+  --bronze:#E3BE62; --bronze-soft:#3A3020; --red:#E2685F; --good:#8CC47F; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:920px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1{font-family:var(--display);font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-size:22px;margin:0;text-wrap:balance}
+.lead{color:var(--muted);max-width:65ch;margin:6px 0 0}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--bronze);font-weight:600}
+.rank{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right}
+.bar{display:inline-block;height:8px;border-radius:4px;background:var(--bronze);vertical-align:middle;margin-right:8px}
+.medal{color:var(--red);font-weight:700}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-weight:600;padding:9px 16px;border-radius:8px;border:1px solid var(--bronze);background:var(--bronze);color:var(--bg);cursor:pointer}
+button.ghost{background:transparent;color:var(--bronze)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.note{font-size:13px;color:var(--muted)}
+.cards{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.card header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.total{font-family:var(--display);font-size:28px;color:var(--bronze);font-variant-numeric:tabular-nums}
+.total small{font-family:var(--body);font-size:12px;color:var(--muted)}
+.ex{font-style:italic;color:var(--muted);margin:0}
+.ev{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px;font-size:14px}
+.ev b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.ev span{color:var(--muted)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.cols{grid-template-columns:1fr}}
+.cols>div{min-width:0}
+.k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
+.sc{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:14px;align-items:center}
+.dots{letter-spacing:2px;color:var(--bronze);font-variant-numeric:tabular-nums}
+.dots i{font-style:normal;color:var(--line)}
+.you label{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:14px;align-items:center}
+.you input{grid-column:1/-1;width:100%;accent-color:var(--red)}
+.you output{font-weight:700;color:var(--red);font-variant-numeric:tabular-nums}
+.verdict{font-size:14px;border-left:3px solid var(--bronze);padding:2px 0 2px 12px;margin:0}
+.verdict.warn{border-color:var(--red)}
+.method{font-size:14px;color:var(--muted);max-width:70ch}
+.method li{margin-bottom:4px}
+.toast{font-size:13px;color:var(--good);font-weight:600}
+</style>
+
+<div class="wrap">
+  <div>
+    <div class="eyebrow">Song Tử Kể Sử · tra YouTube 19/11/2026</div>
+    <h1>Chọn series cho Gâu Nghệ</h1>
+    <p class="lead">8 hướng series, mỗi hướng kèm kênh đang làm và số view thật lấy từ kết quả tìm kiếm YouTube. Claude đã chấm sẵn 5 tiêu chí. Bạn kéo 2 thanh của mình (thích làm, tin sẽ có người xem), bảng xếp hạng tự cập nhật.</p>
+  </div>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2>Bảng xếp hạng</h2>
+    <div class="rank"><table id="rank"><thead><tr><th>#</th><th>Series</th><th>Claude</th><th>Bạn</th><th class="num">Tổng /100</th></tr></thead><tbody></tbody></table></div>
+    <div class="tools">
+      <button id="copy">Chép kết quả để gửi Claude</button>
+      <button id="reset" class="ghost">Xóa điểm của tôi</button>
+      <span id="toast" class="toast" aria-live="polite"></span>
+    </div>
+    <p class="note">Tổng = 50% điểm Claude (5 tiêu chí) + 50% điểm của bạn (2 thanh). Điểm bạn chấm chỉ lưu trong trình duyệt này. Bấm nút chép rồi dán vào khung chat.</p>
+  </section>
+
+  <section class="cards" id="cards"></section>
+
+  <section>
+    <h2>Cách đọc số liệu</h2>
+    <ul class="method">
+      <li><b>Nhu cầu:</b> số view của video cùng chủ đề. Đáng chú ý nhất là kênh nhỏ mà có video view lớn, vì đó là dấu hiệu người xem muốn chủ đề chứ không phải muốn kênh.</li>
+      <li><b>Độ trống:</b> đã có kênh nào làm đúng kiểu đó và làm tốt chưa. 5 = chưa ai làm đúng kiểu này.</li>
+      <li><b>Hợp Gâu Nghệ chibi:</b> nhân vật hài có góp phần làm video hay hơn không.</li>
+      <li><b>Tự động hóa:</b> làm lại được bằng quy trình nguồn + kịch bản + bộ dựng hay không, với 1 tiếng/ngày.</li>
+      <li><b>Ra video dài:</b> có kéo được thành video 10–20 phút và chia thành nhiều Short không.</li>
+      <li>Số view lấy từ ô tìm kiếm YouTube ngày 19/11/2026, có thể chênh vài phần trăm. Một vài tên video YouTube tự dịch sang tiếng Anh nên trang này ghi lại bằng tiếng Việt cho dễ đọc. View cao của kênh khác không đảm bảo kênh mình cũng được như vậy.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const CRIT=["Nhu cầu","Độ trống","Hợp Gâu Nghệ chibi","Tự động hóa","Ra video dài"];
+const S=[
+ {id:"tinh",name:"34 tỉnh thành: tên này từ đâu ra?",ex:"“Vì sao Sài Gòn thành TP.HCM, và năm 2025 gộp thêm những đâu?”",
+  ev:[["Sử Việt Dễ Hiểu (11,7K sub)","Vì sao miền Tây gọi là Cửu Long?","634K"],["BLV Hải Thanh Story (640K sub)","Chính thức 34 tỉnh thành mới sau sáp nhập","506K"],["Sử Ký Kiến Thức","Vì sao gọi là Sài Gòn?","191K"],["Sử Việt Dễ Hiểu","Nguồn gốc tên tỉnh thành Việt Nam","78K"],["BLV Hải Thanh Story","Các tỉnh được đặt tên như thế nào?","77K"],["Bản Đồ Lịch Sử (264 sub)","Vì sao còn 34 tỉnh, tên mới lấy từ đâu?","2K / 5 ngày"]],
+  c:[4,5,4,4,4],v:"Có cầu thật (kênh 11K sub ra video 634K). Chưa ai làm thành series hoạt hình mỗi tỉnh một tập. 34 tập có sẵn, tính lan truyền cao vì ai cũng có quê. Lưu ý: phần sau 1975 phải giữ đúng giọng hành chính."},
+ {id:"hai",name:"Chuyện hài, chuyện lạ có thật trong sử",ex:"“5 ông vua có sở thích kỳ quặc nhất sử Việt” (chỉ chuyện có nguồn)",
+  ev:[["Hi Story (36K sub)","8 câu chuyện ít người biết trong lịch sử Việt Nam","995K"],["Hi Story","9 câu chuyện hài có thật trong lịch sử","601K"],["Vui Vẻ","Những cuộc chiến ngớ ngẩn nhất thế giới (P1–P3)","620–870K mỗi phần"],["Hi Story","8 câu chuyện hahaha trong lịch sử Việt Nam","156K"]],
+  c:[4,4,5,4,4],v:"Hợp chibi nhất: chuyện vốn đã buồn cười, Gâu Nghệ chỉ cần cà khịa. Kênh 36K sub ra video gần 1 triệu view nên còn chỗ. Kho kb/ giúp kể chuyện lạ mà vẫn có nguồn, điểm mạnh so với kênh meme."},
+ {id:"toanbo",name:"Toàn bộ X trong N phút",ex:"“Toàn bộ nhà Trần trong 15 phút”, “Tam Quốc trong 20 phút”",
+  ev:[["EZ Sử (631K sub)","Tóm tắt 4000 năm lịch sử Việt Nam","17,3 triệu"],["Văn Vở (490K sub)","4000 năm lịch sử Việt Nam trong 61 phút","5,2 triệu"],["Văn Vở","Toàn bộ Tam Quốc Diễn Nghĩa trong 49 phút","4,5 triệu"],["Vui Vẻ","Toàn bộ lịch sử thế giới trong 8 phút","2,9 triệu"],["Vui Vẻ","Tất cả các cuộc chiến tại Việt Nam trong 19 phút","1,6 triệu"],["Sử Lược (382K sub)","Tóm tắt nhà Lý (1009–1225)","588K"]],
+  c:[5,2,4,4,5],v:"Nhu cầu lớn nhất trong danh sách, đúng kiểu video dài 300–400 năm bạn nói. Nhưng Văn Vở, Vui Vẻ, Sử Lược, EZ Sử đã chiếm chỗ, mà Văn Vở với Vui Vẻ cũng là hoạt hình hài. Muốn vào phải có góc riêng."},
+ {id:"suchep",name:"Sử chép vs sự thật",ex:"“Gia Cát Lượng mượn tên bằng thuyền cỏ? Chính sử không chép vậy”",
+  ev:[["Đêm Sử Việt","Sử Tàu viết gì về vua Quang Trung?","1,26 triệu"],["Spiderum – Hải Stark","Tam Quốc Diễn Nghĩa đã hư cấu lịch sử như thế nào?","377K"],["SAY SỬ","Tóm tắt cuộc đời Quan Vũ – Tam Quốc chính sử","354K"],["Nhận Thức Mới","Nhà Nguyễn viết sử như thế nào?","52K"]],
+  c:[4,3,4,4,5],v:"Đúng sở trường của quy trình nguồn (đối chiếu nhiều bộ sử). Tam Quốc là mỏ lớn vì khán giả Việt thuộc truyện. Nghiên cứu nặng hơn các series khác, đổi lại dễ có bình luận tranh luận."},
+ {id:"giaithich",name:"Gâu Nghệ giải thích mọi thứ",ex:"“Vì sao người Việt mê mua đất?”, “Kinh tế học của một quán cà phê”",
+  ev:[["Mèo Giải Thích (164K sub)","Bạo loạn ở Pháp trong 14 phút","603K"],["Mèo Giải Thích","Đế chế GoPro sụp đổ thế nào?","436K"],["CD Media – Why? (511K sub)","Vì sao Việt Nam cần sáp nhập tỉnh ngay lúc này?","1,4 triệu"],["Học viện Bò và Gấu (774K sub)","Sài Gòn – điều gì biến nơi đây thành trung tâm kinh tế?","423K"]],
+  c:[5,2,4,3,5],v:"Cầu rất lớn. Nhưng Mèo Giải Thích đang làm đúng kiểu “một con vật giải thích mọi thứ”, chó giải thích dễ bị coi là nhái. Đề tài thời sự và kinh tế cũng phải chạy theo tin tức, khó tự động hóa."},
+ {id:"vihanh",name:"Gâu Nghệ vi hành nước ngoài",ex:"“Gâu Nghệ sang Nhật: 5 luật lạ có thật”",
+  ev:[["Ghiền Địa Lý (265K sub)","35 sự thật chấn động về Nhật Bản","380K"],["Nhiều Chuyện","Tại sao Nhật Bản khiến cả thế giới mê mẩn?","369K"],["BLV Hải Thanh Story","Những điều đặc biệt chỉ có ở Nhật Bản","101K"],["Thế Giới Kỳ Lạ","Cuộc sống ở Nhật Bản: quốc gia đầy nghịch lý","47K"]],
+  c:[3,3,5,3,4],v:"Rất hợp nhân vật (có chỗ cho gag “chó lạc đất khách”). Nhu cầu vừa phải, kênh địa lý đã có. Nguồn về phong tục nước ngoài khó kiểm chứng hơn sử Việt, nên tốn công hơn."},
+ {id:"facts",name:"Sự thật thú vị (khoa học, đời sống)",ex:"“5 điều bạn tưởng đúng mà sai”",
+  ev:[["meXINE","Thỏ Bảy Màu: 50 sự thật thú vị","825K"],["meXINE","Oggy và những con gián: 50 sự thật thú vị","758K"],["Hoạt hình khoa học Dr.Binocs (lồng tiếng)","Những sự thật thú vị về hệ Mặt Trời","814K"],["Hỏi Chấm (20K sub)","Top 10 kiến thức, sự thật thú vị","vài chục K"]],
+  c:[3,2,3,5,2],v:"Dễ làm và dễ tự động nhất, nhưng chật chội, khó kéo thành video dài, dễ trôi về khán giả trẻ em (tiền quảng cáo thấp). Hợp làm Short lấp chỗ trống hơn là làm series chính."},
+ {id:"sitcom",name:"Sitcom đời thường, văn phòng",ex:"“Gâu Nghệ đi làm: họp 2 tiếng, kết luận họp tiếp”",
+  ev:[["Thỏ Bảy Màu (2,94 triệu sub)","Thần Bài Miền Tây","37,9 triệu"],["Thỏ Bảy Màu","Thỏ Bảy Màu và người yêu mới của chị Xô","33,5 triệu"],["Ngôi Làng Bất Ổn (102K sub)","Các tập đặc biệt gần đây","26–59K mỗi tập"],["Kênh nhỏ “Drama công sở hoạt hình 2D”","Tập 2","14 view"]],
+  c:[5,1,5,1,3],v:"Trần cao nhất nhưng cực khó: thắng nhờ gag và gu viết của người thật, AI viết dễ nhạt. Kênh nhỏ làm kiểu này gần như không ai xem. Nên để dành, dùng làm đoạn chen trong các series khác."}
+];
+const KEY="chon-series-gau-nghe";
+let U={};try{U=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){U={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(U))}catch(e){}};
+const cAvg=s=>s.c.reduce((a,b)=>a+b,0)/s.c.length;
+const uOf=s=>U[s.id]||{thich:3,hot:3};
+const uAvg=s=>{const u=uOf(s);return (u.thich+u.hot)/2};
+const total=s=>Math.round(((cAvg(s)-1)/4*50)+((uAvg(s)-1)/4*50));
+const dots=n=>"●".repeat(n)+"<i>"+"●".repeat(5-n)+"</i>";
+const esc=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function cards(){
+  document.getElementById("cards").innerHTML=S.map(s=>{const u=uOf(s);return `
+  <article class="card" id="card-${s.id}">
+    <header><h2>${esc(s.name)}</h2><div class="total" id="t-${s.id}">${total(s)} <small>/100</small></div></header>
+    <p class="ex">Ví dụ tập: ${esc(s.ex)}</p>
+    <div><div class="k">Bằng chứng trên YouTube</div>
+      <ul class="ev">${s.ev.map(e=>`<li><b>${esc(e[2])}</b> · ${esc(e[1])} <span>— ${esc(e[0])}</span></li>`).join("")}</ul></div>
+    <div class="cols">
+      <div><div class="k">Claude chấm</div><div class="sc">${CRIT.map((k,i)=>`<span>${k}</span><span class="dots" aria-label="${s.c[i]} trên 5">${dots(s.c[i])}</span>`).join("")}</div></div>
+      <div class="you"><div class="k">Bạn chấm</div>
+        <label for="thich-${s.id}"><span>Mình thích làm</span><output id="o-thich-${s.id}">${u.thich}</output><input type="range" min="1" max="5" step="1" id="thich-${s.id}" value="${u.thich}" data-s="${s.id}" data-k="thich"></label>
+        <label for="hot-${s.id}" style="margin-top:10px"><span>Mình tin sẽ có người xem</span><output id="o-hot-${s.id}">${u.hot}</output><input type="range" min="1" max="5" step="1" id="hot-${s.id}" value="${u.hot}" data-s="${s.id}" data-k="hot"></label>
+      </div>
+    </div>
+    <p class="verdict${s.c[1]<=2?" warn":""}">${esc(s.v)}</p>
+  </article>`}).join("");
+}
+function rank(){
+  const r=[...S].sort((a,b)=>total(b)-total(a));
+  document.querySelector("#rank tbody").innerHTML=r.map((s,i)=>`<tr><td class="${i<2?"medal":""}">${i+1}</td><td>${esc(s.name)}</td><td class="num">${cAvg(s).toFixed(1)}</td><td class="num">${uAvg(s).toFixed(1)}</td><td class="num"><span class="bar" style="width:${total(s)*0.7}px"></span>${total(s)}</td></tr>`).join("");
+  S.forEach(s=>{const el=document.getElementById("t-"+s.id);if(el)el.innerHTML=`${total(s)} <small>/100</small>`});
+}
+document.addEventListener("input",e=>{const t=e.target;if(!t.dataset.s)return;const u=U[t.dataset.s]||{thich:3,hot:3};u[t.dataset.k]=+t.value;U[t.dataset.s]=u;document.getElementById(`o-${t.dataset.k}-${t.dataset.s}`).textContent=t.value;save();rank();});
+const toast=m=>{const t=document.getElementById("toast");t.textContent=m;setTimeout(()=>t.textContent="",2500)};
+document.getElementById("copy").addEventListener("click",()=>{
+  const r=[...S].sort((a,b)=>total(b)-total(a));
+  const txt="Điểm chọn series của mình:\n"+r.map((s,i)=>{const u=uOf(s);return `${i+1}. ${s.name}: tổng ${total(s)} (thích ${u.thich}/5, tin có người xem ${u.hot}/5)`}).join("\n");
+  const fb=()=>{const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();toast("Đã chọn sẵn chữ, bấm Ctrl+C để chép");setTimeout(()=>ta.remove(),8000)};
+  try{navigator.clipboard.writeText(txt).then(()=>toast("Đã chép. Dán vào khung chat nhé"),fb)}catch(e){fb()}
+});
+document.getElementById("reset").addEventListener("click",()=>{U={};save();cards();rank();toast("Đã xóa điểm của bạn")});
+cards();rank();
+</script>

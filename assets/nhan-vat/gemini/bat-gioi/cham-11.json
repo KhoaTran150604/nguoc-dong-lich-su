@@ -1,0 +1,54 @@
+{
+  "score": 74,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 15,
+    "headwear_hair": 11,
+    "weapon": 10,
+    "appeal": 3
+  },
+  "matches": [
+    "Biểu cảm mắt nhắm cười và mũi lợn đúng chuẩn nhân vật",
+    "Trang phục áo hở bụng có rốn và thắt lưng vàng khớp mẫu",
+    "Bảng màu da hồng, áo đen và viền vàng bám sát thiết kế gốc"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Cây cào chín răng đặt quá cao so với đầu nhân vật.",
+      "how_to_fix": "Hạ thấp đầu cào xuống ngang tầm tai (y khoảng 36% canvas) và rút ngắn cán cào lại."
+    },
+    {
+      "priority": 2,
+      "area": "face_expression",
+      "problem": "Hình dáng tai hơi dựng đứng và chưa rủ ngang tự nhiên như mẫu.",
+      "how_to_fix": "Xoay hai tai chúc xuống và bè ngang hơn, tăng độ cong viền trên của tai."
+    },
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào chín răng đặt quá cao so với đầu nhân vật.",
+      "how_to_fix": "Hạ thấp cây cào xuống khoảng 10-12% chiều cao canvas sao cho đầu cào ngang tầm tai nhân vật như bản gốc."
+    },
+    {
+      "priority": 2,
+      "area": "weapon",
+      "problem": "Tỉ lệ răng cào và khung cào hơi dày và thô.",
+      "how_to_fix": "Giảm chiều cao khung cào kim loại (#e0e0e0) và tinh chỉnh các răng cào thanh mảnh hơn."
+    },
+    {
+      "priority": 3,
+      "area": "headwear_hair",
+      "problem": "Vành mũ vàng hơi phẳng, thiếu độ cong ôm sát đầu.",
+      "how_to_fix": "Tăng độ cong lồi lên trên của dải viền vàng (#d3a85b) để ôm theo trán nhân vật tự nhiên hơn."
+    }
+  ],
+  "verdict": "FAIL",
+  "cac_lan": [
+    75,
+    72
+  ],
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

@@ -12,3 +12,6 @@ assets/nhanvat/_vector/
 
 # Rác macOS
 .DS_Store
+
+# Khóa API (không commit)
+.env

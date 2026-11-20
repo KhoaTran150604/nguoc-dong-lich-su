@@ -1,0 +1,37 @@
+{
+  "score": 64,
+  "breakdown": {
+    "face_expression": 16,
+    "colors": 14,
+    "outfit": 14,
+    "headwear_hair": 10,
+    "weapon": 7,
+    "appeal": 3
+  },
+  "matches": [
+    "Thể hiện đúng đặc trưng heo hồng bụng phệ và trang phục đen viền vàng",
+    "Có đầy đủ các chi tiết phụ như khăn quàng cổ, thắt lưng và rốn"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu vũ khí giống chổi cọ thay vì cào sắt 9 răng",
+      "how_to_fix": "Vẽ lại đầu cào hình chữ nhật nằm ngang với các răng chĩa xuống, dùng màu xám kim loại #E0E0E0"
+    },
+    {
+      "priority": 2,
+      "area": "face_expression",
+      "problem": "Tai heo hơi nhỏ và dựng đứng hơn so với bản gốc",
+      "how_to_fix": "Mở rộng tai sang hai bên thêm khoảng 15% chiều rộng đầu và hạ thấp độ vồng"
+    },
+    {
+      "priority": 3,
+      "area": "headwear_hair",
+      "problem": "Họa tiết mây trên mũ bị đơn giản hóa thành hình khối tròn",
+      "how_to_fix": "Vẽ lại họa tiết mây dạng đường cong cuộn đám mây màu vàng #D3A85B"
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

@@ -59,9 +59,9 @@ def main():
 
     for i, (who, text, *rest) in enumerate(LINES):
         best = None
-        for k in range(14):  # thử nhiều lần, giữ bản Whisper nghe đúng nhất
+        for k in range(int(os.environ.get('TRIES', 14))):  # thử nhiều lần, giữ bản Whisper nghe đúng nhất
             np.random.seed(11 + i + 100 * k)
-            a = trim(tts.synthesize(normalize_vi_text(text), voice=VOICE[who], cfg_scale=1.0)
+            a = trim(tts.synthesize(normalize_vi_text(text), voice=VOICE.get(who, who), cfg_scale=1.0)
                      .reshape(-1).astype(np.float32), sr)
             h = heard(a)
             sc = score(h, text)
@@ -69,7 +69,7 @@ def main():
                 best = (sc, a, h)
             if sc >= 0.99:
                 break
-        print('  %.2f  %s' % (best[0], best[2]))
+        print('  [%d/%d] %.2f  %s' % (i + 1, len(LINES), best[0], best[2]), flush=True)
         a = best[1]
         meta.append(dict(who=who, text=text, seg=(rest[0] if rest else ''), start=round(t, 3),
                          end=round(t + a.size / sr, 3), score=round(best[0], 2)))

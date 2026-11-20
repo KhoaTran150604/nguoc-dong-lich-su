@@ -1,0 +1,38 @@
+{
+  "score": 73,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 14,
+    "headwear_hair": 11,
+    "weapon": 11,
+    "appeal": 3
+  },
+  "matches": [
+    "Thể hiện đúng khuôn mặt heo thần thái hỉ hả với mắt cung và nose đặc trưng.",
+    "Bảng màu chuẩn xác với tông hồng tươi, áo đen và điểm nhấn phụ kiện màu vàng gold.",
+    "Vũ khí cào chín răng có đủ cấu trúc đầu cào, vòng đệm gold và cán xám."
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Cây cào đang đặt quá thẳng đứng và hơi cao so với tổng thể.",
+      "how_to_fix": "Xoay góc cán cào nghiêng khoảng 8 độ sang phải và hạ thấp phần đầu cào xuống 5% chiều cao canvas."
+    },
+    {
+      "priority": 2,
+      "area": "outfit",
+      "problem": "Nơ cổ màu vàng hơi nhỏ và phần áo đen mở bụng chưa có độ mượt.",
+      "how_to_fix": "Tăng kích thước nơ thắt cổ thêm 15%, bo tròn phần viền áo đen ôm quanh bụng."
+    },
+    {
+      "priority": 3,
+      "area": "headwear_hair",
+      "problem": "Họa tiết đám mây trên mũ hơi nhỏ và đôi tai chìa ngang quá cứng.",
+      "how_to_fix": "Phóng to họa tiết mây gold thêm 20% và điều chỉnh gốc tai rủ nhẹ xuống dưới."
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

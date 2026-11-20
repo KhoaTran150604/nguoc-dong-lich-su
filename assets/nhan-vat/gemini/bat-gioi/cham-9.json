@@ -1,0 +1,73 @@
+{
+  "score": 70,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 16,
+    "outfit": 14,
+    "headwear_hair": 12,
+    "weapon": 8,
+    "appeal": 3
+  },
+  "matches": [
+    "Đúng tone màu chủ đạo (hồng, đen, vàng kim, xám)",
+    "Đầy đủ các chi tiết đặc trưng: mũ mây, khăn quàng, đai lưng, rốn",
+    "Nét mặt vui vẻ đúng biểu cảm"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào chín răng bị xoay thẳng đứng thay vì nằm ngang như mẫu.",
+      "how_to_fix": "Xoay đầu cào sang góc ngang (nghiêng khoảng 80 độ) và căn chỉnh kích thước bằng 0.25 chiều rộng đầu."
+    },
+    {
+      "priority": 2,
+      "area": "face_expression",
+      "problem": "Tai hai bên hơi nhọn và thiếu vệt bóng hồng bên trong.",
+      "how_to_fix": "Bo tròn mép tai hơn và thêm mảng màu #F19CA9 làm bóng phía trong tai."
+    },
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào dĩa bị quay dọc vuông góc thay vì nằm ngang như ảnh gốc.",
+      "how_to_fix": "Xoay ngang đầu cào dĩa 90 độ, đặt nằm ngang phía trên cán cào."
+    },
+    {
+      "priority": 2,
+      "area": "headwear_hair",
+      "problem": "Mũ đen hơi bị dẹp phần đỉnh.",
+      "how_to_fix": "Tăng độ cong vòm đỉnh mũ lên khoảng 5% chiều rộng đầu."
+    },
+    {
+      "priority": 3,
+      "area": "outfit",
+      "problem": "Áo mở hơi rộng khiến phần bụng chiếm diện tích lớn.",
+      "how_to_fix": "Thu hẹp khoảng mở của áo đen hai bên vào khoảng 3% chiều rộng thân."
+    },
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào đinh bị xoay dọc thay vì nằm ngang vuông góc với cán.",
+      "how_to_fix": "Xoay ngang phần đầu cào 90 độ, các răng cào hướng xuống dưới."
+    },
+    {
+      "priority": 2,
+      "area": "outfit",
+      "problem": "Mảng mở áo ở bụng quá rộng và cong hình bầu dục.",
+      "how_to_fix": "Thu hẹp khoảng hở bụng của áo đen, tạo hai vạt áo dọc thẳng hơn từ cổ xuống đai lưng."
+    },
+    {
+      "priority": 3,
+      "area": "face_expression",
+      "problem": "Đôi tai lợn vểnh tròn chưa đúng dáng tai rũ ngang.",
+      "how_to_fix": "Kéo dài tai ra hai bên theo chiều ngang và làm dẹp góc tai hơn."
+    }
+  ],
+  "verdict": "FAIL",
+  "cac_lan": [
+    73,
+    67,
+    71
+  ],
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

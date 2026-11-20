@@ -1,0 +1,32 @@
+{
+  "score": 76,
+  "breakdown": {
+    "face_expression": 20,
+    "colors": 16,
+    "outfit": 15,
+    "headwear_hair": 12,
+    "weapon": 9,
+    "appeal": 4
+  },
+  "matches": [
+    "Khuôn mặt heo chibi có mắt nhắm cười và mũi hồng đúng chi tiết",
+    "Mũ đen có viền vàng và biểu tượng mây mạ vàng",
+    "Bảng màu da hồng, áo đen và phụ kiện vàng chuẩn theo mẫu"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào bị sai hướng, các răng cào quay xuống dưới thay vì hướng sang bên trái.",
+      "how_to_fix": "Xoay đầu cào nằm ngang phía bên trái đỉnh cán, vẽ 9 răng cào hướng sang ngang dùng màu #E0E0E0."
+    },
+    {
+      "priority": 2,
+      "area": "outfit",
+      "problem": "Khoảng hở bụng màu hồng hơi hẹp và khăn quàng cổ chưa đúng hình dạng.",
+      "how_to_fix": "Mở rộng vạt áo đen ra hai bên khoảng 10% chiều rộng thân để lộ bụng rộng hơn; chỉnh nơ cổ tròn trịa hơn."
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

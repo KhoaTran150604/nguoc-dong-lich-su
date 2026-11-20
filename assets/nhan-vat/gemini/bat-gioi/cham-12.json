@@ -1,0 +1,55 @@
+{
+  "score": 75,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 15,
+    "headwear_hair": 12,
+    "weapon": 11,
+    "appeal": 3
+  },
+  "matches": [
+    "Biểu cảm mắt nhắm cười và lông mày cong chuẩn phong cách",
+    "Trang phục áo hở bụng có rốn và thắt lưng vàng đúng thiết kế",
+    "Họa tiết mây vàng trên mũ đen tái hiện tốt",
+    "Bảng màu bám sát nguyên tác"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào bị đặt quá cao và khoảng cách các răng cào chưa đều so với bản gốc.",
+      "how_to_fix": "Hạ thấp toàn bộ cây cào xuống khoảng 0.15 chiều cao thân để đầu cào nằm ngang tầm tai; vẽ 9 răng cào phân bố đều dạng lược phẳng màu #e0e0e0."
+    },
+    {
+      "priority": 2,
+      "area": "face_expression",
+      "problem": "Lông mày và mắt đặt quá sát nhau tạo cảm giác mí mắt kép, khuôn miệng hơi nhỏ.",
+      "how_to_fix": "Dịch lông mày lên trên khoảng 0.04 head_width, vuốt nét cười miệng chếch nhẹ sang phải rõ hơn."
+    },
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào chín răng đặt quá cao so với thân, vượt quá đỉnh đầu.",
+      "how_to_fix": "Hạ thấp toàn bộ cây cào xuống khoảng 15% chiều cao, để cụm răng cào nằm ngang tầm tai/cổ như ảnh mẫu."
+    },
+    {
+      "priority": 2,
+      "area": "face",
+      "problem": "Mõm lợn hơi tròn và viền ngoài hơi dày so với dáng oval dẹt của mẫu.",
+      "how_to_fix": "Kéo dẹt mõm theo trục ngang thêm khoảng 10%, giảm độ cong đỉnh mõm để tạo hình oval mềm mại hơn."
+    },
+    {
+      "priority": 3,
+      "area": "ears",
+      "problem": "Dáng tai hơi vểnh và thon nhọn ở chóp.",
+      "how_to_fix": "Mở rộng bản tai sang hai bên và bo tròn đầu tai hơn để tạo cảm giác tai to rủ tự nhiên."
+    }
+  ],
+  "verdict": "FAIL",
+  "cac_lan": [
+    76,
+    74
+  ],
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

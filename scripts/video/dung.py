@@ -17,11 +17,15 @@ import hashlib, importlib, io, json, math, os, re, subprocess, sys
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, os.path.join(HERE, '..', 'hieuung')); sys.path.insert(0, HERE)
+import tuongthich                   # máy không có cairo/ffmpeg hệ thống -> dùng resvg-py / imageio-ffmpeg
 import demo as L                    # thư viện hiệu ứng H1–H12 đã duyệt (banner, boat, sword, flame, ...)
 import nhanvat as NV
 import amthanh as AT
 import cairosvg
+import anhsang as AS                # lớp ánh sáng dùng chung (--anhsang[=ngay|chieu|dem])
 from PIL import Image
+_as = next((a for a in sys.argv if a.startswith('--anhsang')), None)
+ANH_SANG = (_as.split('=', 1)[1] if _as and '=' in _as else 'ngay') if _as else None
 
 W, H, FPS, U = L.W, L.H, L.FPS, L.U
 TA, DICH, DONG, DONG2, KEM, MUC, DO = L.TA, L.DICH, L.DONG, L.DONG2, L.KEM, L.MUC, L.DO
@@ -43,7 +47,9 @@ def dim(a):                          # làm tối nền (cho khung trích, chân
 
 def _bg_image():
     b = STATE.get('bg', ('den',))
-    if b[0] == 'tran': return b[1].background(W, H, U, b[2]).copy()
+    if b[0] == 'tran':
+        lit = ANH_SANG or getattr(EP, 'ANH_SANG', None)
+        return (b[1].background(W, H, U, b[2], lit=lit) if lit else b[1].background(W, H, U, b[2])).copy()
     if b[0] == 'vung': return b[1].view(W, H, b[2]).convert('RGBA')
     if b[0] == 'anh':
         if b[1] not in STATE_C: STATE_C[b[1]] = Image.open(b[1]).convert('RGBA').resize((W, H), Image.LANCZOS)
@@ -284,7 +290,10 @@ def frame(code, tl, d):
     STATE.clear()
     svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">{EP.SCENES[code](tl, d)}</svg>'
     ov = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg.encode()))).convert('RGBA')
-    fr = _bg_image(); fr.alpha_composite(ov)
+    fr = _bg_image()
+    as_name = ANH_SANG or getattr(EP, 'ANH_SANG', None)
+    if as_name: fr = AS.ap_dung(fr, ov, as_name, U).convert('RGBA')
+    else: fr.alpha_composite(ov)
     fade = getattr(EP, 'FADE', {}).get(code)
     if fade:
         fa = min(1, tl / fade[0] if fade[0] else 1, (d - tl) / fade[1] if fade[1] else 1)
@@ -329,7 +338,9 @@ def main():
     # Cache theo NỘI DUNG từng cảnh: thư viện dùng chung + phần chung của file tập + hàm của riêng cảnh đó + độ dài cảnh.
     # Không tính giờ bắt đầu → dời/cắt câu không làm render lại cảnh có hình y nguyên; sửa 1 cảnh chỉ render cảnh đó.
     import inspect
+    as_name = ANH_SANG or getattr(EP, 'ANH_SANG', None)
     shared = b''.join(open(f, 'rb').read() for f in (__file__, L.__file__, NV.__file__) + tuple(getattr(EP, 'DEPS', ())))
+    if as_name: shared += open(AS.__file__, 'rb').read() + as_name.encode()
     ep_src = open(EP.__file__, encoding='utf-8').read(); fn_src = {}
     for c, f in EP.SCENES.items():
         try: fn_src[c] = inspect.getsource(f)
@@ -342,8 +353,8 @@ def main():
     jobs = [(c, a, b, os.path.join(cd, f'{c}-{W}p{FPS}-{scene_key(c, b - a)}.mp4')) for c, a, b in plan]
     todo = [j for j in jobs if not os.path.exists(j[3])]
     print(f'{len(jobs)} cảnh · {len(jobs)-len(todo)} dùng lại cache · render {len(todo)} · {W}x{H} {FPS}fps · dài {end/60:.1f} phút', flush=True)
-    from multiprocessing import Pool
-    with Pool(min(4, os.cpu_count())) as pool:
+    import multiprocessing as mp           # 'fork' để tiến trình con giữ EP (Mac mặc định 'spawn')
+    with mp.get_context('fork').Pool(min(4, os.cpu_count())) as pool:
         import time; t0 = time.time(); tot = sum(j[2] - j[1] for j in todo) or 1; done = 0.0; n = 0
         prog = os.path.join(out_dir, 'tien-do.txt')
         for msg in pool.imap_unordered(render_scene, sorted(todo, key=lambda j: -(j[2] - j[1]))):

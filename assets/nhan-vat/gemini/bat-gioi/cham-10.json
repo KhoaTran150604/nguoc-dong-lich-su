@@ -1,0 +1,68 @@
+{
+  "score": 74,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 15,
+    "headwear_hair": 11,
+    "weapon": 11,
+    "appeal": 3
+  },
+  "matches": [
+    "Biểu cảm khuôn mặt mắt nhắm hình cung và mũi heo chuẩn",
+    "Trang phục áo choàng đen hở bụng kèm khăn và đai vàng",
+    "Mũ đen có viền và họa tiết mây vàng",
+    "Vũ khí đinh ba/cào 9 răng đúng phối màu"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "headwear_hair",
+      "problem": "Họa tiết mây vàng trên mũ thiếu đường nét uốn lượn.",
+      "how_to_fix": "Vẽ lại biểu tượng mây màu #d3a85b với 3 viền uốn cong rõ hơn."
+    },
+    {
+      "priority": 2,
+      "area": "weapon",
+      "problem": "Đầu cào quá to và tỷ lệ cán cào hơi đứng.",
+      "how_to_fix": "Thu nhỏ đầu cào xuống 0.25 chiều rộng đầu, nghiêng cán 8 độ."
+    },
+    {
+      "priority": 3,
+      "area": "face_expression",
+      "problem": "Vệt má hồng đậm và lệch vị trí nhẹ.",
+      "how_to_fix": "Đổi màu má về #ff8e9e và giảm bán kính 20%."
+    },
+    {
+      "priority": 1,
+      "area": "Ears",
+      "problem": "Tai thiếu mảng bóng đổ màu hồng đậm ở lòng tai.",
+      "how_to_fix": "Vẽ thêm hình lót lòng tai màu #f19ca9 vào bên trong hai tai."
+    },
+    {
+      "priority": 2,
+      "area": "Weapon",
+      "problem": "Đầu cào hơi rộng và các răng cào hơi thưa.",
+      "how_to_fix": "Thu hẹp chiều rộng đầu cào 10% và căn chỉnh khoảng cách 9 răng đều hơn."
+    },
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu cào hơi to so với đường kính gậy.",
+      "how_to_fix": "Thu nhỏ đầu cào khoảng 15% chiều ngang."
+    },
+    {
+      "priority": 2,
+      "area": "outfit",
+      "problem": "Nút thắt khăn quàng cổ bo góc hơi thô.",
+      "how_to_fix": "Tăng độ bo tròn góc nút thắt màu #d3a85b."
+    }
+  ],
+  "verdict": "FAIL",
+  "cac_lan": [
+    76,
+    74,
+    73
+  ],
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}

@@ -1,0 +1,32 @@
+{
+  "score": 72,
+  "breakdown": {
+    "face_expression": 18,
+    "colors": 15,
+    "outfit": 14,
+    "headwear_hair": 11,
+    "weapon": 10,
+    "appeal": 4
+  },
+  "matches": [
+    "Khuôn mặt lợn hồng với mắt cười và má hồng đúng phong cách",
+    "Mũ đen có viền vàng và họa tiết mây vàng",
+    "Trang phục áo choàng đen hở bụng có rốn và thắt lưng vàng"
+  ],
+  "fixes": [
+    {
+      "priority": 1,
+      "area": "weapon",
+      "problem": "Đầu bừa trông giống bàn chải/chổi thay vì bừa 9 răng hình lược.",
+      "how_to_fix": "Vẽ lại đầu bừa rộng hơn, các răng bừa tách rời rõ ràng như mẫu."
+    },
+    {
+      "priority": 2,
+      "area": "outfit",
+      "problem": "Khoảng hở bụng màu hồng hơi hẹp và cao.",
+      "how_to_fix": "Mở rộng phần vạt áo đen để phần bụng hồng tròn và rộng hơn."
+    }
+  ],
+  "verdict": "FAIL",
+  "anh": "build\\thu-hoathinh\\nhan-vat\\bat-gioi-gemini.png"
+}
