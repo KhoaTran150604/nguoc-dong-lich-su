@@ -23,3 +23,6 @@ Mài thêm sau khi đạt (không chấm lại):
 - Còn để lại: chân vẫn thẳng như cột (chưa làm khuyết khoeo, chưa nghiêng); Hiền và Vui chung kiểu mắt (do hàm `mat` dùng chung).
 
 Chốt → `assets/nhan-vat/but/bach-long-ma.png` + `bach-long-ma-bieu-cam.png`; ghép vào `thay-tro.png` (5 nhân vật).
+
+## Duyệt mắt – 20/11/2026
+Người dùng duyệt bản chốt (81/100).
