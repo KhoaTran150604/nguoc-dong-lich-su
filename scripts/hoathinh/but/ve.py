@@ -25,6 +25,7 @@ from khung import Khung, KhungNgua  # noqa: E402
 
 # (khoá spec cần có, hàm vẽ) – None = luôn vẽ
 LOP = [
+    ('toc_dai', bp.toc_dai),
     ('duoi', bp.duoi_xoan),
     ('mu', bp.day_mu),
     (None, bp.tai),
@@ -35,6 +36,8 @@ LOP = [
     (None, bp.dau_da),
     ('mat_na', bp.mat_na),
     ('toc', bp.toc_chom),
+    ('tram', bp.tram_xuong),
+    ('mien', bp.mien_phuong),
     ('vong_tran', bp.vong_tran),
     ('mu', bp.mu),
     ('rau', bp.rau_quai_non),

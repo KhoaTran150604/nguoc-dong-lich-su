@@ -144,9 +144,12 @@ def toc_chom(b, k, S):
         hair = (k.dau() + _bup(k, T['bup'], T.get('bup_r', 0.18), T.get('bup_d', 0.95))) & vung
     else:
         hair = k.dau().phong(no) & vung
+    for pts, (w0, wm, w1) in T.get('loc', []):                 # lọn tóc ôm mặt buông trước vai (nhân vật nữ)
+        hair = hair + net_thuon(_pts(k, pts), k.r(w0), k.r(wm), k.r(w1))
     b.khoi(hair, c)
     with b.cat(hair):
-        b.bong(hair, toi(c, 0.10), k.r(0.10), k.r(0.12))
+        bx_, by_ = T.get('bong', (0.10, 0.12))
+        b.bong(hair, toi(c, 0.10), k.r(bx_), k.r(by_))
         sx, sy = k.H(-0.35, -0.72)
         vs = elip(sx, sy, k.r(0.42), k.r(0.13), -28)
         b.to(vs - vs.dich(k.r(0.04), k.r(0.07)), sang(c, 0.10))
@@ -259,6 +262,20 @@ def mat(b, k, S):
             b.to(eye, ink)
             b.to(elip(x - rx * 0.28 * f, y - ry * 0.38 * mo, rx * 0.36, ry * 0.30 * mo), '#FFFFFF')
             b.to(tron(x + rx * 0.35 * f, y + ry * 0.42 * mo, rx * 0.15), '#FFFFFF')
+            if M.get('mi_xech') and bc in M['mi_xech']:   # mí trên phẳng, xếch lên ở đuôi ngoài (mắt híp tinh nghịch)
+                ngoai = -1 if i == 0 else 1
+                sau = M['mi_xech'][bc]
+                y_in, y_out = y - ry * mo * (1 - sau * 1.6), y - ry * mo * (1 - sau * 0.6)
+                xa, xb = x - rx * f * 1.4, x + rx * f * 1.4
+                ya, yb = (y_out, y_in) if ngoai < 0 else (y_in, y_out)
+                mi = da_giac([(xa, y - ry * 2), (xb, y - ry * 2), (xb, yb), (xa, ya)])
+                b.to(mi & eye.phong(2), da)
+                b.to(net_thuon([(xa + rx * f * 0.45, ya + (yb - ya) * 0.16), (xb - rx * f * 0.45, ya + (yb - ya) * 0.84)],
+                               k.r(0.03), k.r(0.045), k.r(0.03)) & eye.phong(k.r(0.03)), ink)
+            if M.get('mi'):                                # lông mi cong ở đuôi mắt (nhân vật nữ)
+                ng = -1 if i == 0 else 1
+                b.to(net_thuon([(x + ng * rx * f * 0.70, y - ry * mo * 0.62), (x + ng * rx * f * 1.15, y - ry * mo * 0.80),
+                                (x + ng * rx * f * 1.40, y - ry * mo * 1.10)], k.r(0.035), k.r(0.040), k.r(0.008)), ink)
             if bc == 'buon':                               # mí trên trĩu xuống phía ngoài
                 ngoai = -1 if i == 0 else 1                # đuôi mắt: trái với mắt trái, phải với mắt phải
                 mi = da_giac([(x - rx * 1.4, y - ry * 1.5), (x + rx * 1.4, y - ry * 1.5),
@@ -1075,3 +1092,203 @@ def cuong_ngua(b, k, S):
     for i, (dx, dy) in enumerate(C.get('lo_mui', [])):
         f = 1.0 if i == 0 else 0.86
         b.to(elip(*k.H(dx, dy), k.r(0.032) * f, k.r(0.062) * f, C.get('mui_xoay', 28)), b.muc)
+
+
+# ═══════════════════════════ NHÂN VẬT NỮ (Bạch Cốt Tinh, Nữ Vương…) ═══════════════════════════
+def toc_dai(b, k, S):
+    """Tóc dài buông SAU đầu và thân (lớp đầu tiên): khối tóc = đầu nở + mảng buông theo `duong`
+    (điểm R theo tâm đầu, vòng kín). Thân vẽ sau đè giữa → chỉ lộ hai bên vai/lưng."""
+    T = S['toc_dai']
+    c = S['mau']['toc']
+    h = k.dau().phong(k.r(T.get('no', 0.07))) + cong(_pts(k, T['duong']))
+    b.khoi(h, c)
+    with b.cat(h):
+        b.bong(h, toi(c, 0.10), k.r(0.16), k.r(0.06))
+    for seg in T.get('soi', []):
+        b.net(_pts(k, seg), 'ct', toi(c, 0.22))
+    return h
+
+
+def tram_xuong(b, k, S):
+    """Trâm xương nhỏ cài tóc (Bạch Cốt Tinh) + nơ ruy băng tuỳ chọn. tram = dict(vt, goc, dai, r, no=(dx, dy, cỡ))."""
+    T, m = S['tram'], S['mau']
+    x, y = k.H(*T['vt'])
+    L, r = k.r(T.get('dai', 0.42)), k.r(T.get('r', 0.07))
+    g = math.radians(T.get('goc', -35))
+    ux, uy = math.cos(g), math.sin(g)
+    nx, ny = -uy, ux
+    p0, p1 = (x - ux * L / 2, y - uy * L / 2), (x + ux * L / 2, y + uy * L / 2)
+    xg = m.get('xuong', '#EFE8DA')
+    bone = thanh(p0, p1, r * 0.55)
+    for px, py in (p0, p1):
+        bone = bone + tron(px + nx * r * 0.62, py + ny * r * 0.62, r) + tron(px - nx * r * 0.62, py - ny * r * 0.62, r)
+    if T.get('no'):                                              # nơ ruy băng (sau trâm)
+        bx, by, s = T['no']
+        bx, by = k.H(bx, by)
+        s = k.r(s)
+        cn = m.get('no_toc', m.get('co', '#9C7CC8'))
+        for d in (-1, 1):
+            vong = cong([(bx, by), (bx + d * s * 1.05, by - s * 0.62), (bx + d * s * 1.15, by + s * 0.30)])
+            b.khoi(vong, cn, 'trong')
+            with b.cat(vong):
+                b.bong(vong, toi(cn, 0.10), s * 0.18, s * 0.18)
+        for d in (-1, 1):
+            b.khoi(net_thuon([(bx, by), (bx + d * s * 0.35, by + s * 0.70), (bx + d * s * 0.55, by + s * 1.15)],
+                             s * 0.36, s * 0.40, s * 0.30, dau_tron=False), cn, 'ct', dang=False)
+        b.khoi(tron(bx, by, s * 0.30), toi(cn, 0.06), 'ct')
+    b.khoi(bone, xg, 'trong')
+    with b.cat(bone):
+        b.bong(bone, toi(xg, 0.10), r * 0.30, r * 0.30)
+
+
+def _so_nho(b, k, cx, cy, r, c):
+    """Sọ nhỏ dễ thương (tròn + hàm bo) – mắt chấm, mũi tam giác, 2 vạch răng."""
+    so = tron(cx, cy - r * 0.20, r * 0.92) + hop(cx - r * 0.56, cy + r * 0.36, cx + r * 0.56, cy + r * 1.08, r * 0.28)
+    b.khoi(so, c, 'trong')
+    with b.cat(so):
+        b.bong(so, toi(c, 0.12), r * 0.25, r * 0.22)
+    for s in (-1, 1):
+        b.to(elip(cx + s * r * 0.38, cy + r * 0.02, r * 0.24, r * 0.28), b.muc)
+        b.to(tron(cx + s * r * 0.38 - r * 0.07, cy - r * 0.06, r * 0.07), '#FFFFFF')
+    b.to(da_giac([(cx, cy + r * 0.30), (cx - r * 0.10, cy + r * 0.48), (cx + r * 0.10, cy + r * 0.48)]), b.muc)
+    for s in (-0.22, 0.22):
+        b.net([(cx + s * r, cy + r * 0.62), (cx + s * r, cy + r * 0.86)], r * 0.10, thuon=False)
+    return so
+
+
+def gay_xuong(b, k, S):
+    """Gậy xương (Bạch Cốt Tinh): cán xương trắng ngà, đốt khớp 2 núm ở chuôi, khâu ruy băng tím,
+    sọ nhỏ dễ thương trên đỉnh. Theo trục chuẩn – đỉnh sọ dưới ĐỈNH chuẩn."""
+    V, m = S['vu_khi'], S['mau']
+    P0, L = _khung_truc(k)
+    h0 = V.get('ha', 0.04)
+
+    def P(s, w=0.0):
+        return P0(s + h0, w)
+    L = L - h0
+    xg = m.get('xuong', '#EFE8DA')
+    rs = V.get('so_r', 0.24)
+    can = thanh(P(rs * 1.6), P(L - 0.12), k.r(V.get('day', 0.07)), bo=True)
+    b.khoi(can, xg)
+    with b.cat(can):
+        b.bong(can, toi(xg, 0.10), k.r(0.05), 0)
+    for w in (-0.075, 0.075):                                    # đầu khớp xương cuối chuôi
+        b.khoi(tron(*P(L - 0.08, w), k.r(0.085)), xg)
+    cn = m.get('no_gay', m.get('co', '#8E6BB8'))
+    for s0 in V.get('dot', (rs * 2.2 + 0.30,)):                 # nơ ruy băng tím buộc cán, 2 đuôi bay sang phải
+        bx, by = P(s0)
+        s = k.r(V.get('no_co', 0.13))
+        for pts in ([(bx, by), (bx + s * 1.2, by + s * 0.9), (bx + s * 2.6, by + s * 1.0)],
+                    [(bx, by), (bx + s * 0.9, by + s * 1.6), (bx + s * 2.1, by + s * 2.4)]):
+            duoi = net_thuon(pts, s * 0.55, s * 0.62, s * 0.40, dau_tron=False)
+            b.khoi(duoi, cn, 'trong', dang=False)                 # mảnh: không ăn viền ngoài dày
+            b.dang_phu.append(duoi)
+        for d in (-1, 1):
+            vong = cong([(bx, by), (bx + d * s * 1.05, by - s * 0.62), (bx + d * s * 1.15, by + s * 0.30)])
+            b.khoi(vong, cn, 'trong', dang=False)
+            b.dang_phu.append(vong)
+            with b.cat(vong):
+                b.bong(vong, toi(cn, 0.10), s * 0.18, s * 0.18)
+        b.khoi(tron(bx, by, s * 0.32), toi(cn, 0.06), 'ct')
+    cx, cy = P(rs * 1.12)
+    _so_nho(b, k, cx, cy, k.r(rs), xg)
+
+
+VU_KHI_KIEU['gay_xuong'] = gay_xuong
+
+
+def mien_phuong(b, k, S):
+    """Mũ phượng / miện vàng (Nữ Vương): vành vàng ôm chân tóc + các cánh nhọn đứng nạm ngọc đỏ +
+    tua vàng rủ hai bên (hạt đỏ) + chấm hoa điền đỏ giữa trán.
+    mien = dict(vanh=[điểm R], day, canh=[(dx, nửa rộng, cao)], tua=[(dx, dy, dài)], hoa_dien=(dx, dy))."""
+    M_, m = S['mien'], S['mau']
+    vang, ngoc = m['vang'], m.get('ngoc', '#D23B3B')
+    q = mau_diem(_pts(k, M_['vanh']), 80)
+
+    def y_at(x):
+        return min(q, key=lambda p_: abs(p_[0] - x))[1]
+    for dx, dy, L in M_.get('tua', []):                          # tua rủ (sau cùng của miện)
+        x, y = k.H(dx, dy)
+        b.net([(x, y), (x + k.r(0.01), y + k.r(L))], k.r(0.035), toi(vang, 0.10), thuon=False)
+        hr = k.r(M_.get('hat', 0.055))
+        hat = tron(x + k.r(0.01), y + k.r(L) + hr * 0.9, hr)
+        b.khoi(hat, ngoc, 'ct', dang=False)
+    front = M_.get('truoc', 0.30)
+    for dx, hw, h in sorted(M_.get('canh', []), key=lambda c_: -abs(c_[0] - front)):
+        x = k.hx + dx * k.R
+        y0 = y_at(x) + k.r(0.04)
+        hw, h = k.r(hw), k.r(h)
+        canh = cong([(x - hw, y0, 0), (x - hw * 0.90, y0 - h * 0.45), (x - hw * 0.40, y0 - h * 0.82), (x, y0 - h, 0),
+                     (x + hw * 0.40, y0 - h * 0.82), (x + hw * 0.90, y0 - h * 0.45), (x + hw, y0, 0)])
+        b.khoi(canh, vang)
+        with b.cat(canh):
+            b.bong(canh, toi(vang, 0.14), hw * 0.45, 0)
+        b.khoi(tron(x, y0 - h * 0.42, min(hw * 0.42, k.r(0.08))), ngoc, 'ct')
+    dv = k.r(M_.get('day', 0.13))
+    band = da_giac(q + [(x, y + dv) for x, y in q][::-1]) & k.dau().phong(k.r(M_.get('no', 0.09)))
+    b.khoi(band, vang)
+    with b.cat(band):
+        b.bong(band, toi(vang, 0.14), 0, k.r(0.04))
+    for dx in M_.get('ngoc_vanh', []):                          # ngọc đỏ nhỏ trên vành
+        x = k.hx + dx * k.R
+        b.khoi(tron(x, y_at(x) + dv * 0.5, k.r(0.045)), ngoc, 'ct', dang=False)
+    if M_.get('hoa_dien'):                                       # chấm hoa điền đỏ giữa trán
+        x, y = k.H(*M_['hoa_dien'])
+        r = k.r(0.05)
+        b.to(cong([(x, y - r * 1.5, 0), (x + r * 0.8, y), (x, y + r * 1.5, 0), (x - r * 0.8, y)]), ngoc)
+    return band
+
+
+def quat_tron(b, k, S):
+    """Quạt lụa tròn (Nữ Vương): mặt quạt tròn kem viền vàng + hoa đỏ 5 cánh, cán vàng, tua đỏ ở chuôi.
+    Mặt quạt đặt ở ĐỈNH trục chuẩn (cầm thấp)."""
+    V, m = S['vu_khi'], S['mau']
+    P0, L = _khung_truc(k)
+    h0 = V.get('ha', 0.03)
+
+    def P(s, w=0.0):
+        return P0(s + h0, w)
+    L = L - h0
+    vang = m.get('vang', '#E2B13C')
+    rq = V.get('quat_r', 0.40)
+    can = thanh(P(rq * 1.6), P(L - 0.10), k.r(V.get('day', 0.06)), bo=True)
+    b.khoi(can, m.get('can', vang))
+    with b.cat(can):
+        b.bong(can, toi(m.get('can', vang), 0.12), k.r(0.04), 0)
+    b.khoi(tron(*P(L - 0.10), k.r(0.07)), vang, 'ct')            # chuôi tròn
+    x, y = P(rq * 2 + 0.10, 0.10)                                # tua đỏ rủ dưới mặt quạt, lệch phải cán
+    Lt = V.get('tua', 0.42)
+    tua = net_thuon([(x, y), (x + k.r(0.05), y + k.r(Lt * 0.48)), (x + k.r(0.09), y + k.r(Lt))], k.r(0.06), k.r(0.08), k.r(0.13),
+                    dau_tron=False)
+    b.khoi(tua, m.get('tua', '#C8333F'), 'ct', dang=False)
+    b.dang_phu.append(tua)
+    b.khoi(tron(x, y, k.r(0.055)), vang, 'ct', dang=False)
+    cx, cy = P(rq)
+    r = k.r(rq)
+    det = V.get('det', 1.0)                                      # >1: mặt quạt bầu dục ngang
+    rx_ = r * det
+    mat = elip(cx, cy, rx_, r)
+    b.khoi(mat, vang)                                            # viền vàng = đĩa vàng, lòng kem co vào
+    long_ = elip(cx, cy, rx_ - k.r(0.055), r - k.r(0.055))
+    kem = m.get('lua', '#F7EEDC')
+    b.to(long_, kem)
+    with b.cat(long_):
+        b.bong(long_, toi(kem, 0.08), k.r(0.08), k.r(0.08))
+        n = V.get('nan', 0)                                      # nan quạt toả từ cuống
+        for i in range(n):
+            a = math.radians(-160 + 140 * i / max(n - 1, 1))
+            b.net([(cx, cy + r * 0.92), (cx + rx_ * math.cos(a), cy + r * math.sin(a))], k.r(0.022),
+                  m.get('can', vang), thuon=False)
+    b.ke(long_, b.D['ct'])
+    do = m.get('hoa', '#D9485A')                                 # hoa 5 cánh
+    rh = r * 0.30
+    hoa = gop(*[tron(cx + rh * math.cos(math.radians(a)), cy + rh * math.sin(math.radians(a)), rh * 0.62)
+                for a in range(-90, 270, 72)])
+    b.khoi(hoa, do, 'ct', dang=False)
+    with b.cat(hoa):
+        b.bong(hoa, toi(do, 0.12), rh * 0.25, rh * 0.25)
+    b.khoi(tron(cx, cy, rh * 0.40), vang, 'ct', dang=False)
+    b.khoi(thanh(P(rq * 2 - 0.05), P(rq * 2 + 0.12), k.r(0.085), bo=False), vang, 'ct')   # khâu nối cán
+
+
+VU_KHI_KIEU['quat_tron'] = quat_tron
