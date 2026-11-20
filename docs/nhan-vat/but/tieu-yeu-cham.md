@@ -32,3 +32,5 @@ Biến thể đám đông (dựng từ spec gốc, không chấm riêng):
 Chốt:
 - `assets/nhan-vat/but/tieu-yeu*.png`.
 - Ghép 3 con: `tieu-yeu-dam-dong.png`.
+
+**Người dùng duyệt bằng mắt – 20/11/2026.**
