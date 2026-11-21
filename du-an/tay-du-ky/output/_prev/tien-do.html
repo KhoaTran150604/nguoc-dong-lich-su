@@ -1,0 +1,107 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Tiến Độ Pháp Bảo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: bảng tiến độ dựng hình — thanh %, các hạng mục có trạng thái + ước tính, preview dưới */
+:root{
+  --bg:#f4f1ea; --fg:#262019; --muted:#6f685c; --card:#fffdf8; --line:#e4ddd0;
+  --accent:#b33224; --gold:#9a7416; --jade:#2f7a57; --blue:#2f6f9a; --chip:#efe9dc;
+  --f-head:"Space Grotesk",system-ui,sans-serif; --f-body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#171410; --fg:#ece6db; --muted:#a69b89; --card:#211d17; --line:#342e25;
+  --accent:#e2604e; --gold:#d6ab45; --jade:#52c591; --blue:#5aa6d6; --chip:#2a251e; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#171410; --fg:#ece6db; --muted:#a69b89; --card:#211d17; --line:#342e25;
+  --accent:#e2604e; --gold:#d6ab45; --jade:#52c591; --blue:#5aa6d6; --chip:#2a251e; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);line-height:1.55;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+h1,h2,h3{font-family:var(--f-head);line-height:1.2;margin:0;text-wrap:balance}
+header{padding-block:34px 18px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+header h1{font-size:clamp(1.7rem,5vw,2.5rem);margin:.3em 0 .15em}
+.upd{color:var(--muted);font-size:.86rem}
+.barwrap{margin:20px 0 6px;background:var(--chip);border:1px solid var(--line);border-radius:999px;height:26px;overflow:hidden;position:relative}
+.barwrap>i{display:block;height:100%;background:linear-gradient(90deg,var(--jade),#2f9a6f);border-radius:999px}
+.barpct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-head);font-weight:700;font-size:.9rem}
+.sub{color:var(--muted);font-size:.9rem;margin-top:4px}
+section{padding-block:24px;border-top:1px solid var(--line);margin-top:20px}
+section h2{font-size:1.2rem;margin-bottom:14px}
+.rows{display:flex;flex-direction:column;gap:10px}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.row .ic{font-size:1.3rem;width:1.6em;text-align:center}
+.row .mid .t{font-weight:600}
+.row .mid .d{color:var(--muted);font-size:.84rem}
+.row .est{font-family:var(--f-head);font-weight:600;font-size:.82rem;text-align:right;white-space:nowrap;color:var(--muted)}
+.chip{display:inline-block;font-size:.72rem;font-weight:700;padding:.16em .6em;border-radius:999px;margin-right:.3em}
+.c-done{background:color-mix(in srgb,var(--jade) 22%,transparent);color:var(--jade)}
+.c-run{background:color-mix(in srgb,var(--gold) 26%,transparent);color:var(--gold)}
+.c-wait{background:var(--chip);color:var(--muted)}
+.c-now{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent)}
+.row.done{border-left:3px solid var(--jade)}
+.row.run{border-left:3px solid var(--gold)}
+.row.wait{border-left:3px solid var(--line)}
+.row.now{border-left:3px solid var(--accent)}
+.est-table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:4px}
+.est-table th,.est-table td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+.est-table th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-family:var(--f-head)}
+.est-table td.n{font-family:var(--f-head);font-weight:600;white-space:nowrap}
+.tot{font-weight:700;color:var(--accent)}
+.prev{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.prev figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.prev img{display:block;width:100%;max-width:100%}
+.prev figcaption{padding:8px 12px;font-size:.84rem;color:var(--muted);border-top:1px solid var(--line)}
+.note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px 14px;font-size:.9rem;color:var(--muted);margin-top:14px}
+footer{padding-block:22px 46px;color:var(--muted);font-size:.82rem}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">西遊 · Làm hình · chưa render video</div>
+  <h1>Tiến độ dựng hình — Pháp Bảo</h1>
+  <div class="upd" id="upd">Cập nhật: 21/11/2026 · <b>storyboard 15 khung đã xong</b> — chờ bạn duyệt</div>
+  <div class="barwrap"><i style="width:85%"></i><span class="barpct">85% · chờ duyệt storyboard</span></div>
+  <div class="sub">Kịch bản chốt (91/92). 15 pháp bảo + storyboard 15 khung + thumbnail đã xong. Còn: bạn duyệt → render video.</div>
+</header>
+
+<section>
+  <h2>Hạng mục</h2>
+  <div class="rows">
+    <div class="row done"><div class="ic">✅</div><div class="mid"><div class="t"><span class="chip c-done">XONG</span>Kịch bản + chấm điểm</div><div class="d">Hội đồng 3 agent (TB 91) + Gemini (92). Có artifact duyệt riêng.</div></div><div class="est">đã xong</div></div>
+    <div class="row done"><div class="ic">✅</div><div class="mid"><div class="t"><span class="chip c-done">XONG</span>15 item pháp bảo</div><div class="d">Vẽ Bộ Bút, đồng bộ phong cách kênh. Preview ↓</div></div><div class="est">đã xong</div></div>
+    <div class="row done"><div class="ic">✅</div><div class="mid"><div class="t"><span class="chip c-done">XONG</span>Nền cảnh 16:9</div><div class="d">6 nền: quán trà (3 ánh sáng), trời, hang, núi, lửa/khói, sông.</div></div><div class="est">6 nền</div></div>
+    <div class="row done"><div class="ic">✅</div><div class="mid"><div class="t"><span class="chip c-done">XONG</span>Storyboard khung hình + thoại</div><div class="d">15 khung (nhân vật + nền + pháp bảo + thoại) — có artifact Storyboard riêng để duyệt.</div></div><div class="est">15/15 khung</div></div>
+    <div class="row done"><div class="ic">✅</div><div class="mid"><div class="t"><span class="chip c-done">XONG</span>Thumbnail 16:9</div><div class="d">Gậy ⟷ Kim Cang Trác. (Bạn muốn để lại sau — vẫn giữ sẵn.)</div></div><div class="est">đã xong</div></div>
+    <div class="row now"><div class="ic">👉</div><div class="mid"><div class="t"><span class="chip c-now">ĐANG CHỜ</span>Bạn duyệt storyboard</div><div class="d">Mở artifact Storyboard, xem trọn 15 khung + thoại rồi duyệt / góp ý.</div></div><div class="est">chờ bạn</div></div>
+    <div class="row wait"><div class="ic">⏳</div><div class="mid"><div class="t"><span class="chip c-wait">SAU DUYỆT</span>Render video hoàn chỉnh</div><div class="d">Giọng ZeroTTS + lip-sync + SFX + nhạc + mux ~15 phút. Chỉ làm sau khi bạn duyệt.</div></div><div class="est">~3–5 giờ máy</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Ước tính thời gian còn lại</h2>
+  <table class="est-table">
+    <thead><tr><th>Việc</th><th>Trạng thái</th><th>Ước tính</th></tr></thead>
+    <tbody>
+      <tr><td>Dựng 15 khung hình + 6 nền</td><td>✓ xong</td><td class="n">— (đã xong)</td></tr>
+      <tr><td>Ghép storyboard đưa duyệt</td><td>✓ xong</td><td class="n">— (đã xong)</td></tr>
+      <tr><td class="tot">Bạn duyệt / chỉnh storyboard</td><td>đang chờ</td><td class="n tot">chờ bạn</td></tr>
+      <tr><td>Render video ~15 phút (giọng + ghép + mux)</td><td>sau duyệt</td><td class="n">~3–5 giờ</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Mốc hiện tại: <b>storyboard đã sẵn sàng để duyệt</b>. Mở artifact <b>Storyboard — Top 15 Pháp Bảo</b> xem 15 khung + thoại. Bạn OK thì mình qua khâu render video (khâu nặng nhất, chỉ chạy sau khi bạn duyệt).</div>
+</section>
+
+<section>
+  <h2>Preview đã làm</h2>
+  <div class="prev">
+    <figure><img src="prev-sb.jpg" alt="storyboard"><figcaption>Storyboard — 3 khung mẫu (xem đủ 15 khung ở artifact Storyboard riêng)</figcaption></figure>
+    <figure><img src="prev-grid.jpg" alt="15 pháp bảo"><figcaption>15 item pháp bảo, xếp theo thứ hạng điểm</figcaption></figure>
+    <figure><img src="prev-thumb.jpg" alt="thumbnail"><figcaption>Thumbnail 16:9 (để dùng sau)</figcaption></figure>
+  </div>
+</section>
+
+<footer>Tiến độ dựng hình video "Top 15 Pháp Bảo Tây Du" · cập nhật dần theo từng bước · chưa render video.</footer>
+</div>

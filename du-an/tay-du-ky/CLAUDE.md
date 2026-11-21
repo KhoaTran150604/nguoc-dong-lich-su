@@ -29,6 +29,7 @@ du-an/tay-du-ky/
 | Bạch Cốt Tinh | `bach_cot_tinh` | `assets/nhan-vat/but/bach-cot-tinh.png` | `bach-cot-tinh-bieu-cam.png` | `but/nv/bach_cot_tinh.py` | 83 ✅ |
 | Nữ Vương Nữ Nhi Quốc | `nu_vuong` | `assets/nhan-vat/but/nu-vuong.png` | `nu-vuong-bieu-cam.png` | `but/nv/nu_vuong.py` | 81 ✅ |
 | Tiểu yêu (lính quèn) | `tieu_yeu` (+ `_do`, `_lam`) | `assets/nhan-vat/but/tieu-yeu.png` (đỏ: `tieu-yeu-do.png`, lam: `tieu-yeu-lam.png`) | `tieu-yeu-bieu-cam.png` | `but/nv/tieu_yeu*.py` | 83 ✅ |
+| Thiên Bồng Nguyên Soái (tiền kiếp Bát Giới) | `thien_bong` | `assets/nhan-vat/but/thien-bong.png` | `thien-bong-bieu-cam.png` | `but/nv/thien_bong.py` | 81 ✅ |
 
 - Ảnh ghép 5 thầy trò (gồm ngựa): `assets/nhan-vat/but/thay-tro.png` (`but/thay_tro.py`).
 - Đám đông lính yêu: `assets/nhan-vat/but/tieu-yeu-dam-dong.png` gồm 3 bản xanh, đỏ, lam. Muốn thêm lính thì chép `nv/tieu_yeu_do.py`, đổi màu, sừng và biểu cảm.
@@ -74,7 +75,18 @@ du-an/tay-du-ky/
 - **Pipeline video:** `scripts/hoathinh/but/short01.py` (17 shot + giọng ZeroTTS cache + SFX + mux). **Storyboard** duyệt trước: `storyboard01.py`.
 - **Chuẩn + điểm cải tiến tập 2:** xem `kich-ban/_CHUAN-tap-1-va-note-tap-2.md`. Đã đăng ký `docs/videos/thanh-pham.json` (mục `short_hoathinh`).
 
+## 🎬 Short 02 / TẬP 2 — Trư Bát Giới (21/11/2026)
+- **Tên:** "Trư Bát Giới: Nguyên soái nhà Trời hay kẻ ăn hại?" · dọc 9:16 720×1280 @24fps · **13 cảnh**.
+- **Cú lật:** cào cỏ 5.048 cân → Thiên Bồng Nguyên Soái 8 vạn thủy quân → ghẹo Hằng Nga bị đày → dưới nước thắng Ngộ Không → Tịnh Đàn Sứ Giả (ăn cả đời).
+- **Kịch bản:** `kich-ban/short-02-bat-gioi.md` — hội đồng 3 agent chấm: chính xác **93**, sức hút ~**90**, nhịp ~**86**.
+- **Nhân vật mới:** Thiên Bồng Nguyên Soái `but/nv/thien_bong.py` (81/100). Hằng Nga tái dùng sprite `nu_vuong`.
+- **Video:** `du-an/tay-du-ky/output/short/short02-full.mp4` — dựng lại: `python scripts/hoathinh/but/short02.py`.
+- **Thumbnail (KHÁC tập 1):** `.../banner/short02-thumbnail-doc.png` (`thumb_short02.py`) — "HÀO QUANG ĐỔ BÓNG": Bát Giới màu + bóng Thiên Bồng; band KẺ ĂN HẠI vs TƯỚNG TRỜI. (Luật mới: mỗi tập 1 kiểu thumbnail riêng, không lặp khuôn.)
+- **Banner 16:9:** `.../banner/short02-doan-16x9.png` (`banner_doan02.py`). **Storyboard:** `storyboard02.py`. **Title/mô tả:** `output/short02-title-mota.md`.
+- **Cải tiến tập 2 đã áp:** nền mới (thiên đình/dưới nước/điện thờ), hào quang FLAT (không glow), chữ nền sáng màu kem, lip-sync 3 nhân vật.
+
 ## Việc tiếp
-- **Tập 2:** theo chuẩn tập 1, áp các cải tiến trong `_CHUAN-tap-1-va-note-tap-2.md` (lip-sync mượt hơn, cảnh bớt tĩnh, đa dạng nền…).
+- ✅ **Short 02 ĐÃ ĐĂNG (21/11/2026):** Scheduled → public 21/11 19:45 (GMT+7), link `youtube.com/shorts/Um2ozL_F4HA`. Chi tiết: `docs/videos/short02-dang-youtube.md`. Tiêu đề chốt theo nhân vật: **"Trư Bát Giới (Du Ký #2)"**, playlist `Làm tí du ký`, category Film & Animation, related video = Du Ký #1. Thumbnail đã gỡ chip góc trên-trái (bị UI Short che).
+- **Tập 3:** theo chuẩn, mỗi tập một kiểu thumbnail riêng; áp cải tiến trong `_CHUAN-tap-1-va-note-tap-2.md`.
 - GĐ2: dời spec `but/nv/*.py` + ảnh chốt vào `du-an/tay-du-ky/nhan-vat/`, tách Bộ Bút thành lớp dùng chung, sửa import, render thử lại.
 - Nhân vật mới / chuyển động nhân vật đã chốt.

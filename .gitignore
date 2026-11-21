@@ -18,3 +18,9 @@ assets/nhanvat/_vector/
 
 # Ảnh tạm của bàn soát khung (publish artifact)
 du-an/tay-du-ky/animation/_soat_tmp/
+
+# Video thành phẩm Tây Du (dựng lại từ code theo thanh-pham.json, không commit)
+du-an/tay-du-ky/output/**/*.mp4
+
+# Nhạc nền OST bên thứ ba (nặng, không commit)
+du-an/tay-du-ky/nhac-nen/

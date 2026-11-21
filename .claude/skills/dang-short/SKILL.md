@@ -11,12 +11,31 @@ Trả lời tiếng Việt, ngắn. Người dùng muốn **không phải thao t
 > - **Sử Việt (Song Tử Kể Sử):** làm theo mục 0–3 bên dưới (công thức tiêu đề Bạch Đằng, playlist `1-2p hay ho`, file `build/short/...`).
 > - **Hoạt hình Tây Du Ký (upload ở `du-an/tay-du-ky/upload-video/`):** dùng mục **TÂY DU** ngay dưới đây thay cho mục 0–3; mục 4 Studio giữ nguyên. **Cùng kênh Song Tử Kể Sử** (giữ nguyên URL kênh ở mục 4).
 
-## TÂY DU — Short hoạt hình (thay mục 0–3 khi đăng Short Tây Du)
-- **File video:** lấy từ `docs/videos/thanh-pham.json` mục `short_hoathinh` (trường `file`, vd `du-an/tay-du-ky/output/short/short01-full.mp4` — dọc 9:16 720×1280 @24fps). Máy thiếu file → dựng lại bằng trường `lenh` của mục đó (vd `PYTHONUTF8=1 HF_HUB_DISABLE_XET=1 python scripts/hoathinh/but/short01.py`).
-- **Tiêu đề / mô tả / hashtag:** theo NỘI DUNG Tây Du, **không** dùng ví dụ Bạch Đằng. Soạn từ kịch bản của tập (`du-an/tay-du-ky/kich-ban/short-01-*.md`): câu móc = câu hỏi ở đầu Short, khớp chữ trên banner. Hashtag gợi ý `#TayDuKy #Shorts` + chủ đề tập. Cho người dùng **duyệt tiêu đề + mô tả trước khi mở Chrome** (như Bước 0 của `dang-youtube`).
-- **Thumbnail:** banner tập ở `du-an/tay-du-ky/output/banner/` (vd `short01-doan-16x9.png`) — dùng cho video liên quan/16:9; với Short, thumbnail tùy chỉnh thường bị chặn → theo luật "Select from video" ở mục Lưu ý.
-- **Playlist:** Tây Du **chưa chốt playlist** — HỎI người dùng, đừng mặc định `1-2p hay ho` (đó là của sử Việt).
-- Các mục mặc định còn lại (Audience No kids, AI use No, Vietnamese, Education, remixing, lịch) dùng chung như `dang-youtube`.
+## TÂY DU — Short hoạt hình (thay mục 0–3 khi đăng Short Tây Du) — CHUẨN chốt 21/11/2026
+> Short 01 (Đường Tam Tạng) + Short 02 (Trư Bát Giới) đã đăng. Bảng dưới là **giá trị cố định**, lần sau chỉ đổi phần in nghiêng. Quy trình click: xem **mục 4T**.
+
+| Mục | Giá trị Tây Du (cố định trừ phần *in nghiêng*) |
+|---|---|
+| **File video** | `du-an/tay-du-ky/output/short/short0*<n>*-full.mp4` (dọc 9:16 720×1280 @24fps, ~6–7 MB → **dưới 10 MB, tải thẳng, KHÔNG cắt byte**). Thiếu file → dựng lại `PYTHONUTF8=1 python scripts/hoathinh/but/short0*<n>*.py`. |
+| **Tiêu đề** | **`<Tên nhân vật> (Du Ký #<n>)`** — đặt tên theo nhân vật chính, KHÔNG dùng câu hook dài (người dùng chốt 21/11). Vd `Đường Tam Tạng (Du Ký #1)`, `Trư Bát Giới (Du Ký #2)`. |
+| **Mô tả** | Mẫu kênh (xem khối dưới bảng). |
+| **Thumbnail** | `du-an/tay-du-ky/output/banner/short0*<n>*-thumbnail-doc.png` (dọc). **Tải thẳng được, KHÔNG bị chặn xác minh** (khác lưu ý cũ của sử Việt). ⚠️ Khi render thumbnail: **đừng để chữ/nhãn ở góc trên-trái** (đăng Short bị UI che) — Short 02 đã gỡ chip góc trong `thumb_short02.py`. |
+| **Playlist** | **`Làm tí du ký`** (đã chốt — tick trong dropdown, KHÔNG phải `1-2p hay ho`). |
+| **Category** | **Film & Animation** (KHÔNG phải Education — vì là hoạt hình; mặc định upload đã là Film & Animation). |
+| **Related video** | Gắn **video Du Ký tập trước / tập #1** (Video elements → Related video → Add → chọn — hiện chỉ có 1 video nên chọn luôn). |
+| Audience / AI / Language / Remixing | No kids · No AI · Vietnamese · Allow only audio remixing. |
+| Lịch | người dùng chọn giờ (mặc định 18:00 GMT+7); **phải là giờ TƯƠNG LAI** — kiểm `new Date()` bằng JS, nếu đã qua thì chọn slot kế tiếp. |
+
+Mô tả (mẫu kênh — dòng thứ 3 = tiêu đề):
+```
+#TayDuKy #<Tag nhân vật> #<Tag phụ> #HoatHinh #Shorts
+Chúc các bạn xem video vui vẻ.
+
+<Tên nhân vật> (Du Ký #<n>)
+
+<2–4 câu kể cú lật / bí mật nhân vật, kết bằng 1 câu hỏi mời comment>
+```
+Tags: `Tây Du Ký, <nhân vật chính>, <tiền kiếp/liên quan>, Tôn Ngộ Không, Đường Tăng, Sa Tăng, hoạt hình, phim hoạt hình Việt, chibi, Short`.
 
 ## 0. Chuẩn bị (máy local)
 - File: `build/short/<mã>-p<n>/SHORT-<MÃ>-P<n>.mp4` + `THUMB-<MÃ>-P<n>.jpg`. Chưa có → dựng: `PATH=~/.local/mm/root/envs/kenh312/bin:$PATH HF_HUB_DISABLE_XET=1 python scripts/video/short.py <mã> <n>` (cần Python 3.12 + cairo + ffmpeg + ZeroTTS; môi trường micromamba `~/.local/mm/root/envs/kenh312`, cài 17/11/2026).
@@ -68,6 +87,31 @@ Chúc các bạn xem video vui vẻ.
 6. Bấm Schedule khi người dùng đã nói giờ (lời người dùng trong lượt chat là xác nhận).
 7. Báo lỗi "We had trouble saving… retrying" / hộp "Unsaved changes" là **bình thường, vẫn lưu** → chọn "Keep editing", không "Discard changes".
 8. Kiểm tra: Content → Shorts thấy "Scheduled"; mở trang chi tiết đọc lại tiêu đề/mô tả/thẻ/playlist bằng JS. Ghi link + lịch vào `docs/videos/<MÃ>-dang-youtube.md`.
+
+## 4T. Quy trình click cụ thể — TÂY DU (đã chạy Short 02, 21/11/2026)
+> Video < 10 MB nên BỎ bước cắt byte của mục 4.2. Dùng Claude in Chrome, thao tác theo `ref` từ `find` (ổn định hơn toạ độ), xen `screenshot` để kiểm.
+
+0. **Chép file vào thư mục phiên trước** (⚠️ `file_upload` CHỈ đọc được file trong thư mục làm việc của phiên — `du-an/tay-du-ky/upload-video/`; scratchpad & đường dẫn ngoài đều bị chặn):
+   `cp output/short/short0<n>-full.mp4 upload-video/` và `cp output/banner/short0<n>-thumbnail-doc.png upload-video/`. Xong việc thì **xoá 2 file này**.
+1. `tabs_context_mcp` → `navigate` tới `https://studio.youtube.com/channel/UCov2XGUicGnDqyU9CcZwMNg` → click **Create** (góc phải trên) → **Upload videos**.
+2. **Video:** `find "file input for video upload"` → ref `file-input (hidden)` → `file_upload` thẳng file mp4 (1 lần). Chờ ~5s, màn hình sang trang **Details** (title tạm = tên file).
+3. **Title:** click ô Title → `ctrl+a` → `Delete` → `type` `"<Tên nhân vật> (Du Ký #<n>)"`.
+4. **Description:** `find "Description textbox"` → click ref → `type` cả khối mô tả (xuống dòng bằng `\n` trong text là được).
+5. **Thumbnail:** `find "thumbnail image file input"` → ref `file-input (hidden)` (KHÁC input video) → `file_upload` file png. Preview phải đổi sang thumbnail mới.
+6. **Playlist:** click ô **Select** của Playlists → tick **`Làm tí du ký`** → **Done**.
+7. **Audience:** `find "No, it's not made for kids radio"` → click ref.
+8. **AI content:** `scroll_to` + click radio **No** (`find "No, AI wasn't used"`). (Advanced settings thường đã bung sẵn — có nút "Hide advanced settings".)
+9. **Tags:** `find "Tags input field"` → click ô Tags → `type` chuỗi thẻ ngăn cách bằng `, ` → gõ thêm **một dấu `,`** cuối để chốt thẻ cuối.
+10. **Remixing:** `find "Allow only audio remixing radio"` → click ref.
+11. **Language:** `find "Video language Select"` → click → `find "Vietnamese language option"` → click option (danh sách rất dài, chọn theo ref off-screen là được).
+12. **Category:** kiểm `find "Category dropdown"` thấy nút **Film & Animation** là đúng (mặc định). Không cần đổi.
+13. **Kiểm radio bằng JS** (mục 4.4): phải có `No, it's not made for kids`, `No` (AI), `Allow only audio remixing`.
+14. **Next** → **Video elements:** click **Add** ở "Related video" → trong "Choose specific video" click video **Du Ký tập #1** → về trang thấy tên video ở dòng Related video.
+15. **Next** → **Initial check** (ghi Copyright / Community Guidelines "No issues") → **Next** → **Visibility**.
+16. **Schedule:** cuộn xuống → click khối **Schedule** để bung → ô **date**: click → lịch hiện ra, click **số ngày** muốn (hôm nay có vòng tròn). Ô **time**: click mở listbox → **đừng gõ tay** (gõ `ctrl+a`+type bị chọn cả trang, không vào ô) → `find "<H:MM PM> time option"` → click **option** đúng giờ. **Time zone:** click → chọn **`(GMT+0700) Local Time`** (đầu danh sách).
+    - ⚠️ Sau khi đổi về GMT+7, nếu nút Schedule xám + báo "Select a time in the future" → giờ đã qua, kiểm `new Date()` rồi chọn slot kế (Short 02 trễ 19:30 → dời 19:45).
+17. Click **Schedule** (lời người dùng = xác nhận giờ). Hộp **"Video scheduled"** hiện link `youtube.com/shorts/<id>` → **Close**.
+18. **Dọn:** xoá 2 file tạm ở `upload-video/`, `tabs_close_mcp` tab, ghi `docs/videos/short0<n>-dang-youtube.md` (link + lịch + mọi giá trị đã dùng).
 
 ## Lưu ý
 - **Thumbnail tùy chỉnh bị chặn** ("One-time verification needed") khi kênh chưa xác minh và đã dùng lượt trong ngày → KHÔNG bấm Next (xác minh là việc người dùng tự làm), bấm Cancel, chọn "Select from video" → khung đầu tiên → Done (người dùng chọn cách này 17/11/2026). Ghi lại để gắn file THUMB sau khi xác minh.
