@@ -1,0 +1,44 @@
+=== PROMPT CHÍNH (toàn thân – quan trọng nhất, 1 tấm này là đủ để vẽ) ===
+
+A flat 2D vector chibi mascot sticker of Sha Wujing (Sa Tăng / Sa Ngộ Tịnh), the loyal, calm and sturdy river-ogre monk from Journey to the West — honest, down-to-earth and quietly strong — rendered in an ultra-minimalist rounded-block style against a soft cream background (#F6F3EC).
+
+PROPORTIONS & CONSTRUCTION (shared channel frame — keep identical to the other mascots):
+- One big, PERFECTLY ROUND head in 3/4 view, turned slightly to the right, sitting directly on the body with NO neck.
+- Short, stubby "tombstone" body like a rounded-corner rectangular block that sits flat on the ground with NO feet.
+- Absolutely NO arms and NO legs. The entire left side of the body is completely flat and smooth, with no arm, hand, or visible limbs.
+- On the right side, there is only a single small ROUND hand (a simple skin-tone circle) floating a short gap away from the body, appearing only to hold his staff.
+
+LINE & COLOR:
+- Thick, UNIFORM black outline of even, heavy weight everywhere (#0A0807).
+- Flat solid colors only. NO gradients, NO soft shading, NO blur, NO glow, and NO 3D rendering.
+
+FACE:
+- Weathered tan / olive skin (#9C7B5A). A calm, honest, down-to-earth face: gentle oval eyes with a tiny bright glint, thick straight brows, a short tidy reddish-brown beard framing the jaw (simplified, rounded, NOT wild), faint cheeks, and a small calm closed-mouth smile. Loyal and steady expression, a little stern but kind. No wrinkles.
+- Two plain rounded ears, one on each side, small and symmetric.
+
+HAIR / HEAD:
+- A shock of dark red-brown hair (#7A3B2C), short and neatly rounded (NO spikes, no tall crown). A thin simple gold forehead band may sit across the brow.
+
+SIGNATURE NECK ITEM:
+- His iconic rosary of nine skull beads around the neck — stylized SUPER CUTE and smooth, cream / ivory beads (#ECE3D0) with simple tiny dot eyes, friendly and rounded, absolutely NOT scary, gory or detailed.
+
+OUTFIT:
+- An earth-brown monk robe (#6E5438) as the base with a darker brown trim, simple and sturdy. A cream / ivory V-collar at the chest and a cream waist sash tied with a small round knot at the center of the blocky body. Optional thin gold trim. Humble traveling-monk look.
+
+WEAPON / ITEM:
+- He holds his "monster-taming" treasure staff (降妖宝杖 / Hàng yêu bảo trượng) in his single floating right hand: a tall straight bronze-gold pole (#C9A24A) standing upright close to the body, topped with a bright SILVER crescent-moon blade (nguyệt nha / lưỡi liềm trăng) and a small finial. The staff points up and away from the face.
+
+Full body, centered, clean adorable 2D mascot sticker style with heavy outlines and a flat, boxy, super-simplified look, entirely without a left arm. Avoid: 3D render, gradients, shading, realistic details, scary skulls, grey robe, or any left arm.
+
+
+=== PROMPT PHỤ 1 (cận mặt – tuỳ chọn, nếu muốn rõ biểu cảm) ===
+Same flat 2D vector chibi style, uniform heavy black outline, flat colors, cream background (#F6F3EC). CLOSE-UP of Sha Wujing's round head only: tan/olive skin (#9C7B5A), gentle oval eyes with tiny glint, thick straight brows, short tidy reddish-brown beard, small calm smile, dark red-brown rounded hair with a thin gold forehead band, and the cute cream skull-bead rosary at the neck. Kind, loyal, down-to-earth expression. No gradients, no shading.
+
+=== PROMPT PHỤ 2 (cận vũ khí – tuỳ chọn) ===
+Same flat 2D vector chibi style, uniform heavy black outline, flat colors, cream background. Just the weapon: Sha Wujing's "monster-taming treasure staff" (降妖宝杖) — a tall straight bronze-gold pole (#C9A24A) topped with a bright silver crescent-moon blade (lưỡi liềm trăng) and a small finial at the base. Simple, bold, iconic. No gradients, no shading.
+
+
+--- GHI CHÚ ---
+- Nếu thấy chuỗi sọ (skull beads) vẫn hơi "ghê" / không hợp kênh dễ thương: đổi câu SIGNATURE NECK ITEM thành chuỗi tràng hạt gỗ to (large round wooden prayer beads, warm brown).
+- Có thể đổi màu áo nếu muốn phân biệt rõ hơn với Bát Giới (đen) và Đường Tăng (vàng-đỏ): gợi ý giữ NÂU ĐẤT, hoặc thử XANH RÊU TRẦM (#4E5B43).
+- Gen xong gửi tôi; tôi vẽ LẠI bằng code theo khung bộ (không trace), để Sa Tăng đồng tông với 3 nhân vật kia.

@@ -6,5 +6,24 @@
   "short": [
     {"tap": "e2", "phan": 1, "ghi_chu": "khung gần full + thumbnail mũi tên/X, duyệt 17/11",
      "phu_thuoc": ["docs/videos/E2-loi-doc.txt", "assets/e2/E2-GiaHuy-v2.json"]}
+  ],
+  "_ghi_chu_hoathinh": "Short hoạt hình Tây Du (Bộ Bút + ZeroTTS). dong_bo.py hiện CHƯA auto dựng mục này (sẽ nối ở GĐ2); dựng lại thủ công bằng trường 'lenh'. Giọng cache ở build/thu-hoathinh/<tap>/voices.npz, xoá đi sẽ tự tạo lại.",
+  "short_hoathinh": [
+    {"tap": "short-01", "du_an": "tay-du-ky", "ten": "Đường Tăng: lãnh đạo hay gánh nặng?",
+     "file": "du-an/tay-du-ky/output/short/short01-full.mp4", "thoi_luong": "~84s", "duyet": "21/11/2026",
+     "lenh": "PYTHONUTF8=1 HF_HUB_DISABLE_XET=1 python scripts/hoathinh/but/short01.py",
+     "thumbnail": {"file": "du-an/tay-du-ky/output/banner/short01-thumbnail-doc.png", "ti_le": "9:16 1080x1920", "lenh": "PYTHONUTF8=1 python scripts/hoathinh/but/thumb_short01.py",
+                   "ghi_chu": "Đường Tăng chia đôi BẤT TÀI/CHỈ HUY, dấu ?, keyword ĐƯỜNG TĂNG + #Du Ký 1"},
+     "banner": {"file": "du-an/tay-du-ky/output/banner/short01-doan-16x9.png", "ti_le": "16:9", "lenh": "PYTHONUTF8=1 python scripts/hoathinh/but/banner_doan.py"},
+     "phu_thuoc": ["scripts/hoathinh/but/short01.py", "scripts/hoathinh/but/thumb_short01.py", "scripts/hoathinh/but/banner_doan.py", "du-an/tay-du-ky/kich-ban/short-01-duong-tang-lanh-dao-hay-ganh-nang.md"],
+     "ghi_chu": "17 cảnh, dọc 9:16 720x1280 @24fps; KHÔNG phụ đề đen; đội hình Sa Tăng·ngựa·Đường Tăng·Bát Giới·Ngộ Không; giọng dẫn=giahuy, Đường Tăng=tiendat, Bát Giới=quangminh, Sa Tăng=huuduc. ĐÂY LÀ TẬP 1 — CHUẨN cho các tập sau."},
+    {"tap": "short-02", "du_an": "tay-du-ky", "ten": "Trư Bát Giới: Nguyên soái nhà Trời hay kẻ ăn hại?",
+     "file": "du-an/tay-du-ky/output/short/short02-full.mp4", "thoi_luong": "~69s", "duyet": "21/11/2026",
+     "lenh": "PYTHONUTF8=1 HF_HUB_DISABLE_XET=1 python scripts/hoathinh/but/short02.py",
+     "thumbnail": {"file": "du-an/tay-du-ky/output/banner/short02-thumbnail-doc.png", "ti_le": "9:16 1080x1920", "lenh": "PYTHONUTF8=1 python scripts/hoathinh/but/thumb_short02.py",
+                   "ghi_chu": "HÀO QUANG ĐỔ BÓNG: Bát Giới màu + bóng Thiên Bồng oai phong; band KẺ ĂN HẠI vs TƯỚNG TRỜI; #Du Ký 2. KHÁC khuôn tập 1 (không chia đôi + dấu ?)."},
+     "nhan_vat_moi": {"ma": "thien-bong", "ten": "Thiên Bồng Nguyên Soái", "diem": 81, "spec": "scripts/hoathinh/but/nv/thien_bong.py", "anh": "assets/nhan-vat/but/thien-bong.png"},
+     "phu_thuoc": ["scripts/hoathinh/but/short02.py", "scripts/hoathinh/but/storyboard02.py", "scripts/hoathinh/but/thumb_short02.py", "scripts/hoathinh/but/nv/thien_bong.py", "du-an/tay-du-ky/kich-ban/short-02-bat-gioi.md"],
+     "ghi_chu": "13 cảnh, dọc 9:16 720x1280 @24fps; cú lật Thiên Bồng 8 vạn thủy quân → ghẹo Hằng Nga bị đày → dưới nước thắng Ngộ Không → Tịnh Đàn Sứ Giả; giọng dẫn=giahuy, Bát Giới=quangminh, Thiên Bồng=huuduc, Ngộ Không=tiendat; Hằng Nga tái dùng sprite nu-vuong; nền mới: thiên đình/dưới nước/điện thờ; hào quang FLAT. Kịch bản hội đồng chấm: chính xác 93, sức hút ~90, nhịp ~86."}
   ]
 }
